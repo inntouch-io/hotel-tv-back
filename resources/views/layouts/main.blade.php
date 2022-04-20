@@ -52,13 +52,6 @@
         </button>
     </div>
 
-    <div class="navbar-brand wmin-0 mr-lg-5">
-        <a href="javascript:void(0);" class="d-inline-block">
-{{--            <img src="{{ asset('img/logo.svg') }}" class="d-none d-sm-block" alt="">--}}
-{{--            <img src="{{ asset('img/logo.svg') }}" class="d-sm-none" alt="">--}}
-        </a>
-    </div>
-
     <div class="collapse navbar-collapse order-2 order-lg-1" id="navbar-mobile">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
@@ -97,8 +90,8 @@
     <ul class="navbar-nav flex-row order-1 order-lg-2 flex-1 flex-lg-0 justify-content-end align-items-center">
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler d-inline-flex align-items-center h-100 dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset('img/user.png') }}" class="rounded-pill" height="34" alt="">
-{{--                <span class="d-none d-lg-inline-block ml-2">Mirfayz</span>--}}
+                <img src="" class="rounded-pill" height="34" alt="">
+                <span class="d-none d-lg-inline-block ml-2">Mirfayz</span>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
@@ -115,7 +108,14 @@
 
 <div class="navbar navbar-expand navbar-light px-0 px-lg-3">
     <div class="overflow-auto overflow-lg-visible scrollbar-hidden flex-1">
-
+        <ul class="navbar-nav flex-row text-nowrap">
+            <li class="nav-item">
+                <a href="#" class="navbar-nav-link">
+                    <i class="icon-home4 mr-2"></i>
+                    Главная
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -137,7 +137,7 @@
 
         <ul class="navbar-nav ml-lg-auto">
             <li class="nav-item">
-                <a href="https://t.me/Muzaffardjan" class="navbar-nav-link font-weight-semibold" target="_blank">
+                <a href="#" class="navbar-nav-link font-weight-semibold" target="_blank">
                     <span class="text-pink-400">
                         <i class="icon-lifebuoy mr-2"></i>
                         Техническая поддержка
@@ -146,7 +146,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="https://github.com/Muzaffardjan" class="navbar-nav-link font-weight-semibold" target="_blank">
+                <a href="#" class="navbar-nav-link font-weight-semibold" target="_blank">
                     <span class="text-grey-600">
                         <i class="icon-github mr-2"></i>
                         Mirfayz
