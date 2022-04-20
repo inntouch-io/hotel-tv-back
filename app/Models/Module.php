@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Module
@@ -29,4 +30,64 @@ class Module extends Model
         'status',
         'order_position'
     ];
+
+    // Relations
+
+    /**
+     * @return HasMany
+     */
+    public function infos(): HasMany
+    {
+        return $this->hasMany(ModuleInfo::class, 'module_id', 'id');
+    }
+
+    // Getters
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleSlug(): string
+    {
+        return $this->module_slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleName(): string
+    {
+        return $this->module_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleIcon(): string
+    {
+        return $this->module_icon;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderPosition(): int
+    {
+        return $this->order_position;
+    }
 }

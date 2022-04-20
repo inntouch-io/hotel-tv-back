@@ -19,7 +19,7 @@ class ModuleSeeder extends Seeder
                 'id' => 1,
                 'module_slug' => 'service',
                 'module_name' => 'Service',
-                'module_icon' => public_path() . 'images/service',
+                'module_icon' => '/images/service.png',
                 'status' => 1,
                 'order_position' => 0
             ]

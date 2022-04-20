@@ -115,6 +115,12 @@
                     Главная
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.modules.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-align-left"></i>
+                    Модули
+                </a>
+            </li>
         </ul>
     </div>
 </div>

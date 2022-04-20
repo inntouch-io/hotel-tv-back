@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Module\ModuleController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('layouts.main');
+});
+
+Route::prefix('admin')->group(function (Router $router) {
+    Route::prefix('modules')->group(function (Router $router) {
+        $router->match(['get', 'post'], 'index', [ModuleController::class, 'index'])->name('admin.modules.index');
+    });
 });
