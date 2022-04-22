@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ModuleSeeder extends Seeder
@@ -21,7 +22,8 @@ class ModuleSeeder extends Seeder
                 'module_name' => 'Service',
                 'module_icon' => '/images/service.png',
                 'status' => 1,
-                'order_position' => 0
+                'order_position' => 1,
+                'created_at' => Carbon::now()
             ]
         );
     }

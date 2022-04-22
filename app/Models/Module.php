@@ -2,20 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Module
  * @package App\Models
  *
- * @property int    $id
- * @property string $module_slug
- * @property string $module_name
- * @property string $module_icon
- * @property int    $status
- * @property int    $order_position
+ * @property int         $id
+ * @property string      $module_slug
+ * @property string      $module_name
+ * @property string      $module_icon
+ * @property int         $status
+ * @property int         $order_position
+ * @property Carbon|null $created_at
+ *
+ * @property Collection  $infos
  */
 class Module extends Model
 {
@@ -89,5 +94,13 @@ class Module extends Model
     public function getOrderPosition(): int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getCreatedAt(): ?Carbon
+    {
+        return $this->created_at;
     }
 }

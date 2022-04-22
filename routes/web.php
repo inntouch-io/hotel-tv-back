@@ -19,8 +19,10 @@ Route::get('/', function () {
     return view('layouts.main');
 });
 
-Route::prefix('admin')->group(function (Router $router) {
+
+Route::prefix('admin')->group(function () {
     Route::prefix('modules')->group(function (Router $router) {
         $router->match(['get', 'post'], 'index', [ModuleController::class, 'index'])->name('admin.modules.index');
+        $router->match(['get', 'post'], 'edit', [ModuleController::class, 'edit'])->name('admin.modules.edit');
     });
 });

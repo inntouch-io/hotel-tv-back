@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ModuleInfoSeeder extends Seeder
@@ -19,7 +20,8 @@ class ModuleInfoSeeder extends Seeder
                 'id' => 1,
                 'module_id' => 1,
                 'locale' => 'ru',
-                'name' => 'Об отеле'
+                'name' => 'Об отеле',
+                'created_at' => Carbon::now()
             ]
         );
 
@@ -28,7 +30,8 @@ class ModuleInfoSeeder extends Seeder
                 'id' => 2,
                 'module_id' => 1,
                 'locale' => 'en',
-                'name' => 'About hotel'
+                'name' => 'About hotel',
+                'created_at' => Carbon::now()
             ]
         );
 
@@ -37,7 +40,8 @@ class ModuleInfoSeeder extends Seeder
                 'id' => 3,
                 'module_id' => 1,
                 'locale' => 'uz',
-                'name' => 'Mehmonxona haqida'
+                'name' => 'Mehmonxona haqida',
+                'created_at' => Carbon::now()
             ]
         );
     }

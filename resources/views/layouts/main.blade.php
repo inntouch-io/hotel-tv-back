@@ -1,6 +1,6 @@
 <?php
 /**
- * hotel-tv.
+ * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
  * @link    https://karaev.uz
