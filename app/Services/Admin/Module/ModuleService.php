@@ -7,20 +7,21 @@
  * Created: 22.04.2022 / 14:45
  */
 
-namespace App\Services\Admin;
+namespace App\Services\Admin\Module;
 
+use App\Http\DTO\Admin\Module\ModuleDto;
 use App\Models\Module;
+use App\Repositories\Admin\Module\ModuleRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Validation\Validator;
 use RuntimeException;
-use function App\Helpers\string_to_slug;
 
 /**
  * Class ModuleService
- * @package App\Services\Admin
+ * @package App\Services\Admin\Module
  */
 class ModuleService
 {
@@ -37,10 +38,7 @@ class ModuleService
      */
     public function list(): Collection
     {
-        return Module::query()
-            ->with('infos')
-            ->orderBy('order_position')
-            ->get();
+        return ModuleRepository::getInstance()->getAll();
     }
 
     /**
@@ -49,7 +47,7 @@ class ModuleService
      */
     public function getById(int $id)
     {
-        return Module::query()->whereKey($id)->first();
+        return ModuleRepository::getInstance()->getById($id);
     }
 
     /**
@@ -61,9 +59,7 @@ class ModuleService
         return ValidatorFacade::make(
             $request->all(),
             [
-                'module_name'    => 'required',
-                'status'         => 'required',
-                'order_position' => 'required',
+                'module_name' => 'required',
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -71,23 +67,32 @@ class ModuleService
         );
     }
 
+    /**
+     * @param Module  $module
+     * @param Request $request
+     * @return void
+     */
     public function modify(Module $module, Request $request)
     {
         /** @var Validator $validator */
         $validator = $this->validator($request);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             throw new RuntimeException($validator->errors()->first());
         }
 
         $data = $validator->getData();
         $slug = string_to_slug($data['module_name']);
 
-        if ($this->exists($slug) && $module->getModuleSlug() !== $slug){
+        if ($this->exists($slug) && $module->getModuleSlug() !== $slug) {
             throw new RuntimeException('Модуль уже существует');
         }
 
-
+        ModuleRepository::getInstance()->update($module, new ModuleDto(
+            $slug,
+            $data['module_name'],
+            isset($data['status']) ? 1 : 0
+        ));
     }
 
     /**
@@ -96,6 +101,6 @@ class ModuleService
      */
     public function exists(string $slug): bool
     {
-        return Module::query()->where('module_slug', '=', $slug)->exists();
+        return ModuleRepository::getInstance()->checkBySlug($slug);
     }
 }

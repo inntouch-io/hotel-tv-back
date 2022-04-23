@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Admin\Module;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Models\Module;
-use App\Services\Admin\ModuleService;
+use App\Services\Admin\Module\ModuleService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -59,7 +59,7 @@ class ModuleController extends AdminController
             if ($request->isMethod('POST')) {
                 ModuleService::getInstance()->modify($module, $request);
 
-                return redirect()->route('modules.edit', ['id' => $module->getId()])
+                return redirect()->route('admin.modules.edit', ['id' => $module->getId()])
                     ->with('success', 'Успешно сохранено');
             }
         } catch (Exception $exception) {

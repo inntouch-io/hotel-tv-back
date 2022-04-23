@@ -6,8 +6,7 @@
  * @link    https://karaev.uz
  * Created: 22.04.2022 / 16:53
  */
-
-namespace App\Helpers;
+declare(strict_types=1);
 
 if (!function_exists('string_to_slug')) {
     /**

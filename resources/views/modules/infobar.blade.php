@@ -1,0 +1,42 @@
+<?php
+/**
+ * Hotel-TV.
+ *
+ * @author  Mirfayz Nosirov
+ * @link    https://karaev.uz
+ * Created: 23.04.2022 / 15:23
+ */
+
+/** @var Module $module */
+
+use App\Models\Module;
+
+$route_name = request()->route()->getName();
+?>
+
+<div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
+    <div class="sidebar-content">
+        <div class="sidebar-section">
+            <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
+                @if(!is_null($module))
+                    <li class="nav-item">
+                        <a href="{{ route('admin.modules.edit') }}"
+                           class="nav-link {{ $route_name === 'admin.modules.edit' ? 'active' : '' }}">
+                            <i class="far fa-edit"></i>
+                            <span>Изменить</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link {{ $route_name === 'main.module.add' ? 'active' : '' }}">
+                            <i class="icon-plus2"></i>
+                            <span>Добавить перевод</span>
+                        </a>
+                    </li>
+                @endif
+
+                @include('modules.sidebar')
+            </ul>
+        </div>
+    </div>
+</div>
