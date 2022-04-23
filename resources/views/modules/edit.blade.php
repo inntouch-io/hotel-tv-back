@@ -61,7 +61,7 @@ use App\Models\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.edit', ['id' => $module->getId()]) }}" method="post">
+                            <form action="{{ route('admin.modules.edit', ['id' => $module->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
                                 <div class="row">
@@ -89,6 +89,16 @@ use App\Models\ModuleInfo;
                                             </div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <p class="font-weight-semibold">Image</p>
+
+                                            <div class="border p-3 rounded">
+                                                <div class="pb-3">
+                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="module_icon">
+                                                </div>
+                                                <input type="file" name="module_icon">
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-outline-success">

@@ -14,6 +14,7 @@ use App\Models\Module;
 use App\Services\Admin\Module\ModuleService;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ModuleController extends AdminController
@@ -48,6 +49,33 @@ class ModuleController extends AdminController
         );
     }
 
+    public function add(Request $request)
+    {
+        $error = null;
+
+        try {
+            if ($request->isMethod('POST')) {
+                $module = ModuleService::getInstance()->save($request);
+
+                return redirect()->route('admin.modules.edit', ['id' => $module->getId()])
+                    ->with('success', 'Успешно сохранено');
+            }
+        } catch (Exception $exception) {
+            $error = $exception->getMessage();
+        }
+
+        return view(
+            'modules.add',
+            [
+                'error' => $error
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return View|RedirectResponse
+     */
     public function edit(Request $request)
     {
         $error = $module = null;

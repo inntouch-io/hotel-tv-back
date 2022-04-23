@@ -50,6 +50,11 @@ class ModuleService
         return ModuleRepository::getInstance()->getById($id);
     }
 
+    public function save(Request $request)
+    {
+
+    }
+
     /**
      * @param Request $request
      * @return ValidatorContract
@@ -60,6 +65,7 @@ class ModuleService
             $request->all(),
             [
                 'module_name' => 'required',
+                'module_icon' => 'nullable'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -83,6 +89,8 @@ class ModuleService
 
         $data = $validator->getData();
         $slug = string_to_slug($data['module_name']);
+
+
 
         if ($this->exists($slug) && $module->getModuleSlug() !== $slug) {
             throw new RuntimeException('Модуль уже существует');
