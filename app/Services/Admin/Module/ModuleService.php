@@ -50,11 +50,6 @@ class ModuleService
         return ModuleRepository::getInstance()->getById($id);
     }
 
-    public function save(Request $request)
-    {
-
-    }
-
     /**
      * @param Request $request
      * @return ValidatorContract
@@ -65,7 +60,7 @@ class ModuleService
             $request->all(),
             [
                 'module_name' => 'required',
-                'module_icon' => 'nullable'
+                'module_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -90,17 +85,28 @@ class ModuleService
         $data = $validator->getData();
         $slug = string_to_slug($data['module_name']);
 
-
-
         if ($this->exists($slug) && $module->getModuleSlug() !== $slug) {
             throw new RuntimeException('Модуль уже существует');
         }
 
-        ModuleRepository::getInstance()->update($module, new ModuleDto(
-            $slug,
-            $data['module_name'],
-            isset($data['status']) ? 1 : 0
-        ));
+        if (isset($data['module_icon'])) {
+            $imageName = time() . '.' . $request->file('module_icon')->getClientOriginalExtension();
+            $request->file('module_icon')->storeAs('public/modules', $imageName);
+
+            ModuleRepository::getInstance()->update($module, new ModuleDto(
+                $slug,
+                $data['module_name'],
+                "storage/modules/{$imageName}",
+                isset($data['status']) ? 1 : 0
+            ));
+        } else {
+            ModuleRepository::getInstance()->update($module, new ModuleDto(
+                $slug,
+                $data['module_name'],
+                $module->getModuleIcon(),
+                isset($data['status']) ? 1 : 0
+            ));
+        }
     }
 
     /**

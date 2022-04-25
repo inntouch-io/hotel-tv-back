@@ -20,10 +20,6 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('admin')->group(function () {
-    Route::prefix('modules')->group(function (Router $router) {
-        $router->match(['get', 'post'], 'index', [ModuleController::class, 'index'])->name('admin.modules.index');
-        $router->match(['get', 'post'], 'add', [ModuleController::class, 'add'])->name('admin.modules.add');
-        $router->match(['get', 'post'], 'edit', [ModuleController::class, 'edit'])->name('admin.modules.edit');
-    });
+Route::prefix('admin')->as('admin.')->group(function (Router $router) {
+    $router->resource('modules', ModuleController::class)->except(['store', 'show', 'create', 'destroy']);
 });

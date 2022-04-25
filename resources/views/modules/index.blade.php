@@ -75,7 +75,7 @@ use App\Models\ModuleInfo;
                                                 <div class="font-weight-semibold">{{ $module->getId() }}</div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.modules.edit', ['id' => $module->getId()]) }}" class="font-weight-semibold">
+                                                <a href="{{ route('admin.modules.edit', ['module' => $module->getId()]) }}" class="font-weight-semibold">
                                                     {{ $module->getModuleName() }}
                                                 </a>
                                             </td>

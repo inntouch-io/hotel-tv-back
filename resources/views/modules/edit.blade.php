@@ -61,9 +61,9 @@ use App\Models\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.edit', ['id' => $module->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.modules.update', ['module' => $module->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -92,11 +92,11 @@ use App\Models\ModuleInfo;
                                         <div class="form-group">
                                             <p class="font-weight-semibold">Image</p>
 
-                                            <div class="border p-3 rounded">
-                                                <div class="pb-3">
-                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="module_icon">
+                                            <div class="border p-3 rounded d-flex align-items-center">
+                                                <input type="file" name="module_icon" onchange="document.getElementById('module_icon').src = window.URL.createObjectURL(this.files[0])">
+                                                <div style="max-height: 100px; line-height: 100px">
+                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="module_icon" id="module_icon" style="max-height: 100px">
                                                 </div>
-                                                <input type="file" name="module_icon">
                                             </div>
                                         </div>
 

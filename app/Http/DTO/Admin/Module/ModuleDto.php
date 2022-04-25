@@ -21,24 +21,28 @@ class ModuleDto
     /** @var string */
     protected string $module_name;
 
+    /** @var string */
+    protected string $module_icon;
+
     /** @var int */
     protected int $status;
 
     /**
-     * ModuleDto constructor.
-     *
      * @param string $module_slug
      * @param string $module_name
+     * @param string $module_icon
      * @param int    $status
      */
     public function __construct(
         string $module_slug,
         string $module_name,
+        string $module_icon,
         int    $status
     )
     {
         $this->module_slug = $module_slug;
         $this->module_name = $module_name;
+        $this->module_icon = $module_icon;
         $this->status = $status;
     }
 
@@ -58,6 +62,14 @@ class ModuleDto
     public function getModuleName(): string
     {
         return $this->module_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModuleIcon(): string
+    {
+        return $this->module_icon;
     }
 
     /**

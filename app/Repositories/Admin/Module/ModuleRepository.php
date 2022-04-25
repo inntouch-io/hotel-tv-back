@@ -67,6 +67,7 @@ class ModuleRepository
             [
                 'module_slug' => $moduleDto->getModuleSlug(),
                 'module_name' => $moduleDto->getModuleName(),
+                'module_icon' => $moduleDto->getModuleIcon(),
                 'status'      => $moduleDto->getStatus()
             ]
         );

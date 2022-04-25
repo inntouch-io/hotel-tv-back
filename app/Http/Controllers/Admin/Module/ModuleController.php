@@ -49,47 +49,38 @@ class ModuleController extends AdminController
         );
     }
 
-    public function add(Request $request)
-    {
-        $error = null;
 
-        try {
-            if ($request->isMethod('POST')) {
-                $module = ModuleService::getInstance()->save($request);
-
-                return redirect()->route('admin.modules.edit', ['id' => $module->getId()])
-                    ->with('success', 'Успешно сохранено');
-            }
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
-
-        return view(
-            'modules.add',
-            [
-                'error' => $error
-            ]
-        );
-    }
-
-    /**
-     * @param Request $request
-     * @return View|RedirectResponse
-     */
-    public function edit(Request $request)
+    public function edit(int $id)
     {
         $error = $module = null;
 
         try {
             /** @var Module $module */
-            $module = ModuleService::getInstance()->getById((int)$request->query('id'));
+            $module = ModuleService::getInstance()->getById($id);
+        } catch (Exception $exception) {
+            $error = $exception->getMessage();
+        }
 
-            if ($request->isMethod('POST')) {
-                ModuleService::getInstance()->modify($module, $request);
+        return view(
+            'modules.edit',
+            [
+                'error'  => $error,
+                'module' => $module
+            ]
+        );
+    }
 
-                return redirect()->route('admin.modules.edit', ['id' => $module->getId()])
-                    ->with('success', 'Успешно сохранено');
-            }
+    public function update(Request $request, int $id)
+    {
+        $error = $module = null;
+
+        try {
+            /** @var Module $module */
+            $module = ModuleService::getInstance()->getById($id);
+            ModuleService::getInstance()->modify($module, $request);
+
+            return redirect()->route('admin.modules.edit', ['module' => $module->getId()])
+                ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
