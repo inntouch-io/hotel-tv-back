@@ -33,4 +33,18 @@ class ModuleInfoRepository
     {
         return ModuleInfo::query()->whereKey($id)->first();
     }
+
+    /**
+     * @param ModuleInfo $moduleInfo
+     * @param string     $name
+     * @return bool
+     */
+    public function update(ModuleInfo $moduleInfo, string $name): bool
+    {
+        return $moduleInfo->update(
+            [
+                'name' => $name
+            ]
+        );
+    }
 }
