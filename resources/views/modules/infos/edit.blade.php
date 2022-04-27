@@ -4,20 +4,16 @@
  *
  * @author  Mirfayz Nosirov
  * @link    https://karaev.uz
- * Created: 22.04.2022 / 16:05
+ * Created: 26.04.2022 / 17:43
  */
-
-/** @var Module $module */
-
 /** @var ModuleInfo $moduleInfo */
 
-use App\Models\Module;
 use App\Models\ModuleInfo;
 
 ?>
 
 @extends('layouts.main')
-@section('title', is_null($module) ? 'Системная ошибка' : $module->getModuleName())
+@section('title', is_null($moduleInfo) ? 'Системная ошибка' : $moduleInfo->getName())
 
 @section('content')
     <div class="page-header">
@@ -25,7 +21,7 @@ use App\Models\ModuleInfo;
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        {{ is_null($module) ? 'Системная ошибка' : $module->getModuleName() }}
+                        {{ is_null($moduleInfo) ? 'Системная ошибка' : $moduleInfo->getName() }}
                     </span>
                 </h4>
             </div>
@@ -33,13 +29,13 @@ use App\Models\ModuleInfo;
     </div>
 
     <div class="page-content pt-0">
-        @include('modules.infobar')
+        @include('modules.infos.infobar')
 
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($module))
+                        @if(is_null($moduleInfo))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 {{ $error ?? 'Системная ошибка' }}
@@ -61,43 +57,17 @@ use App\Models\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.update', ['module' => $module->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.modules.infos.update', ['info' => $moduleInfo->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
+
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="module_name" class="font-weight-bold">Название</label>
                                             <input type="text" id="module_name" name="module_name" class="form-control"
-                                                   placeholder="Название" value="{{ $module->getModuleName() }}"
+                                                   placeholder="Название" value="{{ $moduleInfo->getName() }}"
                                                    required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p class="font-weight-semibold">Статус</p>
-
-                                            <div class="border p-3 rounded">
-                                                <div class="custom-control custom-switch custom-control-inline">
-                                                    <span class="mr-2">Нет</span>
-                                                    @if($module->getStatus())
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1" checked>
-                                                    @else
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1">
-                                                    @endif
-                                                    <label class="custom-control-label" for="status">Да</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p class="font-weight-semibold">Image</p>
-
-                                            <div class="border p-3 rounded d-flex align-items-center">
-                                                <input type="file" name="module_icon" onchange="document.getElementById('module_icon').src = window.URL.createObjectURL(this.files[0])">
-                                                <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="module_icon" id="module_icon" style="max-height: 100px">
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="form-group">

@@ -82,7 +82,7 @@ use App\Models\ModuleInfo;
                                             <td>
                                                 @foreach($module->infos as $moduleInfo)
                                                     <li>
-                                                        <a href="#" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.modules.infos.edit', ['info' => $moduleInfo->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$moduleInfo->getLocale()] }}] -
                                                             {{ $moduleInfo->getName() }}
                                                         </a>

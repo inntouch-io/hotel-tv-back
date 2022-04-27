@@ -49,7 +49,10 @@ class ModuleController extends AdminController
         );
     }
 
-
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     */
     public function edit(int $id)
     {
         $error = $module = null;
@@ -70,6 +73,11 @@ class ModuleController extends AdminController
         );
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|RedirectResponse
+     */
     public function update(Request $request, int $id)
     {
         $error = $module = null;

@@ -17,10 +17,3 @@ $route_name = request()->route()->getName();
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="#" class="nav-link {{ $route_name === 'main.module.add' ? 'active' : '' }}">
-        <i class="icon-plus2"></i>
-        <span>Добавить</span>
-    </a>
-</li>
-
