@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 ModuleSeeder::class,
-                ModuleInfoSeeder::class
+                ModuleInfoSeeder::class,
+                AppSeeder::class
             ]
         );
     }
