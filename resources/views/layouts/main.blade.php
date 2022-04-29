@@ -3,7 +3,6 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * @link    https://karaev.uz
  * Created: 19.04.2022 / 17:11
  */
 ?>
@@ -119,6 +118,12 @@
                 <a href="{{ route('admin.modules.index') }}" class="navbar-nav-link">
                     <i class="fas fa-align-left"></i>
                     Модули
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.apps.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-edit"></i>
+                    Программы
                 </a>
             </li>
         </ul>

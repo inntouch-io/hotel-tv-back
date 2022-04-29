@@ -3,21 +3,16 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * @link    https://karaev.uz
- * Created: 22.04.2022 / 14:36
+ * Created: 29.04.2022 / 15:30
  */
 
-/** @var Module $module */
+/** @var App $app */
 
-/** @var ModuleInfo $moduleInfo */
-
-use App\Models\Module;
-use App\Models\ModuleInfo;
-
+use App\Models\App;
 ?>
 
 @extends('layouts.main')
-@section('title', 'Модули')
+@section('title', 'Программы')
 
 @section('content')
     <div class="page-header">
@@ -25,7 +20,7 @@ use App\Models\ModuleInfo;
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        Модули
+                        Программы
                     </span>
                 </h4>
             </div>
@@ -37,7 +32,7 @@ use App\Models\ModuleInfo;
             <div class="sidebar-content">
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('modules.sidebar')
+                        @include('apps.sidebar')
                     </ul>
                 </div>
             </div>
@@ -60,7 +55,6 @@ use App\Models\ModuleInfo;
                                     <tr>
                                         <th>#</th>
                                         <th>Название</th>
-                                        <th>Название информации</th>
                                         <th>Фото</th>
                                         <th>Позиция</th>
                                         <th>Статус</th>
@@ -69,42 +63,32 @@ use App\Models\ModuleInfo;
                                     </thead>
 
                                     <tbody>
-                                    @foreach($list as $module)
+                                    @foreach($list as $app)
                                         <tr>
                                             <td>
-                                                <div class="font-weight-semibold">{{ $module->getId() }}</div>
+                                                <div class="font-weight-semibold">{{ $app->getId() }}</div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.modules.edit', ['module' => $module->getId()]) }}" class="font-weight-semibold">
-                                                    {{ $module->getModuleName() }}
+                                                <a href="{{ route('admin.apps.edit', ['app' => $app->getId()]) }}" class="font-weight-semibold">
+                                                    {{ $app->getName() }}
                                                 </a>
                                             </td>
                                             <td>
-                                                @foreach($module->infos as $moduleInfo)
-                                                    <li>
-                                                        <a href="{{ route('admin.modules.infos.edit', ['info' => $moduleInfo->getId()]) }}" class="font-weight-semibold">
-                                                            [{{ config('app.locales')[$moduleInfo->getLocale()] }}] -
-                                                            {{ $moduleInfo->getName() }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </td>
-                                            <td>
                                                 <div style="line-height: 60px">
-                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="image" style="max-width: 100px">
+                                                    <img src="{{ asset($app->getImage()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="badge badge-success">{{ $module->getOrderPosition() }}</div>
+                                                <div class="badge badge-success">{{ $app->getOrderPosition() }}</div>
                                             </td>
                                             <td>
-                                                @if($module->getStatus())
+                                                @if($app->getStatus())
                                                     <div class="badge badge-success">Активный</div>
                                                 @else
                                                     <div class="badge badge-danger">Неактивный</div>
                                                 @endif
                                             </td>
-                                            <td>{{ $module->getCreatedAt() }}</td>
+                                            <td>{{ $app->getCreatedAt() }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -117,6 +101,3 @@ use App\Models\ModuleInfo;
         </div>
     </div>
 @endsection
-
-
-

@@ -18,6 +18,8 @@ class CreateAppsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('url');
+            $table->unsignedTinyInteger('status')->default(0);
+            $table->unsignedSmallInteger('order_position')->default('0');
             $table->timestamps();
         });
     }

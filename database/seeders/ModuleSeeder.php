@@ -20,7 +20,7 @@ class ModuleSeeder extends Seeder
                 'id' => 1,
                 'module_slug' => 'service',
                 'module_name' => 'Service',
-                'module_icon' => '/images/service.png',
+                'module_icon' => '/images/modules/service.png',
                 'status' => 1,
                 'order_position' => 1,
                 'created_at' => Carbon::now()

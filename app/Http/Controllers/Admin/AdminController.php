@@ -3,7 +3,6 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * @link    https://karaev.uz
  * Created: 20.04.2022 / 15:21
  */
 
