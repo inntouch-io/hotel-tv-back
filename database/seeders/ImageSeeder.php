@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ModuleInfoSeeder extends Seeder
+class ImageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,32 +15,32 @@ class ModuleInfoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('module_infos')->insert(
+        DB::table('images')->insert(
             [
                 'id'         => 1,
-                'module_id'  => 1,
-                'locale'     => 'ru',
-                'name'       => 'Об отеле',
+                'path'       => 'images/modules/service',
+                'extension'  => 'png',
+                'hash'       => md5('images/modules/service'),
                 'created_at' => Carbon::now()
             ]
         );
 
-        DB::table('module_infos')->insert(
+        DB::table('images')->insert(
             [
                 'id'         => 2,
-                'module_id'  => 1,
-                'locale'     => 'en',
-                'name'       => 'About hotel',
+                'path'       => 'images/apps/itv',
+                'extension'  => 'png',
+                'hash'       => md5('images/apps/itv'),
                 'created_at' => Carbon::now()
             ]
         );
 
-        DB::table('module_infos')->insert(
+        DB::table('images')->insert(
             [
                 'id'         => 3,
-                'module_id'  => 1,
-                'locale'     => 'uz',
-                'name'       => 'Mehmonxona haqida',
+                'path'       => 'images/apps/youtube',
+                'extension'  => 'png',
+                'hash'       => md5('images/apps/youtube'),
                 'created_at' => Carbon::now()
             ]
         );

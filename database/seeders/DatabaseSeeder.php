@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
+                ImageSeeder::class,
                 ModuleSeeder::class,
                 ModuleInfoSeeder::class,
-                AppSeeder::class
+                AppSeeder::class,
             ]
         );
     }

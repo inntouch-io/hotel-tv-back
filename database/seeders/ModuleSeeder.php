@@ -17,13 +17,13 @@ class ModuleSeeder extends Seeder
     {
         DB::table('modules')->insert(
             [
-                'id' => 1,
-                'module_slug' => 'service',
-                'module_name' => 'Service',
-                'module_icon' => '/images/modules/service.png',
-                'status' => 1,
+                'id'             => 1,
+                'module_slug'    => 'service',
+                'module_name'    => 'Service',
+                'image_id'       => 1,
+                'status'         => 1,
                 'order_position' => 1,
-                'created_at' => Carbon::now()
+                'created_at'     => Carbon::now()
             ]
         );
     }

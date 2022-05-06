@@ -15,11 +15,14 @@ class CreateModulesTable extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('image_id')->index()->nullable();
+
             $table->string('module_slug')->unique();
             $table->string('module_name');
-            $table->string('module_icon')->nullable();
             $table->unsignedTinyInteger('status')->default('0');
             $table->unsignedSmallInteger('order_position')->default('0');
+
+            $table->foreign('image_id')->references('id')->on('images');
             $table->timestamps();
         });
     }

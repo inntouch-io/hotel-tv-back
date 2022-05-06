@@ -15,11 +15,14 @@ class CreateAppsTable extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('image_id')->index();
+
             $table->string('name');
-            $table->string('image');
             $table->string('url');
             $table->unsignedTinyInteger('status')->default(0);
             $table->unsignedSmallInteger('order_position')->default('0');
+
+            $table->foreign('image_id')->references('id')->on('images');
             $table->timestamps();
         });
     }

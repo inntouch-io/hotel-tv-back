@@ -19,7 +19,7 @@ class AppSeeder extends Seeder
             [
                 'id'             => 1,
                 'name'           => 'YouTube',
-                'image'          => '/images/apps/youtube.png',
+                'image_id'       => 3,
                 'url'            => 'https://www.youtube.com',
                 'status'         => 1,
                 'order_position' => 1,
@@ -31,7 +31,7 @@ class AppSeeder extends Seeder
             [
                 'id'             => 2,
                 'name'           => 'iTV',
-                'image'          => '/images/apps/itv.png',
+                'image_id'       => 2,
                 'url'            => 'https://itv.uz',
                 'status'         => 1,
                 'order_position' => 2,
