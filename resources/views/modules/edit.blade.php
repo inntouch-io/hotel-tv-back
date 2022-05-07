@@ -93,9 +93,9 @@ use App\Models\ModuleInfo;
                                             <p class="font-weight-semibold">Image</p>
 
                                             <div class="border p-3 rounded d-flex align-items-center">
-                                                <input type="file" name="module_icon" onchange="document.getElementById('module_icon').src = window.URL.createObjectURL(this.files[0])">
+                                                <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                                                 <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="module_icon" id="module_icon" style="max-height: 100px">
+                                                    <img src="{{ asset($module->image->getFullPath()) }}" alt="image" id="image" style="max-height: 100px">
                                                 </div>
                                             </div>
                                         </div>

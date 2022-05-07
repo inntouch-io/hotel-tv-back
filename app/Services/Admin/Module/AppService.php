@@ -10,8 +10,11 @@ namespace App\Services\Admin\Module;
 
 use App\Models\App;
 use App\Repositories\Admin\AppRepository;
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
+use Illuminate\Validation\Validator;
+use RuntimeException;
 
 class AppService
 {
@@ -40,20 +43,37 @@ class AppService
         return AppRepository::getInstance()->getById($id);
     }
 
-    public function validator(Request $request)
+    /**
+     * @param Request $request
+     * @return ValidatorContract
+     */
+    public function validator(Request $request): ValidatorContract
     {
         return ValidatorFacade::make(
             $request->all(),
             [
-                'name' => 'required',
+                'name'  => 'required',
                 'image' => 'required',
-                'url' => 'required',
+                'url'   => 'required',
+            ],
+            [
+                'required' => 'Поле :attribute обязательно',
             ]
         );
     }
 
     public function modify(App $app, Request $request)
     {
+        /** @var Validator $validator */
+        $validator = $this->validator($request);
+
+        if ($validator->fails()){
+            throw new RuntimeException($validator->errors()->first());
+        }
+
+        $data = $validator->getData();
+
+
 
     }
 }

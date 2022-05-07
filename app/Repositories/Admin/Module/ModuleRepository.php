@@ -44,7 +44,7 @@ class ModuleRepository
      */
     public function getById(int $id)
     {
-        return Module::query()->whereKey($id)->first();
+        return Module::query()->whereKey($id)->with('image')->first();
     }
 
     /**

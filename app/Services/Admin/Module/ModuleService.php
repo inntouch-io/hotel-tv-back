@@ -60,7 +60,7 @@ class ModuleService
             $request->all(),
             [
                 'module_name' => 'required',
-                'module_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -89,9 +89,9 @@ class ModuleService
             throw new RuntimeException('Модуль уже существует');
         }
 
-        if (isset($data['module_icon'])) {
-            $imageName = time() . '.' . $request->file('module_icon')->getClientOriginalExtension();
-            $request->file('module_icon')->storeAs('public/modules', $imageName);
+        if (isset($data['image'])) {
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs('public/modules', $imageName);
 
             ModuleRepository::getInstance()->update($module, new ModuleDto(
                 $slug,
@@ -103,7 +103,7 @@ class ModuleService
             ModuleRepository::getInstance()->update($module, new ModuleDto(
                 $slug,
                 $data['module_name'],
-                $module->getModuleIcon(),
+                $module->image->getFullPath(),
                 isset($data['status']) ? 1 : 0
             ));
         }

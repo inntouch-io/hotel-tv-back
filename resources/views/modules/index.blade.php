@@ -91,7 +91,7 @@ use App\Models\ModuleInfo;
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">
-                                                    <img src="{{ asset($module->getModuleIcon()) }}" alt="image" style="max-width: 100px">
+                                                    <img src="{{ asset($module->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
                                             <td>

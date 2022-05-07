@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -15,12 +16,13 @@ use Illuminate\Support\Carbon;
  * @property int         $id
  * @property string      $module_slug
  * @property string      $module_name
- * @property string      $module_icon
+ * @property string      $image_id
  * @property int         $status
  * @property int         $order_position
  * @property Carbon|null $created_at
  *
  * @property Collection  $infos
+ * @property Image       $image
  */
 class Module extends Model
 {
@@ -31,7 +33,7 @@ class Module extends Model
         'id',
         'module_slug',
         'module_name',
-        'module_icon',
+        'image_id',
         'status',
         'order_position'
     ];
@@ -44,6 +46,14 @@ class Module extends Model
     public function infos(): HasMany
     {
         return $this->hasMany(ModuleInfo::class, 'module_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function image(): HasOne
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
     }
 
     // Getters
@@ -73,14 +83,6 @@ class Module extends Model
     }
 
     /**
-     * @return string
-     */
-    public function getModuleIcon(): string
-    {
-        return $this->module_icon;
-    }
-
-    /**
      * @return int
      */
     public function getStatus(): int
@@ -102,5 +104,13 @@ class Module extends Model
     public function getCreatedAt(): ?Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageId(): string
+    {
+        return $this->image_id;
     }
 }

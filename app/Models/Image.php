@@ -25,6 +25,14 @@ class Image extends Model
         'hash'
     ];
 
+    /**
+     * @return string
+     */
+    public function getFullPath(): string
+    {
+        return $this->getPath() . '.' . $this->getExtension();
+    }
+
     // Getters
 
     /**
