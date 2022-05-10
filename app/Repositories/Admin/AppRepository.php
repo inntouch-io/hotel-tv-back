@@ -25,7 +25,7 @@ class AppRepository
      */
     public function list()
     {
-        return App::all();
+        return App::query()->with('image')->get();
     }
 
     /**
@@ -34,6 +34,6 @@ class AppRepository
      */
     public function getById(int $id)
     {
-        return App::query()->whereKey($id)->first();
+        return App::query()->whereKey($id)->with('image')->first();
     }
 }

@@ -90,7 +90,7 @@ use App\Models\App;
                                             <div class="border p-3 rounded d-flex align-items-center">
                                                 <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                                                 <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($app->getImage()) }}" alt="image" id="image" style="max-height: 100px">
+                                                    <img src="{{ asset($app->image->getFullPath()) }}" alt="image" id="image" style="max-height: 100px">
                                                 </div>
                                             </div>
                                         </div>

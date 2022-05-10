@@ -75,7 +75,7 @@ use App\Models\App;
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">
-                                                    <img src="{{ asset($app->getImage()) }}" alt="image" style="max-width: 100px">
+                                                    <img src="{{ asset($app->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
                                             <td>
