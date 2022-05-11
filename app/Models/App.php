@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -72,9 +73,9 @@ class App extends Model
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getStatus(): int
+    public function getStatus(): bool
     {
         return $this->status;
     }
@@ -88,9 +89,9 @@ class App extends Model
     }
 
     /**
-     * @return Carbon
+     * @return string
      */
-    public function getCreatedAt(): Carbon
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
@@ -101,5 +102,21 @@ class App extends Model
     public function getImageId(): int
     {
         return $this->image_id;
+    }
+
+    // accessors
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::get(function ($value){
+            return date('d.m.Y H:i', strtotime($value));
+        });
+    }
+
+    public function status(): Attribute
+    {
+        return Attribute::get(function ($value){
+            return (bool) $value;
+        });
     }
 }

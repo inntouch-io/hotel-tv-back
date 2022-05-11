@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
 
             $table->string('full_name');
             $table->unsignedBigInteger('arrival_time');
-            $table->unsignedBigInteger('departure-time')->nullable();
+            $table->unsignedBigInteger('departure_time')->nullable();
 
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
