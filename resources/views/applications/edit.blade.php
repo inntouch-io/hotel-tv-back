@@ -6,9 +6,9 @@
  * Created: 29.04.2022 / 16:14
  */
 
-/** @var Application $application */
+/** @var \Domain\Applications\Entities\Application $application */
 
-use App\Domain\Applications\Entities\Application;
+use Domain\Applications\Entities\Application;
 
 ?>
 @extends('layouts.main')
@@ -65,6 +65,13 @@ use App\Domain\Applications\Entities\Application;
                                             <label for="name" class="font-weight-bold">Название</label>
                                             <input type="text" id="name" name="name" class="form-control"
                                                    placeholder="Название" value="{{ $application->getName() }}"
+                                                   required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="url" class="font-weight-bold">Линк</label>
+                                            <input type="text" id="url" name="url" class="form-control"
+                                                   placeholder="Url" value="{{ $application->getUrl() }}"
                                                    required>
                                         </div>
 

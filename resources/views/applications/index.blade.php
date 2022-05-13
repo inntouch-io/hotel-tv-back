@@ -6,9 +6,9 @@
  * Created: 29.04.2022 / 15:30
  */
 
-/** @var Application $application */
+/** @var \Domain\Applications\Entities\Application $application */
 
-use App\Domain\Applications\Entities\Application;
+use Domain\Applications\Entities\Application;
 
 ?>
 

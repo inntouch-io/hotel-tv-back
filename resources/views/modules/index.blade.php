@@ -11,8 +11,8 @@
 
 /** @var ModuleInfo $moduleInfo */
 
-use App\Domain\Modules\Entities\Module;
-use App\Domain\Modules\Entities\ModuleInfo;
+use Domain\Modules\Entities\Module;
+use Domain\Modules\Entities\ModuleInfo;
 
 ?>
 

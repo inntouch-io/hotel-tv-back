@@ -7,13 +7,13 @@
  * Created: 22.04.2022 / 14:45
  */
 
-namespace App\Domain\Modules\Services;
+namespace Domain\Modules\Services;
 
-use App\Domain\Images\Builders\ImageBuilder;
-use App\Domain\Images\Entities\Image;
-use App\Domain\Modules\Builders\ModuleBuilder;
-use App\Domain\Modules\Entities\Module;
-use App\Http\DTO\Admin\Module\ModuleDto;
+use Domain\Images\Builders\ImageBuilder;
+use Domain\Images\Entities\Image;
+use Domain\Modules\Builders\ModuleBuilder;
+use Domain\Modules\DTO\ModuleDto;
+use Domain\Modules\Entities\Module;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;

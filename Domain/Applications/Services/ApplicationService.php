@@ -6,10 +6,13 @@
  * Created: 13.05.2022 / 09:21
  */
 
-namespace App\Domain\Applications\Services;
+namespace Domain\Applications\Services;
 
-use App\Domain\Applications\Builders\ApplicationBuilder;
-use App\Domain\Applications\Entities\Application;
+use Domain\Applications\Builders\ApplicationBuilder;
+use Domain\Applications\DTO\ApplicationDto;
+use Domain\Applications\Entities\Application;
+use Domain\Images\Builders\ImageBuilder;
+use Domain\Images\Entities\Image;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -49,8 +52,8 @@ class ApplicationService
             $request->all(),
             [
                 'name'  => 'required',
-                'image' => 'required',
                 'url'   => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -67,17 +70,49 @@ class ApplicationService
         return ApplicationBuilder::getInstance()->getById($id);
     }
 
+    /**
+     * @param Application $application
+     * @param Request     $request
+     * @return void
+     */
     public function modify(Application $application, Request $request)
     {
         /** @var Validator $validator */
         $validator = $this->validator($request);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             throw new RuntimeException($validator->errors()->first());
         }
 
         $data = $validator->getData();
 
-        // TODO NOt finished
+        if (isset($data['image'])) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $imageName = md5(time());
+
+            $request->file('image')->storeAs('public/applications', $imageName . '.' . $extension);
+            // TODO Need add DB transaction
+
+            /** @var Image $image */
+            $image = ImageBuilder::getInstance()->save(
+                "storage/applications/",
+                $imageName,
+                $extension
+            );
+
+            ApplicationBuilder::getInstance()->update($application, new ApplicationDto(
+                $data['name'],
+                $data['url'],
+                $image->getId(),
+                isset($data['isVisible']) ? 1 : 0
+            ));
+        } else {
+            ApplicationBuilder::getInstance()->update($application, new ApplicationDto(
+                $data['name'],
+                $data['url'],
+                $application->getImageId(),
+                isset($data['isVisible']) ? 1 : 0
+            ));
+        }
     }
 }

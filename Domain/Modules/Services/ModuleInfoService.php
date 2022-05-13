@@ -7,10 +7,10 @@
  * Created: 26.04.2022 / 16:18
  */
 
-namespace App\Domain\Modules\Services;
+namespace Domain\Modules\Services;
 
-use App\Domain\Modules\Builders\ModuleInfoBuilder;
-use App\Domain\Modules\Entities\ModuleInfo;
+use Domain\Modules\Builders\ModuleInfoBuilder;
+use Domain\Modules\Entities\ModuleInfo;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;

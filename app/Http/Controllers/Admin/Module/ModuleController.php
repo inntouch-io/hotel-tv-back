@@ -8,9 +8,9 @@
 
 namespace App\Http\Controllers\Admin\Module;
 
-use App\Domain\Modules\Entities\Module;
-use App\Domain\Modules\Services\ModuleService;
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Modules\Entities\Module;
+use Domain\Modules\Services\ModuleService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

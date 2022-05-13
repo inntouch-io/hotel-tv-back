@@ -7,9 +7,9 @@
  * Created: 23.04.2022 / 15:23
  */
 
-/** @var Module $module */
+/** @var \Domain\Modules\Entities\Module $module */
 
-use App\Domain\Modules\Entities\Module;
+use Domain\Modules\Entities\Module;
 
 $route_name = request()->route()->getName();
 ?>

@@ -7,9 +7,9 @@
  * Created: 26.04.2022 / 16:20
  */
 
-namespace App\Domain\Modules\Builders;
+namespace Domain\Modules\Builders;
 
-use App\Domain\Modules\Entities\ModuleInfo;
+use Domain\Modules\Entities\ModuleInfo;
 
 /**
  * Class ModuleInfoBuilder

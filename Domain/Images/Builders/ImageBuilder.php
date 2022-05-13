@@ -6,9 +6,9 @@
  * Created: 13.05.2022 / 16:26
  */
 
-namespace App\Domain\Images\Builders;
+namespace Domain\Images\Builders;
 
-use App\Domain\Images\Entities\Image;
+use Domain\Images\Entities\Image;
 
 /**
  * Class ImageBuilder

@@ -7,9 +7,9 @@
  */
 
 declare(strict_types=1);
-/** @var Application $application */
+/** @var \Domain\Applications\Entities\Application $application */
 
-use App\Domain\Applications\Entities\Application;
+use Domain\Applications\Entities\Application;
 
 $route_name = request()->route()->getName();
 ?>

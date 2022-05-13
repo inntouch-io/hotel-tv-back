@@ -7,11 +7,11 @@
  * Created: 23.04.2022 / 14:27
  */
 
-namespace App\Http\DTO\Admin\Module;
+namespace Domain\Modules\DTO;
 
 /**
  * Class ModuleDto
- * @package App\Http\DTO\Admin\Module
+ * @package App\Domain\Modules\DTO
  */
 class ModuleDto
 {

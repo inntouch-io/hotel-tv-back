@@ -6,9 +6,9 @@
  * @link    https://karaev.uz
  * Created: 26.04.2022 / 17:43
  */
-/** @var ModuleInfo $moduleInfo */
+/** @var \Domain\Modules\Entities\ModuleInfo $moduleInfo */
 
-use App\Domain\Modules\Entities\ModuleInfo;
+use Domain\Modules\Entities\ModuleInfo;
 
 ?>
 

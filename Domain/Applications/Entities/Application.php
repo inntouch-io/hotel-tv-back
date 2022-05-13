@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Applications\Entities;
+namespace Domain\Applications\Entities;
 
-use App\Domain\Images\Entities\Image;
+use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

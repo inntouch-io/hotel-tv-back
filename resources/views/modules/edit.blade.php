@@ -7,12 +7,12 @@
  * Created: 22.04.2022 / 16:05
  */
 
-/** @var Module $module */
+/** @var \Domain\Modules\Entities\Module $module */
 
-/** @var ModuleInfo $moduleInfo */
+/** @var \Domain\Modules\Entities\ModuleInfo $moduleInfo */
 
-use App\Domain\Modules\Entities\Module;
-use App\Domain\Modules\Entities\ModuleInfo;
+use Domain\Modules\Entities\Module;
+use Domain\Modules\Entities\ModuleInfo;
 
 ?>
 

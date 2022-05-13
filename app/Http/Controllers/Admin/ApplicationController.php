@@ -8,8 +8,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\Applications\Entities\Application;
-use App\Domain\Applications\Services\ApplicationService;
+use Domain\Applications\Entities\Application;
+use Domain\Applications\Services\ApplicationService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;

@@ -7,10 +7,10 @@
  * Created: 23.04.2022 / 14:17
  */
 
-namespace App\Domain\Modules\Builders;
+namespace Domain\Modules\Builders;
 
-use App\Domain\Modules\Entities\Module;
-use App\Http\DTO\Admin\Module\ModuleDto;
+use Domain\Modules\DTO\ModuleDto;
+use Domain\Modules\Entities\Module;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
