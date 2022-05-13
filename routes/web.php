@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\AppController;
+use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\Module\ModuleController;
 use App\Http\Controllers\Admin\Module\ModuleInfoController;
 use Illuminate\Routing\Router;
@@ -17,7 +17,7 @@ Route::prefix('admin')->as('admin.')->group(function (Router $router) {
         $router->resource('infos', ModuleInfoController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
     });
 
-    $router->resource('apps', AppController::class)->except(['create', 'store', 'show', 'destroy']);
+    $router->resource('apps', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
 });
 
 

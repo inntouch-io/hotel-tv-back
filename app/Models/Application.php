@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
- * Class App
+ * Class Application
  * @package App\Models
  *
  * @property int    $id
@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
  *
  * @property Image  $image
  */
-class App extends Model
+class Application extends Model
 {
     use HasFactory;
 

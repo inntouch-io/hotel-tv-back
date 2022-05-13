@@ -8,27 +8,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\App;
-use App\Services\Admin\Module\AppService;
+use App\Domain\Applications\Services\ApplicationService;
+use App\Models\Application;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 /**
- * Class AppController
+ * Class ApplicationController
  * @package App\Http\Controllers\Admin
  */
-class AppController extends AdminController
+class ApplicationController extends AdminController
 {
     /**
      * @return View
      */
     public function index(): View
     {
-        $error = $apps = null;
+        $error = $applications = null;
 
         try {
-            $apps = AppService::getInstance()->list();
+            $applications = ApplicationService::getInstance()->list();
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
@@ -37,7 +37,7 @@ class AppController extends AdminController
             'apps.index',
             [
                 'error' => $error,
-                'list'  => $apps
+                'list'  => $applications
             ]
         );
     }
@@ -48,11 +48,11 @@ class AppController extends AdminController
      */
     public function edit(int $id)
     {
-        $error = $app = null;
+        $error = $application = null;
 
         try {
-            /** @var App $app */
-            $app = AppService::getInstance()->getById($id);
+            /** @var Application $application */
+            $application = ApplicationService::getInstance()->getById($id);
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
@@ -60,22 +60,22 @@ class AppController extends AdminController
         return view(
             'apps.edit',
             [
-                'error' => $error,
-                'app'   => $app
+                'error'       => $error,
+                'application' => $application
             ]
         );
     }
 
     public function update(Request $request, int $id)
     {
-        $error = $app = null;
+        $error = $application = null;
 
         try {
-            /** @var App $app */
-            $app = AppService::getInstance()->getById($id);
-            AppService::getInstance()->modify($app, $request);
+            /** @var Application $application */
+            $application = ApplicationService::getInstance()->getById($id);
+            ApplicationService::getInstance()->modify($application, $request);
 
-            return redirect()->route('admin.apps.edit', ['app' => $app->getId()])
+            return redirect()->route('admin.apps.edit', ['app' => $application->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             $error = $exception->getMessage();
@@ -85,7 +85,7 @@ class AppController extends AdminController
             'apps.edit',
             [
                 'error' => $error,
-                'app'   => $app
+                'application'   => $application
             ]
         );
     }

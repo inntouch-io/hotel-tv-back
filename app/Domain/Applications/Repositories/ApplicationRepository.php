@@ -1,0 +1,44 @@
+<?php
+/**
+ * Hotel-TV.
+ *
+ * @author  Mirfayz Nosirov
+ * Created: 13.05.2022 / 09:23
+ */
+
+namespace App\Domain\Applications\Repositories;
+
+use App\Models\Application;
+use Illuminate\Database\Eloquent\Collection;
+
+/**
+ * Class ApplicationRepository
+ * @package App\Domain\Applications\Repositories
+ */
+class ApplicationRepository
+{
+    /**
+     * @return ApplicationRepository
+     */
+    public static function getInstance(): ApplicationRepository
+    {
+        return new static();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder[]|Collection
+     */
+    public function list()
+    {
+        return Application::query()->with('image')->get();
+    }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public function getById(int $id)
+    {
+        return Application::query()->whereKey($id)->with('image')->first();
+    }
+}

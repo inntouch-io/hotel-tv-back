@@ -3,44 +3,40 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 29.04.2022 / 15:24
+ * Created: 13.05.2022 / 09:21
  */
 
-namespace App\Services\Admin\Module;
+namespace App\Domain\Applications\Services;
 
-use App\Models\App;
-use App\Repositories\Admin\AppRepository;
+use App\Domain\Applications\Repositories\ApplicationRepository;
+use App\Models\Application;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Validation\Validator;
 use RuntimeException;
 
-class AppService
+/**
+ * Class ApplicationService
+ * @package App\Domain\Applications\Services
+ */
+class ApplicationService
 {
     /**
-     * @return AppService
+     * @return ApplicationService
      */
-    public static function getInstance(): AppService
+    public static function getInstance(): ApplicationService
     {
         return new static();
     }
 
     /**
-     * @return \App\Models\App[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Builder[]|Collection
      */
     public function list()
     {
-        return AppRepository::getInstance()->list();
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
-    public function getById(int $id)
-    {
-        return AppRepository::getInstance()->getById($id);
+        return ApplicationRepository::getInstance()->list();
     }
 
     /**
@@ -62,7 +58,16 @@ class AppService
         );
     }
 
-    public function modify(App $app, Request $request)
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public function getById(int $id)
+    {
+        return ApplicationRepository::getInstance()->getById($id);
+    }
+
+    public function modify(Application $application, Request $request)
     {
         /** @var Validator $validator */
         $validator = $this->validator($request);
@@ -73,7 +78,6 @@ class AppService
 
         $data = $validator->getData();
 
-
-
+        // TODO NOt finished
     }
 }
