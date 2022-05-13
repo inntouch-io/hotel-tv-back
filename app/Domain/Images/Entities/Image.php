@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $id
  * @property string $path
  * @property string $extension
- * @property string $hash
+ * @property string $name
  */
 class Image extends Model
 {
@@ -22,7 +22,7 @@ class Image extends Model
     protected $fillable = [
         'path',
         'extension',
-        'hash'
+        'name'
     ];
 
     /**
@@ -30,7 +30,7 @@ class Image extends Model
      */
     public function getFullPath(): string
     {
-        return $this->getPath() . '.' . $this->getExtension();
+        return $this->getPath() . $this->getName() . '.' . $this->getExtension();
     }
 
     // Getters
@@ -62,8 +62,8 @@ class Image extends Model
     /**
      * @return string
      */
-    public function getHash(): string
+    public function getName(): string
     {
-        return $this->hash;
+        return $this->name;
     }
 }

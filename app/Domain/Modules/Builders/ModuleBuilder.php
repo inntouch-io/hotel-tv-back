@@ -67,7 +67,7 @@ class ModuleBuilder
             [
                 'module_slug' => $moduleDto->getModuleSlug(),
                 'module_name' => $moduleDto->getModuleName(),
-                'module_icon' => $moduleDto->getModuleIcon(),
+                'image_id'    => $moduleDto->getImageId(),
                 'is_visible'  => $moduleDto->getIsVisible()
             ]
         );

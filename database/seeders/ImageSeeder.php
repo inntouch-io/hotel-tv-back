@@ -18,9 +18,9 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 1,
-                'path'       => 'images/modules/service',
+                'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'hash'       => md5('images/modules/service'),
+                'name'       => 'service',
                 'created_at' => Carbon::now()
             ]
         );
@@ -28,9 +28,9 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 2,
-                'path'       => 'images/apps/itv',
+                'path'       => 'images/apps/',
                 'extension'  => 'png',
-                'hash'       => md5('images/apps/itv'),
+                'name'       => "itv",
                 'created_at' => Carbon::now()
             ]
         );
@@ -38,9 +38,9 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 3,
-                'path'       => 'images/apps/youtube',
+                'path'       => 'images/apps/',
                 'extension'  => 'png',
-                'hash'       => md5('images/apps/youtube'),
+                'name'       => "youtube",
                 'created_at' => Carbon::now()
             ]
         );

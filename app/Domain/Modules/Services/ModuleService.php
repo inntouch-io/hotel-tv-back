@@ -9,6 +9,8 @@
 
 namespace App\Domain\Modules\Services;
 
+use App\Domain\Images\Builders\ImageBuilder;
+use App\Domain\Images\Entities\Image;
 use App\Domain\Modules\Builders\ModuleBuilder;
 use App\Domain\Modules\Entities\Module;
 use App\Http\DTO\Admin\Module\ModuleDto;
@@ -90,20 +92,28 @@ class ModuleService
         }
 
         if (isset($data['image'])) {
-            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->storeAs('public/modules', $imageName);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $imageName = md5(time());
+            $request->file('image')->storeAs('public/modules', $imageName . '.' . $extension);
+
+            /** @var Image $image */
+            $image = ImageBuilder::getInstance()->save(
+                "storage/modules/",
+                $imageName,
+                $extension
+            );
 
             ModuleBuilder::getInstance()->update($module, new ModuleDto(
                 $slug,
                 $data['module_name'],
-                "storage/modules/{$imageName}",
+                $image->getId(),
                 isset($data['isVisible']) ? 1 : 0
             ));
         } else {
             ModuleBuilder::getInstance()->update($module, new ModuleDto(
                 $slug,
                 $data['module_name'],
-                $module->image->getFullPath(),
+                $module->getImageId(),
                 isset($data['isVisible']) ? 1 : 0
             ));
         }
