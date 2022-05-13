@@ -62,8 +62,8 @@ use App\Models\App;
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="module_name" class="font-weight-bold">Название</label>
-                                            <input type="text" id="module_name" name="module_name" class="form-control"
+                                            <label for="name" class="font-weight-bold">Название</label>
+                                            <input type="text" id="name" name="name" class="form-control"
                                                    placeholder="Название" value="{{ $app->getName() }}"
                                                    required>
                                         </div>
