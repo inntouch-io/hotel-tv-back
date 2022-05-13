@@ -7,15 +7,15 @@
  */
 
 declare(strict_types=1);
-/** @var App $application */
+/** @var Application $application */
 
-use App\Models\App;
+use App\Domain\Applications\Entities\Application;
 
 $route_name = request()->route()->getName();
 ?>
 
 <li class="nav-item">
-    <a href="{{ route('admin.apps.index') }}" class="nav-link {{ $route_name === 'admin.apps.index' ? 'active' : '' }}">
+    <a href="{{ route('admin.applications.index') }}" class="nav-link {{ $route_name === 'admin.applications.index' ? 'active' : '' }}">
         <i class="icon-stack"></i>
         <span>Список</span>
     </a>

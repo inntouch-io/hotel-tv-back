@@ -6,9 +6,10 @@
  * Created: 29.04.2022 / 15:30
  */
 
-/** @var App $app */
+/** @var Application $application */
 
-use App\Models\App;
+use App\Domain\Applications\Entities\Application;
+
 ?>
 
 @extends('layouts.main')
@@ -32,7 +33,7 @@ use App\Models\App;
             <div class="sidebar-content">
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('apps.sidebar')
+                        @include('applications.sidebar')
                     </ul>
                 </div>
             </div>
@@ -63,32 +64,32 @@ use App\Models\App;
                                     </thead>
 
                                     <tbody>
-                                    @foreach($list as $app)
+                                    @foreach($list as $application)
                                         <tr>
                                             <td>
-                                                <div class="font-weight-semibold">{{ $app->getId() }}</div>
+                                                <div class="font-weight-semibold">{{ $application->getId() }}</div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.apps.edit', ['app' => $app->getId()]) }}" class="font-weight-semibold">
-                                                    {{ $app->getName() }}
+                                                <a href="{{ route('admin.applications.edit', ['application' => $application->getId()]) }}" class="font-weight-semibold">
+                                                    {{ $application->getName() }}
                                                 </a>
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">
-                                                    <img src="{{ asset($app->image->getFullPath()) }}" alt="image" style="max-width: 100px">
+                                                    <img src="{{ asset($application->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="badge badge-success">{{ $app->getOrderPosition() }}</div>
+                                                <div class="badge badge-success">{{ $application->getOrderPosition() }}</div>
                                             </td>
                                             <td>
-                                                @if($app->getStatus())
+                                                @if($application->getIsVisible())
                                                     <div class="badge badge-success">Активный</div>
                                                 @else
                                                     <div class="badge badge-danger">Неактивный</div>
                                                 @endif
                                             </td>
-                                            <td>{{ $app->getCreatedAt() }}</td>
+                                            <td>{{ $application->getCreatedAt() }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

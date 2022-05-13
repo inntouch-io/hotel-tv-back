@@ -7,11 +7,11 @@
  * Created: 22.04.2022 / 14:45
  */
 
-namespace App\Services\Admin\Module;
+namespace App\Domain\Modules\Services;
 
+use App\Domain\Modules\Builders\ModuleBuilder;
+use App\Domain\Modules\Entities\Module;
 use App\Http\DTO\Admin\Module\ModuleDto;
-use App\Models\Module;
-use App\Repositories\Admin\Module\ModuleRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ use RuntimeException;
 
 /**
  * Class ModuleService
- * @package App\Services\Admin\Module
+ * @package App\Domain\Modules\Services
  */
 class ModuleService
 {
@@ -38,7 +38,7 @@ class ModuleService
      */
     public function list(): Collection
     {
-        return ModuleRepository::getInstance()->getAll();
+        return ModuleBuilder::getInstance()->getAll();
     }
 
     /**
@@ -47,7 +47,7 @@ class ModuleService
      */
     public function getById(int $id)
     {
-        return ModuleRepository::getInstance()->getById($id);
+        return ModuleBuilder::getInstance()->getById($id);
     }
 
     /**
@@ -93,18 +93,18 @@ class ModuleService
             $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('public/modules', $imageName);
 
-            ModuleRepository::getInstance()->update($module, new ModuleDto(
+            ModuleBuilder::getInstance()->update($module, new ModuleDto(
                 $slug,
                 $data['module_name'],
                 "storage/modules/{$imageName}",
-                isset($data['status']) ? 1 : 0
+                isset($data['isVisible']) ? 1 : 0
             ));
         } else {
-            ModuleRepository::getInstance()->update($module, new ModuleDto(
+            ModuleBuilder::getInstance()->update($module, new ModuleDto(
                 $slug,
                 $data['module_name'],
                 $module->image->getFullPath(),
-                isset($data['status']) ? 1 : 0
+                isset($data['isVisible']) ? 1 : 0
             ));
         }
     }
@@ -115,6 +115,6 @@ class ModuleService
      */
     public function exists(string $slug): bool
     {
-        return ModuleRepository::getInstance()->checkBySlug($slug);
+        return ModuleBuilder::getInstance()->checkBySlug($slug);
     }
 }

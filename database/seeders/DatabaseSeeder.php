@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
                 ImageSeeder::class,
                 ModuleSeeder::class,
                 ModuleInfoSeeder::class,
-                AppSeeder::class,
+                ApplicationSeeder::class,
             ]
         );
     }

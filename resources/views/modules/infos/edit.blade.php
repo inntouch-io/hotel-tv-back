@@ -8,7 +8,7 @@
  */
 /** @var ModuleInfo $moduleInfo */
 
-use App\Models\ModuleInfo;
+use App\Domain\Modules\Entities\ModuleInfo;
 
 ?>
 

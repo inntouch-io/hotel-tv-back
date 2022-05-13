@@ -8,14 +8,13 @@
 
 namespace App\Http\Controllers\Admin\Module;
 
+use App\Domain\Modules\Entities\Module;
+use App\Domain\Modules\Services\ModuleService;
 use App\Http\Controllers\Admin\AdminController;
-use App\Models\Module;
-use App\Services\Admin\Module\ModuleService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ModuleController extends AdminController
 {

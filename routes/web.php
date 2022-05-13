@@ -17,7 +17,7 @@ Route::prefix('admin')->as('admin.')->group(function (Router $router) {
         $router->resource('infos', ModuleInfoController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
     });
 
-    $router->resource('apps', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
+    $router->resource('applications', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
 });
 
 

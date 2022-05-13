@@ -6,21 +6,21 @@
  * Created: 13.05.2022 / 09:23
  */
 
-namespace App\Domain\Applications\Repositories;
+namespace App\Domain\Applications\Builders;
 
-use App\Models\Application;
+use App\Domain\Applications\Entities\Application;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class ApplicationRepository
- * @package App\Domain\Applications\Repositories
+ * Class ApplicationBuilder
+ * @package App\Domain\Applications\Builders
  */
-class ApplicationRepository
+class ApplicationBuilder
 {
     /**
-     * @return ApplicationRepository
+     * @return ApplicationBuilder
      */
-    public static function getInstance(): ApplicationRepository
+    public static function getInstance(): ApplicationBuilder
     {
         return new static();
     }

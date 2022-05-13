@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Applications\Entities;
 
+use App\Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,13 +11,13 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class Application
- * @package App\Models
+ * @package App\Domain\Applications\Entities
  *
  * @property int    $id
  * @property string $name
  * @property int    $image_id
  * @property string $url
- * @property int    $status
+ * @property int    $is_visible
  * @property int    $order_position
  * @property Carbon $created_at
  *
@@ -26,12 +27,12 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $table = 'apps';
+    protected $table = 'applications';
     protected $fillable = [
         'name',
         'image_id',
         'url',
-        'status',
+        'is_visible',
         'order_position'
     ];
 
@@ -75,9 +76,9 @@ class Application extends Model
     /**
      * @return bool
      */
-    public function getStatus(): bool
+    public function getIsVisible(): bool
     {
-        return $this->status;
+        return $this->is_visible;
     }
 
     /**

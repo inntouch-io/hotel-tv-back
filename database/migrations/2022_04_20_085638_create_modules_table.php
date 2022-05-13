@@ -19,8 +19,8 @@ class CreateModulesTable extends Migration
 
             $table->string('module_slug')->unique();
             $table->string('module_name');
-            $table->unsignedTinyInteger('status')->default('0');
-            $table->unsignedSmallInteger('order_position')->default('0');
+            $table->unsignedTinyInteger('is_visible')->default('0');
+            $table->unsignedSmallInteger('order_position')->default(0);
 
             $table->foreign('image_id')->references('id')->on('images');
             $table->timestamps();

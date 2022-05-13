@@ -7,9 +7,9 @@
  */
 
 declare(strict_types=1);
-/** @var App $app */
+/** @var Application $application */
 
-use App\Models\App;
+use App\Domain\Applications\Entities\Application;
 
 $route_name = request()->route()->getName();
 ?>
@@ -18,17 +18,17 @@ $route_name = request()->route()->getName();
     <div class="sidebar-content">
         <div class="sidebar-section">
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                @if(!is_null($app))
+                @if(!is_null($application))
                     <li class="nav-item">
-                        <a href="{{ route('admin.apps.edit', ['app' => $app->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.apps.edit' ? 'active' : '' }}">
+                        <a href="{{ route('admin.applications.edit', ['application' => $application->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.applications.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить</span>
                         </a>
                     </li>
                 @endif
 
-                @include('apps.sidebar')
+                @include('applications.sidebar')
             </ul>
         </div>
     </div>

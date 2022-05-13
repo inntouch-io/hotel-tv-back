@@ -6,13 +6,13 @@
  * Created: 29.04.2022 / 16:14
  */
 
-/** @var App $app */
+/** @var Application $application */
 
-use App\Models\App;
+use App\Domain\Applications\Entities\Application;
 
 ?>
 @extends('layouts.main')
-@section('title', is_null($app) ? 'Системная ошибка' : $app->getName())
+@section('title', is_null($application) ? 'Системная ошибка' : $application->getName())
 
 @section('content')
     <div class="page-header">
@@ -20,7 +20,7 @@ use App\Models\App;
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        {{ is_null($app) ? 'Системная ошибка' : $app->getName() }}
+                        {{ is_null($application) ? 'Системная ошибка' : $application->getName() }}
                     </span>
                 </h4>
             </div>
@@ -28,13 +28,13 @@ use App\Models\App;
     </div>
 
     <div class="page-content pt-0">
-        @include('apps.infobar')
+        @include('applications.infobar')
 
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($app))
+                        @if(is_null($application))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 {{ $error ?? 'Системная ошибка' }}
@@ -56,7 +56,7 @@ use App\Models\App;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.apps.update', ['app' => $app->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.applications.update', ['application' => $application->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <div class="row">
@@ -64,7 +64,7 @@ use App\Models\App;
                                         <div class="form-group">
                                             <label for="name" class="font-weight-bold">Название</label>
                                             <input type="text" id="name" name="name" class="form-control"
-                                                   placeholder="Название" value="{{ $app->getName() }}"
+                                                   placeholder="Название" value="{{ $application->getName() }}"
                                                    required>
                                         </div>
 
@@ -74,12 +74,12 @@ use App\Models\App;
                                             <div class="border p-3 rounded">
                                                 <div class="custom-control custom-switch custom-control-inline">
                                                     <span class="mr-2">Нет</span>
-                                                    @if($app->getStatus())
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1" checked>
+                                                    @if($application->getIsVisible())
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1" checked>
                                                     @else
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1">
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
                                                     @endif
-                                                    <label class="custom-control-label" for="status">Да</label>
+                                                    <label class="custom-control-label" for="isVisible">Да</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@ use App\Models\App;
                                             <div class="border p-3 rounded d-flex align-items-center">
                                                 <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                                                 <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($app->image->getFullPath()) }}" alt="image" id="image" style="max-height: 100px">
+                                                    <img src="{{ asset($application->image->getFullPath()) }}" alt="image" id="image" style="max-height: 100px">
                                                 </div>
                                             </div>
                                         </div>

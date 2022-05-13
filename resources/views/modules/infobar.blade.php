@@ -9,7 +9,7 @@
 
 /** @var Module $module */
 
-use App\Models\Module;
+use App\Domain\Modules\Entities\Module;
 
 $route_name = request()->route()->getName();
 ?>

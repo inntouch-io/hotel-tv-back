@@ -9,9 +9,9 @@
 
 namespace App\Http\Controllers\Admin\Module;
 
+use App\Domain\Modules\Services\ModuleInfoService;
 use App\Http\Controllers\Admin\AdminController;
 use App\Models\ModuleInfo;
-use App\Services\Admin\Module\ModuleInfoService;
 use Exception;
 use Illuminate\Http\Request;
 

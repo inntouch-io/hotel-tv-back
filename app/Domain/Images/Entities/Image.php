@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Images\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Image
- * @package App\Models
+ * @package App\Domain\Images\Entities
  *
  * @property int    $id
  * @property string $path

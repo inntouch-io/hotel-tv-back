@@ -8,8 +8,8 @@
 
 namespace App\Domain\Applications\Services;
 
-use App\Domain\Applications\Repositories\ApplicationRepository;
-use App\Models\Application;
+use App\Domain\Applications\Builders\ApplicationBuilder;
+use App\Domain\Applications\Entities\Application;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class ApplicationService
      */
     public function list()
     {
-        return ApplicationRepository::getInstance()->list();
+        return ApplicationBuilder::getInstance()->list();
     }
 
     /**
@@ -64,7 +64,7 @@ class ApplicationService
      */
     public function getById(int $id)
     {
-        return ApplicationRepository::getInstance()->getById($id);
+        return ApplicationBuilder::getInstance()->getById($id);
     }
 
     public function modify(Application $application, Request $request)

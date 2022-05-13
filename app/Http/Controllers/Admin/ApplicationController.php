@@ -8,8 +8,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domain\Applications\Entities\Application;
 use App\Domain\Applications\Services\ApplicationService;
-use App\Models\Application;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class ApplicationController extends AdminController
         }
 
         return view(
-            'apps.index',
+            'applications.index',
             [
                 'error' => $error,
                 'list'  => $applications
@@ -58,7 +58,7 @@ class ApplicationController extends AdminController
         }
 
         return view(
-            'apps.edit',
+            'applications.edit',
             [
                 'error'       => $error,
                 'application' => $application
@@ -75,17 +75,17 @@ class ApplicationController extends AdminController
             $application = ApplicationService::getInstance()->getById($id);
             ApplicationService::getInstance()->modify($application, $request);
 
-            return redirect()->route('admin.apps.edit', ['app' => $application->getId()])
+            return redirect()->route('admin.applications.edit', ['application' => $application->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
 
         return view(
-            'apps.edit',
+            'applications.edit',
             [
-                'error' => $error,
-                'application'   => $application
+                'error'       => $error,
+                'application' => $application
             ]
         );
     }

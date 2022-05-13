@@ -11,8 +11,8 @@
 
 /** @var ModuleInfo $moduleInfo */
 
-use App\Models\Module;
-use App\Models\ModuleInfo;
+use App\Domain\Modules\Entities\Module;
+use App\Domain\Modules\Entities\ModuleInfo;
 
 ?>
 
@@ -79,12 +79,12 @@ use App\Models\ModuleInfo;
                                             <div class="border p-3 rounded">
                                                 <div class="custom-control custom-switch custom-control-inline">
                                                     <span class="mr-2">Нет</span>
-                                                    @if($module->getStatus())
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1" checked>
+                                                    @if($module->getIsVisible())
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1" checked>
                                                     @else
-                                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1">
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
                                                     @endif
-                                                    <label class="custom-control-label" for="status">Да</label>
+                                                    <label class="custom-control-label" for="isVisible">Да</label>
                                                 </div>
                                             </div>
                                         </div>

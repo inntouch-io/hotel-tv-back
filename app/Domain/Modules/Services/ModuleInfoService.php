@@ -7,10 +7,10 @@
  * Created: 26.04.2022 / 16:18
  */
 
-namespace App\Services\Admin\Module;
+namespace App\Domain\Modules\Services;
 
-use App\Models\ModuleInfo;
-use App\Repositories\Admin\Module\ModuleInfoRepository;
+use App\Domain\Modules\Builders\ModuleInfoBuilder;
+use App\Domain\Modules\Entities\ModuleInfo;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
@@ -37,7 +37,7 @@ class ModuleInfoService
      */
     public function getById(int $id)
     {
-        return ModuleInfoRepository::getInstance()->getById($id);
+        return ModuleInfoBuilder::getInstance()->getById($id);
     }
 
     /**
@@ -70,6 +70,6 @@ class ModuleInfoService
 
         $data = $validator->getData();
 
-        ModuleInfoRepository::getInstance()->update($moduleInfo, $data['name']);
+        ModuleInfoBuilder::getInstance()->update($moduleInfo, $data['name']);
     }
 }

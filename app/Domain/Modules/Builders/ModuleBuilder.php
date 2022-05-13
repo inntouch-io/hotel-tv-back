@@ -7,22 +7,22 @@
  * Created: 23.04.2022 / 14:17
  */
 
-namespace App\Repositories\Admin\Module;
+namespace App\Domain\Modules\Builders;
 
+use App\Domain\Modules\Entities\Module;
 use App\Http\DTO\Admin\Module\ModuleDto;
-use App\Models\Module;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class ModuleRepository
- * @package App\Repositories\Admin\Module
+ * Class ModuleBuilder
+ * @package App\Domain\Modules\Builders
  */
-class ModuleRepository
+class ModuleBuilder
 {
     /**
-     * @return ModuleRepository
+     * @return ModuleBuilder
      */
-    public static function getInstance(): ModuleRepository
+    public static function getInstance(): ModuleBuilder
     {
         return new static();
     }
@@ -68,7 +68,7 @@ class ModuleRepository
                 'module_slug' => $moduleDto->getModuleSlug(),
                 'module_name' => $moduleDto->getModuleName(),
                 'module_icon' => $moduleDto->getModuleIcon(),
-                'status'      => $moduleDto->getStatus()
+                'is_visible'  => $moduleDto->getIsVisible()
             ]
         );
     }

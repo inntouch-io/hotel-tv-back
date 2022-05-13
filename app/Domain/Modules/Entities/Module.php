@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Modules\Entities;
 
+use App\Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,13 +12,13 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class Module
- * @package App\Models
+ * @package App\Domain\Modules\Entities
  *
  * @property int         $id
  * @property string      $module_slug
  * @property string      $module_name
  * @property string      $image_id
- * @property int         $status
+ * @property int         $is_visible
  * @property int         $order_position
  * @property Carbon|null $created_at
  *
@@ -34,7 +35,7 @@ class Module extends Model
         'module_slug',
         'module_name',
         'image_id',
-        'status',
+        'is_visible',
         'order_position'
     ];
 
@@ -85,9 +86,9 @@ class Module extends Model
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getIsVisible(): int
     {
-        return $this->status;
+        return $this->is_visible;
     }
 
     /**

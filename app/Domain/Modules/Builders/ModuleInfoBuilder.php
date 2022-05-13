@@ -7,20 +7,20 @@
  * Created: 26.04.2022 / 16:20
  */
 
-namespace App\Repositories\Admin\Module;
+namespace App\Domain\Modules\Builders;
 
-use App\Models\ModuleInfo;
+use App\Domain\Modules\Entities\ModuleInfo;
 
 /**
- * Class ModuleInfoRepository
- * @package App\Repositories\Admin\Module
+ * Class ModuleInfoBuilder
+ * @package App\Domain\Modules\Builders
  */
-class ModuleInfoRepository
+class ModuleInfoBuilder
 {
     /**
-     * @return ModuleInfoRepository
+     * @return ModuleInfoBuilder
      */
-    public static function getInstance(): ModuleInfoRepository
+    public static function getInstance(): ModuleInfoBuilder
     {
         return new static();
     }

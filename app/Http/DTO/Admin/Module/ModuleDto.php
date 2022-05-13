@@ -25,25 +25,25 @@ class ModuleDto
     protected string $module_icon;
 
     /** @var int */
-    protected int $status;
+    protected int $isVisible;
 
     /**
      * @param string $module_slug
      * @param string $module_name
      * @param string $module_icon
-     * @param int    $status
+     * @param int    $isVisible
      */
     public function __construct(
         string $module_slug,
         string $module_name,
         string $module_icon,
-        int    $status
+        int    $isVisible
     )
     {
         $this->module_slug = $module_slug;
         $this->module_name = $module_name;
         $this->module_icon = $module_icon;
-        $this->status = $status;
+        $this->isVisible = $isVisible;
     }
 
     // Getters
@@ -75,8 +75,8 @@ class ModuleDto
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getIsVisible(): int
     {
-        return $this->status;
+        return $this->isVisible;
     }
 }

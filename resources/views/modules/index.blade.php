@@ -11,8 +11,8 @@
 
 /** @var ModuleInfo $moduleInfo */
 
-use App\Models\Module;
-use App\Models\ModuleInfo;
+use App\Domain\Modules\Entities\Module;
+use App\Domain\Modules\Entities\ModuleInfo;
 
 ?>
 
@@ -98,7 +98,7 @@ use App\Models\ModuleInfo;
                                                 <div class="badge badge-success">{{ $module->getOrderPosition() }}</div>
                                             </td>
                                             <td>
-                                                @if($module->getStatus())
+                                                @if($module->getIsVisible())
                                                     <div class="badge badge-success">Активный</div>
                                                 @else
                                                     <div class="badge badge-danger">Неактивный</div>

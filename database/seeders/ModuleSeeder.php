@@ -21,7 +21,7 @@ class ModuleSeeder extends Seeder
                 'module_slug'    => 'service',
                 'module_name'    => 'Service',
                 'image_id'       => 1,
-                'status'         => 1,
+                'is_visible'     => 1,
                 'order_position' => 1,
                 'created_at'     => Carbon::now()
             ]
