@@ -1,19 +1,20 @@
 <?php
 
-namespace Domain\UserRooms\Entities;
+namespace Domain\Rooms\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rules\Enum;
 
 /**
  * Class UserRoom
- * @package App\Models
+ * @package Domain\Rooms\Entities
  *
  * @property int $user_id
  * @property int $room_id
  * @property int $arrival_time
  * @property int $departure_time
- * @property int $is_active
+ * @property enum $room_status
  */
 class UserRoom extends Model
 {
@@ -25,7 +26,7 @@ class UserRoom extends Model
         'room_id',
         'arrival_time',
         'departure_time',
-        'is_active',
+        'room_status',
     ];
 
     // Relations
@@ -66,10 +67,10 @@ class UserRoom extends Model
     }
 
     /**
-     * @return int
+     * @return Enum
      */
-    public function getIsActive(): int
+    public function getRoomStatus(): Enum
     {
-        return $this->is_active;
+        return $this->room_status;
     }
 }

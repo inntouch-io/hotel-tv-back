@@ -2,13 +2,13 @@
 
 namespace Domain\Rooms\Entities;
 
-use Domain\Users\Entities\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Room
- * @package App\Models
+ * @package Domain\Rooms\Entities
  *
  * @property string $room_number
  * @property string $device_id
@@ -25,11 +25,16 @@ class Room extends Model
 
     // Relations
 
-    public function user()
+    /**
+     * @return Collection
+     */
+    public function users(): Collection
     {
         return $this->belongsToMany(User::class, 'user_room', 'room_id', 'user_id')
-            ->where('is_active', '=', 1)
-            ->first();
+            ->where('room_status', '=', 1)
+            ->get();
+
+        // TODO need implement departure_time check with where condition
     }
 
     // Getters

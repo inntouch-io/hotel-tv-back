@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
                 ModuleSeeder::class,
                 ModuleInfoSeeder::class,
                 ApplicationSeeder::class,
+                UserSeeder::class,
+                RoomSeeder::class,
+                UserRoomSeeder::class
             ]
         );
     }
