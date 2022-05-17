@@ -96,7 +96,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="#" class="dropdown-item"><i class="far fa-id-badge"></i> My profile</a>
                 <a href="#" class="dropdown-item"><i class="fas fa-key"></i> Сменить пароль</a>
-                <a href="#" class="dropdown-item">
+                <a href="{{ route('admin.auth.logout') }}" class="dropdown-item">
                     <i class="icon-switch2"></i>
                     Выйти
                 </a>
