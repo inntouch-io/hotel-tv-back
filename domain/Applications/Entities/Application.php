@@ -2,10 +2,10 @@
 
 namespace Domain\Applications\Entities;
 
+use App\Core\Entities;
 use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
@@ -23,7 +23,7 @@ use Illuminate\Support\Carbon;
  *
  * @property Image  $image
  */
-class Application extends Model
+class Application extends Entities
 {
     use HasFactory;
 

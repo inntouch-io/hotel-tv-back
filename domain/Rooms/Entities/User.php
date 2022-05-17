@@ -2,8 +2,8 @@
 
 namespace Domain\Rooms\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property string $full_name
  */
-class User extends Model
+class User extends Entities
 {
     use HasFactory;
 
