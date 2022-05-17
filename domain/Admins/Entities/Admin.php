@@ -4,7 +4,11 @@ namespace Domain\Admins\Entities;
 
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Admin
@@ -18,9 +22,9 @@ use Illuminate\Validation\Rules\Enum;
  * @property int    $last_login
  * @property enum   $role
  */
-class Admin extends Entities
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'admins';
     protected $fillable = [

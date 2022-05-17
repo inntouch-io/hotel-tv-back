@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -25,6 +26,13 @@ class AuthController extends AdminController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $user->last_ip = $request->ip();
+        $user->last_login = time();
+        $user->save();
     }
 
     public function username()
