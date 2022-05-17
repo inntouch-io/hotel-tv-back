@@ -2,9 +2,9 @@
 
 namespace Domain\Rooms\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Room
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $room_number
  * @property string $device_id
  */
-class Room extends Model
+class Room extends Entities
 {
     use HasFactory;
 

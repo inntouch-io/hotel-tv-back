@@ -2,8 +2,8 @@
 
 namespace Domain\Modules\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $name
  * @property string $locale
  */
-class ModuleInfo extends Model
+class ModuleInfo extends Entities
 {
     use HasFactory;
 

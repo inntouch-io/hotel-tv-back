@@ -2,8 +2,8 @@
 
 namespace Domain\Images\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Image
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $extension
  * @property string $name
  */
-class Image extends Model
+class Image extends Entities
 {
     use HasFactory;
 

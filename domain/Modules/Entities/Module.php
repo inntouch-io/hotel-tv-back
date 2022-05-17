@@ -2,10 +2,10 @@
 
 namespace Domain\Modules\Entities;
 
+use App\Core\Entities;
 use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Collection  $infos
  * @property Image       $image
  */
-class Module extends Model
+class Module extends Entities
 {
     use HasFactory;
 

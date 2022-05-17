@@ -2,8 +2,8 @@
 
 namespace Domain\Rooms\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -16,7 +16,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property int $departure_time
  * @property enum $room_status
  */
-class UserRoom extends Model
+class UserRoom extends Entities
 {
     use HasFactory;
 

@@ -2,8 +2,8 @@
 
 namespace Domain\Admins\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -18,7 +18,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property int    $last_login
  * @property enum   $role
  */
-class Admin extends Model
+class Admin extends Entities
 {
     use HasFactory;
 
