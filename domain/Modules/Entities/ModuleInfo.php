@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ModuleInfo
- * @package App\Domain\Modules\Entities
+ * @package App\domain\Modules\Entities
  *
  * @property int    $id
  * @property int    $module_id

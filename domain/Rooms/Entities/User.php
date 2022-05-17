@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
- * @package Domain\Rooms\Entities
+ * @package domain\Rooms\Entities
  *
  * @property string $full_name
  */
@@ -36,7 +36,7 @@ class User extends Model
     public function room()
     {
         return $this->belongsToMany(Room::class, 'user_room', 'user_id', 'room_id')
-            ->where('is_active', '=', 1)
+            ->where('room_status', '=', 'booked')
             ->latest()
             ->first();
     }

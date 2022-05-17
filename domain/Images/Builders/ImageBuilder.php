@@ -12,7 +12,7 @@ use Domain\Images\Entities\Image;
 
 /**
  * Class ImageBuilder
- * @package App\Domain\Images\Builders
+ * @package App\domain\Images\Builders
  */
 class ImageBuilder
 {

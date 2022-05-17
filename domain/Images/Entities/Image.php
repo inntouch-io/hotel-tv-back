@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Image
- * @package App\Domain\Images\Entities
+ * @package App\domain\Images\Entities
  *
  * @property int    $id
  * @property string $path

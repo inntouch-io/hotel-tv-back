@@ -10,7 +10,7 @@ namespace Domain\Applications\DTO;
 
 /**
  * Class ApplicationDto
- * @package Domain\Applications\DTO
+ * @package domain\Applications\DTO
  *
  * @property string $name
  * @property string $url

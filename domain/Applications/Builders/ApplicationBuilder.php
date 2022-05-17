@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class ApplicationBuilder
- * @package App\Domain\Applications\Builders
+ * @package App\domain\Applications\Builders
  */
 class ApplicationBuilder
 {

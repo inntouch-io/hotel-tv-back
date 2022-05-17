@@ -12,7 +12,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class Module
- * @package App\Domain\Modules\Entities
+ * @package App\domain\Modules\Entities
  *
  * @property int         $id
  * @property string      $module_slug

@@ -23,7 +23,7 @@ use RuntimeException;
 
 /**
  * Class ModuleService
- * @package App\Domain\Modules\Services
+ * @package App\domain\Modules\Services
  */
 class ModuleService
 {

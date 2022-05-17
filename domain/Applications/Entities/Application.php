@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class Application
- * @package App\Domain\Applications\Entities
+ * @package App\domain\Applications\Entities
  *
  * @property int    $id
  * @property string $name

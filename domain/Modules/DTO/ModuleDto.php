@@ -11,7 +11,7 @@ namespace Domain\Modules\DTO;
 
 /**
  * Class ModuleDto
- * @package App\Domain\Modules\DTO
+ * @package App\domain\Modules\DTO
  */
 class ModuleDto
 {

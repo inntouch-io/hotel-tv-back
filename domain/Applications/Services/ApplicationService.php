@@ -22,7 +22,7 @@ use RuntimeException;
 
 /**
  * Class ApplicationService
- * @package App\Domain\Applications\Services
+ * @package App\domain\Applications\Services
  */
 class ApplicationService
 {

@@ -13,7 +13,7 @@ use Domain\Modules\Entities\ModuleInfo;
 
 /**
  * Class ModuleInfoBuilder
- * @package App\Domain\Modules\Builders
+ * @package App\domain\Modules\Builders
  */
 class ModuleInfoBuilder
 {

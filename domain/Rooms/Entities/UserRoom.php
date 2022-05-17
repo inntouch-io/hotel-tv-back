@@ -8,7 +8,7 @@ use Illuminate\Validation\Rules\Enum;
 
 /**
  * Class UserRoom
- * @package Domain\Rooms\Entities
+ * @package domain\Rooms\Entities
  *
  * @property int $user_id
  * @property int $room_id

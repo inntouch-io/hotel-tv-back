@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Room
- * @package Domain\Rooms\Entities
+ * @package domain\Rooms\Entities
  *
  * @property string $room_number
  * @property string $device_id
