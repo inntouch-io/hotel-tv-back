@@ -100,9 +100,9 @@ class Module extends Entities
     }
 
     /**
-     * @return Carbon|null
+     * @return string|null
      */
-    public function getCreatedAt(): ?Carbon
+    public function getCreatedAt(): ?string
     {
         return $this->created_at;
     }

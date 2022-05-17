@@ -29,13 +29,16 @@
         <div class="content d-flex justify-content-center align-items-center">
             <form class="login-form" action="{{ route('admin.auth.login') }}" method="post">
                 {{ csrf_field() }}
-                @if(!is_null($error))
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                        <span class="font-weight-semibold">Ой ой!</span>
-                        {{ $error }}
-                    </div>
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                            <span class="font-weight-semibold">Ой ой!</span>
+                            {{ $error }}
+                        </div>
+                    @endforeach
                 @endif
+
                 <div class="card mb-0">
                     <div class="card-body">
                         <div class="text-center mb-3">
