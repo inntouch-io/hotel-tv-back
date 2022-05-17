@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Users\Entities;
 
+use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $departure_time
  * @property int    $room_id
  */
-class User extends Model
+class User extends Entities
 {
     use HasFactory;
 
