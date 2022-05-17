@@ -33,7 +33,7 @@ use Domain\Modules\Entities\ModuleInfo;
     </div>
 
     <div class="page-content pt-0">
-        @include('modules.infobar')
+        @include('modules.module.infobar')
 
         <div class="content-wrapper">
             <div class="content">

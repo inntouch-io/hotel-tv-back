@@ -37,7 +37,7 @@ use Domain\Modules\Entities\ModuleInfo;
             <div class="sidebar-content">
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('modules.sidebar')
+                        @include('modules.module.sidebar')
                     </ul>
                 </div>
             </div>

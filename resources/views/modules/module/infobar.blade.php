@@ -28,7 +28,7 @@ $route_name = request()->route()->getName();
                     </li>
                 @endif
 
-                @include('modules.sidebar')
+                @include('modules.module.sidebar')
             </ul>
         </div>
     </div>
