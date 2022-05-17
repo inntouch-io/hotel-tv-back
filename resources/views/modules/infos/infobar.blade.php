@@ -20,7 +20,7 @@ $route_name = request()->route()->getName();
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
                 @if(!is_null($moduleInfo))
                     <li class="nav-item">
-                        <a href="{{ route('admin.modules.infos.edit', ['info' => $moduleInfo->getId()]) }}"
+                        <a href="{{ route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()]) }}"
                            class="nav-link {{ $route_name === 'admin.modules.infos.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить перевод</span>

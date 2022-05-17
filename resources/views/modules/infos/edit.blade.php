@@ -57,7 +57,7 @@ use Domain\Modules\Entities\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.infos.update', ['info' => $moduleInfo->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.modules.infos.update', ['id' => $moduleInfo->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
 

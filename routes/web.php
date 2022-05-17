@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\ApplicationController;
-use App\Http\Controllers\Admin\Module\ModuleController;
-use App\Http\Controllers\Admin\Module\ModuleInfoController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -24,15 +21,24 @@ Route::namespace('Admin')->group(function (){
         });
     });
 
-    Route::middleware('auth:web')->prefix('admin')->as('admin.')->group(function (Router $router) {
+    Route::middleware('auth:web')->prefix('admin')->as('admin.')->group(function () {
 
-        $router->resource('modules', 'Module\ModuleController')->except(['create', 'store', 'show', 'destroy']);
+        Route::namespace('Modules')->prefix('modules')->as('modules.')->group(function (){
 
-        Route::prefix('modules')->as('modules.')->group(function (Router $router) {
-            $router->resource('infos', 'Module\ModuleInfoController')->except(['index', 'create', 'store', 'show', 'destroy']);
+            Route::prefix('module')->as('module.')->group(function (Router $router){
+                $router->get('/index', 'ModuleController@index')->name('index');
+                $router->get('/edit/{id}', 'ModuleController@edit')->name('edit');
+                $router->put('/update/{id}', 'ModuleController@update')->name('update');
+            });
+
+            Route::prefix('infos')->as('infos.')->group(function (Router $router){
+                $router->get('/edit/{id}', 'ModuleInfoController@edit')->name('edit');
+                $router->put('/update/{id}', 'ModuleInfoController@update')->name('update');
+            });
+
         });
 
-        $router->resource('applications', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
+//        $router->resource('applications', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
     });
 
 });

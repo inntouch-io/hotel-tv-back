@@ -11,7 +11,7 @@ $route_name = request()->route()->getName();
 ?>
 
 <li class="nav-item">
-    <a href="{{ route('admin.modules.index') }}" class="nav-link {{ $route_name === 'admin.modules.index' ? 'active' : '' }}">
+    <a href="{{ route('admin.modules.module.index') }}" class="nav-link {{ $route_name === 'admin.modules.index' ? 'active' : '' }}">
         <i class="icon-stack"></i>
         <span>Список</span>
     </a>

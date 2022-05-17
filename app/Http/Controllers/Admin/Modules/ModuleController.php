@@ -6,7 +6,7 @@
  * Created: 20.04.2022 / 15:23
  */
 
-namespace App\Http\Controllers\Admin\Module;
+namespace App\Http\Controllers\Admin\Modules;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Modules\Entities\Module;
@@ -40,7 +40,7 @@ class ModuleController extends AdminController
         }
 
         return view(
-            'modules.index',
+            'modules.module.index',
             [
                 'error' => $error,
                 'list'  => $list
@@ -64,7 +64,7 @@ class ModuleController extends AdminController
         }
 
         return view(
-            'modules.edit',
+            'modules.module.edit',
             [
                 'error'  => $error,
                 'module' => $module
@@ -86,14 +86,14 @@ class ModuleController extends AdminController
             $module = ModuleService::getInstance()->getById($id);
             ModuleService::getInstance()->modify($module, $request);
 
-            return redirect()->route('admin.modules.edit', ['module' => $module->getId()])
+            return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
 
         return view(
-            'modules.edit',
+            'modules.module.edit',
             [
                 'error'  => $error,
                 'module' => $module

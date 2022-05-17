@@ -75,14 +75,14 @@ use Domain\Modules\Entities\ModuleInfo;
                                                 <div class="font-weight-semibold">{{ $module->getId() }}</div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.modules.edit', ['module' => $module->getId()]) }}" class="font-weight-semibold">
+                                                <a href="{{ route('admin.modules.module.edit', ['id' => $module->getId()]) }}" class="font-weight-semibold">
                                                     {{ $module->getModuleName() }}
                                                 </a>
                                             </td>
                                             <td>
                                                 @foreach($module->infos as $moduleInfo)
                                                     <li>
-                                                        <a href="{{ route('admin.modules.infos.edit', ['info' => $moduleInfo->getId()]) }}" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$moduleInfo->getLocale()] }}] -
                                                             {{ $moduleInfo->getName() }}
                                                         </a>

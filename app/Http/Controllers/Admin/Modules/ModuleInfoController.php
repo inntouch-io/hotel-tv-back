@@ -7,7 +7,7 @@
  * Created: 26.04.2022 / 15:20
  */
 
-namespace App\Http\Controllers\Admin\Module;
+namespace App\Http\Controllers\Admin\Modules;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Modules\Entities\ModuleInfo;
@@ -67,7 +67,7 @@ class ModuleInfoController extends AdminController
 
             ModuleInfoService::getInstance()->modify($moduleInfo, $request);
 
-            return redirect()->route('admin.modules.infos.edit', ['info' => $moduleInfo->getId()])
+            return redirect()->route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             $error = $exception->getMessage();
