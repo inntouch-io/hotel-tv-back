@@ -50,6 +50,22 @@ class ApplicationDto
         $this->isVisible = $isVisible;
     }
 
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return get_object_vars($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return json_encode($this->toArray());
+    }
+
     // Getters
 
     /**

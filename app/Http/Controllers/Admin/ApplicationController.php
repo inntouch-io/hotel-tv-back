@@ -42,28 +42,24 @@ class ApplicationController extends AdminController
         );
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
-     */
-    public function edit(int $id)
+    public function edit(Request $request, int $id)
     {
         $error = $application = null;
 
         try {
-            /** @var Application $application */
-            $application = ApplicationService::getInstance()->getById($id);
+            $application = ApplicationService::instance()->takeById($id);
+
+            if ($request->isMethod('POST')) {
+                ApplicationService::instance()->update($request, $application);
+            }
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
 
-        return view(
-            'applications.edit',
-            [
-                'error'       => $error,
-                'application' => $application
-            ]
-        );
+        return view('applications.edit', [
+            'error'       => $error,
+            'application' => $application
+        ]);
     }
 
     public function update(Request $request, int $id)

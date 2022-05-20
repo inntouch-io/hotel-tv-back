@@ -8,6 +8,7 @@
 
 namespace Domain\Applications\Builders;
 
+use Closure;
 use Domain\Applications\DTO\ApplicationDto;
 use Domain\Applications\Entities\Application;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,6 +19,29 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class ApplicationBuilder
 {
+    // Methods
+
+    /**
+     * @param Closure $closure
+     * @return Application|null
+     */
+    public function takeBy(Closure $closure): ?Application
+    {
+        return $closure(Application::query())->first();
+    }
+
+    // Instance
+
+    /**
+     * @return ApplicationBuilder
+     */
+    public static function instance(): ApplicationBuilder
+    {
+        return new static();
+    }
+
+    // TODO: Not need
+
     /**
      * @return ApplicationBuilder
      */
@@ -27,11 +51,12 @@ class ApplicationBuilder
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|Collection
+     * @param Closure $closure
+     * @return Collection
      */
-    public function list()
+    public function list(Closure $closure): Collection
     {
-        return Application::query()->with('image')->get();
+        return $closure(Application::query())->get();
     }
 
     /**
@@ -46,17 +71,9 @@ class ApplicationBuilder
     /**
      * @param Application    $application
      * @param ApplicationDto $applicationDto
-     * @return bool
      */
-    public function update(Application $application, ApplicationDto $applicationDto): bool
+    public function update(Application $application, ApplicationDto $applicationDto)
     {
-        return $application->update(
-            [
-                'name'       => $applicationDto->getName(),
-                'url'        => $applicationDto->getUrl(),
-                'image_id'   => $applicationDto->getImageId(),
-                'is_visible' => $applicationDto->getIsVisible()
-            ]
-        );
+        $application->update($applicationDto->toArray());
     }
 }

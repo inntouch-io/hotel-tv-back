@@ -35,7 +35,7 @@ class AuthController extends AdminController
         $user->save();
     }
 
-    public function username()
+    public function username(): string
     {
         return 'username';
     }

@@ -14,6 +14,7 @@ use Domain\Applications\Entities\Application;
 use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
@@ -26,20 +27,61 @@ use RuntimeException;
  */
 class ApplicationService
 {
-    /**
-     * @return ApplicationService
-     */
-    public static function getInstance(): ApplicationService
-    {
-        return new static();
-    }
+    protected ApplicationBuilder $builder;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|Collection
+     * @param ApplicationBuilder $builder
      */
-    public function list()
+    public function __construct(ApplicationBuilder $builder)
     {
-        return ApplicationBuilder::getInstance()->list();
+        $this->builder = $builder;
+    }
+
+    // Actions
+
+    public function update(Request $request, Application $application)
+    {
+        $data = $request->all();
+        $this->builder->update($application, new ApplicationDto(
+            '',
+            '',
+            '',
+            ''
+        ));
+    }
+
+    // Methods
+
+    /**
+     * @param int $id
+     * @return Application
+     * @throw RuntimeException
+     */
+    public function takeById(int $id): Application
+    {
+        /** @var Application|null $application */
+        $application = $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder->with('image')->whereKey($id);
+        });
+
+        if (is_null($application)) {
+            throw new RuntimeException('Application not found', 404);
+        }
+
+        return $application;
+    }
+
+    // TODO: Trash
+
+    public function list(Request $request)
+    {
+        $filter = $request->query('filter');
+
+        return $this->builder->list(function (Builder $builder) use ($filter) {
+            return $builder
+                ->with('image')
+                ->orderBy('id');
+        });
     }
 
     /**
@@ -114,5 +156,15 @@ class ApplicationService
                 isset($data['isVisible']) ? 1 : 0
             ));
         }
+    }
+
+    // Instance
+
+    /**
+     * @return ApplicationService
+     */
+    public static function instance(): ApplicationService
+    {
+        return new static(ApplicationBuilder::getInstance());
     }
 }
