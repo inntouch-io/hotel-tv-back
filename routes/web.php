@@ -1,6 +1,5 @@
 <?php
 
-//use App\Http\Controllers\Admin\Modules\ModuleController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 

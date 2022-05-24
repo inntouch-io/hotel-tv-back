@@ -3,7 +3,10 @@
 namespace Domain\Admins\Entities;
 
 use App\Core\Entities;
+use Domain\Permissions\Entities\Permission;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
@@ -14,13 +17,15 @@ use Laravel\Sanctum\HasApiTokens;
  * Class Admin
  * @package Domain\Admins\Entities
  *
- * @property int    $id
- * @property string $full_name
- * @property string $username
- * @property string $password
- * @property string $last_ip
- * @property int    $last_login
- * @property enum   $role
+ * @property int        $id
+ * @property string     $full_name
+ * @property string     $username
+ * @property string     $password
+ * @property string     $last_ip
+ * @property int        $last_login
+ * @property string     $role
+ *
+ * @property Collection $permissions
  */
 class Admin extends Authenticatable
 {
@@ -35,6 +40,16 @@ class Admin extends Authenticatable
         'last_login',
         'role'
     ];
+
+    // Relations
+
+    /**
+     * @return BelongsToMany
+     */
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'admin_permissions', 'admin_id', 'permission_id');
+    }
 
     // Getters
 
@@ -87,9 +102,9 @@ class Admin extends Authenticatable
     }
 
     /**
-     * @return Enum
+     * @return string
      */
-    public function getRole(): Enum
+    public function getRole(): string
     {
         return $this->role;
     }

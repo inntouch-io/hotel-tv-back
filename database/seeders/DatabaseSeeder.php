@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
                 ApplicationSeeder::class,
                 UserSeeder::class,
                 RoomSeeder::class,
-                UserRoomSeeder::class
+                UserRoomSeeder::class,
+                PermissionSeeder::class,
+                AdminPermissionSeeder::class
             ]
         );
     }

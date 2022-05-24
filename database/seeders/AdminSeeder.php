@@ -29,5 +29,19 @@ class AdminSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]
         );
+
+        DB::table('admins')->insert(
+            [
+                'id'         => 2,
+                'full_name'  => 'Mirfayz Nasirov',
+                'username'   => 'nasirov0017',
+                'password'   => Hash::make('superpassword'),
+                'last_ip'    => '0.0.0.0',
+                'last_login' => 0,
+                'role'       => 'moderator',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]
+        );
     }
 }

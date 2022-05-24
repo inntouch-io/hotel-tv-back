@@ -8,10 +8,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Domain\Applications\Entities\Application;
 use Domain\Applications\Services\ApplicationService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ApplicationController
@@ -28,6 +30,7 @@ class ApplicationController extends AdminController
 
         try {
             $applications = ApplicationService::getInstance()->list();
+            $this->authorize('index', Application::class);
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
@@ -47,6 +50,7 @@ class ApplicationController extends AdminController
 
         try {
             $application = ApplicationService::getInstance()->takeById($id);
+            $this->authorize('edit', $application);
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
@@ -66,6 +70,7 @@ class ApplicationController extends AdminController
 
         try {
             $application = ApplicationService::getInstance()->takeById($id);
+            $this->authorize('update', $application);
 
             ApplicationService::getInstance()->update($request, $application);
 
