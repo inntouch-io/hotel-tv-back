@@ -14,8 +14,8 @@ namespace Domain\Applications\DTO;
  *
  * @property string $name
  * @property string $url
- * @property int    $imageId
- * @property int    $isVisible
+ * @property int    $image_id
+ * @property int    $is_visible
  */
 class ApplicationDto
 {
@@ -25,11 +25,11 @@ class ApplicationDto
     /** @var string $url */
     protected string $url;
 
-    /** @var int $imageId */
-    protected int $imageId;
+    /** @var int $image_id */
+    protected int $image_id;
 
-    /** @var int $isVisible */
-    protected int $isVisible;
+    /** @var int $is_visible */
+    protected int $is_visible;
 
     /**
      * @param string $name
@@ -40,14 +40,14 @@ class ApplicationDto
     public function __construct(
         string $name,
         string $url,
-        int    $imageId,
-        int    $isVisible
+        int    $image_id,
+        int    $is_visible
     )
     {
         $this->name = $name;
         $this->url = $url;
-        $this->imageId = $imageId;
-        $this->isVisible = $isVisible;
+        $this->image_id = $image_id;
+        $this->is_visible = $is_visible;
     }
 
     /**
@@ -89,7 +89,7 @@ class ApplicationDto
      */
     public function getImageId(): int
     {
-        return $this->imageId;
+        return $this->image_id;
     }
 
     /**
@@ -97,6 +97,6 @@ class ApplicationDto
      */
     public function getIsVisible(): int
     {
-        return $this->isVisible;
+        return $this->is_visible;
     }
 }

@@ -46,7 +46,11 @@ Route::namespace('Admin')->group(function () {
 
         });
 
-//        $router->resource('applications', ApplicationController::class)->except(['create', 'store', 'show', 'destroy']);
+        Route::prefix('applications')->as('applications.')->group(function (Router $router) {
+            $router->get('index', 'ApplicationController@index')->name('index');
+            $router->get('edit/{application}', 'ApplicationController@edit')->name('edit');
+            $router->put('update/{application}', 'ApplicationController@update')->name('update');
+        });
     });
 
 });

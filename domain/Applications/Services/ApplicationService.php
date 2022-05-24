@@ -37,20 +37,29 @@ class ApplicationService
         $this->builder = $builder;
     }
 
-    // Actions
+    // Instance
 
-    public function update(Request $request, Application $application)
+    /**
+     * @return ApplicationService
+     */
+    public static function getInstance(): ApplicationService
     {
-        $data = $request->all();
-        $this->builder->update($application, new ApplicationDto(
-            '',
-            '',
-            '',
-            ''
-        ));
+        return new static(ApplicationBuilder::getInstance());
     }
 
     // Methods
+
+    /**
+     * @return Collection
+     */
+    public function list(): Collection
+    {
+        return $this->builder->list(function (Builder $builder){
+            return $builder
+                ->with('image')
+                ->orderBy('id');
+        });
+    }
 
     /**
      * @param int $id
@@ -71,53 +80,12 @@ class ApplicationService
         return $application;
     }
 
-    // TODO: Trash
-
-    public function list(Request $request)
-    {
-        $filter = $request->query('filter');
-
-        return $this->builder->list(function (Builder $builder) use ($filter) {
-            return $builder
-                ->with('image')
-                ->orderBy('id');
-        });
-    }
-
     /**
-     * @param Request $request
-     * @return ValidatorContract
-     */
-    public function validator(Request $request): ValidatorContract
-    {
-        return ValidatorFacade::make(
-            $request->all(),
-            [
-                'name'  => 'required',
-                'url'   => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ],
-            [
-                'required' => 'Поле :attribute обязательно',
-            ]
-        );
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
-    public function getById(int $id)
-    {
-        return ApplicationBuilder::getInstance()->getById($id);
-    }
-
-    /**
-     * @param Application $application
      * @param Request     $request
+     * @param Application $application
      * @return void
      */
-    public function modify(Application $application, Request $request)
+    public function update(Request $request, Application $application)
     {
         /** @var Validator $validator */
         $validator = $this->validator($request);
@@ -142,14 +110,14 @@ class ApplicationService
                 $extension
             );
 
-            ApplicationBuilder::getInstance()->update($application, new ApplicationDto(
+            $this->builder->update($application, new ApplicationDto(
                 $data['name'],
                 $data['url'],
                 $image->getId(),
                 isset($data['isVisible']) ? 1 : 0
             ));
         } else {
-            ApplicationBuilder::getInstance()->update($application, new ApplicationDto(
+            $this->builder->update($application, new ApplicationDto(
                 $data['name'],
                 $data['url'],
                 $application->getImageId(),
@@ -158,13 +126,24 @@ class ApplicationService
         }
     }
 
-    // Instance
+    // Validation
 
     /**
-     * @return ApplicationService
+     * @param Request $request
+     * @return ValidatorContract
      */
-    public static function instance(): ApplicationService
+    public function validator(Request $request): ValidatorContract
     {
-        return new static(ApplicationBuilder::getInstance());
+        return ValidatorFacade::make(
+            $request->all(),
+            [
+                'name'  => 'required',
+                'url'   => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ],
+            [
+                'required' => 'Поле :attribute обязательно',
+            ]
+        );
     }
 }

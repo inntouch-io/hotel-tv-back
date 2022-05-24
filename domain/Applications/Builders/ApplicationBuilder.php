@@ -19,28 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class ApplicationBuilder
 {
-    // Methods
-
-    /**
-     * @param Closure $closure
-     * @return Application|null
-     */
-    public function takeBy(Closure $closure): ?Application
-    {
-        return $closure(Application::query())->first();
-    }
-
     // Instance
-
-    /**
-     * @return ApplicationBuilder
-     */
-    public static function instance(): ApplicationBuilder
-    {
-        return new static();
-    }
-
-    // TODO: Not need
 
     /**
      * @return ApplicationBuilder
@@ -49,6 +28,8 @@ class ApplicationBuilder
     {
         return new static();
     }
+
+    // Methods
 
     /**
      * @param Closure $closure
@@ -60,12 +41,12 @@ class ApplicationBuilder
     }
 
     /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @param Closure $closure
+     * @return Application|null
      */
-    public function getById(int $id)
+    public function takeBy(Closure $closure): ?Application
     {
-        return Application::query()->whereKey($id)->with('image')->first();
+        return $closure(Application::query())->first();
     }
 
     /**

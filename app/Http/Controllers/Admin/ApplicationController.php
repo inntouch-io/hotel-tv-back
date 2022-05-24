@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Domain\Applications\Entities\Application;
 use Domain\Applications\Services\ApplicationService;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -42,24 +41,23 @@ class ApplicationController extends AdminController
         );
     }
 
-    public function edit(Request $request, int $id)
+    public function edit(int $id)
     {
         $error = $application = null;
 
         try {
-            $application = ApplicationService::instance()->takeById($id);
-
-            if ($request->isMethod('POST')) {
-                ApplicationService::instance()->update($request, $application);
-            }
+            $application = ApplicationService::getInstance()->takeById($id);
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }
 
-        return view('applications.edit', [
-            'error'       => $error,
-            'application' => $application
-        ]);
+        return view(
+            'applications.edit',
+            [
+                'error'       => $error,
+                'application' => $application
+            ]
+        );
     }
 
     public function update(Request $request, int $id)
@@ -67,9 +65,9 @@ class ApplicationController extends AdminController
         $error = $application = null;
 
         try {
-            /** @var Application $application */
-            $application = ApplicationService::getInstance()->getById($id);
-            ApplicationService::getInstance()->modify($application, $request);
+            $application = ApplicationService::getInstance()->takeById($id);
+
+            ApplicationService::getInstance()->update($request, $application);
 
             return redirect()->route('admin.applications.edit', ['application' => $application->getId()])
                 ->with('success', 'Успешно сохранено');

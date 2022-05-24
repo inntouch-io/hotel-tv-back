@@ -120,12 +120,12 @@
                     Модули
                 </a>
             </li>
-{{--            <li class="nav-item">--}}
-{{--                <a href="{{ route('admin.applications.index') }}" class="navbar-nav-link">--}}
-{{--                    <i class="fas fa-edit"></i>--}}
-{{--                    Программы--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a href="{{ route('admin.applications.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-edit"></i>
+                    Программы
+                </a>
+            </li>
         </ul>
     </div>
 </div>
