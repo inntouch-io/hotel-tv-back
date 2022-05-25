@@ -3,9 +3,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('layouts.main');
-})->name('home');
+Route::get('/', fn() => redirect()->route('admin.home'));
 
 Route::namespace('Admin')->group(function () {
 
@@ -22,6 +20,8 @@ Route::namespace('Admin')->group(function () {
     });
 
     Route::middleware('auth:web')->prefix('admin')->as('admin.')->group(function () {
+
+        Route::get('/', fn() => view('layouts.main'))->name('home');
 
         Route::namespace('Modules')->prefix('modules')->as('modules.')->group(function () {
 

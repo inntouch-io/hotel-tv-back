@@ -34,6 +34,7 @@ class ModuleController extends AdminController
         $error = $list = null;
 
         try {
+            $this->authorize('index', Module::class);
             $list = ModuleService::getInstance()->list();
         } catch (Exception $exception) {
             $error = $exception->getMessage();
@@ -57,6 +58,7 @@ class ModuleController extends AdminController
         $error = $module = null;
 
         try {
+            $this->authorize('edit', Module::class);
             /** @var Module $module */
             $module = ModuleService::getInstance()->getById($id);
         } catch (Exception $exception) {
@@ -82,8 +84,10 @@ class ModuleController extends AdminController
         $error = $module = null;
 
         try {
+            $this->authorize('update', Module::class);
             /** @var Module $module */
             $module = ModuleService::getInstance()->getById($id);
+
             ModuleService::getInstance()->modify($module, $request);
 
             return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])

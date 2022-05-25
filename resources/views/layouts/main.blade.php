@@ -115,17 +115,20 @@ $admin = auth()->user();
     <div class="overflow-auto overflow-lg-visible scrollbar-hidden flex-1">
         <ul class="navbar-nav flex-row text-nowrap">
             <li class="nav-item">
-                <a href="#" class="navbar-nav-link">
+                <a href="{{ route('admin.home') }}" class="navbar-nav-link">
                     <i class="icon-home4 mr-2"></i>
                     Главная
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.modules.module.index') }}" class="navbar-nav-link">
-                    <i class="fas fa-align-left"></i>
-                    Модули
-                </a>
-            </li>
+            @can('index', \Domain\Modules\Entities\Module::class)
+                <li class="nav-item">
+                    <a href="{{ route('admin.modules.module.index') }}" class="navbar-nav-link">
+                        <i class="fas fa-align-left"></i>
+                        Модули
+                    </a>
+                </li>
+            @endcan
+
             @can('index', \Domain\Applications\Entities\Application::class)
                 <li class="nav-item">
                     <a href="{{ route('admin.applications.index') }}" class="navbar-nav-link">

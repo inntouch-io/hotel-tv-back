@@ -6,30 +6,29 @@
  * Created: 24.05.2022 / 14:39
  */
 
-namespace Domain\Applications\Policies;
+namespace Domain\Modules\Policies;
 
 use Domain\Admins\Entities\Admin;
-use Domain\Applications\Entities\Application;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
- * Class ApplicationPolicy
- * @package Domain\Applications\Policies
+ * Class ModulePolicy
+ * @package Domain\Modules\Policies
  */
-class ApplicationPolicy
+class ModulePolicy
 {
     use HandlesAuthorization;
 
-    const CATALOG = 'applications';
+    const CATALOG = 'modules';
 
     public function index(Admin $admin): bool
     {
-        return true;
+        return $admin->getRole() === "su";
     }
 
     public function edit(Admin $admin): bool
     {
-        return true;
+        return $admin->getRole() === "su";
     }
 
     public function update(Admin $admin): bool
