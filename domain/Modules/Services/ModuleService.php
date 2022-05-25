@@ -94,7 +94,6 @@ class ModuleService
             );
 
             $imageId = $image->getId();
-
         }
 
         ModuleBuilder::getInstance()->update($module, new ModuleDto(

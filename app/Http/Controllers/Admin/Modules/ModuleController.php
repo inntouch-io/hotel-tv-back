@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\AdminController;
 use Domain\Modules\Entities\Module;
 use Domain\Modules\Services\ModuleService;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,22 +29,22 @@ class ModuleController extends AdminController
         parent::__construct();
     }
 
-
+    /**
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function index()
     {
         $this->authorize('index', Module::class);
         $list = ModuleService::getInstance()->list();
 
-        return view(
-            'modules.module.index',[
-                'list'  => $list
-            ]
-        );
+        return view('modules.module.index', ['list' => $list]);
     }
 
     /**
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @return Application|Factory|View
+     * @throws AuthorizationException
      */
     public function edit(int $id)
     {
@@ -49,18 +52,14 @@ class ModuleController extends AdminController
         /** @var Module $module */
         $module = ModuleService::getInstance()->getById($id);
 
-        return view(
-            'modules.module.edit',
-            [
-                'module' => $module
-            ]
-        );
+        return view('modules.module.edit', ['module' => $module]);
     }
 
     /**
      * @param Request $request
      * @param int     $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|RedirectResponse
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $request, int $id)
     {
@@ -76,8 +75,7 @@ class ModuleController extends AdminController
                 ->with('success', 'Успешно сохранено');
 
         } catch (Exception $exception) {
-            return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
-                ->with('error', $exception->getMessage());
+            return redirect()->back()->withErrors($exception->getMessage());
         }
     }
 }

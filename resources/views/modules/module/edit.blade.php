@@ -42,7 +42,7 @@ use Domain\Modules\Entities\ModuleInfo;
                         @if(is_null($module))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
-                                {{ $error ?? 'Системная ошибка' }}
+                                Системная ошибка
                             </div>
                         @else
                             @if(session('success'))
@@ -50,14 +50,6 @@ use Domain\Modules\Entities\ModuleInfo;
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
                                     {{ session('success') }}
-                                </div>
-                            @endif
-
-                            @if(!is_null($error) || session('error'))
-                                <div class="alert alert-danger border-0 alert-dismissible col-6">
-                                    <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-                                    <span class="font-weight-semibold mr-1">Oh snap!!!</span>
-                                    {{ $error ?? session('error') }}
                                 </div>
                             @endif
 
