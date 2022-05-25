@@ -102,14 +102,14 @@ use Domain\Applications\Entities\Application;
                                             </div>
                                         </div>
 
-{{--                                        @can('update', $application)--}}
+                                        @can('update', $application)
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-sm btn-outline-success">
                                                     <i class="far fa-save"></i>
                                                     Сохранить
                                                 </button>
                                             </div>
-{{--                                        @endcan--}}
+                                        @endcan
                                     </div>
                                 </div>
                             </form>

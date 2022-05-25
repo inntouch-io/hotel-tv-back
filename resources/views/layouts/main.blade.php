@@ -5,6 +5,12 @@
  * @author  Mirfayz Nosirov
  * Created: 19.04.2022 / 17:11
  */
+
+/** @var Admin $admin */
+
+use Domain\Admins\Entities\Admin;
+
+$admin = auth()->user();
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,7 +96,7 @@
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler d-inline-flex align-items-center h-100 dropdown-toggle" data-toggle="dropdown">
                 <img src="" class="rounded-pill" height="34" alt="">
-                <span class="d-none d-lg-inline-block ml-2">Mirfayz</span>
+                <span class="d-none d-lg-inline-block ml-2">{{ is_null($admin) ? "Unknown" : $admin->getFullName() }}</span>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
@@ -120,12 +126,14 @@
                     Модули
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.applications.index') }}" class="navbar-nav-link">
-                    <i class="fas fa-edit"></i>
-                    Программы
-                </a>
-            </li>
+            @can('index', \Domain\Applications\Entities\Application::class)
+                <li class="nav-item">
+                    <a href="{{ route('admin.applications.index') }}" class="navbar-nav-link">
+                        <i class="fas fa-edit"></i>
+                        Программы
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </div>
@@ -160,7 +168,7 @@
                 <a href="#" class="navbar-nav-link font-weight-semibold" target="_blank">
                     <span class="text-grey-600">
                         <i class="icon-github mr-2"></i>
-                        Mirfayz
+                        Mirfayz Nasirov
                     </span>
                 </a>
             </li>

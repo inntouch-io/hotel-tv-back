@@ -13,7 +13,6 @@ use Domain\Applications\Services\ApplicationService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ApplicationController

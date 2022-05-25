@@ -6,7 +6,7 @@
  * Created: 29.04.2022 / 15:30
  */
 
-/** @var \Domain\Applications\Entities\Application $application */
+/** @var Application $application */
 
 use Domain\Applications\Entities\Application;
 
@@ -16,17 +16,19 @@ use Domain\Applications\Entities\Application;
 @section('title', 'Программы')
 
 @section('content')
-    <div class="page-header">
-        <div class="page-header-content header-elements-lg-inline">
-            <div class="page-title d-flex">
-                <h4>
+    @can('index', Application::class)
+        <div class="page-header">
+            <div class="page-header-content header-elements-lg-inline">
+                <div class="page-title d-flex">
+                    <h4>
                     <span class="font-weight-bold">
                         Программы
                     </span>
-                </h4>
+                    </h4>
+                </div>
             </div>
         </div>
-    </div>
+    @endcan
 
     <div class="page-content pt-0">
         <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">

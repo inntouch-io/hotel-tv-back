@@ -9,6 +9,7 @@
 namespace Domain\Applications\Policies;
 
 use Domain\Admins\Entities\Admin;
+use Domain\Applications\Entities\Application;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -26,12 +27,12 @@ class ApplicationPolicy
         return $admin->getRole() === "su";
     }
 
-    public function edit(Admin $admin): bool
+    public function edit(Admin $admin, Application $application): bool
     {
         return $admin->getRole() === "su";
     }
 
-    public function update(Admin $admin): bool
+    public function update(Admin $admin, Application $application): bool
     {
         return $admin->getRole() === "su";
     }
