@@ -26,13 +26,6 @@ Route::namespace('Admin')->group(function () {
         Route::namespace('Modules')->prefix('modules')->as('modules.')->group(function () {
 
             Route::prefix('module')->as('module.')->group(function (Router $router) {
-//                $router->controller(ModuleController::class)->group(function (Router $router) {
-//                    $router->match(['get', 'post'], 'edit/{id}', 'edit')
-//                        ->where('id', '[0-9]+')
-//                        ->name('module.edit');
-//                });
-
-
                 $router->get('/index', 'ModuleController@index')->name('index');
                 $router->get('/edit/{id}', 'ModuleController@edit')->name('edit');
                 $router->put('/update/{id}', 'ModuleController@update')->name('update');
