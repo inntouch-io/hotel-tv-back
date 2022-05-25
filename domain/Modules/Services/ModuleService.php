@@ -43,6 +43,11 @@ class ModuleService
         return ModuleBuilder::getInstance()->getAll();
     }
 
+    public function getVisibleItems($locale = 'ru')
+    {
+        return ModuleBuilder::getInstance()->getVisibleItems($locale);
+    }
+
     /**
      * @param int $id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
