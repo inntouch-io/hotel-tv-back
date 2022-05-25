@@ -24,6 +24,8 @@ use Illuminate\Support\Carbon;
  *
  * @property Collection  $infos
  * @property Image       $image
+ *
+ * @property string $name
  */
 class Module extends Entities
 {
@@ -113,5 +115,15 @@ class Module extends Entities
     public function getImageId(): string
     {
         return $this->image_id;
+    }
+
+    /**
+     * @return string
+     *
+     * variable from moduleInfo
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

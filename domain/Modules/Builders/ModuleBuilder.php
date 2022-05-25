@@ -38,6 +38,21 @@ class ModuleBuilder
             ->get();
     }
 
+    public function getVisibleItems($locale = 'ru')
+    {
+        return Module::query()
+            ->with(['image'])
+            ->join('module_infos', 'modules.id', '=', 'module_infos.module_id')
+                ->where('module_infos.locale', '=', $locale)
+            ->where('is_visible', '=', 1)
+            ->orderBy('order_position')
+            ->select([
+                'modules.*',
+                'module_infos.name'
+            ])
+            ->get();
+    }
+
     /**
      * @param int $id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null

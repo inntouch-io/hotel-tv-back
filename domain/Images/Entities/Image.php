@@ -28,6 +28,14 @@ class Image extends Entities
     /**
      * @return string
      */
+    public function getUrl(): string
+    {
+        return url($this->getFullPath());
+    }
+
+    /**
+     * @return string
+     */
     public function getFullPath(): string
     {
         return $this->getPath() . $this->getName() . '.' . $this->getExtension();

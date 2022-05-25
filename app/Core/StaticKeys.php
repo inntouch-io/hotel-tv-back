@@ -19,4 +19,7 @@ class StaticKeys
     public static $LANGUAGE = 'language';
     public static $DATA = 'data';
     public static $META = 'meta';
+
+    public static $FILES = 'files';
+    public static $IMAGE_URL = 'imageUrl';
 }

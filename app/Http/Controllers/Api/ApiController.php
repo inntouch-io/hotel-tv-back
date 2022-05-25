@@ -20,9 +20,14 @@ class ApiController extends Controller
 {
     public function __construct()
     {
-
+        //** SETTING LANGUAGE *//
+        $this->language = request()->header('z-language', 'ru');
+        if(!in_array($this->language, $this->languages))
+            $this->language = 'ru';
     }
-    
+
+    private $languages = [ 'en', 'ru', 'uz', ];
+
     private $code = 200;
     private $message = 'OK!';
     private $language = 'ru';
