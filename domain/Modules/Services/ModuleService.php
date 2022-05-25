@@ -52,22 +52,15 @@ class ModuleService
         return ModuleBuilder::getInstance()->getById($id);
     }
 
-    /**
-     * @param Request $request
-     * @return ValidatorContract
-     */
-    protected function validator(Request $request): ValidatorContract
+    protected function validator(Request $request)
     {
-        return ValidatorFacade::make(
-            $request->all(),
-            [
-                'module_name' => 'required',
-                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ],
-            [
-                'required' => 'Поле :attribute обязательно',
-            ]
-        );
+        $request->validate([
+            'module_name' => 'required',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ],
+        [
+            'required' => 'Поле :attribute обязательно',
+        ]);
     }
 
     /**
@@ -77,19 +70,16 @@ class ModuleService
      */
     public function modify(Module $module, Request $request)
     {
-        /** @var Validator $validator */
-        $validator = $this->validator($request);
+        $this->validator($request);
 
-        if ($validator->fails()) {
-            throw new RuntimeException($validator->errors()->first());
-        }
-
-        $data = $validator->getData();
+        $data = $request->all();
         $slug = string_to_slug($data['module_name']);
 
         if ($this->exists($slug) && $module->getModuleSlug() !== $slug) {
             throw new RuntimeException('Модуль уже существует');
         }
+
+        $imageId = $module->getImageId();
 
         if (isset($data['image'])) {
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -103,20 +93,16 @@ class ModuleService
                 $extension
             );
 
-            ModuleBuilder::getInstance()->update($module, new ModuleDto(
-                $slug,
-                $data['module_name'],
-                $image->getId(),
-                isset($data['isVisible']) ? 1 : 0
-            ));
-        } else {
-            ModuleBuilder::getInstance()->update($module, new ModuleDto(
-                $slug,
-                $data['module_name'],
-                $module->getImageId(),
-                isset($data['isVisible']) ? 1 : 0
-            ));
+            $imageId = $image->getId();
+
         }
+
+        ModuleBuilder::getInstance()->update($module, new ModuleDto(
+            $slug,
+            $data['module_name'],
+            $imageId,
+            isset($data['isVisible']) ? 1 : 0
+        ));
     }
 
     /**

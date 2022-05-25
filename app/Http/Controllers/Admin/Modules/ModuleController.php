@@ -26,24 +26,14 @@ class ModuleController extends AdminController
         parent::__construct();
     }
 
-    /**
-     * @return View
-     */
-    public function index(): View
-    {
-        $error = $list = null;
 
-        try {
-            $this->authorize('index', Module::class);
-            $list = ModuleService::getInstance()->list();
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
+    public function index()
+    {
+        $this->authorize('index', Module::class);
+        $list = ModuleService::getInstance()->list();
 
         return view(
-            'modules.module.index',
-            [
-                'error' => $error,
+            'modules.module.index',[
                 'list'  => $list
             ]
         );
@@ -55,20 +45,13 @@ class ModuleController extends AdminController
      */
     public function edit(int $id)
     {
-        $error = $module = null;
-
-        try {
-            $this->authorize('edit', Module::class);
-            /** @var Module $module */
-            $module = ModuleService::getInstance()->getById($id);
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
+        $this->authorize('edit', Module::class);
+        /** @var Module $module */
+        $module = ModuleService::getInstance()->getById($id);
 
         return view(
             'modules.module.edit',
             [
-                'error'  => $error,
                 'module' => $module
             ]
         );
@@ -81,27 +64,20 @@ class ModuleController extends AdminController
      */
     public function update(Request $request, int $id)
     {
-        $error = $module = null;
+        $this->authorize('update', Module::class);
+
+        /** @var Module $module */
+        $module = ModuleService::getInstance()->getById($id);
 
         try {
-            $this->authorize('update', Module::class);
-            /** @var Module $module */
-            $module = ModuleService::getInstance()->getById($id);
-
             ModuleService::getInstance()->modify($module, $request);
 
             return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
                 ->with('success', 'Успешно сохранено');
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
 
-        return view(
-            'modules.module.edit',
-            [
-                'error'  => $error,
-                'module' => $module
-            ]
-        );
+        } catch (Exception $exception) {
+            return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
+                ->with('error', $exception->getMessage());
+        }
     }
 }
