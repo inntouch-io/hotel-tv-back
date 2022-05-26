@@ -10,9 +10,13 @@
 namespace App\Http\Controllers\Admin\Modules;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Modules\Entities\Module;
 use Domain\Modules\Entities\ModuleInfo;
 use Domain\Modules\Services\ModuleInfoService;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -31,54 +35,36 @@ class ModuleInfoController extends AdminController
 
     /**
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return View
+     * @throws AuthorizationException
      */
     public function edit(int $id)
     {
-        $error = $moduleInfo = null;
+        $this->authorize('edit', Module::class);
+        $moduleInfo = ModuleInfoService::getInstance()->getById($id);
 
-        try {
-            $moduleInfo = ModuleInfoService::getInstance()->getById($id);
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
-
-        return view(
-            'modules.infos.edit',
-            [
-                'error'      => $error,
-                'moduleInfo' => $moduleInfo
-            ]
-        );
+        return view('modules.infos.edit', ['moduleInfo' => $moduleInfo]);
     }
 
     /**
      * @param Request $request
      * @param int     $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $request, int $id)
     {
-        $error = $moduleInfo = null;
+        $this->authorize('update', Module::class);
+        /** @var ModuleInfo $moduleInfo */
+        $moduleInfo = ModuleInfoService::getInstance()->getById($id);
 
         try {
-            /** @var ModuleInfo $moduleInfo */
-            $moduleInfo = ModuleInfoService::getInstance()->getById($id);
-
-            ModuleInfoService::getInstance()->modify($moduleInfo, $request);
+            ModuleInfoService::getInstance()->update($moduleInfo, $request);
 
             return redirect()->route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
-            $error = $exception->getMessage();
+            return redirect()->back()->withErrors($exception->getMessage());
         }
-
-        return view(
-            'modules.infos.edit',
-            [
-                'error'      => $error,
-                'moduleInfo' => $moduleInfo
-            ]
-        );
     }
 }

@@ -49,7 +49,6 @@ class ModuleController extends AdminController
     public function edit(int $id)
     {
         $this->authorize('edit', Module::class);
-        /** @var Module $module */
         $module = ModuleService::getInstance()->getById($id);
 
         return view('modules.module.edit', ['module' => $module]);
@@ -64,12 +63,10 @@ class ModuleController extends AdminController
     public function update(Request $request, int $id)
     {
         $this->authorize('update', Module::class);
-
-        /** @var Module $module */
         $module = ModuleService::getInstance()->getById($id);
 
         try {
-            ModuleService::getInstance()->modify($module, $request);
+            ModuleService::getInstance()->update($module, $request);
 
             return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
                 ->with('success', 'Успешно сохранено');

@@ -9,16 +9,15 @@
 
 namespace Domain\Modules\Services;
 
+use Domain\Applications\Entities\Application;
 use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
 use Domain\Modules\Builders\ModuleBuilder;
 use Domain\Modules\DTO\ModuleDto;
 use Domain\Modules\Entities\Module;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator as ValidatorFacade;
-use Illuminate\Validation\Validator;
 use RuntimeException;
 
 /**
@@ -27,12 +26,21 @@ use RuntimeException;
  */
 class ModuleService
 {
+    /** @var ModuleBuilder $builder */
+
+    protected ModuleBuilder $builder;
+
+    public function __construct(ModuleBuilder $builder)
+    {
+        $this->builder = $builder;
+    }
+
     /**
      * @return ModuleService
      */
     public static function getInstance(): ModuleService
     {
-        return new static();
+        return new static(ModuleBuilder::getInstance());
     }
 
     /**
@@ -40,32 +48,65 @@ class ModuleService
      */
     public function list(): Collection
     {
-        return ModuleBuilder::getInstance()->getAll();
+        return $this->builder->list(function (Builder $builder) {
+            return $builder->with('infos')->orderBy('order_position');
+        });
     }
 
-    public function getVisibleItems($locale = 'ru')
+    /**
+     * @param string $locale
+     * @return Collection
+     */
+    public function getVisibleItems(string $locale = 'ru'): Collection
     {
-        return ModuleBuilder::getInstance()->getVisibleItems($locale);
+        return $this->builder->getVisibleItems(function (Builder $builder) use ($locale) {
+            return $builder->with('image')
+                ->join('module_infos', 'modules.id', '=', 'module_infos.module_id')
+                ->where('module_infos.locale', '=', $locale)
+                ->where('is_visible', '=', 1)
+                ->orderBy('order_position')
+                ->select([
+                    'modules.*',
+                    'module_infos.name'
+                ]);
+        });
     }
 
     /**
      * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Module
+     * @throw RuntimeException
      */
-    public function getById(int $id)
+    public function getById(int $id): Module
     {
-        return ModuleBuilder::getInstance()->getById($id);
+        $module = $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder
+                ->whereKey($id)
+                ->with('image');
+        });
+
+        if (is_null($module)){
+            throw new RuntimeException('Module not found', 404);
+        }
+
+        return $module;
     }
 
+    /**
+     * @param Request $request
+     * @return void
+     */
     protected function validator(Request $request)
     {
-        $request->validate([
-            'module_name' => 'required',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ],
-        [
-            'required' => 'Поле :attribute обязательно',
-        ]);
+        $request->validate(
+            [
+                'module_name' => 'required',
+                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ],
+            [
+                'required' => 'Поле :attribute обязательно',
+            ]
+        );
     }
 
     /**
@@ -73,7 +114,7 @@ class ModuleService
      * @param Request $request
      * @return void
      */
-    public function modify(Module $module, Request $request)
+    public function update(Module $module, Request $request)
     {
         $this->validator($request);
 
@@ -101,7 +142,7 @@ class ModuleService
             $imageId = $image->getId();
         }
 
-        ModuleBuilder::getInstance()->update($module, new ModuleDto(
+        $this->builder->update($module, new ModuleDto(
             $slug,
             $data['module_name'],
             $imageId,
@@ -115,6 +156,8 @@ class ModuleService
      */
     public function exists(string $slug): bool
     {
-        return ModuleBuilder::getInstance()->checkBySlug($slug);
+        return $this->builder->checkBySlug(function (Builder $builder) use ($slug) {
+            return $builder->where('module_slug', '=', $slug);
+        });
     }
 }

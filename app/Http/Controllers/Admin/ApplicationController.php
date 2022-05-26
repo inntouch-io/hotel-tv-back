@@ -11,7 +11,9 @@ namespace App\Http\Controllers\Admin;
 use Domain\Applications\Entities\Application;
 use Domain\Applications\Services\ApplicationService;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -22,69 +24,47 @@ class ApplicationController extends AdminController
 {
     /**
      * @return View
+     * @throws AuthorizationException
      */
     public function index(): View
     {
-        $error = $applications = null;
+        $this->authorize('index', Application::class);
+        $applications = ApplicationService::getInstance()->list();
 
-        try {
-            $applications = ApplicationService::getInstance()->list();
-            $this->authorize('index', Application::class);
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
-
-        return view(
-            'applications.index',
-            [
-                'error' => $error,
-                'list'  => $applications
-            ]
-        );
+        return view('applications.index', ['list' => $applications]);
     }
 
+    /**
+     * @param int $id
+     * @return View
+     * @throws AuthorizationException
+     */
     public function edit(int $id)
     {
-        $error = $application = null;
+        $this->authorize('edit', Application::class);
+        $application = ApplicationService::getInstance()->takeById($id);
 
-        try {
-            $application = ApplicationService::getInstance()->takeById($id);
-            $this->authorize('edit', $application);
-        } catch (Exception $exception) {
-            $error = $exception->getMessage();
-        }
-
-        return view(
-            'applications.edit',
-            [
-                'error'       => $error,
-                'application' => $application
-            ]
-        );
+        return view('applications.edit', ['application' => $application]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
-        $error = $application = null;
+        $this->authorize('update', Application::class);
 
+        $application = ApplicationService::getInstance()->takeById($id);
         try {
-            $application = ApplicationService::getInstance()->takeById($id);
-            $this->authorize('update', $application);
-
             ApplicationService::getInstance()->update($request, $application);
 
             return redirect()->route('admin.applications.edit', ['application' => $application->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
-            $error = $exception->getMessage();
+            return redirect()->back()->withErrors($exception->getMessage());
         }
-
-        return view(
-            'applications.edit',
-            [
-                'error'       => $error,
-                'application' => $application
-            ]
-        );
     }
 }

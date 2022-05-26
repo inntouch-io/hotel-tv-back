@@ -9,6 +9,7 @@
 
 namespace Domain\Modules\Builders;
 
+use Closure;
 use Domain\Modules\Entities\ModuleInfo;
 
 /**
@@ -25,13 +26,9 @@ class ModuleInfoBuilder
         return new static();
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
-    public function getById(int $id)
+    public function takeBy(Closure $closure)
     {
-        return ModuleInfo::query()->whereKey($id)->first();
+        return $closure(ModuleInfo::query())->first();
     }
 
     /**

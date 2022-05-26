@@ -12,6 +12,7 @@ namespace Domain\Modules\Services;
 use Domain\Modules\Builders\ModuleInfoBuilder;
 use Domain\Modules\Entities\ModuleInfo;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Validation\Validator;
@@ -23,31 +24,37 @@ use RuntimeException;
  */
 class ModuleInfoService
 {
+    /** @var ModuleInfoBuilder $builder */
+
+    protected ModuleInfoBuilder $builder;
+
+    public function __construct(ModuleInfoBuilder $builder)
+    {
+        $this->builder = $builder;
+    }
+
     /**
      * @return ModuleInfoService
      */
     public static function getInstance(): ModuleInfoService
     {
-        return new static();
+        return new static(ModuleInfoBuilder::getInstance());
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
     public function getById(int $id)
     {
-        return ModuleInfoBuilder::getInstance()->getById($id);
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id);
+        });
     }
 
     /**
      * @param Request $request
-     * @return ValidatorContract
+     * @return array
      */
-    public function validator(Request $request): ValidatorContract
+    public function validator(Request $request): array
     {
-        return ValidatorFacade::make(
-            $request->all(),
+        return $request->validate(
             [
                 'name' => 'required'
             ]
@@ -59,17 +66,11 @@ class ModuleInfoService
      * @param Request    $request
      * @return void
      */
-    public function modify(ModuleInfo $moduleInfo, Request $request)
+    public function update(ModuleInfo $moduleInfo, Request $request)
     {
-        /** @var Validator $validator */
-        $validator = $this->validator($request);
+        $this->validator($request);
+        $data = $request->all();
 
-        if ($validator->fails()){
-            throw new RuntimeException($validator->errors()->first());
-        }
-
-        $data = $validator->getData();
-
-        ModuleInfoBuilder::getInstance()->update($moduleInfo, $data['name']);
+        $this->builder->update($moduleInfo, $data['name']);
     }
 }

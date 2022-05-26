@@ -37,7 +37,7 @@ use Domain\Applications\Entities\Application;
                         @if(is_null($application))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
-                                {{ $error ?? 'Системная ошибка' }}
+                                Системная ошибка
                             </div>
                         @else
                             @if(session('success'))
@@ -45,14 +45,6 @@ use Domain\Applications\Entities\Application;
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
                                     {{ session('success') }}
-                                </div>
-                            @endif
-
-                            @if(!is_null($error) || session('error'))
-                                <div class="alert alert-danger border-0 alert-dismissible col-6">
-                                    <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-                                    <span class="font-weight-semibold mr-1">Oh snap!!!</span>
-                                    {{ $error ?? session('error') }}
                                 </div>
                             @endif
 
@@ -102,12 +94,14 @@ use Domain\Applications\Entities\Application;
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-sm btn-outline-success">
-                                                <i class="far fa-save"></i>
-                                                Сохранить
-                                            </button>
-                                        </div>
+                                        @can('update', $application)
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="far fa-save"></i>
+                                                    Сохранить
+                                                </button>
+                                            </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </form>

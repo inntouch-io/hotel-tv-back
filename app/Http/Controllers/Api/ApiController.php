@@ -22,20 +22,20 @@ class ApiController extends Controller
     {
         //** SETTING LANGUAGE *//
         $this->language = request()->header('z-language', 'ru');
-        if(!in_array($this->language, $this->languages))
+        if (!in_array($this->language, $this->languages))
             $this->language = 'ru';
     }
 
-    private $languages = [ 'en', 'ru', 'uz', ];
+    private array $languages = ['en', 'ru', 'uz'];
 
-    private $code = 200;
-    private $message = 'OK!';
-    private $language = 'ru';
+    private int $code = 200;
+    private string $message = 'OK!';
+    private string $language = 'ru';
 
-    private $data = null;
-    private $meta = null;
+    private ?array $data = null;
+    private ?array $meta = null;
 
-    private $headers = [
+    private array $headers = [
         'Access-Control-Allow-Headers' => '*',
         'Access-Control-Allow-Methods' => 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Origin'  => '*',
@@ -84,8 +84,8 @@ class ApiController extends Controller
     protected function composeData(): JsonResponse
     {
         $noCache = [
-            StaticKeys::$CODE => $this->getCode(),
-            StaticKeys::$MESSAGE => $this->getMessage(),
+            StaticKeys::$CODE     => $this->getCode(),
+            StaticKeys::$MESSAGE  => $this->getMessage(),
             StaticKeys::$LANGUAGE => $this->getLanguage(),
         ];
 

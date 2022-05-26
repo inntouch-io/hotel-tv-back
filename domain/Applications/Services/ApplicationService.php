@@ -54,7 +54,7 @@ class ApplicationService
      */
     public function list(): Collection
     {
-        return $this->builder->list(function (Builder $builder){
+        return $this->builder->list(function (Builder $builder) {
             return $builder
                 ->with('image')
                 ->orderBy('id');
@@ -87,14 +87,10 @@ class ApplicationService
      */
     public function update(Request $request, Application $application)
     {
-        /** @var Validator $validator */
-        $validator = $this->validator($request);
+        $this->validator($request);
+        $data = $request->all();
 
-        if ($validator->fails()) {
-            throw new RuntimeException($validator->errors()->first());
-        }
-
-        $data = $validator->getData();
+        $imageId = $application->getImageId();
 
         if (isset($data['image'])) {
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -109,33 +105,26 @@ class ApplicationService
                 $imageName,
                 $extension
             );
-
-            $this->builder->update($application, new ApplicationDto(
-                $data['name'],
-                $data['url'],
-                $image->getId(),
-                isset($data['isVisible']) ? 1 : 0
-            ));
-        } else {
-            $this->builder->update($application, new ApplicationDto(
-                $data['name'],
-                $data['url'],
-                $application->getImageId(),
-                isset($data['isVisible']) ? 1 : 0
-            ));
+            $imageId = $image->getId();
         }
+
+        $this->builder->update($application, new ApplicationDto(
+            $data['name'],
+            $data['url'],
+            $imageId,
+            isset($data['isVisible']) ? 1 : 0
+        ));
     }
 
     // Validation
 
     /**
      * @param Request $request
-     * @return ValidatorContract
+     * @return array
      */
-    public function validator(Request $request): ValidatorContract
+    public function validator(Request $request): array
     {
-        return ValidatorFacade::make(
-            $request->all(),
+        return $request->validate(
             [
                 'name'  => 'required',
                 'url'   => 'required',

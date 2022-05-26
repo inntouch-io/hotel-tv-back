@@ -9,6 +9,7 @@
 
 namespace Domain\Modules\Builders;
 
+use Closure;
 use Domain\Modules\DTO\ModuleDto;
 use Domain\Modules\Entities\Module;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,47 +29,39 @@ class ModuleBuilder
     }
 
     /**
+     * @param Closure $closure
      * @return Collection
      */
-    public function getAll(): Collection
+    public function list(Closure $closure): Collection
     {
-        return Module::query()
-            ->with('infos')
-            ->orderBy('order_position')
-            ->get();
-    }
-
-    public function getVisibleItems($locale = 'ru')
-    {
-        return Module::query()
-            ->with(['image'])
-            ->join('module_infos', 'modules.id', '=', 'module_infos.module_id')
-                ->where('module_infos.locale', '=', $locale)
-            ->where('is_visible', '=', 1)
-            ->orderBy('order_position')
-            ->select([
-                'modules.*',
-                'module_infos.name'
-            ])
-            ->get();
+        return $closure(Module::query())->get();
     }
 
     /**
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @param Closure $closure
+     * @return Module|null
      */
-    public function getById(int $id)
+    public function takeBy(Closure $closure): ?Module
     {
-        return Module::query()->whereKey($id)->with('image')->first();
+        return $closure(Module::query())->first();
     }
 
     /**
-     * @param string $slug
+     * @param Closure $closure
+     * @return Collection
+     */
+    public function getVisibleItems(Closure $closure): Collection
+    {
+        return $closure(Module::query())->get();
+    }
+
+    /**
+     * @param Closure $closure
      * @return bool
      */
-    public function checkBySlug(string $slug): bool
+    public function checkBySlug(Closure $closure): bool
     {
-        return Module::query()->where('module_slug', '=', $slug)->exists();
+        return $closure(Module::query())->exists();
     }
 
     /**
@@ -78,13 +71,6 @@ class ModuleBuilder
      */
     public function update(Module $module, ModuleDto $moduleDto)
     {
-        $module->update(
-            [
-                'module_slug' => $moduleDto->getModuleSlug(),
-                'module_name' => $moduleDto->getModuleName(),
-                'image_id'    => $moduleDto->getImageId(),
-                'is_visible'  => $moduleDto->getIsVisible()
-            ]
-        );
+        $module->update($moduleDto->toArray());
     }
 }
