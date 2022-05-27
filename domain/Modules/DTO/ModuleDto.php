@@ -22,28 +22,22 @@ class ModuleDto
     protected string $module_name;
 
     /** @var int */
-    protected int $imageId;
+    protected int $image_id;
 
     /** @var int */
-    protected int $isVisible;
+    protected int $is_visible;
 
-    /**
-     * @param string $module_slug
-     * @param string $module_name
-     * @param int    $imageId
-     * @param int    $isVisible
-     */
     public function __construct(
         string $module_slug,
         string $module_name,
-        int    $imageId,
-        int    $isVisible
+        int    $image_id,
+        int    $is_visible
     )
     {
         $this->module_slug = $module_slug;
         $this->module_name = $module_name;
-        $this->imageId = $imageId;
-        $this->isVisible = $isVisible;
+        $this->image_id = $image_id;
+        $this->is_visible = $is_visible;
     }
 
     // Getters
@@ -77,7 +71,7 @@ class ModuleDto
      */
     public function getImageId(): string
     {
-        return $this->imageId;
+        return $this->image_id;
     }
 
     /**
@@ -85,6 +79,6 @@ class ModuleDto
      */
     public function getIsVisible(): int
     {
-        return $this->isVisible;
+        return $this->is_visible;
     }
 }

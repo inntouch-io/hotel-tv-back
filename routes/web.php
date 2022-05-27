@@ -39,9 +39,9 @@ Route::namespace('Admin')->group(function () {
         });
 
         Route::prefix('applications')->as('applications.')->group(function (Router $router) {
-            $router->get('index', 'ApplicationController@index')->name('index');
-            $router->get('edit/{application}', 'ApplicationController@edit')->name('edit');
-            $router->put('update/{application}', 'ApplicationController@update')->name('update');
+            $router->get('index', 'ApplicationsController@index')->name('index');
+            $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
+            $router->put('update/{application}', 'ApplicationsController@update')->name('update');
         });
     });
 

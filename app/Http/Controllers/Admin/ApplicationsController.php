@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
  * Class ApplicationController
  * @package App\Http\Controllers\Admin
  */
-class ApplicationController extends AdminController
+class ApplicationsController extends AdminController
 {
     /**
      * @return View
