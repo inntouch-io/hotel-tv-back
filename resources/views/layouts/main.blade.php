@@ -100,8 +100,8 @@ $admin = auth()->user();
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item"><i class="far fa-id-badge"></i> My profile</a>
-                <a href="#" class="dropdown-item"><i class="fas fa-key"></i> Сменить пароль</a>
+                <a href="{{ route('admin.profile.edit') }}" class="dropdown-item"><i class="far fa-id-badge"></i> My profile</a>
+                <a href="{{ route('admin.profile.editPassword') }}" class="dropdown-item"><i class="fas fa-key"></i> Сменить пароль</a>
                 <a href="{{ route('admin.auth.logout') }}" class="dropdown-item">
                     <i class="icon-switch2"></i>
                     Выйти
@@ -115,7 +115,7 @@ $admin = auth()->user();
     <div class="overflow-auto overflow-lg-visible scrollbar-hidden flex-1">
         <ul class="navbar-nav flex-row text-nowrap">
             <li class="nav-item">
-                <a href="{{ route('admin.home') }}" class="navbar-nav-link">
+                <a href="{{ route('home') }}" class="navbar-nav-link">
                     <i class="icon-home4 mr-2"></i>
                     Главная
                 </a>

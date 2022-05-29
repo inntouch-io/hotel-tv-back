@@ -2,14 +2,9 @@
 
 namespace Domain\Admins\Entities;
 
-use App\Core\Entities;
-use Domain\Permissions\Entities\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -40,16 +35,6 @@ class Admin extends Authenticatable
         'last_login',
         'role'
     ];
-
-    // Relations
-
-    /**
-     * @return BelongsToMany
-     */
-    public function permissions(): BelongsToMany
-    {
-        return $this->belongsToMany(Permission::class, 'admin_permissions', 'admin_id', 'permission_id');
-    }
 
     // Getters
 

@@ -8,6 +8,8 @@
  */
 declare(strict_types=1);
 
+use Domain\Admins\Entities\Admin;
+
 if (!function_exists('string_to_slug')) {
     /**
      * @param string $str
@@ -104,5 +106,18 @@ if (!function_exists('string_to_slug')) {
         $result = trim($result, $options['delimiter']);
 
         return $options['lowercase'] ? mb_strtolower($result, 'UTF-8') : $result;
+    }
+}
+
+if (!function_exists('admin')) {
+    /**
+     * @return Admin
+     */
+    function admin(): Admin
+    {
+        /** @var Admin|null $user */
+        $user = auth()->user();
+
+        return is_null($user) ? new Admin : $user;
     }
 }
