@@ -10,7 +10,9 @@ namespace Domain\Admins\Services;
 
 use Domain\Admins\Builders\AdminBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Validation\Validator;
+use RuntimeException;
 
 /**
  * Class AdminService
@@ -40,7 +42,7 @@ class AdminService
      */
     public function update(Request $request)
     {
-        /** @var Validator $data */
+        /** @var ValidatorFacade $data */
         $data = $request->validate(
             [
                 'full_name' => 'required|string'
@@ -50,27 +52,45 @@ class AdminService
         $this->builder->update($data['full_name']);
     }
 
+    /**
+     * @param Request $request
+     * @return void
+     */
     public function updatePassword(Request $request)
     {
-        /** @var Validator $data */
-        $data = $this->validator($request);
+        /** @var Validator $validator */
+        $validator = $this->validator($request);
 
-        dd($data);
+        if ($validator->fails()){
+            throw new RuntimeException($validator->errors()->first());
+        }
+
+        $data = $validator->getData();
+
+        if ($data['new_password'] !== $data['password_confirm']){
+            throw new RuntimeException('Password Confirmation does not match!');
+        }
+
+        if (!$this->builder->checkCurrentPassword($data['current_password'])){
+            throw new RuntimeException('Current Password is incorrect!');
+        }
+
+        $this->builder->updatePassword($data['new_password']);
     }
 
     // Validator for passwords
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function validator(Request $request): array
+    public function validator(Request $request)
     {
-        return $request->validate(
+        return ValidatorFacade::make(
+            $request->all(),
             [
                 'current_password' => 'required|string|min:6',
                 'new_password'     => 'required|string|min:6',
                 'password_confirm' => 'required|string|min:6',
+            ],
+            [
+                'required' => 'something'
             ]
         );
     }

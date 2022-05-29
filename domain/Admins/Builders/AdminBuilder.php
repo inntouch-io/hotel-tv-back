@@ -8,6 +8,8 @@
 
 namespace Domain\Admins\Builders;
 
+use Illuminate\Support\Facades\Hash;
+
 /**
  * Class AdminBuilder
  * @package Domain\Admins\Builders
@@ -31,6 +33,28 @@ class AdminBuilder
         admin()->update(
             [
                 'full_name' => $fullName
+            ]
+        );
+    }
+
+    /**
+     * @param string $currentPassword
+     * @return bool
+     */
+    public function checkCurrentPassword(string $currentPassword): bool
+    {
+        return Hash::check($currentPassword, admin()->getPassword());
+    }
+
+    /**
+     * @param string $newPassword
+     * @return void
+     */
+    public function updatePassword(string $newPassword)
+    {
+        admin()->update(
+            [
+                'password' => Hash::make($newPassword)
             ]
         );
     }

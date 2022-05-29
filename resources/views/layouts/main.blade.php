@@ -142,9 +142,9 @@ $admin = auth()->user();
 </div>
 
 @if ($errors->any())
-    <div class="container text-center mt-3">
+    <div class="container text-center mt-3 w-50">
         <div class="alert alert-danger">
-            <ul>
+            <ul style="list-style: none">
                 @foreach ($errors->all() as $error)
                     <li>
                         {{ $error }}
