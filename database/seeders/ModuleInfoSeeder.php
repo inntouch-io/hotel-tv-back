@@ -44,5 +44,65 @@ class ModuleInfoSeeder extends Seeder
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 4,
+                'module_id'  => 2,
+                'locale'     => 'ru',
+                'name'       => 'Сервис',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 5,
+                'module_id'  => 2,
+                'locale'     => 'en',
+                'name'       => 'Service',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 6,
+                'module_id'  => 2,
+                'locale'     => 'uz',
+                'name'       => 'Servis',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 7,
+                'module_id'  => 3,
+                'locale'     => 'ru',
+                'name'       => 'TV',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 8,
+                'module_id'  => 3,
+                'locale'     => 'en',
+                'name'       => 'TV',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 9,
+                'module_id'  => 3,
+                'locale'     => 'uz',
+                'name'       => 'TV',
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }

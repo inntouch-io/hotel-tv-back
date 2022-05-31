@@ -20,7 +20,7 @@ class ImageSeeder extends Seeder
                 'id'         => 1,
                 'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'name'       => 'service',
+                'name'       => 'ob_otele',
                 'created_at' => Carbon::now()
             ]
         );
@@ -28,6 +28,26 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 2,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'service',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 3,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'tv',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 4,
                 'path'       => 'images/apps/',
                 'extension'  => 'png',
                 'name'       => "itv",
@@ -37,7 +57,7 @@ class ImageSeeder extends Seeder
 
         DB::table('images')->insert(
             [
-                'id'         => 3,
+                'id'         => 5,
                 'path'       => 'images/apps/',
                 'extension'  => 'png',
                 'name'       => "youtube",

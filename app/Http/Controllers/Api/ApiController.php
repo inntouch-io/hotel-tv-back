@@ -32,8 +32,8 @@ class ApiController extends Controller
     private string $message = 'OK!';
     private string $language = 'ru';
 
-    private ?array $data = null;
-    private ?array $meta = null;
+    private $data = null;
+    private $meta = null;
 
     private array $headers = [
         'Access-Control-Allow-Headers' => '*',

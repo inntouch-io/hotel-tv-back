@@ -19,7 +19,7 @@ class ApplicationSeeder extends Seeder
             [
                 'id'             => 1,
                 'name'           => 'YouTube',
-                'image_id'       => 3,
+                'image_id'       => 4,
                 'url'            => 'https://www.youtube.com',
                 'is_visible'     => 1,
                 'order_position' => 1,
@@ -31,7 +31,7 @@ class ApplicationSeeder extends Seeder
             [
                 'id'             => 2,
                 'name'           => 'iTV',
-                'image_id'       => 2,
+                'image_id'       => 5,
                 'url'            => 'https://itv.uz',
                 'is_visible'     => 1,
                 'order_position' => 2,
