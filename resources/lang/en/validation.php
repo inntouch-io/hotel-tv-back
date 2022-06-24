@@ -145,6 +145,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'current_password' => [
+            'required' => 'soooo'
+        ]
     ],
 
     /*
