@@ -29,4 +29,18 @@ class MessageBuilder
     {
         return $closure(Message::query())->get();
     }
+
+    public function takeBy(Closure $closure)
+    {
+        return $closure(Message::query())->first();
+    }
+
+    public function update(Message $message, int $imageId)
+    {
+        $message->update(
+            [
+                'image_id' => $imageId
+            ]
+        );
+    }
 }

@@ -12,7 +12,7 @@ $route_name = request()->route()->getName();
 ?>
 
 <li class="nav-item">
-    <a href="{{ route('admin.messages.index') }}" class="nav-link {{ $route_name === 'admin.messages.index' ? 'active' : '' }}">
+    <a href="{{ route('admin.messages.message.index') }}" class="nav-link {{ $route_name === 'admin.messages.message.index' ? 'active' : '' }}">
         <i class="icon-stack"></i>
         <span>Список</span>
     </a>

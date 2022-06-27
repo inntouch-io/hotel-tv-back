@@ -138,7 +138,7 @@ $admin = auth()->user();
                 </li>
             @endcan
             <li class="nav-item">
-                <a href="{{ route('admin.messages.index') }}" class="navbar-nav-link">
+                <a href="{{ route('admin.messages.message.index') }}" class="navbar-nav-link">
                     <i class="fas fa-save"></i>
                     Сообщения
                 </a>

@@ -9,7 +9,10 @@
 namespace App\Http\Controllers\Admin\Messages;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Messages\Entities\Message;
 use Domain\Messages\Services\MessageService;
+use Exception;
+use Illuminate\Http\Request;
 
 /**
  * Class MessageController
@@ -27,10 +30,34 @@ class MessageController extends AdminController
 
     public function index()
     {
+        $this->authorize('index', Message::class);
         $messages = MessageService::getInstance()->list();
 
-        return view('messages.index', ['messages' => $messages]);
+        return view('messages.message.index', ['messages' => $messages]);
     }
 
+    public function edit(int $id)
+    {
+        $this->authorize('edit', Message::class);
+        $message = MessageService::getInstance()->getById($id);
+
+        return view('messages.message.edit', ['message' => $message]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $this->authorize('update', Message::class);
+        $message = MessageService::getInstance()->getById($id);
+
+        try {
+            MessageService::getInstance()->update($message, $request);
+
+            return redirect()->route('admin.messages.message.edit', ['id' => $message->getId()])
+                ->with('success', 'Успешно сохранено');
+
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
 
 }

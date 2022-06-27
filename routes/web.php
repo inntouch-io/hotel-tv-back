@@ -23,12 +23,12 @@ Route::namespace('Admin')->group(function () {
                 $router->match(['get', 'post'], '/logout', 'AuthController@logout')->name('logout');
             });
 
-            Route::prefix('profile')->name('profile.')->group(function (Router $router){
-                    $router->get('edit', 'ProfileController@edit')->name('edit');
-                    $router->put('update', 'ProfileController@update')->name('update');
+            Route::prefix('profile')->name('profile.')->group(function (Router $router) {
+                $router->get('edit', 'ProfileController@edit')->name('edit');
+                $router->put('update', 'ProfileController@update')->name('update');
 
-                    $router->get('edit-password', 'ProfileController@editPassword')->name('editPassword');
-                    $router->put('update-password', 'ProfileController@updatePassword')->name('updatePassword');
+                $router->get('edit-password', 'ProfileController@editPassword')->name('editPassword');
+                $router->put('update-password', 'ProfileController@updatePassword')->name('updatePassword');
             });
 
             // Modules
@@ -55,8 +55,18 @@ Route::namespace('Admin')->group(function () {
             });
 
             // Messages
-            Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function (Router $router){
-                $router->get('index', 'MessageController@index')->name('index');
+            Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
+
+                Route::prefix('message')->as('message.')->group(function (Router $router) {
+                    $router->get('/index', 'MessageController@index')->name('index');
+                    $router->get('/edit/{id}', 'MessageController@edit')->name('edit');
+                    $router->put('/update/{id}', 'MessageController@update')->name('update');
+                });
+
+                Route::prefix('infos')->as('infos.')->group(function (Router $router) {
+                    $router->get('/edit/{id}', 'MessageInfoController@edit')->name('edit');
+                    $router->put('/update/{id}', 'MessageInfoController@update')->name('update');
+                });
             });
         });
     });

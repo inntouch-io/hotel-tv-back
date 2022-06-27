@@ -8,9 +8,14 @@
 
 namespace Domain\Messages\Services;
 
+use Domain\Images\Builders\ImageBuilder;
+use Domain\Images\Entities\Image;
 use Domain\Messages\Builders\MessageBuilder;
+use Domain\Messages\Entities\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use RuntimeException;
 
 /**
  * Class MessageService
@@ -52,4 +57,64 @@ class MessageService
                 ->orderBy('id');
         });
     }
+
+    public function getById(int $id)
+    {
+        $message = $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder
+                ->whereKey($id)
+                ->with(
+                    [
+                        'image',
+                        'infos'
+                    ]
+                );
+        });
+
+        if (is_null($message)) {
+            throw new RuntimeException('Message not found', 404);
+        }
+
+        return $message;
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    protected function validator(Request $request)
+    {
+        $request->validate(
+            [
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]
+        );
+    }
+
+    public function update(Message $message, Request $request)
+    {
+        $this->validator($request);
+
+        $data = $request->all();
+
+        $imageId = $message->getImageId();
+
+        if (isset($data['image'])) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $imageName = md5(time());
+            $request->file('image')->storeAs('public/messages', $imageName . '.' . $extension);
+
+            /** @var Image $image */
+            $image = ImageBuilder::getInstance()->save(
+                "storage/messages/",
+                $imageName,
+                $extension
+            );
+
+            $imageId = $image->getId();
+        }
+
+        $this->builder->update($message, $imageId);
+    }
+
 }

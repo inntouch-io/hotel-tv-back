@@ -32,7 +32,7 @@
             <div class="sidebar-content">
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('messages.sidebar')
+                        @include('messages.message.sidebar')
                     </ul>
                 </div>
             </div>
@@ -57,6 +57,7 @@
                                         <th>Название информации</th>
                                         <th>Фото</th>
                                         <th>Добавлен</th>
+                                        <th>Редактировать</th>
                                     </tr>
                                     </thead>
 
@@ -69,7 +70,7 @@
                                             <td>
                                                 @foreach($message->infos as $info)
                                                     <li>
-                                                        <a href="#" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.messages.infos.edit', ['id' => $info->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$info->getLang()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
@@ -82,6 +83,9 @@
                                                 </div>
                                             </td>
                                             <td>{{ $message->getCreatedAt() }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.messages.message.edit', ['id' => $message->getId()]) }}" class="btn btn-secondary">Редактировать</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
