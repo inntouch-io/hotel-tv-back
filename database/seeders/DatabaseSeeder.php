@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Domain\Messages\Entities\MessageInfo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,8 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 RoomSeeder::class,
                 UserRoomSeeder::class,
+                MessageSeeder::class,
+                MessageInfoSeeder::class
             ]
         );
     }

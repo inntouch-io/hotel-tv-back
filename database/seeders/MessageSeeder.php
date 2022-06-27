@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Domain\Messages\Entities\Message;
 use Illuminate\Database\Seeder;
 
 class MessageSeeder extends Seeder
@@ -13,6 +14,16 @@ class MessageSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Message::query()->create(
+            [
+                'image_id' => 4
+            ]
+        );
+
+        Message::query()->create(
+            [
+                'image_id' => 5
+            ]
+        );
     }
 }

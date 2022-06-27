@@ -15,7 +15,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->unsignedBigInteger('image_id')->index();
+            $table->foreign('image_id')->references('id')->on('images');
             $table->timestamps();
         });
     }

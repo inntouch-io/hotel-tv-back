@@ -53,6 +53,11 @@ Route::namespace('Admin')->group(function () {
                 $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
                 $router->put('update/{application}', 'ApplicationsController@update')->name('update');
             });
+
+            // Messages
+            Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function (Router $router){
+                $router->get('index', 'MessageController@index')->name('index');
+            });
         });
     });
 

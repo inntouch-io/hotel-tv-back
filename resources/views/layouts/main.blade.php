@@ -137,6 +137,12 @@ $admin = auth()->user();
                     </a>
                 </li>
             @endcan
+            <li class="nav-item">
+                <a href="{{ route('admin.messages.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-save"></i>
+                    Сообщения
+                </a>
+            </li>
         </ul>
     </div>
 </div>

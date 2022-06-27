@@ -2,15 +2,24 @@
 
 namespace Domain\Messages\Entities;
 
+use Carbon\Carbon;
+use Domain\Images\Entities\Image;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Message
  * @package Domain\Messages\Entities
  *
- * @property int    $id
- * @property string $image
+ * @property int        $id
+ * @property int        $image_id
+ * @property Carbon     $created_at
+ *
+ * @property Collection $infos
+ * @property Image      $image
  */
 class Message extends Model
 {
@@ -19,8 +28,29 @@ class Message extends Model
     protected $table = 'messages';
     protected $fillable = [
         'id',
-        'image'
+        'image_id'
     ];
+
+    // Relations
+
+    /**
+     * @return HasMany
+     */
+    public function infos(): HasMany
+    {
+        return $this->hasMany(MessageInfo::class, 'message_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function image(): HasOne
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
+
+    // Getters
 
     /**
      * @return int
@@ -31,10 +61,19 @@ class Message extends Model
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getImage(): string
+    public function getImageId(): int
     {
-        return $this->image;
+        return $this->image_id;
     }
+
+    /**
+     * @return Carbon
+     */
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
+    }
+
 }
