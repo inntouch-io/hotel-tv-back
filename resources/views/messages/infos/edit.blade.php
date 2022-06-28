@@ -79,6 +79,11 @@
                                                 <i class="far fa-save"></i>
                                                 Сохранить
                                             </button>
+
+                                            <a href="{{ route('admin.messages.infos.destroy', ['id' => $messageInfo->getId()]) }}" class="btn btn-sm btn-outline-danger ml-2" onclick="return confirm('Are you sure you want to delete this item')">
+                                                <i class="fas fa-trash"></i>
+                                                Удалить
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

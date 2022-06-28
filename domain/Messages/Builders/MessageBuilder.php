@@ -43,4 +43,13 @@ class MessageBuilder
             ]
         );
     }
+
+    public function store(int $imageId)
+    {
+        return Message::query()->create(
+            [
+                'image_id' => $imageId
+            ]
+        );
+    }
 }

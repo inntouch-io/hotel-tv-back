@@ -23,4 +23,9 @@ class MessagePolicy
     {
         return in_array($admin->getRole(), ["su", "moderator"]);
     }
+
+    public function delete(Admin $admin): bool
+    {
+        return in_array($admin->getRole(), ["su", "moderator"]);
+    }
 }

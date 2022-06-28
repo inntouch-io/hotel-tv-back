@@ -24,6 +24,15 @@ $route_name = request()->route()->getName();
                             <span>Изменить</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.messages.infos.create', ['id' => $message->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.messages.infos.create' ? 'active' : '' }}">
+                            <i class="fas fa-plus"></i>
+                            <span>Добавить перевод</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item-divider"></li>
                 @endif
 
                 @include('messages.message.sidebar')

@@ -9,6 +9,7 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
+use Domain\Messages\DTO\MessageInfoCreateDto;
 use Domain\Messages\DTO\MessageInfoDto;
 use Domain\Messages\Entities\MessageInfo;
 
@@ -34,6 +35,19 @@ class MessageInfoBuilder
                 'title'           => $messageInfoDto->getTitle(),
                 'description'     => $messageInfoDto->getDescription(),
                 'longDescription' => $messageInfoDto->getLongDescription()
+            ]
+        );
+    }
+
+    public function add(MessageInfoCreateDto $messageInfoCreateDto)
+    {
+        return MessageInfo::query()->create(
+            [
+                'title'           => $messageInfoCreateDto->getTitle(),
+                'description'     => $messageInfoCreateDto->getDescription(),
+                'longDescription' => $messageInfoCreateDto->getLongDescription(),
+                'lang'            => $messageInfoCreateDto->getLang(),
+                'message_id'      => $messageInfoCreateDto->getMessageId()
             ]
         );
     }

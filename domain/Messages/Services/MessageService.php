@@ -78,13 +78,9 @@ class MessageService
         return $message;
     }
 
-    /**
-     * @param Request $request
-     * @return void
-     */
-    protected function validator(Request $request)
+    protected function validator(Request $request): array
     {
-        $request->validate(
+        return $request->validate(
             [
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]
@@ -93,9 +89,7 @@ class MessageService
 
     public function update(Message $message, Request $request)
     {
-        $this->validator($request);
-
-        $data = $request->all();
+        $data = $this->validator($request);
 
         $imageId = $message->getImageId();
 
@@ -117,4 +111,34 @@ class MessageService
         $this->builder->update($message, $imageId);
     }
 
+    public function store(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ],
+            [
+                'required' => 'Поле :attribute обязательно'
+            ]
+        );
+
+        if (isset($data['image'])) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $imageName = md5(time());
+            $request->file('image')->storeAs('public/messages', $imageName . '.' . $extension);
+
+            /** @var Image $image */
+            $image = ImageBuilder::getInstance()->save(
+                "storage/messages/",
+                $imageName,
+                $extension
+            );
+
+            $imageId = $image->getId();
+        }else{
+            throw new RuntimeException('Image not found');
+        }
+
+        return $this->builder->store($imageId);
+    }
 }

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin\Messages;
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Messages\Entities\MessageInfo;
 use Domain\Messages\Services\MessageInfoService;
+use Domain\Messages\Services\MessageService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,30 @@ class MessageInfoController extends AdminController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function create($id)
+    {
+        $this->authorize('create', MessageInfo::class);
+        $message = MessageService::getInstance()->getById($id);
+
+        return view('messages.infos.create', ['message' => $message]);
+    }
+
+    public function store(Request $request, $id)
+    {
+        $this->authorize('store', MessageInfo::class);
+        $message = MessageService::getInstance()->getById($id);
+
+        try {
+            /** @var MessageInfo $messageInfo */
+            $messageInfo = MessageInfoService::getInstance()->add($message, $request);
+
+            return redirect()->route('admin.messages.infos.edit', ['id' => $messageInfo->getId()])
+                ->with('success', 'Успешно сохранено');
+        }catch (Exception $exception){
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 
     public function edit(int $id)
@@ -48,6 +73,23 @@ class MessageInfoController extends AdminController
             return redirect()->route('admin.messages.infos.edit', ['id' => $messageInfo->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        $this->authorize('delete', MessageInfo::class);
+
+        /** @var MessageInfo $messageInfo */
+        $messageInfo = MessageInfoService::getInstance()->getById($id);
+
+        try {
+            $messageInfo->delete();
+
+            return redirect()->route('admin.messages.message.index')
+                ->with('success', 'Успешно удалено');
+        }catch (Exception $exception){
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }

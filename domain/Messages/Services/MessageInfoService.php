@@ -9,7 +9,9 @@
 namespace Domain\Messages\Services;
 
 use Domain\Messages\Builders\MessageInfoBuilder;
+use Domain\Messages\DTO\MessageInfoCreateDto;
 use Domain\Messages\DTO\MessageInfoDto;
+use Domain\Messages\Entities\Message;
 use Domain\Messages\Entities\MessageInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -57,6 +59,26 @@ class MessageInfoService
             $data['title'],
             $data['description'],
             $data['longDescription']
+        ));
+    }
+
+    public function add(Message $message, Request $request)
+    {
+        $data = $request->validate(
+            [
+                'title'           => 'required|string',
+                'description'     => 'required|string',
+                'longDescription' => 'required|string',
+                'lang'            => 'required|string',
+            ]
+        );
+
+        return $this->builder->add(new MessageInfoCreateDto(
+            $data['title'],
+            $data['description'],
+            $data['longDescription'],
+            $data['lang'],
+            $message->getId()
         ));
     }
 }

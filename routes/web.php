@@ -59,13 +59,19 @@ Route::namespace('Admin')->group(function () {
 
                 Route::prefix('message')->as('message.')->group(function (Router $router) {
                     $router->get('/index', 'MessageController@index')->name('index');
+                    $router->get('/create', 'MessageController@create')->name('create');
+                    $router->post('/store', 'MessageController@store')->name('store');
                     $router->get('/edit/{id}', 'MessageController@edit')->name('edit');
                     $router->put('/update/{id}', 'MessageController@update')->name('update');
+                    $router->get('/destroy/{id}', 'MessageController@destroy')->name('destroy');
                 });
 
                 Route::prefix('infos')->as('infos.')->group(function (Router $router) {
+                    $router->get('/create/{id}', 'MessageInfoController@create')->name('create');
+                    $router->post('/store/{id}', 'MessageInfoController@store')->name('store');
                     $router->get('/edit/{id}', 'MessageInfoController@edit')->name('edit');
                     $router->put('/update/{id}', 'MessageInfoController@update')->name('update');
+                    $router->get('/destroy/{id}', 'MessageInfoController@destroy')->name('destroy');
                 });
             });
         });

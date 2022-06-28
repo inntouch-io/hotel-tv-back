@@ -42,6 +42,13 @@
             <div class="content">
                 <div class="card">
                     <div class="card-body">
+                        @if(session('success'))
+                            <div class="alert alert-success border-0 alert-dismissible col-6">
+                                <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                                <span class="font-weight-semibold mr-1">Well done!!!</span>
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         @if(count($messages) === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
@@ -84,7 +91,8 @@
                                             </td>
                                             <td>{{ $message->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.message.edit', ['id' => $message->getId()]) }}" class="btn btn-secondary">Редактировать</a>
+                                                <a href="{{ route('admin.messages.message.edit', ['id' => $message->getId()]) }}" class="badge badge-secondary">Редактировать</a>
+                                                <a href="{{ route('admin.messages.message.destroy', ['id' => $message->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
                                             </td>
                                         </tr>
                                     @endforeach
