@@ -3,16 +3,15 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 24.06.2022 / 16:57
+ * Created: 28.06.2022 / 16:49
  */
 
-/** @var \Domain\Messages\Entities\Message $message */
-/** @var \Domain\Messages\Entities\MessageInfo $info */
+/** @var \Domain\Messages\Entities\MessageCard $card */
 
 ?>
 
 @extends('layouts.main')
-@section('title', 'Сообщения')
+@section('title', 'Карточки')
 
 @section('content')
     <div class="page-header">
@@ -20,7 +19,7 @@
             <div class="page-title d-flex">
                 <h4>
                 <span class="font-weight-bold">
-                    Сообщения
+                    Карточки
                 </span>
                 </h4>
             </div>
@@ -49,7 +48,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        @if(count($messages) === 0)
+                        @if(count($cards) === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>
@@ -64,19 +63,18 @@
                                         <th>Название информации</th>
                                         <th>Фото</th>
                                         <th>Добавлен</th>
-                                        <th>Данные</th>
                                         <th>Редактировать</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    @foreach($messages as $message)
+                                    @foreach($cards as $card)
                                         <tr>
                                             <td>
-                                                <div class="font-weight-semibold">{{ $message->getId() }}</div>
+                                                <div class="font-weight-semibold">{{ $card->getId() }}</div>
                                             </td>
                                             <td>
-                                                @foreach($message->infos as $info)
+                                                @foreach($card->infos as $info)
                                                     <li>
                                                         <a href="{{ route('admin.messages.infos.edit', ['id' => $info->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$info->getLang()] }}] -
@@ -87,18 +85,13 @@
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">
-                                                    <img src="{{ asset($message->image->getFullPath()) }}" alt="image" style="max-width: 100px">
+                                                    <img src="{{ asset($card->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
-                                            <td>{{ $message->getCreatedAt() }}</td>
+                                            <td>{{ $card->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.message.cards.index', ['id' => $message->getId()]) }}" class="font-weight-semibold">
-                                                    Посмотреть
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.messages.message.edit', ['id' => $message->getId()]) }}" class="badge badge-secondary">Редактировать</a>
-                                                <a href="{{ route('admin.messages.message.destroy', ['id' => $message->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
+                                                <a href="{{ route('admin.messages.message.edit', ['id' => $card->getId()]) }}" class="badge badge-secondary">Редактировать</a>
+                                                <a href="{{ route('admin.messages.message.destroy', ['id' => $card->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
                                             </td>
                                         </tr>
                                     @endforeach
