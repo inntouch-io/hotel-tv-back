@@ -34,8 +34,8 @@ class ApplicationDto
     /**
      * @param string $name
      * @param string $url
-     * @param int    $imageId
-     * @param int    $isVisible
+     * @param int    $image_id
+     * @param int    $is_visible
      */
     public function __construct(
         string $name,

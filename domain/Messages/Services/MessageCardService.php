@@ -8,8 +8,13 @@
 
 namespace Domain\Messages\Services;
 
+use Domain\Images\Entities\Image;
+use Domain\Images\Services\ImageService;
 use Domain\Messages\Builders\MessageCardBuilder;
-use Illuminate\Database\Eloquent\Builder;
+use Domain\Messages\DTO\MessageCardDto;
+use Domain\Messages\Entities\Message;
+use Illuminate\Http\Request;
+use RuntimeException;
 
 /**
  * Class MessageCardService
@@ -17,6 +22,8 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class MessageCardService
 {
+    const CATALOG = 'messageCards';
+
     protected MessageCardBuilder $builder;
 
     /**
@@ -35,17 +42,39 @@ class MessageCardService
         return new static(MessageCardBuilder::getInstance());
     }
 
-    public function list(int $id)
+    protected function validator(Request $request)
     {
-        return $this->builder->list(function (Builder $builder) use ($id) {
-            return $builder->with(
-                [
-                    'infos',
-                    'image'
-                ]
-            )->where('message_id', '=', $id)
-                ->where('is_visible', '=', 1)
-                ->orderBy('order_position');
-        });
+        return $request->validate(
+            [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'required' => 'Поле :attribute обязательно',
+            ]
+        );
+    }
+
+    public function store(Message $message, Request $request)
+    {
+        $data = $this->validator($request);
+
+        dd($data);
+
+        if (isset($data['image'])) {
+            /** @var Image $image */
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
+        } else {
+            throw new RuntimeException('Image not found');
+        }
+
+        $order_position = $message->cards->count() + 1;
+
+        $this->builder->store(new MessageCardDto(
+            $image->getId(),
+            isset($data['is_visible']) ? 1 : 0,
+            $order_position,
+            $message->getId()
+        ));
+
     }
 }

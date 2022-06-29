@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
                 RoomSeeder::class,
                 UserRoomSeeder::class,
                 MessageSeeder::class,
-                MessageInfoSeeder::class
+                MessageInfoSeeder::class,
+                MessageCardSeeder::class,
+                MessageCardInfoSeeder::class
             ]
         );
     }

@@ -65,8 +65,10 @@ Route::namespace('Admin')->group(function () {
                     $router->put('/update/{id}', 'MessageController@update')->name('update');
                     $router->get('/destroy/{id}', 'MessageController@destroy')->name('destroy');
 
-                    Route::prefix('cards')->as('cards.')->group(function (Router $router) {
-                        $router->get('/index/{id}', 'MessageCardController@index')->name('index');
+                    Route::prefix('/{id}/cards')->as('cards.')->group(function (Router $router) {
+                        $router->get('/index', 'MessageCardController@index')->name('index');
+                        $router->get('/create', 'MessageCardController@create')->name('create');
+                        $router->post('/store', 'MessageCardController@store')->name('store');
                     });
                 });
 

@@ -6,7 +6,9 @@
  * Created: 28.06.2022 / 16:49
  */
 
+/** @var \Domain\Messages\Entities\Message $message */
 /** @var \Domain\Messages\Entities\MessageCard $card */
+/** @var \Domain\Messages\Entities\MessageCardInfo $info */
 
 ?>
 
@@ -27,16 +29,7 @@
     </div>
 
     <div class="page-content pt-0">
-        <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
-            <div class="sidebar-content">
-                <div class="sidebar-section">
-                    <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('messages.message.sidebar')
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+        @include('messages.message.cards.infobar')
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -48,7 +41,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        @if(count($cards) === 0)
+                        @if(count($message->cards) === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>
@@ -68,7 +61,7 @@
                                     </thead>
 
                                     <tbody>
-                                    @foreach($cards as $card)
+                                    @foreach($message->cards as $card)
                                         <tr>
                                             <td>
                                                 <div class="font-weight-semibold">{{ $card->getId() }}</div>

@@ -78,6 +78,28 @@ class MessageService
         return $message;
     }
 
+    public function getWithCards(int $id)
+    {
+        $message = $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder
+                ->whereKey($id)
+                ->with(
+                    [
+                        'image',
+                        'cards' => function ($query) {
+                            return $query->where('is_visible', '=', 1)->get();
+                        }
+                    ]
+                );
+        });
+
+        if (is_null($message)) {
+            throw new RuntimeException('Message not found', 404);
+        }
+
+        return $message;
+    }
+
     protected function validator(Request $request): array
     {
         return $request->validate(
@@ -135,7 +157,7 @@ class MessageService
             );
 
             $imageId = $image->getId();
-        }else{
+        } else {
             throw new RuntimeException('Image not found');
         }
 

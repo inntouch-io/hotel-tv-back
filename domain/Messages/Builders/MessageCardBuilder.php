@@ -9,6 +9,7 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
+use Domain\Messages\DTO\MessageCardDto;
 use Domain\Messages\Entities\MessageCard;
 
 /**
@@ -25,8 +26,15 @@ class MessageCardBuilder
         return new static();
     }
 
-    public function list(Closure $closure)
+    public function store(MessageCardDto $messageCardDto)
     {
-        return $closure(MessageCard::query())->get();
+        MessageCard::query()->create(
+            [
+                'image_id'       => $messageCardDto->getImageId(),
+                'is_visible'     => $messageCardDto->getIsVisible(),
+                'order_position' => $messageCardDto->getOrderPosition(),
+                'message_id'     => $messageCardDto->getMessageId()
+            ]
+        );
     }
 }

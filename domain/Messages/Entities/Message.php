@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property Collection $infos
  * @property Image      $image
+ * @property Collection $cards
  */
 class Message extends Model
 {
@@ -47,6 +48,20 @@ class Message extends Model
     public function image(): HasOne
     {
         return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(MessageCard::class, 'message_id', 'id')
+            ->with(
+                [
+                    'infos',
+                    'image'
+                ]
+            );
     }
 
 

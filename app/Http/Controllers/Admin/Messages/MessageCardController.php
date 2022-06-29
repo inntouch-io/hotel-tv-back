@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Admin\Messages;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Messages\Services\MessageCardService;
+use Domain\Messages\Services\MessageService;
+use Illuminate\Http\Request;
 
 /**
  * Class MessageCardController
@@ -27,13 +29,34 @@ class MessageCardController extends AdminController
 
     public function index(int $id)
     {
-        $cards = MessageCardService::getInstance()->list($id);
+        $message = MessageService::getInstance()->getWithCards($id);
 
         return view(
             'messages.message.cards.index',
             [
-                'cards' => $cards
+                'message' => $message
             ]
         );
+    }
+
+    public function create(int $id)
+    {
+        $message = MessageService::getInstance()->getById($id);
+
+        return view(
+            'messages.message.cards.create',
+            [
+                'message' => $message
+            ]
+        );
+    }
+
+    public function store(Request $request, int $id)
+    {
+        $message = MessageService::getInstance()->getWithCards($id);
+
+        MessageCardService::getInstance()->store($message, $request);
+
+        return redirect()->route('admin.messages.message.cards.index', ['id' => $id]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Domain\Messages\Entities;
 
+use Carbon\Carbon;
 use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int        $image_id
  * @property boolean    $is_visible
  * @property int        $order_position
+ * @property Carbon     $created_at
  *
  * @property Image      $image
  * @property Message    $message
@@ -84,7 +86,7 @@ class MessageCard extends Model
     /**
      * @return bool
      */
-    public function isIsVisible(): bool
+    public function isVisible(): bool
     {
         return $this->is_visible;
     }
@@ -103,5 +105,13 @@ class MessageCard extends Model
     public function getImageId(): int
     {
         return $this->image_id;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
     }
 }
