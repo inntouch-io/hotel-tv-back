@@ -55,6 +55,8 @@
                                         <th>#</th>
                                         <th>Название информации</th>
                                         <th>Фото</th>
+                                        <th>Статус</th>
+                                        <th>Позиция</th>
                                         <th>Добавлен</th>
                                         <th>Редактировать</th>
                                     </tr>
@@ -77,13 +79,23 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <div style="line-height: 60px">
+                                                <div style="line-height: 100px">
                                                     <img src="{{ asset($card->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
+                                            <td>
+                                                @if($card->getIsVisible())
+                                                    <div class="badge badge-success">Активный</div>
+                                                @else
+                                                    <div class="badge badge-danger">Неактивный</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-success">{{ $card->getOrderPosition() }}</span>
+                                            </td>
                                             <td>{{ $card->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.message.edit', ['id' => $card->getId()]) }}" class="badge badge-secondary">Редактировать</a>
+                                                <a href="{{ route('admin.messages.message.cards.edit', ['id' => $message->getId(), 'card' => $card->getId()]) }}" class="badge badge-secondary">Редактировать</a>
                                                 <a href="{{ route('admin.messages.message.destroy', ['id' => $card->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
                                             </td>
                                         </tr>

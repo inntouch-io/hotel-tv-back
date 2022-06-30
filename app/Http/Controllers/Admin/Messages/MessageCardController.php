@@ -59,4 +59,11 @@ class MessageCardController extends AdminController
 
         return redirect()->route('admin.messages.message.cards.index', ['id' => $id]);
     }
+
+    public function edit(Request $request, int $id)
+    {
+        $message = MessageService::getInstance()->getById($id);
+
+
+    }
 }

@@ -47,6 +47,7 @@ class MessageCardService
         return $request->validate(
             [
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'isVisible' => 'nullable|int'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -57,8 +58,6 @@ class MessageCardService
     public function store(Message $message, Request $request)
     {
         $data = $this->validator($request);
-
-        dd($data);
 
         if (isset($data['image'])) {
             /** @var Image $image */
@@ -71,7 +70,7 @@ class MessageCardService
 
         $this->builder->store(new MessageCardDto(
             $image->getId(),
-            isset($data['is_visible']) ? 1 : 0,
+            isset($data['isVisible']) ? 1 : 0,
             $order_position,
             $message->getId()
         ));

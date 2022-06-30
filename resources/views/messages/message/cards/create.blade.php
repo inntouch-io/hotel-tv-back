@@ -58,7 +58,7 @@
                                         <div class="border p-3 rounded">
                                             <div class="custom-control custom-switch custom-control-inline">
                                                 <span class="mr-2">Нет</span>
-                                                    <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" checked>
+                                                    <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
                                                 <label class="custom-control-label" for="isVisible">Да</label>
                                             </div>
                                         </div>

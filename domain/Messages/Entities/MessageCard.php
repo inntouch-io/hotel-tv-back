@@ -86,7 +86,7 @@ class MessageCard extends Model
     /**
      * @return bool
      */
-    public function isVisible(): bool
+    public function getIsVisible(): bool
     {
         return $this->is_visible;
     }

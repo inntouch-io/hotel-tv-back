@@ -87,7 +87,7 @@ class MessageService
                     [
                         'image',
                         'cards' => function ($query) {
-                            return $query->where('is_visible', '=', 1)->get();
+                            return $query->orderBy('order_position')->get();
                         }
                     ]
                 );
