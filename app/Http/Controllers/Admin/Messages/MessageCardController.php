@@ -27,9 +27,9 @@ class MessageCardController extends AdminController
         parent::__construct();
     }
 
-    public function index(int $id)
+    public function index(Request $request)
     {
-        $message = MessageService::getInstance()->getWithCards($id);
+        $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         return view(
             'messages.message.cards.index',
@@ -65,5 +65,20 @@ class MessageCardController extends AdminController
         $message = MessageService::getInstance()->getById($id);
 
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function show()
+    {
+        //
+    }
+
+    public function destroy()
+    {
+        //
     }
 }

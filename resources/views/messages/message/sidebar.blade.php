@@ -17,7 +17,7 @@ $route_name = request()->route()->getName();
         <span>Список</span>
     </a>
     <a href="{{ route('admin.messages.message.create') }}" class="nav-link {{ $route_name === 'admin.messages.message.create' ? 'active' : '' }}">
-        <i class="icon-stack"></i>
+        <i class="fas fa-plus"></i>
         <span>Добавить</span>
     </a>
 </li>

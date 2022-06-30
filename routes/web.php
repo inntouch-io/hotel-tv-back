@@ -57,32 +57,22 @@ Route::namespace('Admin')->group(function () {
             // Messages
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
 
-//                Route::resource('message', 'MessageController');
+                Route::resource('message', 'MessageController');
 
-                Route::prefix('message')->as('message.')->group(function (Router $router) {
-                    $router->get('/index', 'MessageController@index')->name('index');
-                    $router->get('/create', 'MessageController@create')->name('create');
-                    $router->post('/store', 'MessageController@store')->name('store');
-                    $router->get('/edit/{id}', 'MessageController@edit')->name('edit');
-                    $router->put('/update/{id}', 'MessageController@update')->name('update');
-                    $router->get('/destroy/{id}', 'MessageController@destroy')->name('destroy');
-
-                    Route::prefix('/{id}/cards')->as('cards.')->group(function (Router $router) {
-                        $router->get('/index', 'MessageCardController@index')->name('index');
-                        $router->get('/create', 'MessageCardController@create')->name('create');
-                        $router->post('/store', 'MessageCardController@store')->name('store');
-                        $router->get('/edit/{card}', 'MessageCardController@edit')->name('edit');
-                        $router->put('/update/{card}', 'MessageCardController@update')->name('update');
-                    });
+                Route::prefix('message')->as('message.')->group(function () {
+                    Route::resource('infos', 'MessageInfoController');
+                    Route::resource('cards', 'MessageCardController');
                 });
 
-                Route::prefix('infos')->as('infos.')->group(function (Router $router) {
-                    $router->get('/create/{id}', 'MessageInfoController@create')->name('create');
-                    $router->post('/store/{id}', 'MessageInfoController@store')->name('store');
-                    $router->get('/edit/{id}', 'MessageInfoController@edit')->name('edit');
-                    $router->put('/update/{id}', 'MessageInfoController@update')->name('update');
-                    $router->get('/destroy/{id}', 'MessageInfoController@destroy')->name('destroy');
-                });
+//                Route::prefix('message')->as('message.')->group(function (Router $router) {
+//                    Route::prefix('/{id}/cards')->as('cards.')->group(function (Router $router) {
+//                        $router->get('/index', 'MessageCardController@index')->name('index');
+//                        $router->get('/create', 'MessageCardController@create')->name('create');
+//                        $router->post('/store', 'MessageCardController@store')->name('store');
+//                        $router->get('/edit/{card}', 'MessageCardController@edit')->name('edit');
+//                        $router->put('/update/{card}', 'MessageCardController@update')->name('update');
+//                    });
+//                });
             });
         });
     });

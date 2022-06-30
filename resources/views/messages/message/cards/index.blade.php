@@ -71,7 +71,7 @@
                                             <td>
                                                 @foreach($card->infos as $info)
                                                     <li>
-                                                        <a href="{{ route('admin.messages.infos.edit', ['id' => $info->getId()]) }}" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.messages.message.infos.edit', ['id' => $info->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$info->getLang()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
@@ -96,7 +96,7 @@
                                             <td>{{ $card->getCreatedAt() }}</td>
                                             <td>
                                                 <a href="{{ route('admin.messages.message.cards.edit', ['id' => $message->getId(), 'card' => $card->getId()]) }}" class="badge badge-secondary">Редактировать</a>
-                                                <a href="{{ route('admin.messages.message.destroy', ['id' => $card->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
+                                                <a href="{{ route('admin.messages.message.cards.destroy', ['id' => $card->getId()]) }}" class="badge badge-danger" onclick="return confirm('Are you sure you want to delete this item')">Удалить</a>
                                             </td>
                                         </tr>
                                     @endforeach

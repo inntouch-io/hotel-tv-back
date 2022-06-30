@@ -41,12 +41,17 @@ class MessageController extends AdminController
         return view('messages.message.create');
     }
 
+    public function show()
+    {
+        //
+    }
+
     public function store(Request $request)
     {
         /** @var Message $message */
         $message = MessageService::getInstance()->store($request);
 
-        return redirect()->route('admin.messages.message.edit', ['id' => $message->getId()])
+        return redirect()->route('admin.messages.message.edit', ['message' => $message->getId()])
             ->with('success', 'Successfully added');
     }
 
@@ -66,15 +71,15 @@ class MessageController extends AdminController
         try {
             MessageService::getInstance()->update($message, $request);
 
-            return redirect()->route('admin.messages.message.edit', ['id' => $message->getId()])
+            return redirect()->route('admin.messages.message.edit', ['message' => $message->getId()])
                 ->with('success', 'Успешно сохранено');
 
         } catch (Exception $exception) {
-            return redirect()->back()->withErrors($exception->getMessage());
+            return redirect()->back()->withErrors('Some Errors!!!');
         }
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $this->authorize('delete', Message::class);
 
@@ -88,8 +93,7 @@ class MessageController extends AdminController
             return redirect()->route('admin.messages.message.index')
                 ->with('success', 'Успешно удалено');
         }catch (Exception $exception){
-            return redirect()->back()->withErrors($exception->getMessage());
+            return redirect()->back()->withErrors('Some Errors!!!');
         }
     }
-
 }

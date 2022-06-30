@@ -18,8 +18,8 @@ $route_name = request()->route()->getName();
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
                 @if(!is_null($messageInfo))
                     <li class="nav-item">
-                        <a href="{{ route('admin.messages.infos.edit', ['id' => $messageInfo->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.messages.infos.edit' ? 'active' : '' }}">
+                        <a href="{{ route('admin.messages.message.infos.edit', ['info' => $messageInfo->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.messages.message.infos.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить перевод</span>
                         </a>

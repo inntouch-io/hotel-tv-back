@@ -47,7 +47,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.messages.message.update', ['id' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.messages.message.update', ['message' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <div class="row">
