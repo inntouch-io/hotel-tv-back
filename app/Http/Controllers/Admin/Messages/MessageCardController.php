@@ -9,9 +9,12 @@
 namespace App\Http\Controllers\Admin\Messages;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Messages\Entities\Message;
+use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Services\MessageCardService;
 use Domain\Messages\Services\MessageService;
 use Illuminate\Http\Request;
+use RuntimeException;
 
 /**
  * Class MessageCardController
@@ -32,44 +35,58 @@ class MessageCardController extends AdminController
         $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         return view(
-            'messages.message.cards.index',
+            'messages.cards.index',
             [
                 'message' => $message
             ]
         );
     }
 
-    public function create(int $id)
+    public function create(Request $request)
     {
-        $message = MessageService::getInstance()->getById($id);
+        $message = MessageService::getInstance()->getById((int)$request->query('message_id'));
 
         return view(
-            'messages.message.cards.create',
+            'messages.cards.create',
             [
                 'message' => $message
             ]
         );
     }
 
-    public function store(Request $request, int $id)
+    public function store(Request $request)
     {
-        $message = MessageService::getInstance()->getWithCards($id);
+        /** @var Message $message */
+        $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         MessageCardService::getInstance()->store($message, $request);
 
-        return redirect()->route('admin.messages.message.cards.index', ['id' => $id]);
+        return redirect()->route('admin.messages.cards.index', ['message_id' => $message->getId()]);
     }
 
-    public function edit(Request $request, int $id)
+    public function edit(int $id)
     {
-        $message = MessageService::getInstance()->getById($id);
+        /** @var MessageCard $card */
+        $card = MessageCardService::getInstance()->getById($id);
 
-
+        return view(
+            'messages.cards.edit',
+            [
+                'card'    => $card,
+                'message' => $card->message
+            ]
+        );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        /** @var MessageCard $card */
+        $card = MessageCardService::getInstance()->getById($id);
+
+        MessageCardService::getInstance()->update($card, $request);
+
+        return redirect()->route('admin.messages.cards.edit', ['card' => $card->getId()])
+            ->with('success', 'Success');
     }
 
     public function show()
@@ -77,8 +94,19 @@ class MessageCardController extends AdminController
         //
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
-        //
+        /** @var MessageCard $card */
+        $card = MessageCardService::getInstance()->getWithInfos($id);
+
+        if (is_null($card)) {
+            throw new RuntimeException('Card not found');
+        }
+
+        $card->infos()->delete();
+        $card->delete();
+
+        return redirect()->route('admin.messages.cards.index', ['message_id' => $card->getMessageId()])
+            ->with('success', "Success");
     }
 }

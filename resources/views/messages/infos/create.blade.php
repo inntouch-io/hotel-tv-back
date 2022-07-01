@@ -40,7 +40,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.messages.message.infos.store', ['message_id' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.messages.infos.store', ['message_id' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">

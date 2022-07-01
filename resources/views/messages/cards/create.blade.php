@@ -26,7 +26,7 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('messages.message.cards.infobar')
+        @include('messages.cards.infobar')
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -39,7 +39,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.messages.message.cards.store', ['id' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.messages.cards.store', ['message_id' => $message->getId()]) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">

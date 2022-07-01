@@ -12,7 +12,10 @@ use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Messages\Builders\MessageCardBuilder;
 use Domain\Messages\DTO\MessageCardDto;
+use Domain\Messages\DTO\MessageCardUpdateDto;
 use Domain\Messages\Entities\Message;
+use Domain\Messages\Entities\MessageCard;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use RuntimeException;
 
@@ -46,7 +49,7 @@ class MessageCardService
     {
         return $request->validate(
             [
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'isVisible' => 'nullable|int'
             ],
             [
@@ -74,6 +77,45 @@ class MessageCardService
             $order_position,
             $message->getId()
         ));
+    }
 
+    public function getById(int $id)
+    {
+        return $this->builder->getById(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('image', 'message');
+        });
+    }
+
+    public function getWithInfos(int $id)
+    {
+        return $this->builder->getWithInfos(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('infos');
+        });
+    }
+
+    public function update(MessageCard $card, Request $request)
+    {
+        $data = $request->validate(
+            [
+                'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'isVisible' => 'nullable|int'
+            ],
+            [
+                'required' => 'Поле :attribute обязательно',
+            ]
+        );
+
+        $image_id = $card->image->getId();
+
+        if (isset($data['image'])) {
+            /** @var Image $image */
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
+            $image_id = $image->getId();
+        }
+
+        $this->builder->update($card, new MessageCardUpdateDto(
+            $image_id,
+            isset($data['isVisible']) ? 1 : 0,
+        ));
     }
 }

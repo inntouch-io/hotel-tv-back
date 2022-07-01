@@ -78,7 +78,7 @@
                                             <td>
                                                 @foreach($message->infos as $info)
                                                     <li>
-                                                        <a href="{{ route('admin.messages.message.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.messages.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$info->getLang()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
@@ -92,16 +92,23 @@
                                             </td>
                                             <td>{{ $message->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.message.cards.index', ['message_id' => $message->getId()]) }}" class="font-weight-semibold">
+                                                <a href="{{ route('admin.messages.cards.index', ['message_id' => $message->getId()]) }}" class="font-weight-semibold">
                                                     Посмотреть
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.messages.message.edit', ['message' => $message->getId()]) }}" class="badge badge-secondary">Редактировать</a>
+                                                <a href="{{ route('admin.messages.message.edit', ['message' => $message->getId()]) }}" class="badge badge-secondary">
+                                                    <i class="fas fa-edit"></i>
+                                                    Редактировать
+                                                </a>
+
                                                 <form action="{{ route('admin.messages.message.destroy', ['message' => $message->getId()]) }}" method="post" class="mt-1">
                                                     {{ csrf_field() }}
                                                     @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">Удалить</button>
+                                                    <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">
+                                                        <i class="fas fa-trash"></i>
+                                                        Удалить
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>

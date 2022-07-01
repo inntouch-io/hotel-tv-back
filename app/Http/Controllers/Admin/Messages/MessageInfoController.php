@@ -57,7 +57,7 @@ class MessageInfoController extends AdminController
             /** @var MessageInfo $messageInfo */
             $messageInfo = MessageInfoService::getInstance()->add($message, $request);
 
-            return redirect()->route('admin.messages.message.infos.edit', ['info' => $messageInfo->getId()])
+            return redirect()->route('admin.messages.infos.edit', ['info' => $messageInfo->getId()])
                 ->with('success', 'Успешно сохранено');
         }catch (Exception $exception){
             return redirect()->back()->withErrors($exception->getMessage());
@@ -81,7 +81,7 @@ class MessageInfoController extends AdminController
         try {
             MessageInfoService::getInstance()->update($messageInfo, $request);
 
-            return redirect()->route('admin.messages.message.infos.edit', ['info' => $messageInfo->getId()])
+            return redirect()->route('admin.messages.infos.edit', ['info' => $messageInfo->getId()])
                 ->with('success', 'Успешно сохранено');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());

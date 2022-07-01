@@ -10,6 +10,7 @@ namespace Domain\Messages\Builders;
 
 use Closure;
 use Domain\Messages\DTO\MessageCardDto;
+use Domain\Messages\DTO\MessageCardUpdateDto;
 use Domain\Messages\Entities\MessageCard;
 
 /**
@@ -34,6 +35,26 @@ class MessageCardBuilder
                 'is_visible'     => $messageCardDto->getIsVisible(),
                 'order_position' => $messageCardDto->getOrderPosition(),
                 'message_id'     => $messageCardDto->getMessageId()
+            ]
+        );
+    }
+
+    public function getById(Closure $closure)
+    {
+        return $closure(MessageCard::query())->first();
+    }
+
+    public function getWithInfos(Closure $closure)
+    {
+        return $closure(MessageCard::query())->first();
+    }
+
+    public function update(MessageCard $card, MessageCardUpdateDto $cardUpdateDto)
+    {
+        $card->update(
+            [
+                'image_id'   => $cardUpdateDto->getImageId(),
+                'is_visible' => $cardUpdateDto->getIsVisible()
             ]
         );
     }

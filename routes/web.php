@@ -56,23 +56,9 @@ Route::namespace('Admin')->group(function () {
 
             // Messages
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
-
                 Route::resource('message', 'MessageController');
-
-                Route::prefix('message')->as('message.')->group(function () {
-                    Route::resource('infos', 'MessageInfoController');
-                    Route::resource('cards', 'MessageCardController');
-                });
-
-//                Route::prefix('message')->as('message.')->group(function (Router $router) {
-//                    Route::prefix('/{id}/cards')->as('cards.')->group(function (Router $router) {
-//                        $router->get('/index', 'MessageCardController@index')->name('index');
-//                        $router->get('/create', 'MessageCardController@create')->name('create');
-//                        $router->post('/store', 'MessageCardController@store')->name('store');
-//                        $router->get('/edit/{card}', 'MessageCardController@edit')->name('edit');
-//                        $router->put('/update/{card}', 'MessageCardController@update')->name('update');
-//                    });
-//                });
+                Route::resource('infos', 'MessageInfoController');
+                Route::resource('cards', 'MessageCardController');
             });
         });
     });
