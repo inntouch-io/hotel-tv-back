@@ -5,6 +5,7 @@ namespace Domain\Rooms\Entities;
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Room
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string $room_number
  * @property string $device_id
+ * @property int $is_verified
+ * @property string $device_ip
  */
 class Room extends Entities
 {
@@ -20,8 +23,18 @@ class Room extends Entities
     protected $table = 'rooms';
     protected $fillable = [
         'room_number',
-        'device_id'
+        'device_id',
+        'is_verified',
+        'device_ip'
     ];
+
+    /**
+     * @return Room
+     */
+    public static function getInstance(): Room
+    {
+        return new static();
+    }
 
     // Relations
 
@@ -53,5 +66,21 @@ class Room extends Entities
     public function getDeviceId(): string
     {
         return $this->device_id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsVerified(): bool
+    {
+        return (bool) $this->is_verified;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceIp(): string
+    {
+        return $this->device_ip ?? '';
     }
 }

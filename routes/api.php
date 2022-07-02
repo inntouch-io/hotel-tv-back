@@ -15,11 +15,18 @@ use Illuminate\Routing\Router;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/rooms', function (Request $request) {
+//    return $request->user();
+//});
+
 
 Route::namespace('Api')->group(function (){
+
+    // Auth
+    Route::prefix('auth')->as('auth.')->group(function (Router $router){
+        $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
+        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
+    });
 
     Route::prefix('modules')->group(function (Router $router){
         $router->get('/get-list', 'ModulesController@getList');

@@ -22,4 +22,10 @@ class StaticKeys
 
     public static $FILES = 'files';
     public static $IMAGE_URL = 'imageUrl';
+
+    public static $ROOM_ID = 'roomId';
+    public static $ROOM_NUMBER = 'roomNumber';
+    public static $DEVICE_ID = 'deviceId';
+    public static $IS_VERIFIED = 'isVerified';
+    public static $IP = 'ip';
 }

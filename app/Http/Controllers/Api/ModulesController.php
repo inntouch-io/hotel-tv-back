@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
-use Domain\Modules\Resources\ModulesCollection;
+use App\Core\Api\Responses\ModulesCollection;
 use Domain\Modules\Services\ModuleService;
 
 /**

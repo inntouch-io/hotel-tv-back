@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Modules\Resources;
+namespace App\Core\Api\Responses;
 
 
 use App\Core\Api\Collections;
