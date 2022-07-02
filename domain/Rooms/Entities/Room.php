@@ -14,6 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $room_number
  * @property string $device_id
  * @property int $is_verified
+ * @property string $device_ip
  */
 class Room extends Entities
 {
@@ -24,7 +25,16 @@ class Room extends Entities
         'room_number',
         'device_id',
         'is_verified',
+        'device_ip'
     ];
+
+    /**
+     * @return Room
+     */
+    public static function getInstance(): Room
+    {
+        return new static();
+    }
 
     // Relations
 
@@ -59,10 +69,18 @@ class Room extends Entities
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getIsVerified(): int
+    public function getIsVerified(): bool
     {
-        return $this->is_verified;
+        return (bool) $this->is_verified;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceIp(): string
+    {
+        return $this->device_ip ?? '';
     }
 }
