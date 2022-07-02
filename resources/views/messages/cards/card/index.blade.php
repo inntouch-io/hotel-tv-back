@@ -29,7 +29,7 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('messages.cards.infobar')
+        @include('messages.cards.card.infobar')
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -71,7 +71,7 @@
                                             <td>
                                                 @foreach($card->infos as $info)
                                                     <li>
-                                                        <a href="#" class="font-weight-semibold">
+                                                        <a href="{{ route('admin.messages.cards.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
                                                             [{{ config('app.locales')[$info->getLang()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
@@ -95,12 +95,12 @@
                                             </td>
                                             <td>{{ $card->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.cards.edit', ['card' => $card->getId()]) }}" class="badge badge-secondary">
+                                                <a href="{{ route('admin.messages.cards.card.edit', ['card' => $card->getId()]) }}" class="badge badge-secondary">
                                                     <i class="fas fa-edit"></i>
                                                     Редактировать
                                                 </a>
 
-                                                <form action="{{ route('admin.messages.cards.destroy', ['card' => $card->getId()]) }}" method="post">
+                                                <form action="{{ route('admin.messages.cards.card.destroy', ['card' => $card->getId()]) }}" method="post">
                                                     {{ csrf_field() }}
                                                     @method('DELETE')
                                                     <button type="submit" class="badge badge-danger border-0 mt-1" onclick="return confirm('Are you sure you want to delete this item')">

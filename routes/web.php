@@ -58,7 +58,11 @@ Route::namespace('Admin')->group(function () {
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
                 Route::resource('message', 'MessageController');
                 Route::resource('infos', 'MessageInfoController');
-                Route::resource('cards', 'MessageCardController');
+
+                Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
+                    Route::resource('card', 'MessageCardController');
+                    Route::resource('infos', 'MessageCardInfoController');
+                });
             });
         });
     });

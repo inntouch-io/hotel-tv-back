@@ -6,7 +6,7 @@
  * Created: 28.06.2022 / 15:29
  */
 
-namespace App\Http\Controllers\Admin\Messages;
+namespace App\Http\Controllers\Admin\Messages\Cards;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Messages\Entities\Message;
@@ -15,6 +15,8 @@ use Domain\Messages\Services\MessageCardService;
 use Domain\Messages\Services\MessageService;
 use Illuminate\Http\Request;
 use RuntimeException;
+use function redirect;
+use function view;
 
 /**
  * Class MessageCardController
@@ -35,7 +37,7 @@ class MessageCardController extends AdminController
         $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         return view(
-            'messages.cards.index',
+            'messages.cards.card.index',
             [
                 'message' => $message
             ]
@@ -47,7 +49,7 @@ class MessageCardController extends AdminController
         $message = MessageService::getInstance()->getById((int)$request->query('message_id'));
 
         return view(
-            'messages.cards.create',
+            'messages.cards.card.create',
             [
                 'message' => $message
             ]
@@ -61,7 +63,7 @@ class MessageCardController extends AdminController
 
         MessageCardService::getInstance()->store($message, $request);
 
-        return redirect()->route('admin.messages.cards.index', ['message_id' => $message->getId()]);
+        return redirect()->route('admin.messages.cards.card.index', ['message_id' => $message->getId()]);
     }
 
     public function edit(int $id)
@@ -70,7 +72,7 @@ class MessageCardController extends AdminController
         $card = MessageCardService::getInstance()->getById($id);
 
         return view(
-            'messages.cards.edit',
+            'messages.cards.card.edit',
             [
                 'card'    => $card,
                 'message' => $card->message
@@ -85,7 +87,7 @@ class MessageCardController extends AdminController
 
         MessageCardService::getInstance()->update($card, $request);
 
-        return redirect()->route('admin.messages.cards.edit', ['card' => $card->getId()])
+        return redirect()->route('admin.messages.cards.card.edit', ['card' => $card->getId()])
             ->with('success', 'Success');
     }
 
@@ -106,7 +108,7 @@ class MessageCardController extends AdminController
         $card->infos()->delete();
         $card->delete();
 
-        return redirect()->route('admin.messages.cards.index', ['message_id' => $card->getMessageId()])
+        return redirect()->route('admin.messages.cards.card.index', ['message_id' => $card->getMessageId()])
             ->with('success', "Success");
     }
 }

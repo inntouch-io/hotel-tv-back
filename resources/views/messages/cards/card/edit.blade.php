@@ -25,7 +25,7 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('messages.cards.sidebar')
+        @include('messages.cards.card.sidebar')
 
         <div class="content-wrapper">
             <div class="content">
@@ -45,7 +45,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.messages.cards.update', ['card' => $card->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.messages.cards.card.update', ['card' => $card->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <div class="row">

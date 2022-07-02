@@ -4,6 +4,7 @@ namespace Domain\Messages\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class MessageCardInfo
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $subDescription
  * @property int    $card_id
  * @property string $lang
+ *
+ * @property MessageCard $card
  */
 class MessageCardInfo extends Model
 {
@@ -29,6 +32,17 @@ class MessageCardInfo extends Model
         'card_id',
         'lang'
     ];
+
+    // Relations
+
+    /**
+     * @return BelongsTo
+     */
+    public function card(): BelongsTo
+    {
+        return $this->belongsTo(MessageCard::class, 'card_id', 'id')
+            ->with('message');
+    }
 
     // Getters
 

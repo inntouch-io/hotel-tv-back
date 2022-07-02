@@ -18,15 +18,15 @@ $route_name = request()->route()->getName();
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
                 @if(!is_null($message))
                     <li class="nav-item">
-                        <a href="{{ route('admin.messages.cards.index', ['message_id' => $message->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.messages.cards.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.messages.cards.card.index', ['message_id' => $message->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.messages.cards.card.index' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Карточки</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.messages.cards.create', ['message_id' => $message->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.messages.cards.create' ? 'active' : '' }}">
+                        <a href="{{ route('admin.messages.cards.card.create', ['message_id' => $message->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.messages.cards.card.create' ? 'active' : '' }}">
                             <i class="fas fa-plus"></i>
                             <span>Добавить</span>
                         </a>

@@ -92,7 +92,7 @@
                                             </td>
                                             <td>{{ $message->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.messages.cards.index', ['message_id' => $message->getId()]) }}" class="font-weight-semibold">
+                                                <a href="{{ route('admin.messages.cards.card.index', ['message_id' => $message->getId()]) }}" class="font-weight-semibold">
                                                     Посмотреть
                                                 </a>
                                             </td>

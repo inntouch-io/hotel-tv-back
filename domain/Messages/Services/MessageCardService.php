@@ -69,7 +69,7 @@ class MessageCardService
             throw new RuntimeException('Image not found');
         }
 
-        $order_position = $message->cards->count() + 1;
+        $order_position = $message->cards()->latest()->first()['order_position'] + 1;
 
         $this->builder->store(new MessageCardDto(
             $image->getId(),
@@ -82,14 +82,14 @@ class MessageCardService
     public function getById(int $id)
     {
         return $this->builder->getById(function (Builder $builder) use ($id) {
-            return $builder->whereKey($id)->with('image', 'message');
+            return $builder->whereKey($id)->with(['image', 'message']);
         });
     }
 
     public function getWithInfos(int $id)
     {
         return $this->builder->getWithInfos(function (Builder $builder) use ($id) {
-            return $builder->whereKey($id)->with('infos');
+            return $builder->whereKey($id)->with(['infos', 'message']);
         });
     }
 
