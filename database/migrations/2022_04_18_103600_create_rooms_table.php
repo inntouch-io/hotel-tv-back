@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->id();
             $table->string('room_number');
             $table->string('device_id');
+            $table->tinyInteger('is_verified')->default(0);
             $table->timestamps();
         });
     }

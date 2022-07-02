@@ -41,8 +41,10 @@ return [
             'provider' => 'admins',
         ],
         'api' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver' => 'token',
+            'input_key' => 'device_id',   // The input name to pass through
+            'storage_key' => 'device_id', // The column name to store in database
+            'provider' => 'rooms',
         ],
     ],
 
@@ -69,9 +71,9 @@ return [
             'model' => \Domain\Admins\Entities\Admin::class,
         ],
 
-        'users' => [
+        'rooms' => [
             'driver' => 'eloquent',
-            'model' => \Domain\Users\Entities\User::class,
+            'model' => \Domain\Rooms\Entities\Room::class,
         ]
 
         // 'users' => [
@@ -96,8 +98,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'admin' => [
+            'provider' => 'admin',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
