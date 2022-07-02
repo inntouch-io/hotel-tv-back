@@ -51,7 +51,7 @@ class MessageCardInfoController extends AdminController
 
             return redirect()->route('admin.messages.cards.infos.edit', ['info' => $cardInfo->getId()])
                 ->with('success', 'Успешно сохранено');
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }
@@ -66,6 +66,12 @@ class MessageCardInfoController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        /** @var MessageCardInfo $cardInfo */
+        $cardInfo = MessageCardInfoService::getInstance()->getById($id);
 
+        MessageCardInfoService::getInstance()->update($cardInfo, $request);
+
+        return redirect()->route('admin.messages.cards.infos.edit', ['info' => $cardInfo->getId()])
+            ->with('success', 'Success');
     }
 }

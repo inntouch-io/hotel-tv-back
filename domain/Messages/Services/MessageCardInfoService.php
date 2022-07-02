@@ -9,8 +9,10 @@
 namespace Domain\Messages\Services;
 
 use Domain\Messages\Builders\MessageCardInfoBuilder;
+use Domain\Messages\DTO\MessageCardInfoUpdateDto;
 use Domain\Messages\DTO\MessageCards\MessageCardInfoCreateDto;
 use Domain\Messages\Entities\MessageCard;
+use Domain\Messages\Entities\MessageCardInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -40,7 +42,7 @@ class MessageCardInfoService
 
     public function getById(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id){
+        return $this->builder->getById(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with('card');
         });
     }
@@ -49,10 +51,10 @@ class MessageCardInfoService
     {
         $data = $request->validate(
             [
-                'title'           => 'required|string',
-                'description'     => 'required|string',
+                'title'          => 'required|string',
+                'description'    => 'required|string',
                 'subDescription' => 'required|string',
-                'lang'            => 'required|string',
+                'lang'           => 'required|string',
             ]
         );
 
@@ -62,6 +64,32 @@ class MessageCardInfoService
             $data['subDescription'],
             $data['lang'],
             $card->getId()
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function validator(Request $request): array
+    {
+        return $request->validate(
+            [
+                'title'          => 'required|string',
+                'description'    => 'required|string',
+                'subDescription' => 'required|string'
+            ]
+        );
+    }
+
+    public function update(MessageCardInfo $cardInfo, Request $request)
+    {
+        $data = $this->validator($request);
+
+        $this->builder->update($cardInfo, new MessageCardInfoUpdateDto(
+            $data['title'],
+            $data['description'],
+            $data['subDescription']
         ));
     }
 }

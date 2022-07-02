@@ -9,6 +9,7 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
+use Domain\Messages\DTO\MessageCardInfoUpdateDto;
 use Domain\Messages\DTO\MessageCards\MessageCardInfoCreateDto;
 use Domain\Messages\Entities\MessageCardInfo;
 
@@ -42,5 +43,16 @@ class MessageCardInfoBuilder
     public function getById(Closure $closure)
     {
         return $closure(MessageCardInfo::query())->first();
+    }
+
+    public function update(MessageCardInfo $cardInfo, MessageCardInfoUpdateDto $cardInfoUpdateDto)
+    {
+        $cardInfo->update(
+            [
+                'title'          => $cardInfoUpdateDto->getTitle(),
+                'description'    => $cardInfoUpdateDto->getDescription(),
+                'subDescription' => $cardInfoUpdateDto->getSubDescription()
+            ]
+        );
     }
 }
