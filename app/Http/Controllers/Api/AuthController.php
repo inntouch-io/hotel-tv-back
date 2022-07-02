@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Core\Api\Exceptions\ErrorException;
 use App\Core\Api\Exceptions\NotFoundException;
 use App\Core\Api\Responses\RoomResource;
 use App\Core\Api\Validates\Auth\CheckDeviceIdValidate;
@@ -29,7 +30,11 @@ class AuthController extends ApiController
     {
         $request->validated();
 
-        $room = RoomService::getInstance()->insertItem($request);
+        $room = RoomService::getInstance()->getItem($request);
+        if(is_null($room)){
+            $room = RoomService::getInstance()->insertItem($request);
+            RoomService::getInstance()->updateItem($room, $request);
+        }
 
         $roomResource = new RoomResource($room);
         $roomResource->locale = $this->getLanguage();
@@ -43,7 +48,7 @@ class AuthController extends ApiController
     {
         $request->validated();
 
-        $room = $roomService = RoomService::getInstance()->getItem($request);
+        $room = RoomService::getInstance()->getItem($request);
         if(is_null($room)){
             return new NotFoundException('Device not found!');
         }

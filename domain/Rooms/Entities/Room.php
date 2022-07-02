@@ -57,7 +57,7 @@ class Room extends Entities
      */
     public function getRoomNumber(): string
     {
-        return $this->room_number;
+        return $this->room_number ?? '';
     }
 
     /**
