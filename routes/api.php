@@ -20,7 +20,7 @@ use Illuminate\Routing\Router;
 //});
 
 
-Route::namespace('Api')->group(function (){
+Route::namespace('Api')->as('api.')->group(function (){
 
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router){
@@ -28,8 +28,14 @@ Route::namespace('Api')->group(function (){
         $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
     });
 
-    Route::prefix('modules')->group(function (Router $router){
+    Route::prefix('modules')->as('modules.')->group(function (Router $router){
         $router->get('/get-list', 'ModulesController@getList');
+    });
+
+    Route::prefix('third-party')->namespace('ThirdParty')->as('third-party.')->group(function (){
+        Route::prefix('applications')->as('applications.')->group(function (Router $router){
+            $router->get('get-list', 'ApplicationsController@getList')->name('getList');
+        });
     });
 
 });
