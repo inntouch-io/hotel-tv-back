@@ -20,7 +20,7 @@ class MessageCardInfoSeeder extends Seeder
                 'description'    => 'MessageCardInfo desc uz 1',
                 'subDescription' => 'MessageCardInfo sub desc uz 1',
                 'card_id'        => '1',
-                'lang'           => 'uz',
+                'locale'         => 'uz',
             ]
         );
 
@@ -30,7 +30,7 @@ class MessageCardInfoSeeder extends Seeder
                 'description'    => 'MessageCardInfo desc ru 1',
                 'subDescription' => 'MessageCardInfo sub desc ru 1',
                 'card_id'        => '1',
-                'lang'           => 'ru',
+                'locale'         => 'ru',
             ]
         );
 
@@ -40,7 +40,7 @@ class MessageCardInfoSeeder extends Seeder
                 'description'    => 'MessageCardInfo desc en 1',
                 'subDescription' => 'MessageCardInfo sub desc en 1',
                 'card_id'        => '1',
-                'lang'           => 'en',
+                'locale'         => 'en',
             ]
         );
     }

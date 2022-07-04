@@ -63,6 +63,8 @@
                                         <th>#</th>
                                         <th>Название информации</th>
                                         <th>Фото</th>
+                                        <th>Статус</th>
+                                        <th>Позиция</th>
                                         <th>Добавлен</th>
                                         <th>Карточки</th>
                                         <th>Редактировать</th>
@@ -79,7 +81,7 @@
                                                 @foreach($message->infos as $info)
                                                     <li>
                                                         <a href="{{ route('admin.messages.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
-                                                            [{{ config('app.locales')[$info->getLang()] }}] -
+                                                            [{{ config('app.locales')[$info->getLocale()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
                                                     </li>
@@ -89,6 +91,16 @@
                                                 <div style="line-height: 60px">
                                                     <img src="{{ asset($message->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
+                                            </td>
+                                            <td>
+                                                @if($message->getIsVisible())
+                                                    <div class="badge badge-success">Активный</div>
+                                                @else
+                                                    <div class="badge badge-danger">Неактивный</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-success">{{ $message->getOrderPosition() }}</span>
                                             </td>
                                             <td>{{ $message->getCreatedAt() }}</td>
                                             <td>

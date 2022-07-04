@@ -9,6 +9,8 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
+use Domain\Messages\DTO\MessageCreateDto;
+use Domain\Messages\DTO\MessageUpdateDto;
 use Domain\Messages\Entities\Message;
 
 /**
@@ -35,20 +37,23 @@ class MessageBuilder
         return $closure(Message::query())->first();
     }
 
-    public function update(Message $message, int $imageId)
+    public function update(Message $message, MessageUpdateDto $updateDto)
     {
         $message->update(
             [
-                'image_id' => $imageId
+                'image_id'   => $updateDto->getImageId(),
+                'is_visible' => $updateDto->getIsVisible()
             ]
         );
     }
 
-    public function store(int $imageId)
+    public function store(MessageCreateDto $createDto)
     {
         return Message::query()->create(
             [
-                'image_id' => $imageId
+                'image_id'       => $createDto->getImageId(),
+                'is_visible'     => $createDto->getIsVisible(),
+                'order_position' => $createDto->getOrderPosition()
             ]
         );
     }

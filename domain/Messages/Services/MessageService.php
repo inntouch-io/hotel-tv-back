@@ -10,7 +10,10 @@ namespace Domain\Messages\Services;
 
 use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
+use Domain\Images\Services\ImageService;
 use Domain\Messages\Builders\MessageBuilder;
+use Domain\Messages\DTO\MessageCreateDto;
+use Domain\Messages\DTO\MessageUpdateDto;
 use Domain\Messages\Entities\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,6 +26,8 @@ use RuntimeException;
  */
 class MessageService
 {
+    const CATALOG = 'messages';
+
     protected MessageBuilder $builder;
 
     /**
@@ -54,7 +59,7 @@ class MessageService
                         'image'
                     ]
                 )
-                ->orderBy('id');
+                ->orderBy('order_position');
         });
     }
 
@@ -116,21 +121,16 @@ class MessageService
         $imageId = $message->getImageId();
 
         if (isset($data['image'])) {
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $imageName = md5(time());
-            $request->file('image')->storeAs('public/messages', $imageName . '.' . $extension);
-
             /** @var Image $image */
-            $image = ImageBuilder::getInstance()->save(
-                "storage/messages/",
-                $imageName,
-                $extension
-            );
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
 
             $imageId = $image->getId();
         }
 
-        $this->builder->update($message, $imageId);
+        $this->builder->update($message, new MessageUpdateDto(
+            $imageId,
+            isset($data['isVisible']) ? 1 : 0,
+        ));
     }
 
     public function store(Request $request)
@@ -145,22 +145,18 @@ class MessageService
         );
 
         if (isset($data['image'])) {
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $imageName = md5(time());
-            $request->file('image')->storeAs('public/messages', $imageName . '.' . $extension);
-
             /** @var Image $image */
-            $image = ImageBuilder::getInstance()->save(
-                "storage/messages/",
-                $imageName,
-                $extension
-            );
-
-            $imageId = $image->getId();
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
         } else {
             throw new RuntimeException('Image not found');
         }
 
-        return $this->builder->store($imageId);
+        $order_position = Message::query()->latest()->first()['order_position'] + 1;
+
+        return $this->builder->store(new MessageCreateDto(
+            $image->getId(),
+            isset($data['isVisible']) ? 1 : 0,
+            $order_position,
+        ));
     }
 }

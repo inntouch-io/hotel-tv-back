@@ -54,7 +54,7 @@ class MessageCardInfoService
                 'title'          => 'required|string',
                 'description'    => 'required|string',
                 'subDescription' => 'required|string',
-                'lang'           => 'required|string',
+                'locale'           => 'required|string',
             ]
         );
 
@@ -62,7 +62,7 @@ class MessageCardInfoService
             $data['title'],
             $data['description'],
             $data['subDescription'],
-            $data['lang'],
+            $data['locale'],
             $card->getId()
         ));
     }

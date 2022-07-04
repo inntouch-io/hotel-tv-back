@@ -46,7 +46,7 @@ class MessageInfoBuilder
                 'title'           => $messageInfoCreateDto->getTitle(),
                 'description'     => $messageInfoCreateDto->getDescription(),
                 'longDescription' => $messageInfoCreateDto->getLongDescription(),
-                'lang'            => $messageInfoCreateDto->getLang(),
+                'locale'          => $messageInfoCreateDto->getLocale(),
                 'message_id'      => $messageInfoCreateDto->getMessageId()
             ]
         );

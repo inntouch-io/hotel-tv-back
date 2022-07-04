@@ -71,7 +71,7 @@ $message = $card->message;
                                         <label for="lang" class="font-weight-bold">Язык</label>
                                         <select name="lang" id="lang" class="form-control">
                                             @foreach(config('app.locales') as $locale => $lang)
-                                                @if(!in_array($locale, $card->infos->pluck('lang')->toArray()))
+                                                @if(!in_array($locale, $card->infos->pluck('locale')->toArray()))
                                                     <option value="{{ $locale }}">{{ $lang }}</option>
                                                 @endif
                                             @endforeach

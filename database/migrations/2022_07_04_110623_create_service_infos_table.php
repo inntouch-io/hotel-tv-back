@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessageInfosTable extends Migration
+class CreateServiceInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateMessageInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_infos', function (Blueprint $table) {
+        Schema::create('service_infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('message_id')->index();
+            $table->unsignedBigInteger('service_id')->index();
 
             $table->string('title');
-            $table->string('description');
-            $table->string('longDescription');
             $table->string('locale', 8)->default('ru');
 
-            $table->foreign('message_id')->references('id')->on('messages');
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateMessageInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_infos');
+        Schema::dropIfExists('service_infos');
     }
 }

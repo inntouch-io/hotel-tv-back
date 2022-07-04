@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $description
  * @property string $subDescription
  * @property int    $card_id
- * @property string $lang
+ * @property string $locale
  *
  * @property MessageCard $card
  */
@@ -30,7 +30,7 @@ class MessageCardInfo extends Model
         'description',
         'subDescription',
         'card_id',
-        'lang'
+        'locale'
     ];
 
     // Relations
@@ -89,8 +89,9 @@ class MessageCardInfo extends Model
     /**
      * @return string
      */
-    public function getLang(): string
+    public function getLocale(): string
     {
-        return $this->lang;
+        return $this->locale;
     }
+
 }

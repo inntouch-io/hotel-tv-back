@@ -64,6 +64,22 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <p class="font-weight-semibold">Статус</p>
+
+                                            <div class="border p-3 rounded">
+                                                <div class="custom-control custom-switch custom-control-inline">
+                                                    <span class="mr-2">Нет</span>
+                                                    @if($message->getIsVisible())
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1" checked>
+                                                    @else
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
+                                                    @endif
+                                                    <label class="custom-control-label" for="isVisible">Да</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-outline-success">
                                                 <i class="far fa-save"></i>
                                                 Сохранить

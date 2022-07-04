@@ -72,7 +72,7 @@
                                                 @foreach($card->infos as $info)
                                                     <li>
                                                         <a href="{{ route('admin.messages.cards.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
-                                                            [{{ config('app.locales')[$info->getLang()] }}] -
+                                                            [{{ config('app.locales')[$info->getLocale()] }}] -
                                                             {{ $info->getTitle() }}
                                                         </a>
                                                     </li>

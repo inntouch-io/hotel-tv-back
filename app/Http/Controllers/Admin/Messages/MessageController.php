@@ -38,6 +38,8 @@ class MessageController extends AdminController
 
     public function create()
     {
+        $this->authorize('create', Message::class);
+
         return view('messages.message.create');
     }
 
@@ -48,6 +50,7 @@ class MessageController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', Message::class);
         /** @var Message $message */
         $message = MessageService::getInstance()->store($request);
 

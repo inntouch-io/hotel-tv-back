@@ -20,7 +20,7 @@ class MessageCardInfoCreateDto
     protected string $subDescription;
 
     /** @var string */
-    protected string $lang;
+    protected string $locale;
 
     /** @var int */
     protected int $card_id;
@@ -29,14 +29,14 @@ class MessageCardInfoCreateDto
         string $title,
         string $description,
         string $subDescription,
-        string $lang,
+        string $locale,
         int    $card_id
     )
     {
         $this->title = $title;
         $this->description = $description;
         $this->subDescription = $subDescription;
-        $this->lang = $lang;
+        $this->locale = $locale;
         $this->card_id = $card_id;
     }
 
@@ -67,18 +67,18 @@ class MessageCardInfoCreateDto
     }
 
     /**
-     * @return string
-     */
-    public function getLang(): string
-    {
-        return $this->lang;
-    }
-
-    /**
      * @return int
      */
     public function getCardId(): int
     {
         return $this->card_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 }

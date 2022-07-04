@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $description
  * @property string $longDescription
- * @property string $lang
+ * @property string $locale
  */
 class MessageInfo extends Model
 {
@@ -27,7 +27,7 @@ class MessageInfo extends Model
         'title',
         'description',
         'longDescription',
-        'lang'
+        'locale'
     ];
 
     /**
@@ -73,8 +73,9 @@ class MessageInfo extends Model
     /**
      * @return string
      */
-    public function getLang(): string
+    public function getLocale(): string
     {
-        return $this->lang;
+        return $this->locale;
     }
+
 }

@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property int        $id
  * @property int        $image_id
+ * @property int        $is_visible
+ * @property int        $order_position
  * @property Carbon     $created_at
  *
  * @property Collection $infos
@@ -29,7 +31,9 @@ class Message extends Model
     protected $table = 'messages';
     protected $fillable = [
         'id',
-        'image_id'
+        'image_id',
+        'is_visible',
+        'order_position'
     ];
 
     // Relations
@@ -89,6 +93,22 @@ class Message extends Model
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsVisible(): int
+    {
+        return $this->is_visible;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderPosition(): int
+    {
+        return $this->order_position;
     }
 
 }

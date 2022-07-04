@@ -24,7 +24,7 @@ class MessageInfoCreateDto
     protected string $longDescription;
 
     /** @var string */
-    protected string $lang;
+    protected string $locale;
 
     /** @var int */
     protected int $message_id;
@@ -33,14 +33,14 @@ class MessageInfoCreateDto
         string $title,
         string $description,
         string $longDescription,
-        string $lang,
+        string $locale,
         int    $message_id
     )
     {
         $this->title = $title;
         $this->description = $description;
         $this->longDescription = $longDescription;
-        $this->lang = $lang;
+        $this->locale = $locale;
         $this->message_id = $message_id;
     }
 
@@ -69,18 +69,18 @@ class MessageInfoCreateDto
     }
 
     /**
-     * @return string
-     */
-    public function getLang(): string
-    {
-        return $this->lang;
-    }
-
-    /**
      * @return int
      */
     public function getMessageId(): int
     {
         return $this->message_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 }

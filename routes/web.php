@@ -64,6 +64,11 @@ Route::namespace('Admin')->group(function () {
                     Route::resource('infos', 'MessageCardInfoController');
                 });
             });
+
+            Route::namespace('Services')->prefix('services')->as('services.')->group(function () {
+                Route::resource('service', 'ServiceController');
+            });
+
         });
     });
 

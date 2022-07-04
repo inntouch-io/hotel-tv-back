@@ -16,13 +16,17 @@ class MessageSeeder extends Seeder
     {
         Message::query()->create(
             [
-                'image_id' => 4
+                'image_id' => 4,
+                'is_visible' => 1,
+                'order_position' => 1
             ]
         );
 
         Message::query()->create(
             [
-                'image_id' => 5
+                'image_id' => 5,
+                'is_visible' => 0,
+                'order_position' => 2
             ]
         );
     }

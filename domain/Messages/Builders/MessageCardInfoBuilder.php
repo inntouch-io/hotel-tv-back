@@ -34,7 +34,7 @@ class MessageCardInfoBuilder
                 'title'          => $cardInfoCreateDto->getTitle(),
                 'description'    => $cardInfoCreateDto->getDescription(),
                 'subDescription' => $cardInfoCreateDto->getSubDescription(),
-                'lang'           => $cardInfoCreateDto->getLang(),
+                'locale'         => $cardInfoCreateDto->getLocale(),
                 'card_id'        => $cardInfoCreateDto->getCardId()
             ]
         );

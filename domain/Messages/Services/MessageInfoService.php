@@ -69,7 +69,7 @@ class MessageInfoService
                 'title'           => 'required|string',
                 'description'     => 'required|string',
                 'longDescription' => 'required|string',
-                'lang'            => 'required|string',
+                'locale'            => 'required|string',
             ]
         );
 
@@ -77,7 +77,7 @@ class MessageInfoService
             $data['title'],
             $data['description'],
             $data['longDescription'],
-            $data['lang'],
+            $data['locale'],
             $message->getId()
         ));
     }
