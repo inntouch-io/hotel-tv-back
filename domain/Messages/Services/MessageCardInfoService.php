@@ -9,8 +9,8 @@
 namespace Domain\Messages\Services;
 
 use Domain\Messages\Builders\MessageCardInfoBuilder;
+use Domain\Messages\DTO\MessageCardInfoCreateDto;
 use Domain\Messages\DTO\MessageCardInfoUpdateDto;
-use Domain\Messages\DTO\MessageCards\MessageCardInfoCreateDto;
 use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Entities\MessageCardInfo;
 use Illuminate\Database\Eloquent\Builder;

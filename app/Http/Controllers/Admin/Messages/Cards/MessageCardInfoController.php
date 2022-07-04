@@ -36,6 +36,7 @@ class MessageCardInfoController extends AdminController
 
     public function create(Request $request)
     {
+        $this->authorize('create', MessageCardInfo::class);
         $card = MessageCardService::getInstance()->getWithInfos((int)$request->query('card_id'));
 
         return view('messages.cards.infos.create', ['card' => $card]);
@@ -43,6 +44,7 @@ class MessageCardInfoController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', MessageCardInfo::class);
         $card = MessageCardService::getInstance()->getWithInfos((int)$request->query('card_id'));
 
         try {
@@ -58,6 +60,7 @@ class MessageCardInfoController extends AdminController
 
     public function edit(int $id)
     {
+        $this->authorize('edit', MessageCardInfo::class);
         /** @var MessageCardInfo $cardInfo */
         $cardInfo = MessageCardInfoService::getInstance()->getById($id);
 
@@ -66,6 +69,7 @@ class MessageCardInfoController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', MessageCardInfo::class);
         /** @var MessageCardInfo $cardInfo */
         $cardInfo = MessageCardInfoService::getInstance()->getById($id);
 
@@ -73,5 +77,17 @@ class MessageCardInfoController extends AdminController
 
         return redirect()->route('admin.messages.cards.infos.edit', ['info' => $cardInfo->getId()])
             ->with('success', 'Success');
+    }
+
+    public function destroy(int $id)
+    {
+        $this->authorize('delete', MessageCardInfo::class);
+        /** @var MessageCardInfo $cardInfo */
+        $cardInfo = MessageCardInfoService::getInstance()->getById($id);
+
+        $cardInfo->delete();
+
+        return redirect()->route('admin.messages.cards.card.index', ['message_id' => $cardInfo->card->getMessageId()])
+            ->with('success', 'Successfully deleted');
     }
 }

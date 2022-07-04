@@ -69,8 +69,8 @@ $message = $cardInfo->card->message;
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="longDescription" class="font-weight-bold">Подробное описание</label>
-                                            <input type="text" id="longDescription" name="longDescription" class="form-control"
+                                            <label for="subDescription" class="font-weight-bold">Подробное описание</label>
+                                            <input type="text" id="subDescription" name="subDescription" class="form-control"
                                                    placeholder="Подробное описание" value="{{ $cardInfo->getSubDescription() }}"
                                                    required>
                                         </div>

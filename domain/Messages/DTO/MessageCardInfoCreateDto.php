@@ -6,7 +6,7 @@
  * Created: 02.07.2022 / 15:33
  */
 
-namespace Domain\Messages\DTO\MessageCards;
+namespace Domain\Messages\DTO;
 
 class MessageCardInfoCreateDto
 {

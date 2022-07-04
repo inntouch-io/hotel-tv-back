@@ -34,6 +34,7 @@ class MessageCardController extends AdminController
 
     public function index(Request $request)
     {
+        $this->authorize('index', MessageCard::class);
         $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         return view(
@@ -46,6 +47,7 @@ class MessageCardController extends AdminController
 
     public function create(Request $request)
     {
+        $this->authorize('create', MessageCard::class);
         $message = MessageService::getInstance()->getById((int)$request->query('message_id'));
 
         return view(
@@ -58,6 +60,7 @@ class MessageCardController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', MessageCard::class);
         /** @var Message $message */
         $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
@@ -68,6 +71,7 @@ class MessageCardController extends AdminController
 
     public function edit(int $id)
     {
+        $this->authorize('edit', MessageCard::class);
         /** @var MessageCard $card */
         $card = MessageCardService::getInstance()->getById($id);
 
@@ -82,6 +86,7 @@ class MessageCardController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', MessageCard::class);
         /** @var MessageCard $card */
         $card = MessageCardService::getInstance()->getById($id);
 
@@ -98,6 +103,7 @@ class MessageCardController extends AdminController
 
     public function destroy(int $id)
     {
+        $this->authorize('delete', MessageCard::class);
         /** @var MessageCard $card */
         $card = MessageCardService::getInstance()->getWithInfos($id);
 

@@ -5,7 +5,11 @@ namespace App\Providers;
 use Domain\Applications\Entities\Application;
 use Domain\Applications\Policies\ApplicationPolicy;
 use Domain\Messages\Entities\Message;
+use Domain\Messages\Entities\MessageCard;
+use Domain\Messages\Entities\MessageCardInfo;
 use Domain\Messages\Entities\MessageInfo;
+use Domain\Messages\Policies\MessageCardInfoPolicy;
+use Domain\Messages\Policies\MessageCardPolicy;
 use Domain\Messages\Policies\MessageInfoPolicy;
 use Domain\Messages\Policies\MessagePolicy;
 use Domain\Modules\Entities\Module;
@@ -20,10 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Application::class => ApplicationPolicy::class,
-        Module::class      => ModulePolicy::class,
-        Message::class     => MessagePolicy::class,
-        MessageInfo::class => MessageInfoPolicy::class,
+        Application::class     => ApplicationPolicy::class,
+        Module::class          => ModulePolicy::class,
+        Message::class         => MessagePolicy::class,
+        MessageInfo::class     => MessageInfoPolicy::class,
+        MessageCard::class     => MessageCardPolicy::class,
+        MessageCardInfo::class => MessageCardInfoPolicy::class,
     ];
 
     /**

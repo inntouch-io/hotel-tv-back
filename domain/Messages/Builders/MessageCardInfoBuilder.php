@@ -9,8 +9,8 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
+use Domain\Messages\DTO\MessageCardInfoCreateDto;
 use Domain\Messages\DTO\MessageCardInfoUpdateDto;
-use Domain\Messages\DTO\MessageCards\MessageCardInfoCreateDto;
 use Domain\Messages\Entities\MessageCardInfo;
 
 /**
