@@ -121,3 +121,22 @@ if (!function_exists('admin')) {
         return is_null($user) ? new Admin : $user;
     }
 }
+
+if(!function_exists('get_weather_today')){
+    function get_weather_today()
+    {
+        $location = env('OPEN_WEATHER_LOCATION', 'Tashkent,uz');
+        $key = env('OPEN_WEATHER_KEY', null);
+        if(is_null($key))
+            return null;
+
+        $url = 'https://api.openweathermap.org/data/2.5/weather?q='.$location.'&APPID='.$key;
+
+        try{
+            $data = file_get_contents($url);
+            return json_decode($data);
+        }catch (Exception $exception){
+            return null;
+        }
+    }
+}

@@ -33,8 +33,13 @@ Route::namespace('Api')->as('api.')->group(function (){
     });
 
     Route::prefix('third-party')->namespace('ThirdParty')->as('third-party.')->group(function (){
+        //Apps
         Route::prefix('applications')->as('applications.')->group(function (Router $router){
             $router->get('get-list', 'ApplicationsController@getList')->name('getList');
+        });
+        //Weather
+        Route::prefix('weather')->as('weather.')->group(function (Router $router){
+            $router->get('get-today', 'WeatherController@getToday')->name('getToday');
         });
     });
 
