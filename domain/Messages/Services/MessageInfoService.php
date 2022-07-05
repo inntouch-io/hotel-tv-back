@@ -69,7 +69,7 @@ class MessageInfoService
                 'title'           => 'required|string',
                 'description'     => 'required|string',
                 'longDescription' => 'required|string',
-                'locale'            => 'required|string',
+                'locale'          => 'required|string',
             ]
         );
 

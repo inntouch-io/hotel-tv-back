@@ -50,7 +50,7 @@ class MessageCardService
         return $request->validate(
             [
                 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'isVisible' => 'nullable|int'
+                'isVisible' => 'nullable|integer'
             ],
             [
                 'required' => 'Поле :attribute обязательно',
@@ -69,7 +69,11 @@ class MessageCardService
             throw new RuntimeException('Image not found');
         }
 
-        $order_position = $message->cards()->latest()->first()['order_position'] + 1;
+        if (is_null($card = $message->cards()->latest()->first())) {
+            $order_position = 1;
+        } else {
+            $order_position = (int)$card['order_position'] + 1;
+        }
 
         $this->builder->store(new MessageCardDto(
             $image->getId(),

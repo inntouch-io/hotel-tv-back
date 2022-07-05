@@ -83,6 +83,28 @@ class MessageService
         return $message;
     }
 
+    public function getWithAllRelations(int $id)
+    {
+        $message = $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder
+                ->whereKey($id)
+                ->with(
+                    [
+                        'infos',
+                        'cards' => function ($query) {
+                            return $query->with('infos')->get();
+                        }
+                    ]
+                );
+        });
+
+        if (is_null($message)) {
+            throw new RuntimeException('Message not found', 404);
+        }
+
+        return $message;
+    }
+
     public function getWithCards(int $id)
     {
         $message = $this->builder->takeBy(function (Builder $builder) use ($id) {
@@ -109,7 +131,8 @@ class MessageService
     {
         return $request->validate(
             [
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'isVisible' => 'nullable|integer'
             ]
         );
     }
@@ -137,7 +160,8 @@ class MessageService
     {
         $data = $request->validate(
             [
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'isVisible' => 'nullable|integer'
             ],
             [
                 'required' => 'Поле :attribute обязательно'
@@ -151,7 +175,11 @@ class MessageService
             throw new RuntimeException('Image not found');
         }
 
-        $order_position = Message::query()->latest()->first()['order_position'] + 1;
+        if (is_null($message = Message::query()->latest()->first())) {
+            $order_position = 1;
+        } else {
+            $order_position = (int)$message['order_position'] + 1;
+        }
 
         return $this->builder->store(new MessageCreateDto(
             $image->getId(),

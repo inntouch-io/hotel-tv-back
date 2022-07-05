@@ -67,8 +67,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="lang" class="font-weight-bold">Язык</label>
-                                        <select name="lang" id="lang" class="form-control" required>
+                                        <label for="locale" class="font-weight-bold">Язык</label>
+                                        <select name="locale" id="locale" class="form-control" required>
                                             @foreach(config('app.locales') as $locale => $lang)
                                                 @if(!in_array($locale, $message->infos->pluck('locale')->toArray()))
                                                     <option value="{{ $locale }}">{{ $lang }}</option>

@@ -22,7 +22,7 @@ class MessageCreateDto
     public function __construct(
         int $image_id,
         int $is_visible,
-        int $order_position,
+        int $order_position
     )
     {
         $this->image_id = $image_id;

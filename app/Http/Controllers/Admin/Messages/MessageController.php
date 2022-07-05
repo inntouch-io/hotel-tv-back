@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\Messages;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Messages\Entities\Message;
+use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Services\MessageService;
 use Exception;
 use Illuminate\Http\Request;
@@ -87,10 +88,14 @@ class MessageController extends AdminController
         $this->authorize('delete', Message::class);
 
         /** @var Message $message */
-        $message = MessageService::getInstance()->getById($id);
+        $message = MessageService::getInstance()->getWithAllRelations($id);
 
         try {
             $message->infos()->delete();
+            $message->cards->transform(function (MessageCard $card){
+                $card->infos()->delete();
+            });
+            $message->cards()->delete();
             $message->delete();
 
             return redirect()->route('admin.messages.message.index')
