@@ -20,7 +20,7 @@ class ImageSeeder extends Seeder
                 'id'         => 1,
                 'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'name'       => 'ob_otele',
+                'name'       => 'hotel',
                 'created_at' => Carbon::now()
             ]
         );
@@ -30,7 +30,7 @@ class ImageSeeder extends Seeder
                 'id'         => 2,
                 'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'name'       => 'service',
+                'name'       => 'message',
                 'created_at' => Carbon::now()
             ]
         );
@@ -48,9 +48,9 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 4,
-                'path'       => 'images/apps/',
+                'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'name'       => "itv",
+                'name'       => 'service',
                 'created_at' => Carbon::now()
             ]
         );
@@ -58,11 +58,91 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert(
             [
                 'id'         => 5,
-                'path'       => 'images/apps/',
+                'path'       => 'images/modules/',
                 'extension'  => 'png',
-                'name'       => "youtube",
+                'name'       => 'where-to-go',
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 6,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'application',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 7,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'films',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 8,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'language',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 9,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'hdmi',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 10,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'usb',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 11,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => 'wifi',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+//        DB::table('images')->insert(
+//            [
+//                'id'         => 4,
+//                'path'       => 'images/apps/',
+//                'extension'  => 'png',
+//                'name'       => "itv",
+//                'created_at' => Carbon::now()
+//            ]
+//        );
+//
+//        DB::table('images')->insert(
+//            [
+//                'id'         => 5,
+//                'path'       => 'images/apps/',
+//                'extension'  => 'png',
+//                'name'       => "youtube",
+//                'created_at' => Carbon::now()
+//            ]
+//        );
     }
 }
