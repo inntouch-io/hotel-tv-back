@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int        $order_position
  * @property Carbon     $created_at
  *
+ * @property-read  string $title
+ * @property-read  string $description
+ * @property-read  string $subDescription
+ *
  * @property Image      $image
  * @property Message    $message
  * @property Collection $infos
@@ -113,5 +117,29 @@ class MessageCard extends Model
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubDescription(): string
+    {
+        return $this->subDescription;
     }
 }
