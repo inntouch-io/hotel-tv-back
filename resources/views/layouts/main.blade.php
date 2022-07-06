@@ -143,6 +143,12 @@ $admin = auth()->user();
                     Сообщения
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.menus.menu.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-server"></i>
+                    Menu
+                </a>
+            </li>
         </ul>
     </div>
 </div>

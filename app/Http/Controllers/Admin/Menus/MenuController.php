@@ -6,18 +6,23 @@
  * Created: 04.07.2022 / 11:03
  */
 
-namespace App\Http\Controllers\Admin\Services;
+namespace App\Http\Controllers\Admin\Menus;
 
 use App\Http\Controllers\Admin\AdminController;
 
 /**
- * Class ServiceController
- * @package App\Http\Controllers\Admin\Services
+ * Class MenuController
+ * @package App\Http\Controllers\Admin\Menus
  */
-class ServiceController extends AdminController
+class MenuController extends AdminController
 {
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function index()
+    {
+
     }
 }

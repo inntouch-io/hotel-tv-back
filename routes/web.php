@@ -65,8 +65,8 @@ Route::namespace('Admin')->group(function () {
                 });
             });
 
-            Route::namespace('Services')->prefix('services')->as('services.')->group(function () {
-                Route::resource('service', 'ServiceController');
+            Route::namespace('Menus')->prefix('menus')->as('menus.')->group(function () {
+                Route::resource('menu', 'MenuController');
             });
 
         });

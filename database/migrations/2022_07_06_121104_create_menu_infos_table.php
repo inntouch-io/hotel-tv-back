@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceInfosTable extends Migration
+class CreateMenuInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateServiceInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_infos', function (Blueprint $table) {
+        Schema::create('menu_infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_id')->index();
+            $table->unsignedBigInteger('menu_id')->index();
 
             $table->string('title');
             $table->string('locale', 8)->default('ru');
 
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('menu_id')->references('id')->on('menus');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateServiceInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_infos');
+        Schema::dropIfExists('menu_infos');
     }
 }
