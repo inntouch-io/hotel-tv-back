@@ -32,6 +32,11 @@ class MessageBuilder
         return $closure(Message::query())->get();
     }
 
+    public function getItems(Closure $closure, $itemsPerPage = 18)
+    {
+        return $closure(Message::query())->paginate($itemsPerPage);
+    }
+
     public function takeBy(Closure $closure)
     {
         return $closure(Message::query())->first();
