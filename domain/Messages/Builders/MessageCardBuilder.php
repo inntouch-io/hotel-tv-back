@@ -39,6 +39,11 @@ class MessageCardBuilder
         );
     }
 
+    public function getItems(Closure $closure, $itemsPerPage = 18)
+    {
+        return $closure(MessageCard::query())->paginate($itemsPerPage);
+    }
+
     public function getById(Closure $closure)
     {
         return $closure(MessageCard::query())->first();

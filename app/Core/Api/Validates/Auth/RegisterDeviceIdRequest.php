@@ -6,7 +6,7 @@ namespace App\Core\Api\Validates\Auth;
 use App\Core\Validates;
 
 /**
- * Class CheckDeviceIdValidate.php
+ * Class RegisterDeviceIdValidate.php
  *
  * @package App\Core\Validates\Auth  *
  * @nickname <alphazet>
@@ -14,7 +14,7 @@ use App\Core\Validates;
  *
  * Date: 02/07/22
  */
-class CheckDeviceIdValidate extends Validates
+class RegisterDeviceIdRequest extends Validates
 {
     public function rules()
     {

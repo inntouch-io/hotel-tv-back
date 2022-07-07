@@ -63,6 +63,25 @@ class MessageService
         });
     }
 
+    public function getItems(Request $request, $locale = 'ru')
+    {
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+            return $builder
+                ->with('image')
+                ->where('messages.is_visible', '=', 1)
+                ->join('message_infos', 'messages.id', '=', 'message_infos.message_id')
+                ->where('message_infos.locale', '=', $locale)
+                ->orderBy('messages.order_position', 'asc')
+                ->select([
+                    'messages.*',
+                    'message_infos.title',
+                    'message_infos.description',
+                    'message_infos.longDescription',
+                ])
+                ->distinct();
+        }, $request->input('itemsPerPage', 18));
+    }
+
     public function getById(int $id)
     {
         $message = $this->builder->takeBy(function (Builder $builder) use ($id) {

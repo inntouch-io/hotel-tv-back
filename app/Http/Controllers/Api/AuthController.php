@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-
-use App\Core\Api\Exceptions\ErrorException;
-use App\Core\Api\Exceptions\NotFoundException;
 use App\Core\Api\Responses\RoomResource;
-use App\Core\Api\Validates\Auth\CheckDeviceIdValidate;
-use App\Core\Api\Validates\Auth\RegisterDeviceIdValidate;
+use App\Core\Api\Validates\Auth\RegisterDeviceIdRequest;
 use Domain\Rooms\Services\RoomService;
 
 /**
@@ -26,7 +22,7 @@ class AuthController extends ApiController
         parent::__construct();
     }
 
-    public function registerDeviceId(RegisterDeviceIdValidate $request)
+    public function registerDeviceId(RegisterDeviceIdRequest $request)
     {
         $request->validated();
 
@@ -44,22 +40,4 @@ class AuthController extends ApiController
         return $this->composeData();
     }
 
-    public function checkDeviceId(CheckDeviceIdValidate $request)
-    {
-        $request->validated();
-
-        $room = RoomService::getInstance()->getItem($request);
-        if(is_null($room)){
-            return new NotFoundException('Device not found!');
-        }
-
-        RoomService::getInstance()->updateItem($room, $request);
-
-        $roomResource = new RoomResource($room);
-        $roomResource->locale = $this->getLanguage();
-
-        $this->setData($roomResource);
-
-        return $this->composeData();
-    }
 }

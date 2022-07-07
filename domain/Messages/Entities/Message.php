@@ -20,6 +20,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int        $order_position
  * @property Carbon     $created_at
  *
+ * @property-read string $title
+ * @property-read string $description
+ * @property-read string $longDescription
+ *
  * @property Collection $infos
  * @property Image      $image
  * @property Collection $cards
@@ -109,6 +113,30 @@ class Message extends Model
     public function getOrderPosition(): int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLongDescription(): string
+    {
+        return $this->longDescription;
     }
 
 }

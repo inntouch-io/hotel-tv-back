@@ -23,6 +23,11 @@ class StaticKeys
     public static $FILES = 'files';
     public static $IMAGE_URL = 'imageUrl';
 
+    public static $ITEMS_PER_PAGE = 'itemsPerPage';
+    public static $TOTAL_ITEMS = 'totalItems';
+    public static $CURRENT_PAGE = 'currentPage';
+    public static $TOTAL_PAGES = 'totalPages';
+
     public static $ROOM_ID = 'roomId';
     public static $ROOM_NUMBER = 'roomNumber';
     public static $DEVICE_ID = 'deviceId';

@@ -58,6 +58,27 @@ class MessageCardService
         );
     }
 
+    public function getItems(Request $request, $locale = 'ru')
+    {
+        $messageId = $request->input('messageId');
+
+        return $this->builder->getItems(function (Builder $builder) use ($messageId, $locale){
+            return $builder
+                ->with('image')
+                ->where('message_cards.message_id', '=', $messageId)
+                ->where('message_cards.is_visible', '=', 1)
+                ->join('message_card_infos', 'message_card_infos.card_id', '=', 'message_cards.id')
+                ->where('message_card_infos.locale', '=', $locale)
+                ->select([
+                    'message_cards.*',
+                    'message_card_infos.title',
+                    'message_card_infos.description',
+                    'message_card_infos.subDescription',
+                ])
+                ->distinct();
+        }, $request->input('itemsPerPage', 18));
+    }
+
     public function store(Message $message, Request $request)
     {
         $data = $this->validator($request);
