@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Admin\Menus;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Menus\Services\MenuService;
 
 /**
  * Class MenuController
@@ -22,6 +23,13 @@ class MenuController extends AdminController
     }
 
     public function index()
+    {
+        $menus = MenuService::getInstance()->list();
+
+        return view('menus.menu.index', ['menus' => $menus]);
+    }
+
+    public function create()
     {
 
     }

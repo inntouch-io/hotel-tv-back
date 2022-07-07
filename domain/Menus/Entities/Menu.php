@@ -2,18 +2,25 @@
 
 namespace Domain\Menus\Entities;
 
+use Domain\Images\Entities\Image;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Menu
  * @package Domain\Menus\Entities
  *
- * @property int    $id
- * @property int    $image_id
- * @property string $type
- * @property int    $is_visible
- * @property int    $order_position
+ * @property int        $id
+ * @property int        $image_id
+ * @property string     $type
+ * @property int        $is_visible
+ * @property int        $order_position
+ *
+ * @property Image      $image
+ * @property Collection $infos
  */
 class Menu extends Model
 {
@@ -26,6 +33,26 @@ class Menu extends Model
         'is_visible',
         'order_position'
     ];
+
+    // Relations
+
+    /**
+     * @return HasOne
+     */
+    public function image(): HasOne
+    {
+        return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function infos(): HasMany
+    {
+        return $this->hasMany(MenuInfo::class, 'menu_id', 'id');
+    }
+
+    // Getters
 
     /**
      * @return int

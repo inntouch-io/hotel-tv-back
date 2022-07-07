@@ -13,6 +13,6 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }
