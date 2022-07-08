@@ -8,9 +8,9 @@ return [
     ],
 
     'types' => [
-        'aboutMenu',
-        'serviceMenu',
-        'whereToGo'
+        'aboutMenu' => 'Об отеле',
+        'serviceMenu' => 'Cервис',
+        'whereToGo' => 'Куда пойти'
     ],
 
 

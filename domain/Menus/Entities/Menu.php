@@ -2,6 +2,7 @@
 
 namespace Domain\Menus\Entities;
 
+use Carbon\Carbon;
 use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string     $type
  * @property int        $is_visible
  * @property int        $order_position
+ * @property Carbon     $created_at
  *
  * @property Image      $image
  * @property Collection $infos
@@ -92,5 +94,13 @@ class Menu extends Model
     public function getOrderPosition(): int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
     }
 }

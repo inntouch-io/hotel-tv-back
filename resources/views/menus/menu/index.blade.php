@@ -64,7 +64,7 @@
                                         <th>Статус</th>
                                         <th>Позиция</th>
                                         <th>Добавлен</th>
-                                        <th>Карточки</th>
+                                        <th>Type</th>
                                         <th>Редактировать</th>
                                     </tr>
                                     </thead>
@@ -102,9 +102,7 @@
                                             </td>
                                             <td>{{ $menu->getCreatedAt() }}</td>
                                             <td>
-{{--                                                <a href="{{ route('admin.messages.cards.card.index', ['message_id' => $menu->getId()]) }}" class="font-weight-semibold">--}}
-{{--                                                    Посмотреть--}}
-{{--                                                </a>--}}
+                                                <span class="font-weight-semibold badge badge-secondary">{{ $menu->getType() }}</span>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.menus.menu.edit', ['menu' => $menu->getId()]) }}" class="badge badge-secondary">

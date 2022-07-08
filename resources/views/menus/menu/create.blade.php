@@ -61,19 +61,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <p class="font-weight-semibold">Type</p>
-
-                                        <div class="border p-3 rounded d-flex align-items-center">
-                                            <select name="type" id="type">
-                                                <option value="">Выбрать</option>
-                                                @foreach(config('app.types') as $type)
-                                                    <option value="{{ $type }}">{{ $type }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <p class="font-weight-semibold">Статус</p>
 
                                         <div class="border p-3 rounded">
@@ -83,6 +70,17 @@
                                                 <label class="custom-control-label" for="isVisible">Да</label>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p class="font-weight-semibold">Type</p>
+
+                                        <select name="type" id="type" class="form-control col-md-4" required>
+                                            <option value="" selected>Выбрать</option>
+                                            @foreach(config('app.types') as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

@@ -9,7 +9,9 @@
 namespace App\Http\Controllers\Admin\Menus;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Menus\Entities\Menu;
 use Domain\Menus\Services\MenuService;
+use Illuminate\Http\Request;
 
 /**
  * Class MenuController
@@ -31,6 +33,33 @@ class MenuController extends AdminController
 
     public function create()
     {
+        return view('menus.menu.create');
+    }
 
+    public function store(Request $request)
+    {
+        /** @var Menu $menu */
+        $menu = MenuService::getInstance()->store($request);
+
+        return redirect()->route('admin.menus.menu.edit', ['menu' => $menu->getId()])
+            ->with('success', 'Successfully added');
+    }
+
+    public function edit(int $id)
+    {
+        $menu = MenuService::getInstance()->getById($id);
+
+        return view('menus.menu.edit', ['menu' => $menu]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        /** @var Menu $menu */
+        $menu = MenuService::getInstance()->getById($id);
+
+        MenuService::getInstance()->update($menu, $request);
+
+        return redirect()->route('admin.menus.menu.edit', ['menu' => $menu->getId()])
+            ->with('success', 'Successfully saved');
     }
 }
