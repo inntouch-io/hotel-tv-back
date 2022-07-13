@@ -7,6 +7,7 @@
  */
 
 /** @var \Domain\Menus\Entities\Menu $menu */
+/** @var \Domain\Menus\Entities\MenuInfo $info */
 ?>
 
 @extends('layouts.main')
@@ -76,14 +77,14 @@
                                                 <div class="font-weight-semibold">{{ $menu->getId() }}</div>
                                             </td>
                                             <td>
-{{--                                                @foreach($message->infos as $info)--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="{{ route('admin.messages.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">--}}
-{{--                                                            [{{ config('app.locales')[$info->getLocale()] }}] ---}}
-{{--                                                            {{ $info->getTitle() }}--}}
-{{--                                                        </a>--}}
-{{--                                                    </li>--}}
-{{--                                                @endforeach--}}
+                                                @foreach($menu->infos as $info)
+                                                    <li>
+                                                        <a href="{{ route('admin.menus.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
+                                                            [{{ config('app.locales')[$info->getLocale()] }}] -
+                                                            {{ $info->getTitle() }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">

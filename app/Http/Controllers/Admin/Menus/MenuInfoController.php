@@ -1,0 +1,79 @@
+<?php
+/**
+ * Hotel-TV.
+ *
+ * @author  Mirfayz Nosirov
+ * Created: 12.07.2022 / 14:36
+ */
+
+namespace App\Http\Controllers\Admin\Menus;
+
+use App\Http\Controllers\Admin\AdminController;
+use Domain\Menus\Entities\MenuInfo;
+use Domain\Menus\Services\MenuInfoService;
+use Domain\Menus\Services\MenuService;
+use Illuminate\Http\Request;
+
+/**
+ * Class MenuInfoController
+ * @package App\Http\Controllers\Admin\Menus
+ */
+class MenuInfoController extends AdminController
+{
+    /**
+     * MenuInfoController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function create(Request $request)
+    {
+        $menu = MenuService::getInstance()->getWithInfosById((int)$request->query('menu_id'));
+
+        return view('menus.infos.create', ['menu' => $menu]);
+    }
+
+    public function store(Request $request)
+    {
+        MenuInfoService::getInstance()->store($request);
+
+        return redirect()->route('admin.menus.menu.index')
+            ->with('success', 'Successfully added');
+    }
+
+    public function edit(int $id)
+    {
+        $info = MenuInfoService::getInstance()->getById($id);
+
+        return view(
+            'menus.infos.edit',
+            [
+                'info' => $info
+            ]
+        );
+    }
+
+    public function update(Request $request, int $id)
+    {
+        /** @var MenuInfo $info */
+        $info = MenuInfoService::getInstance()->getById($id);
+
+        MenuInfoService::getInstance()->update($info, $request);
+
+        return redirect()->route('admin.menus.infos.edit', ['info' => $info->getId()])
+            ->with('success', 'Successfully saved');
+    }
+
+    public function destroy(int $id)
+    {
+        /** @var MenuInfo $info */
+        $info = MenuInfoService::getInstance()->getById($id);
+
+        $info->delete();
+
+        return redirect()->route('admin.menus.menu.index')
+            ->with('success', 'Successfully deleted');
+    }
+}

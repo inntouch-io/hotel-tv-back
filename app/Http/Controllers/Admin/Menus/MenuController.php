@@ -62,4 +62,16 @@ class MenuController extends AdminController
         return redirect()->route('admin.menus.menu.edit', ['menu' => $menu->getId()])
             ->with('success', 'Successfully saved');
     }
+
+    public function destroy(int $id)
+    {
+        /** @var Menu $menu */
+        $menu = MenuService::getInstance()->getWithInfosById($id);
+
+        $menu->infos()->delete();
+        $menu->delete();
+
+        return redirect()->route('admin.menus.menu.index')
+            ->with('success', 'Successfully deleted');
+    }
 }

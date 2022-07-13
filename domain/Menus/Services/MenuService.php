@@ -73,7 +73,6 @@ class MenuService
             /** @var Image $image */
             $image = ImageService::getInstance()->upload($request, self::CATALOG);
         } else {
-
             throw new RuntimeException('Image not found');
         }
 
@@ -95,6 +94,13 @@ class MenuService
     {
         return $this->builder->getById(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with('image');
+        });
+    }
+
+    public function getWithInfosById(int $id)
+    {
+        return $this->builder->getById(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('infos');
         });
     }
 

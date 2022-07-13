@@ -25,11 +25,11 @@ $route_name = request()->route()->getName();
                         </a>
                     </li>
                     <li class="nav-item">
-{{--                        <a href="{{ route('admin.messages.infos.create', ['message_id' => $message->getId()]) }}"--}}
-{{--                           class="nav-link {{ $route_name === 'admin.messages.infos.create' ? 'active' : '' }}">--}}
-{{--                            <i class="fas fa-plus"></i>--}}
-{{--                            <span>Добавить перевод</span>--}}
-{{--                        </a>--}}
+                        <a href="{{ route('admin.menus.infos.create', ['menu_id' => $menu->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.menus.infos.create' ? 'active' : '' }}">
+                            <i class="fas fa-plus"></i>
+                            <span>Добавить перевод</span>
+                        </a>
                     </li>
 
                     <li class="nav-item-divider"></li>
