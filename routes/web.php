@@ -65,9 +65,14 @@ Route::namespace('Admin')->group(function () {
                 });
             });
 
+            // Menus
             Route::namespace('Menus')->prefix('menus')->as('menus.')->group(function () {
                 Route::resource('menu', 'MenuController');
                 Route::resource('infos', 'MenuInfoController');
+
+                Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
+                    Route::resource('card', 'MenuCardController');
+                });
             });
 
         });

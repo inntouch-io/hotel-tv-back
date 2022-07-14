@@ -7,34 +7,36 @@ use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class Menu
+ * Class MenuCard
  * @package Domain\Menus\Entities
  *
  * @property int        $id
+ * @property int        $menu_id
  * @property int        $image_id
- * @property string     $type
- * @property int        $is_visible
+ * @property boolean    $is_visible
  * @property int        $order_position
  * @property Carbon     $created_at
  *
  * @property Image      $image
  * @property Collection $infos
- * @property Collection $cards
+ * @property Menu       $menu
  */
-class Menu extends Model
+class MenuCard extends Model
 {
     use HasFactory;
 
-    protected $table = 'menus';
+    protected $table = 'menu_cards';
     protected $fillable = [
+        'id',
+        'menu_id',
         'image_id',
-        'type',
         'is_visible',
-        'order_position'
+        'order_position',
     ];
 
     // Relations
@@ -52,15 +54,15 @@ class Menu extends Model
      */
     public function infos(): HasMany
     {
-        return $this->hasMany(MenuInfo::class, 'menu_id', 'id');
+        return $this->hasMany(MenuCardInfo::class, 'card_id', 'id');
     }
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function cards(): HasMany
+    public function menu(): BelongsTo
     {
-        return $this->hasMany(MenuCard::class, 'menu_id', 'id');
+        return $this->belongsTo(Menu::class, 'menu_id', 'id');
     }
 
     // Getters
@@ -82,17 +84,9 @@ class Menu extends Model
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIsVisible(): int
+    public function getIsVisible(): bool
     {
         return $this->is_visible;
     }
@@ -111,5 +105,13 @@ class Menu extends Model
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMenuId(): int
+    {
+        return $this->menu_id;
     }
 }

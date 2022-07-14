@@ -3,15 +3,15 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 06.07.2022 / 12:31
+ * Created: 14.07.2022 / 16:00
  */
 
 /** @var \Domain\Menus\Entities\Menu $menu */
-/** @var \Domain\Menus\Entities\MenuInfo $info */
+/** @var \Domain\Menus\Entities\MenuCard $card */
+/** @var \Domain\Menus\Entities\MenuCardInfo $info */
 ?>
-
 @extends('layouts.main')
-@section('title', 'Menu')
+@section('title', 'Карточки')
 
 @section('content')
     <div class="page-header">
@@ -19,7 +19,7 @@
             <div class="page-title d-flex">
                 <h4>
                 <span class="font-weight-bold">
-                    Menu
+                    Карточки
                 </span>
                 </h4>
             </div>
@@ -27,16 +27,7 @@
     </div>
 
     <div class="page-content pt-0">
-        <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
-            <div class="sidebar-content">
-                <div class="sidebar-section">
-                    <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('menus.menu.sidebar')
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+        @include('menus.cards.card.infobar')
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -48,7 +39,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        @if(count($menus) === 0)
+                        @if(count($menu->cards) === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>
@@ -65,62 +56,52 @@
                                         <th>Статус</th>
                                         <th>Позиция</th>
                                         <th>Добавлен</th>
-                                        <th>Type</th>
-                                        <th>Cards</th>
                                         <th>Редактировать</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    @foreach($menus as $menu)
+                                    @foreach($menu->cards as $card)
                                         <tr>
                                             <td>
-                                                <div class="font-weight-semibold">{{ $menu->getId() }}</div>
+                                                <div class="font-weight-semibold">{{ $card->getId() }}</div>
                                             </td>
                                             <td>
-                                                @foreach($menu->infos as $info)
-                                                    <li>
-                                                        <a href="{{ route('admin.menus.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
-                                                            [{{ config('app.locales')[$info->getLocale()] }}] -
-                                                            {{ $info->getTitle() }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
+{{--                                                @foreach($card->infos as $info)--}}
+{{--                                                    <li>--}}
+{{--                                                        <a href="{{ route('admin.messages.cards.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">--}}
+{{--                                                            [{{ config('app.locales')[$info->getLocale()] }}] ---}}
+{{--                                                            {{ $info->getTitle() }}--}}
+{{--                                                        </a>--}}
+{{--                                                    </li>--}}
+{{--                                                @endforeach--}}
                                             </td>
                                             <td>
-                                                <div style="line-height: 60px">
-                                                    <img src="{{ asset($menu->image->getFullPath()) }}" alt="image" style="max-width: 100px">
+                                                <div style="line-height: 100px">
+                                                    <img src="{{ asset($card->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
                                             </td>
                                             <td>
-                                                @if($menu->getIsVisible())
+                                                @if($card->getIsVisible())
                                                     <div class="badge badge-success">Активный</div>
                                                 @else
                                                     <div class="badge badge-danger">Неактивный</div>
                                                 @endif
                                             </td>
                                             <td>
-                                                <span class="badge badge-success">{{ $menu->getOrderPosition() }}</span>
+                                                <span class="badge badge-success">{{ $card->getOrderPosition() }}</span>
                                             </td>
-                                            <td>{{ $menu->getCreatedAt() }}</td>
+                                            <td>{{ $card->getCreatedAt() }}</td>
                                             <td>
-                                                <span class="font-weight-semibold badge badge-secondary">{{ $menu->getType() }}</span>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.menus.cards.card.index', ['menu_id' => $menu->getId()]) }}" class="font-weight-bold">
-                                                    Cards
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.menus.menu.edit', ['menu' => $menu->getId()]) }}" class="badge badge-secondary">
+                                                <a href="{{ route('admin.menus.cards.card.edit', ['card' => $card->getId()]) }}" class="badge badge-secondary">
                                                     <i class="fas fa-edit"></i>
                                                     Редактировать
                                                 </a>
 
-                                                <form action="{{ route('admin.menus.menu.destroy', ['menu' => $menu->getId()]) }}" method="post" class="mt-1">
+                                                <form action="{{ route('admin.menus.cards.card.destroy', ['card' => $card->getId()]) }}" method="post">
                                                     {{ csrf_field() }}
                                                     @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">
+                                                    <button type="submit" class="badge badge-danger border-0 mt-1" onclick="return confirm('Are you sure you want to delete this item')">
                                                         <i class="fas fa-trash"></i>
                                                         Удалить
                                                     </button>

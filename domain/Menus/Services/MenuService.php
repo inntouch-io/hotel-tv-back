@@ -104,6 +104,13 @@ class MenuService
         });
     }
 
+    public function getWithCards(int $id)
+    {
+        return $this->builder->getById(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('cards');
+        });
+    }
+
     public function update(Menu $menu, Request $request)
     {
         $data = $request->validate(

@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
                 MessageSeeder::class,
                 MessageInfoSeeder::class,
                 MessageCardSeeder::class,
-                MessageCardInfoSeeder::class
+                MessageCardInfoSeeder::class,
+                MenuSeeder::class,
+                MenuCardSeeder::class
             ]
         );
     }
