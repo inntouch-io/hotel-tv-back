@@ -23,7 +23,7 @@ class MenuCardInfo extends Model
 {
     use HasFactory;
 
-    protected $table = 'menu_cards';
+    protected $table = 'menu_card_infos';
     protected $fillable = [
         'id',
         'title',

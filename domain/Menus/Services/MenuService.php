@@ -11,6 +11,7 @@ namespace Domain\Menus\Services;
 use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Menus\Builders\MenuBuilder;
+use Domain\Menus\DTO\MenuCreateDto;
 use Domain\Menus\DTO\MenuDto;
 use Domain\Menus\Entities\Menu;
 use Illuminate\Database\Eloquent\Builder;
@@ -82,7 +83,7 @@ class MenuService
             $order_position = (int)$menu['order_position'] + 1;
         }
 
-        return $this->builder->store(new MenuDto(
+        return $this->builder->store(new MenuCreateDto(
             $image->getId(),
             $data['type'],
             isset($data['isVisible']) ? 1 : 0,
@@ -116,13 +117,11 @@ class MenuService
         $data = $request->validate(
             [
                 'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'type'      => 'required|in:' . implode(',', array_keys(config('app.types'))),
                 'isVisible' => 'nullable|int'
             ]
         );
 
         $imageId = $menu->getImageId();
-        $order_position = null;
 
         if (isset($data['image'])) {
             /** @var Image $image */
@@ -131,21 +130,9 @@ class MenuService
             $imageId = $image->getId();
         }
 
-        if ($data['type'] !== $menu->getType()) {
-            $lastMenu = Menu::query()->where('type', '=', $data['type'])->latest()->first();
-
-            if (is_null($lastMenu)) {
-                $order_position = 1;
-            } else {
-                $order_position = $lastMenu['order_position'] + 1;
-            }
-        }
-
         $this->builder->update($menu, new MenuDto(
             $imageId,
-            $data['type'],
-            isset($data['isVisible']) ? 1 : 0,
-            $order_position
+            isset($data['isVisible']) ? 1 : 0
         ));
     }
 }

@@ -72,6 +72,7 @@ Route::namespace('Admin')->group(function () {
 
                 Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
                     Route::resource('card', 'MenuCardController');
+                    Route::resource('infos', 'MenuCardInfoController');
                 });
             });
 

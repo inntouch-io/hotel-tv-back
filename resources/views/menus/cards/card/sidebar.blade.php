@@ -23,13 +23,13 @@ $route_name = request()->route()->getName();
                             <span>Изменить</span>
                         </a>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('admin.menus.cards.infos.create', ['card_id' => $card->getId()]) }}"--}}
-{{--                           class="nav-link {{ $route_name === 'admin.menus.cards.infos.create' ? 'active' : '' }}">--}}
-{{--                            <i class="fas fa-plus"></i>--}}
-{{--                            <span>Добавить перевод</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a href="{{ route('admin.menus.cards.infos.create', ['card_id' => $card->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.menus.cards.infos.create' ? 'active' : '' }}">
+                            <i class="fas fa-plus"></i>
+                            <span>Добавить перевод</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item-divider"></li>
                 @endif

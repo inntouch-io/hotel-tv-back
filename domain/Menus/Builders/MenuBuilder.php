@@ -9,6 +9,7 @@
 namespace Domain\Menus\Builders;
 
 use Closure;
+use Domain\Menus\DTO\MenuCreateDto;
 use Domain\Menus\DTO\MenuDto;
 use Domain\Menus\Entities\Menu;
 
@@ -31,7 +32,7 @@ class MenuBuilder
         return $closure(Menu::query())->get();
     }
 
-    public function store(MenuDto $createDto)
+    public function store(MenuCreateDto $createDto)
     {
         return Menu::query()->create(
             [
@@ -43,17 +44,14 @@ class MenuBuilder
         );
     }
 
-    public function update(Menu $menu, MenuDto $createDto)
+    public function update(Menu $menu, MenuDto $dto)
     {
-        $menu->image_id = $createDto->getImageId();
-        $menu->is_visible = $createDto->getIsVisible();
-        $menu->type = $createDto->getType();
-
-        if (!is_null($createDto->getOrderPosition())){
-            $menu->order_position = $createDto->getOrderPosition();
-        }
-
-        $menu->save();
+        $menu->update(
+            [
+                'image_id'   => $dto->getImageId(),
+                'is_visible' => $dto->getIsVisible()
+            ]
+        );
     }
 
     public function getById(Closure $closure)

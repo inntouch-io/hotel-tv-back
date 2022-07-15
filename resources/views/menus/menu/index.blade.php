@@ -8,6 +8,7 @@
 
 /** @var \Domain\Menus\Entities\Menu $menu */
 /** @var \Domain\Menus\Entities\MenuInfo $info */
+/** @var \Illuminate\Database\Eloquent\Collection $menus */
 ?>
 
 @extends('layouts.main')
@@ -48,7 +49,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        @if(count($menus) === 0)
+                        @if($menus->count() === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>

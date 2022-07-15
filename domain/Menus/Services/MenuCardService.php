@@ -13,7 +13,6 @@ use Domain\Images\Services\ImageService;
 use Domain\Menus\Builders\MenuCardBuilder;
 use Domain\Menus\DTO\MenuCardDto;
 use Domain\Menus\DTO\MenuCardUpdateDto;
-use Domain\Menus\Entities\Menu;
 use Domain\Menus\Entities\MenuCard;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -52,12 +51,19 @@ class MenuCardService
         });
     }
 
+    public function getWithInfos(int $id)
+    {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with(['infos', 'menu']);
+        });
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate(
             [
                 'image'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'is_visible' => 'nullable|int'
+                'isVisible' => 'nullable|int'
             ]
         );
 
@@ -68,7 +74,8 @@ class MenuCardService
             throw new RuntimeException('Image not found');
         }
 
-        if (is_null($card = MenuCard::query()->latest()->first())) {
+        $menuId = (int)$request->query('menu_id');
+        if (is_null($card = MenuCard::query()->where('menu_id', '=', $menuId)->latest()->first())) {
             $order_position = 1;
         } else {
             $order_position = (int)$card['order_position'] + 1;
@@ -78,7 +85,7 @@ class MenuCardService
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
             $order_position,
-            $request->query('menu_id')
+            $menuId
         ));
     }
 
@@ -87,7 +94,7 @@ class MenuCardService
         $data = $request->validate(
             [
                 'image'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'is_visible' => 'nullable|int'
+                'isVisible' => 'nullable|int'
             ]
         );
 

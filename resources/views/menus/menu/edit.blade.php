@@ -79,20 +79,6 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p class="font-weight-semibold">Type</p>
-
-                                            <select name="type" id="type" class="form-control col-md-4" required>
-                                                @foreach(config('app.types') as $key => $value)
-                                                    @if($menu->getType() === $key)
-                                                        <option value="{{ $key }}" selected>{{ $value }}</option>
-                                                    @else
-                                                        <option value="{{ $key }}">{{ $value }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-outline-success">
                                                 <i class="far fa-save"></i>
                                                 Сохранить
