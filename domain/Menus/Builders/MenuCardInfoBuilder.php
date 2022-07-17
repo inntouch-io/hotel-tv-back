@@ -8,6 +8,11 @@
 
 namespace Domain\Menus\Builders;
 
+use Closure;
+use Domain\Menus\DTO\MenuCardInfoCreateDto;
+use Domain\Menus\DTO\MenuCardInfoUpdateDto;
+use Domain\Menus\Entities\MenuCardInfo;
+
 /**
  * Class MenuCardInfoBuilder
  * @package Domain\Menus\Builders
@@ -20,5 +25,34 @@ class MenuCardInfoBuilder
     public static function getInstance(): MenuCardInfoBuilder
     {
         return new static();
+    }
+
+    public function store(MenuCardInfoCreateDto $dto)
+    {
+        MenuCardInfo::query()->create(
+            [
+                'card_id'        => $dto->getCardId(),
+                'title'          => $dto->getTitle(),
+                'description'    => $dto->getDescription(),
+                'subDescription' => $dto->getSubDescription(),
+                'locale'         => $dto->getLocale()
+            ]
+        );
+    }
+
+    public function takeBy(Closure $closure)
+    {
+        return $closure(MenuCardInfo::query())->first();
+    }
+
+    public function update(MenuCardInfo $info, MenuCardInfoUpdateDto $dto)
+    {
+        $info->update(
+            [
+                'title'          => $dto->getTitle(),
+                'description'    => $dto->getDescription(),
+                'subDescription' => $dto->getSubDescription(),
+            ]
+        );
     }
 }

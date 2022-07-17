@@ -6,13 +6,13 @@
  * Created: 02.07.2022 / 15:46
  */
 
-/** @var \Domain\Messages\Entities\MessageCardInfo $cardInfo */
+/** @var \Domain\Menus\Entities\MenuCardInfo $info */
 
-$message = $cardInfo->card->message;
+$menu = $info->card->menu;
 ?>
 
 @extends('layouts.main')
-@section('title', is_null($cardInfo) ? 'Системная ошибка' : $cardInfo->getTitle())
+@section('title', is_null($info) ? 'Системная ошибка' : $info->getTitle())
 
 @section('content')
     <div class="page-header">
@@ -20,7 +20,7 @@ $message = $cardInfo->card->message;
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        {{ is_null($cardInfo) ? 'Системная ошибка' : $cardInfo->getTitle() }}
+                        {{ is_null($info) ? 'Системная ошибка' : $info->getTitle() }}
                     </span>
                 </h4>
             </div>
@@ -28,13 +28,13 @@ $message = $cardInfo->card->message;
     </div>
 
     <div class="page-content pt-0">
-        @include('messages.cards.infos.infobar')
+        @include('menus.cards.infos.infobar')
 
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($cardInfo))
+                        @if(is_null($info))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Системная ошибка
@@ -48,7 +48,7 @@ $message = $cardInfo->card->message;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.messages.cards.infos.update', ['info' => $cardInfo->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.menus.cards.infos.update', ['info' => $info->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
 
@@ -57,21 +57,21 @@ $message = $cardInfo->card->message;
                                         <div class="form-group">
                                             <label for="title" class="font-weight-bold">Название</label>
                                             <input type="text" id="title" name="title" class="form-control"
-                                                   placeholder="Название" value="{{ $cardInfo->getTitle() }}"
+                                                   placeholder="Название" value="{{ $info->getTitle() }}"
                                                    required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="description" class="font-weight-bold">Описание</label>
                                             <input type="text" id="description" name="description" class="form-control"
-                                                   placeholder="Описание" value="{{ $cardInfo->getDescription() }}"
+                                                   placeholder="Описание" value="{{ $info->getDescription() }}"
                                                    required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="subDescription" class="font-weight-bold">Подробное описание</label>
                                             <input type="text" id="subDescription" name="subDescription" class="form-control"
-                                                   placeholder="Подробное описание" value="{{ $cardInfo->getSubDescription() }}"
+                                                   placeholder="Подробное описание" value="{{ $info->getSubDescription() }}"
                                                    required>
                                         </div>
 
@@ -85,7 +85,7 @@ $message = $cardInfo->card->message;
                                 </div>
                             </form>
 
-                            <form action="{{ route('admin.messages.cards.infos.destroy', ['info' => $cardInfo->getId()]) }}" method="post" class="mt-1 position-absolute" style="bottom: 40px; left: 150px">
+                            <form action="{{ route('admin.menus.cards.infos.destroy', ['info' => $info->getId()]) }}" method="post" class="mt-1 position-absolute" style="bottom: 40px; left: 150px">
                                 {{ csrf_field() }}
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item')">

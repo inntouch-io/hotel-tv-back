@@ -9,6 +9,11 @@
 namespace Domain\Menus\Services;
 
 use Domain\Menus\Builders\MenuCardInfoBuilder;
+use Domain\Menus\DTO\MenuCardInfoCreateDto;
+use Domain\Menus\DTO\MenuCardInfoUpdateDto;
+use Domain\Menus\Entities\MenuCardInfo;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 /**
  * Class MenuCardInfoService
@@ -26,5 +31,55 @@ class MenuCardInfoService
         $this->builder = $builder;
     }
 
+    /**
+     * @return MenuCardInfoService
+     */
+    public static function getInstance(): MenuCardInfoService
+    {
+        return new static(MenuCardInfoBuilder::getInstance());
+    }
 
+    public function store(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'title'          => 'required|string',
+                'description'    => 'required|string',
+                'subDescription' => 'required|string',
+                'locale'         => 'required|string',
+            ]
+        );
+
+        $this->builder->store(new MenuCardInfoCreateDto(
+            (int)$request->query('card_id'),
+            $data['title'],
+            $data['description'],
+            $data['subDescription'],
+            $data['locale']
+        ));
+    }
+
+    public function getById(int $id)
+    {
+        return $this->builder->takeBy(function(Builder $builder) use ($id){
+             return $builder->whereKey($id)->with('card');
+        });
+    }
+
+    public function update(MenuCardInfo $info, Request $request)
+    {
+        $data = $request->validate(
+            [
+                'title'          => 'required|string',
+                'description'    => 'required|string',
+                'subDescription' => 'required|string',
+            ]
+        );
+
+        $this->builder->update($info, new MenuCardInfoUpdateDto(
+            $data['title'],
+            $data['description'],
+            $data['subDescription']
+        ));
+    }
 }

@@ -39,7 +39,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        @if(count($menu->cards) === 0)
+                        @if($menu->cards->count() === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>
@@ -67,14 +67,14 @@
                                                 <div class="font-weight-semibold">{{ $card->getId() }}</div>
                                             </td>
                                             <td>
-{{--                                                @foreach($card->infos as $info)--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="{{ route('admin.messages.cards.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">--}}
-{{--                                                            [{{ config('app.locales')[$info->getLocale()] }}] ---}}
-{{--                                                            {{ $info->getTitle() }}--}}
-{{--                                                        </a>--}}
-{{--                                                    </li>--}}
-{{--                                                @endforeach--}}
+                                                @foreach($card->infos as $info)
+                                                    <li>
+                                                        <a href="{{ route('admin.menus.cards.infos.edit', ['info' => $info->getId()]) }}" class="font-weight-semibold">
+                                                            [{{ config('app.locales')[$info->getLocale()] }}] -
+                                                            {{ $info->getTitle() }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <div style="line-height: 100px">

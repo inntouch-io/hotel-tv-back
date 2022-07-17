@@ -6,7 +6,7 @@
  * Created: 02.07.2022 / 14:07
  */
 
-/** @var \Domain\Messages\Entities\MessageCardInfo $cardInfo */
+/** @var \Domain\Menus\Entities\MenuCardInfo $info */
 $route_name = request()->route()->getName();
 ?>
 
@@ -14,19 +14,19 @@ $route_name = request()->route()->getName();
     <div class="sidebar-content">
         <div class="sidebar-section">
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                @if(!is_null($cardInfo))
+                @if(!is_null($info))
                     <li class="nav-item">
-                        <a href="{{ route('admin.messages.cards.infos.edit', ['info' => $cardInfo->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.messages.cards.infos.edit' ? 'active' : '' }}">
+                        <a href="{{ route('admin.menus.cards.infos.edit', ['info' => $info->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.menus.cards.infos.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить перевод</span>
                         </a>
                     </li>
                 @endif
 
-                @if(!is_null($message))
+                @if(!is_null($menu))
                     <li class="nav-item">
-                        <a href="{{ route('admin.messages.cards.card.index', ['message_id' => $message->getId()]) }}" class="nav-link {{ $route_name === 'admin.messages.cards.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.menus.cards.card.index', ['menu_id' => $menu->getId()]) }}" class="nav-link {{ $route_name === 'admin.menus.cards.card.index' ? 'active' : '' }}">
                             <i class="icon-stack"></i>
                             <span>Карточки</span>
                         </a>

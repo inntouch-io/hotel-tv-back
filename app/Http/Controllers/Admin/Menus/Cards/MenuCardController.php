@@ -93,8 +93,10 @@ class MenuCardController extends AdminController
     public function destroy(int $id)
     {
         /** @var MenuCard $card */
-        $card = MenuCardService::getInstance()->getById($id);
+        $card = MenuCardService::getInstance()->getWithInfos($id);
 
+        // TODO need delete $card->image()->delete()
+        $card->infos()->delete();
         $card->delete();
 
         return redirect()->route('admin.menus.cards.card.index', ['menu_id' => $card->getMenuId()])
