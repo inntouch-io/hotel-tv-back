@@ -17,7 +17,12 @@ Route::namespace('Admin')->group(function () {
         // Home page
         $router->get('/', fn() => view('layouts.main'))->name('home');
 
-        Route::prefix('admin')->as('admin.')->group(function () {
+        Route::prefix('admin')->as('admin.')->group(function (Router $router) {
+
+            Route::prefix('rooms')->as('rooms')->group(function (Router $router){
+                $router->post('set-room', 'RoomController@setRoom')->name('setRoom');
+            });
+
             // Logout
             Route::prefix('auth')->name('auth.')->group(function (Router $router) {
                 $router->match(['get', 'post'], '/logout', 'AuthController@logout')->name('logout');
