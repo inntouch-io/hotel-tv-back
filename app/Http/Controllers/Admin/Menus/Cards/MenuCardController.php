@@ -30,6 +30,7 @@ class MenuCardController extends AdminController
 
     public function index(Request $request)
     {
+        $this->authorize('index', MenuCard::class);
         $menu = MenuService::getInstance()->getWithCards((int)$request->query('menu_id'));
 
         return view(
@@ -42,6 +43,7 @@ class MenuCardController extends AdminController
 
     public function create(Request $request)
     {
+        $this->authorize('create', MenuCard::class);
         $menu = MenuService::getInstance()->getById((int)$request->query('menu_id'));
 
         return view(
@@ -54,6 +56,7 @@ class MenuCardController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', MenuCard::class);
         MenuCardService::getInstance()->store($request);
 
         return redirect()->route('admin.menus.cards.card.index', ['menu_id' => (int)$request->query('menu_id')])
@@ -62,6 +65,7 @@ class MenuCardController extends AdminController
 
     public function edit(int $id)
     {
+        $this->authorize('edit', MenuCard::class);
         /** @var MenuCard $card */
         $card = MenuCardService::getInstance()->getById($id);
 
@@ -76,6 +80,7 @@ class MenuCardController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', MenuCard::class);
         /** @var MenuCard $card */
         $card = MenuCardService::getInstance()->getById($id);
 
@@ -92,6 +97,7 @@ class MenuCardController extends AdminController
 
     public function destroy(int $id)
     {
+        $this->authorize('delete', MenuCard::class);
         /** @var MenuCard $card */
         $card = MenuCardService::getInstance()->getWithInfos($id);
 

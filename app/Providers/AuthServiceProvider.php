@@ -4,6 +4,14 @@ namespace App\Providers;
 
 use Domain\Applications\Entities\Application;
 use Domain\Applications\Policies\ApplicationPolicy;
+use Domain\Menus\Entities\Menu;
+use Domain\Menus\Entities\MenuCard;
+use Domain\Menus\Entities\MenuCardInfo;
+use Domain\Menus\Entities\MenuInfo;
+use Domain\Menus\Policies\MenuCardInfoPolicy;
+use Domain\Menus\Policies\MenuCardPolicy;
+use Domain\Menus\Policies\MenuInfoPolicy;
+use Domain\Menus\Policies\MenuPolicy;
 use Domain\Messages\Entities\Message;
 use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Entities\MessageCardInfo;
@@ -30,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider
         MessageInfo::class     => MessageInfoPolicy::class,
         MessageCard::class     => MessageCardPolicy::class,
         MessageCardInfo::class => MessageCardInfoPolicy::class,
+        Menu::class            => MenuPolicy::class,
+        MenuInfo::class        => MenuInfoPolicy::class,
+        MenuCard::class        => MenuCardPolicy::class,
+        MenuCardInfo::class    => MenuCardInfoPolicy::class,
     ];
 
     /**

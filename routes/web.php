@@ -23,6 +23,7 @@ Route::namespace('Admin')->group(function () {
                 $router->match(['get', 'post'], '/logout', 'AuthController@logout')->name('logout');
             });
 
+            // Profile
             Route::prefix('profile')->name('profile.')->group(function (Router $router) {
                 $router->get('edit', 'ProfileController@edit')->name('edit');
                 $router->put('update', 'ProfileController@update')->name('update');
@@ -47,13 +48,6 @@ Route::namespace('Admin')->group(function () {
 
             });
 
-            // Applications
-            Route::prefix('applications')->as('applications.')->group(function (Router $router) {
-                $router->get('index', 'ApplicationsController@index')->name('index');
-                $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
-                $router->put('update/{application}', 'ApplicationsController@update')->name('update');
-            });
-
             // Messages
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
                 Route::resource('message', 'MessageController');
@@ -76,7 +70,12 @@ Route::namespace('Admin')->group(function () {
                 });
             });
 
+            // Applications
+            Route::prefix('applications')->as('applications.')->group(function (Router $router) {
+                $router->get('index', 'ApplicationsController@index')->name('index');
+                $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
+                $router->put('update/{application}', 'ApplicationsController@update')->name('update');
+            });
         });
     });
-
 });

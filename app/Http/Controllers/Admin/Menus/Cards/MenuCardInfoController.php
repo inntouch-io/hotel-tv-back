@@ -31,6 +31,7 @@ class MenuCardInfoController extends AdminController
 
     public function create(Request $request)
     {
+        $this->authorize('create', MenuCardInfo::class);
         $card = MenuCardService::getInstance()->getWithInfos((int)$request->query('card_id'));
 
         return view(
@@ -43,6 +44,7 @@ class MenuCardInfoController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', MenuCardInfo::class);
         /** @var MenuCard $card */
         $card = MenuCardService::getInstance()->getById((int)$request->query('card_id'));
 
@@ -54,6 +56,7 @@ class MenuCardInfoController extends AdminController
 
     public function edit(int $id)
     {
+        $this->authorize('edit', MenuCardInfo::class);
         /** @var MenuCardInfo $info */
         $info = MenuCardInfoService::getInstance()->getById($id);
 
@@ -67,6 +70,7 @@ class MenuCardInfoController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', MenuCardInfo::class);
         /** @var MenuCardInfo $info */
         $info = MenuCardInfoService::getInstance()->getById($id);
 
@@ -78,6 +82,7 @@ class MenuCardInfoController extends AdminController
 
     public function destroy(int $id)
     {
+        $this->authorize('delete', MenuCardInfo::class);
         /** @var MenuCardInfo $info */
         $info = MenuCardInfoService::getInstance()->getById($id);
 

@@ -30,6 +30,7 @@ class MenuInfoController extends AdminController
 
     public function create(Request $request)
     {
+        $this->authorize('create', MenuInfo::class);
         $menu = MenuService::getInstance()->getWithInfosById((int)$request->query('menu_id'));
 
         return view('menus.infos.create', ['menu' => $menu]);
@@ -37,6 +38,7 @@ class MenuInfoController extends AdminController
 
     public function store(Request $request)
     {
+        $this->authorize('store', MenuInfo::class);
         MenuInfoService::getInstance()->store($request);
 
         return redirect()->route('admin.menus.menu.index')
@@ -45,6 +47,7 @@ class MenuInfoController extends AdminController
 
     public function edit(int $id)
     {
+        $this->authorize('edit', MenuInfo::class);
         $info = MenuInfoService::getInstance()->getById($id);
 
         return view(
@@ -57,6 +60,7 @@ class MenuInfoController extends AdminController
 
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', MenuInfo::class);
         /** @var MenuInfo $info */
         $info = MenuInfoService::getInstance()->getById($id);
 
@@ -68,6 +72,7 @@ class MenuInfoController extends AdminController
 
     public function destroy(int $id)
     {
+        $this->authorize('delete', MenuInfo::class);
         /** @var MenuInfo $info */
         $info = MenuInfoService::getInstance()->getById($id);
 
