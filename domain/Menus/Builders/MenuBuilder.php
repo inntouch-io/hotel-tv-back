@@ -32,6 +32,11 @@ class MenuBuilder
         return $closure(Menu::query())->get();
     }
 
+    public function getItems(Closure $closure, $itemsPerPage = 18)
+    {
+        return $closure(Menu::query())->paginate($itemsPerPage);
+    }
+
     public function store(MenuCreateDto $createDto)
     {
         return Menu::query()->create(

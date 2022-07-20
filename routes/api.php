@@ -48,4 +48,9 @@ Route::namespace('Api')->as('api.')->group(function (){
         $router->get('get-cards', 'MessagesController@getCards')->name('getCards');
     });
 
+    Route::prefix('information')->as('information.')->group(function (Router $router){
+        $router->get('get-list', 'InformationController@getList')->name('getList');
+        $router->get('get-cards', 'InformationController@getCards')->name('getCards');
+    });
+
 });

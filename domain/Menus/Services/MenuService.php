@@ -51,6 +51,24 @@ class MenuService
         });
     }
 
+    public function getItems(Request $request, $locale = 'ru')
+    {
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+            return $builder
+                ->with('image')
+                ->where('menus.type', '=', $request->input('type'))
+                ->where('menus.is_visible', '=', 1)
+                ->join('menu_infos', 'menus.id', '=', 'menu_infos.menu_id')
+                ->where('menu_infos.locale', '=', $locale)
+                ->orderBy('menus.order_position', 'asc')
+                ->select([
+                    'menus.*',
+                    'menu_infos.title',
+                ])
+                ->distinct();
+        }, $request->input('itemsPerPage', 18));
+    }
+
     /**
      * @param Request $request
      * @return array

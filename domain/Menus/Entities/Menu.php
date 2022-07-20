@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int        $order_position
  * @property Carbon     $created_at
  *
+ * @property-read string $title
+ *
  * @property Image      $image
  * @property Collection $infos
  * @property Collection $cards
@@ -111,5 +113,13 @@ class Menu extends Model
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 }

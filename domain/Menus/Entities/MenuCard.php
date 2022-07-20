@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int        $order_position
  * @property Carbon     $created_at
  *
+ * @property-read  string $title
+ * @property-read  string $description
+ * @property-read  string $subDescription
+ *
  * @property Image      $image
  * @property Collection $infos
  * @property Menu       $menu
@@ -113,5 +117,30 @@ class MenuCard extends Model
     public function getMenuId(): int
     {
         return $this->menu_id;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubDescription(): string
+    {
+        return $this->subDescription;
     }
 }

@@ -32,6 +32,11 @@ class MenuCardBuilder
         return $closure(MenuCard::query())->first();
     }
 
+    public function getItems(Closure $closure, $itemsPerPage = 18)
+    {
+        return $closure(MenuCard::query())->paginate($itemsPerPage);
+    }
+
     public function store(MenuCardDto $dto)
     {
         MenuCard::query()->create(

@@ -44,6 +44,27 @@ class MenuCardService
         return new static(MenuCardBuilder::getInstance());
     }
 
+    public function getItems(Request $request, $locale = 'ru')
+    {
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+            $infoId = $request->input('infoId');
+
+            return $builder
+                ->with('image')
+                ->where('menu_cards.menu_id', '=', $infoId)
+                ->where('menu_cards.is_visible', '=', 1)
+                ->join('menu_card_infos', 'menu_card_infos.card_id', '=', 'menu_cards.id')
+                ->where('menu_card_infos.locale', '=', $locale)
+                ->select([
+                    'menu_cards.*',
+                    'menu_card_infos.title',
+                    'menu_card_infos.description',
+                    'menu_card_infos.subDescription',
+                ])
+                ->distinct();
+        }, $request->input('itemsPerPage', 18));
+    }
+
     public function getById(int $id)
     {
         return $this->builder->takeBy(function (Builder $builder) use ($id) {
