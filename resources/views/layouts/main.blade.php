@@ -120,6 +120,13 @@ $admin = auth()->user();
                     Главная
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.rooms.index') }}" class="navbar-nav-link">
+                    <i class="fas fa-align-left"></i>
+                    Комнаты
+                </a>
+            </li>
+
             @can('index', \Domain\Modules\Entities\Module::class)
                 <li class="nav-item">
                     <a href="{{ route('admin.modules.module.index') }}" class="navbar-nav-link">
@@ -137,18 +144,24 @@ $admin = auth()->user();
                     </a>
                 </li>
             @endcan
-            <li class="nav-item">
-                <a href="{{ route('admin.messages.message.index') }}" class="navbar-nav-link">
-                    <i class="fas fa-save"></i>
-                    Сообщения
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.menus.menu.index') }}" class="navbar-nav-link">
-                    <i class="fas fa-server"></i>
-                    Menu
-                </a>
-            </li>
+
+            @can('index', \Domain\Messages\Entities\Message::class)
+                <li class="nav-item">
+                    <a href="{{ route('admin.messages.message.index') }}" class="navbar-nav-link">
+                        <i class="fas fa-save"></i>
+                        Сообщения
+                    </a>
+                </li>
+            @endcan
+
+            @can('index', \Domain\Menus\Entities\Menu::class)
+                <li class="nav-item">
+                    <a href="{{ route('admin.menus.menu.index') }}" class="navbar-nav-link">
+                        <i class="fas fa-server"></i>
+                        Menu
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </div>

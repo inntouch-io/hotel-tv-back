@@ -17,11 +17,7 @@ Route::namespace('Admin')->group(function () {
         // Home page
         $router->get('/', fn() => view('layouts.main'))->name('home');
 
-        Route::prefix('admin')->as('admin.')->group(function (Router $router) {
-
-            Route::prefix('rooms')->as('rooms')->group(function (Router $router){
-                $router->post('set-room', 'RoomController@setRoom')->name('setRoom');
-            });
+        Route::prefix('admin')->as('admin.')->group(function () {
 
             // Logout
             Route::prefix('auth')->name('auth.')->group(function (Router $router) {
@@ -80,6 +76,13 @@ Route::namespace('Admin')->group(function () {
                 $router->get('index', 'ApplicationsController@index')->name('index');
                 $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
                 $router->put('update/{application}', 'ApplicationsController@update')->name('update');
+            });
+
+            Route::prefix('rooms')->as('rooms.')->group(function (Router $router) {
+                $router->get('index', 'RoomController@index')->name('index');
+                $router->get('edit/{room}', 'RoomController@edit')->name('edit');
+                $router->put('update/{room}', 'RoomController@update')->name('update');
+                $router->delete('destroy/{room}', 'RoomController@destroy')->name('destroy');
             });
         });
     });

@@ -19,6 +19,7 @@ class CreateRoomsTable extends Migration
             $table->string('device_id');
             $table->tinyInteger('is_verified')->default(0);
             $table->string('device_ip')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

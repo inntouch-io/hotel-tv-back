@@ -3,22 +3,26 @@
 namespace Domain\Rooms\Entities;
 
 use App\Core\Entities;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Room
  * @package domain\Rooms\Entities
  *
- * @property string $room_number
- * @property string $device_id
- * @property int $is_verified
- * @property string $device_ip
+ * @property int         $id
+ * @property string      $room_number
+ * @property string      $device_id
+ * @property int         $is_verified
+ * @property string      $device_ip
+ * @property Carbon|null $created_at
  */
 class Room extends Entities
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'rooms';
     protected $fillable = [
@@ -73,7 +77,7 @@ class Room extends Entities
      */
     public function getIsVerified(): bool
     {
-        return (bool) $this->is_verified;
+        return (bool)$this->is_verified;
     }
 
     /**
@@ -82,5 +86,21 @@ class Room extends Entities
     public function getDeviceIp(): string
     {
         return $this->device_ip ?? '';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

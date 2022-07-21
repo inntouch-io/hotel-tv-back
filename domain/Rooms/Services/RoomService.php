@@ -6,7 +6,10 @@ namespace Domain\Rooms\Services;
 use App\Core\Services;
 use Domain\Rooms\Builders\RoomBuilder;
 use Domain\Rooms\DTO\RoomDto;
+use Domain\Rooms\DTO\RoomUpdateDto;
+use Domain\Rooms\Entities\Room;
 use Illuminate\Http\Request;
+use RuntimeException;
 
 /**
  * Class RoomService.php
@@ -56,5 +59,45 @@ class RoomService extends Services
         $roomDto->setIsVerified(0);
 
         return RoomBuilder::getInstance()->insertItem($roomDto);
+    }
+
+    public function getList()
+    {
+        return RoomBuilder::getInstance()->getList();
+    }
+
+    public function getById(int $id)
+    {
+        return RoomBuilder::getInstance()->getById($id);
+    }
+
+    public function update(Room $room, Request $request)
+    {
+        $data = $request->validate(
+            [
+                'roomNumber' => 'required|string',
+                'deviceId'   => 'required|string',
+                'isVerified' => 'nullable|int',
+            ]
+        );
+
+        if ($this->exists($data['deviceId']) && $data['deviceId'] !== $room->getDeviceId()) {
+            throw new RuntimeException('Duplicated device id');
+        }
+
+        RoomBuilder::getInstance()->update($room, new RoomUpdateDto(
+            $data['roomNumber'],
+            $data['deviceId'],
+            isset($data['isVerified']) ? 1 : 0
+        ));
+    }
+
+    /**
+     * @param string $deviceId
+     * @return bool
+     */
+    public function exists(string $deviceId): bool
+    {
+        return RoomBuilder::getInstance()->exists($deviceId);
     }
 }

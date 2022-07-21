@@ -20,30 +20,30 @@ use Illuminate\Routing\Router;
 //});
 
 
-Route::namespace('Api')->as('api.')->group(function (){
+Route::namespace('Api')->as('api.')->group(function () {
 
     // Auth
-    Route::prefix('auth')->as('auth.')->group(function (Router $router){
+    Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
         $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
     });
 
-    Route::prefix('modules')->as('modules.')->group(function (Router $router){
+    Route::prefix('modules')->as('modules.')->group(function (Router $router) {
         $router->get('/get-list', 'ModulesController@getList');
     });
 
-    Route::prefix('third-party')->namespace('ThirdParty')->as('third-party.')->group(function (){
+    Route::prefix('third-party')->namespace('ThirdParty')->as('third-party.')->group(function () {
         //Apps
-        Route::prefix('applications')->as('applications.')->group(function (Router $router){
+        Route::prefix('applications')->as('applications.')->group(function (Router $router) {
             $router->get('get-list', 'ApplicationsController@getList')->name('getList');
         });
         //Weather
-        Route::prefix('weather')->as('weather.')->group(function (Router $router){
+        Route::prefix('weather')->as('weather.')->group(function (Router $router) {
             $router->get('get-today', 'WeatherController@getToday')->name('getToday');
         });
     });
 
-    Route::prefix('messages')->as('messages.')->group(function (Router $router){
+    Route::prefix('messages')->as('messages.')->group(function (Router $router) {
         $router->get('get-list', 'MessagesController@getList')->name('getList');
         $router->get('get-cards', 'MessagesController@getCards')->name('getCards');
     });

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\Menus;
 
 use App\Http\Controllers\Admin\AdminController;
 use Domain\Menus\Entities\Menu;
+use Domain\Menus\Entities\MenuCard;
 use Domain\Menus\Services\MenuService;
 use Illuminate\Http\Request;
 
@@ -72,8 +73,12 @@ class MenuController extends AdminController
     {
         $this->authorize('delete', Menu::class);
         /** @var Menu $menu */
-        $menu = MenuService::getInstance()->getWithInfosById($id);
+        $menu = MenuService::getInstance()->getWithAllRelations($id);
 
+        $menu->cards->transform(function (MenuCard $card){
+            $card->infos()->delete();
+        });
+        $menu->cards()->delete();
         $menu->infos()->delete();
         $menu->delete();
 

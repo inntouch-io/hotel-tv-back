@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class RoomSeeder extends Seeder
@@ -19,7 +19,8 @@ class RoomSeeder extends Seeder
             [
                 'id'          => 1,
                 'room_number' => '17',
-                'device_id'   => '1asdasd717',
+                'device_id'   => 'test1',
+                'device_ip'   => '10.36.105.35',
                 'created_at'  => Carbon::now()
             ]
         );
@@ -28,7 +29,8 @@ class RoomSeeder extends Seeder
             [
                 'id'          => 2,
                 'room_number' => '18',
-                'device_id'   => '1da71sadasfgasg7',
+                'device_id'   => 'test2',
+                'device_ip'   => '10.36.105.40',
                 'created_at'  => Carbon::now()
             ]
         );

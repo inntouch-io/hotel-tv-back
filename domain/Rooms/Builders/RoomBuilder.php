@@ -5,6 +5,7 @@ namespace Domain\Rooms\Builders;
 
 use App\Core\Builders;
 use Domain\Rooms\DTO\RoomDto;
+use Domain\Rooms\DTO\RoomUpdateDto;
 use Domain\Rooms\Entities\Room;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,7 @@ class RoomBuilder extends Builders
 
     public function updateItem($room, RoomDto $roomDto)
     {
-        try{
+        try {
 
             DB::beginTransaction();
 
@@ -56,7 +57,7 @@ class RoomBuilder extends Builders
             DB::commit();
 
             return true;
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             DB::rollBack();
 
             return false;
@@ -65,7 +66,7 @@ class RoomBuilder extends Builders
 
     public function insertItem(RoomDto $roomDto)
     {
-        try{
+        try {
 
             DB::beginTransaction();
 
@@ -81,10 +82,40 @@ class RoomBuilder extends Builders
 
             return $room;
 
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             DB::rollBack();
 
             return null;
         }
+    }
+
+    public function getList()
+    {
+        return Room::query()->orderByDesc('id')->get();
+    }
+
+    public function getById(int $id)
+    {
+        return Room::query()->whereKey($id)->first();
+    }
+
+    /**
+     * @param string $deviceId
+     * @return bool
+     */
+    public function exists(string $deviceId): bool
+    {
+        return Room::query()->where('device_id', '=', $deviceId)->exists();
+    }
+
+    public function update(Room $room, RoomUpdateDto $updateDto)
+    {
+        $room->update(
+            [
+                'room_number' => $updateDto->getRoomNumber(),
+                'device_id'   => $updateDto->getDeviceId(),
+                'is_verified' => $updateDto->getIsVerified(),
+            ]
+        );
     }
 }

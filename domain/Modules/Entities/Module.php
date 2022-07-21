@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int         $id
  * @property string      $module_slug
+ * @property string      $type
  * @property string      $module_name
  * @property string      $image_id
  * @property int         $is_visible
@@ -35,6 +36,7 @@ class Module extends Entities
     protected $fillable = [
         'id',
         'module_slug',
+        'type',
         'module_name',
         'image_id',
         'is_visible',
@@ -125,5 +127,13 @@ class Module extends Entities
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 }
