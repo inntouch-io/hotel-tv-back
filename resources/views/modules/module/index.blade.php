@@ -36,7 +36,7 @@ use Domain\Modules\Entities\ModuleInfo;
         <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
             <div class="sidebar-content">
                 <div class="sidebar-section">
-                    <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
+                    <ul class="nav nav-sidebar" data-nav-type="accordion">
                         @include('modules.module.sidebar')
                     </ul>
                 </div>

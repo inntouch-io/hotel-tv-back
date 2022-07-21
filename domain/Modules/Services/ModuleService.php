@@ -54,6 +54,16 @@ class ModuleService
     }
 
     /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->builder->list(function (Builder $builder) {
+            return $builder->orderBy('order_position');
+        });
+    }
+
+    /**
      * @param string $locale
      * @return Collection
      */
@@ -159,5 +169,20 @@ class ModuleService
         return $this->builder->checkBySlug(function (Builder $builder) use ($slug) {
             return $builder->where('module_slug', '=', $slug);
         });
+    }
+
+    /**
+     * @param array $modules
+     * @return void
+     */
+    public function sorting(array $modules = [])
+    {
+        foreach ($modules as $index => $data){
+            Module::query()->whereKey($data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
     }
 }

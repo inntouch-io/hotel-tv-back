@@ -68,21 +68,6 @@ class MenuService
         }, $request->input('itemsPerPage', 18));
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function validator(Request $request): array
-    {
-        return $request->validate(
-            [
-                'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'type'      => 'required|in:' . implode(',', array_keys(config('app.types'))),
-                'isVisible' => 'nullable|int'
-            ]
-        );
-    }
-
     public function store(Request $request)
     {
         $data = $this->validator($request);
@@ -109,6 +94,25 @@ class MenuService
             isset($data['isVisible']) ? 1 : 0,
             $data['type'],
             $order_position,
+        ));
+    }
+
+    public function update(Menu $menu, Request $request)
+    {
+        $data = $this->validator($request);
+
+        $imageId = $menu->getImageId();
+
+        if (isset($data['image'])) {
+            /** @var Image $image */
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
+
+            $imageId = $image->getId();
+        }
+
+        $this->builder->update($menu, new MenuDto(
+            $imageId,
+            isset($data['isVisible']) ? 1 : 0
         ));
     }
 
@@ -140,27 +144,31 @@ class MenuService
         });
     }
 
-    public function update(Menu $menu, Request $request)
+    // Validation
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function validator(Request $request): array
     {
-        $data = $request->validate(
-            [
+        $rules = [];
+
+        if ($request->route()->getName() === 'admin.menus.menu.store') {
+            $rules = [
+                'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'type'      => 'required|in:' . implode(',', array_keys(config('app.types'))),
+                'isVisible' => 'nullable|int'
+            ];
+        } elseif ($request->route()->getName() === 'admin.menus.menu.update') {
+            $rules = [
                 'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'isVisible' => 'nullable|int'
-            ]
-        );
-
-        $imageId = $menu->getImageId();
-
-        if (isset($data['image'])) {
-            /** @var Image $image */
-            $image = ImageService::getInstance()->upload($request, self::CATALOG);
-
-            $imageId = $image->getId();
+            ];
         }
 
-        $this->builder->update($menu, new MenuDto(
-            $imageId,
-            isset($data['isVisible']) ? 1 : 0
-        ));
+        return $request->validate(
+            $rules
+        );
     }
 }

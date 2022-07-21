@@ -17,3 +17,10 @@ $route_name = request()->route()->getName();
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('admin.modules.module.sortingList') }}" class="nav-link {{ $route_name === 'admin.modules.module.sortingList' ? 'active' : '' }}">
+        <i class="icon-sort"></i>
+        <span>Сортировка</span>
+    </a>
+</li>
+

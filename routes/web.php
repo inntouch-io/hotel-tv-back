@@ -12,7 +12,7 @@ Route::namespace('Admin')->group(function () {
     // 3. Views make correct for example type of modules   !!! DONE
     // 4. takeBy logics with condition
     // 5. Soft Delete realise to all models
-    // 6. Policies
+    // 6. Policies !!! DONE
 
     Route::prefix('admin')->as('admin.')->group(function () {
         Route::prefix('auth')->name('auth.')->group(function (Router $router) {
@@ -55,6 +55,8 @@ Route::namespace('Admin')->group(function () {
                     $router->get('/index', 'ModuleController@index')->name('index');
                     $router->get('/edit/{id}', 'ModuleController@edit')->name('edit');
                     $router->put('/update/{id}', 'ModuleController@update')->name('update');
+                    $router->get('/sorting-list', 'ModuleController@sortingList')->name('sortingList');
+                    $router->post('/sorting', 'ModuleController@sorting')->name('sorting');
                 });
 
                 Route::prefix('infos')->as('infos.')->group(function (Router $router) {

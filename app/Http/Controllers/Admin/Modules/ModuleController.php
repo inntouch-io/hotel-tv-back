@@ -75,4 +75,31 @@ class ModuleController extends AdminController
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }
+
+    public function sortingList()
+    {
+        $list = ModuleService::getInstance()->getAll();
+
+        return view(
+            'modules.module.sorting',
+            [
+                'list' => $list
+            ]
+        );
+    }
+
+    public function sorting(Request $request)
+    {
+        try {
+            if ($request->isXmlHttpRequest()) {
+                ModuleService::getInstance()->sorting($request->input('modules'));
+
+                return response()->json(['status' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
 }
