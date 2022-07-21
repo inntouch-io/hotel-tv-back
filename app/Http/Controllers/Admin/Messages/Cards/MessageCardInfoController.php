@@ -34,6 +34,11 @@ class MessageCardInfoController extends AdminController
         //
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create(Request $request)
     {
         $this->authorize('create', MessageCardInfo::class);
@@ -42,6 +47,11 @@ class MessageCardInfoController extends AdminController
         return view('messages.cards.infos.create', ['card' => $card]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
         $this->authorize('store', MessageCardInfo::class);
@@ -58,6 +68,11 @@ class MessageCardInfoController extends AdminController
         }
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
         $this->authorize('edit', MessageCardInfo::class);
@@ -67,6 +82,12 @@ class MessageCardInfoController extends AdminController
         return view('messages.cards.infos.edit', ['cardInfo' => $cardInfo]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
         $this->authorize('update', MessageCardInfo::class);
@@ -79,6 +100,11 @@ class MessageCardInfoController extends AdminController
             ->with('success', 'Success');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
         $this->authorize('delete', MessageCardInfo::class);

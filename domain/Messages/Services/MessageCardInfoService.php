@@ -9,8 +9,7 @@
 namespace Domain\Messages\Services;
 
 use Domain\Messages\Builders\MessageCardInfoBuilder;
-use Domain\Messages\DTO\MessageCardInfoCreateDto;
-use Domain\Messages\DTO\MessageCardInfoUpdateDto;
+use Domain\Messages\DTO\MessageCardInfoDto;
 use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Entities\MessageCardInfo;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,7 +57,7 @@ class MessageCardInfoService
             ]
         );
 
-        return $this->builder->add(new MessageCardInfoCreateDto(
+        return $this->builder->add(new MessageCardInfoDto(
             $data['title'],
             $data['description'],
             $data['subDescription'],
@@ -86,7 +85,7 @@ class MessageCardInfoService
     {
         $data = $this->validator($request);
 
-        $this->builder->update($cardInfo, new MessageCardInfoUpdateDto(
+        $this->builder->update($cardInfo, new MessageCardInfoDto(
             $data['title'],
             $data['description'],
             $data['subDescription']

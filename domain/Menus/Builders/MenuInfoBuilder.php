@@ -42,11 +42,11 @@ class MenuInfoBuilder
         );
     }
 
-    public function update(MenuInfo $info, string $title)
+    public function update(MenuInfo $info, MenuInfoDto $dto)
     {
         $info->update(
             [
-                'title' => $title
+                'title' => $dto->getTitle()
             ]
         );
     }

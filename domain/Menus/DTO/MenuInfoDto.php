@@ -11,38 +11,34 @@ namespace Domain\Menus\DTO;
 /**
  * Class MenuInfoDto
  * @package Domain\Menus\DTO
+ *
+ * @property string      $title
+ * @property int|null    $menu_id
+ * @property string|null $locale
  */
 class MenuInfoDto
 {
-    /** @var int $menu_id */
-    protected int $menu_id;
-
     /** @var string $title */
     protected string $title;
 
-    /** @var string $locale */
-    protected string $locale;
+    /** @var int|null $menu_id */
+    protected ?int $menu_id;
+
+    /** @var string|null $locale */
+    protected ?string $locale;
 
     public function __construct(
-        int    $menu_id,
         string $title,
-        string $locale
+        int    $menu_id = null,
+        string $locale = null
     )
     {
-        $this->menu_id = $menu_id;
         $this->title = $title;
+        $this->menu_id = $menu_id;
         $this->locale = $locale;
     }
 
     // Getters
-
-    /**
-     * @return int
-     */
-    public function getMenuId(): int
-    {
-        return $this->menu_id;
-    }
 
     /**
      * @return string
@@ -53,9 +49,17 @@ class MenuInfoDto
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getLocale(): string
+    public function getMenuId(): ?int
+    {
+        return $this->menu_id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLocale(): ?string
     {
         return $this->locale;
     }

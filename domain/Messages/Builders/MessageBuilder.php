@@ -9,7 +9,7 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
-use Domain\Messages\DTO\MessageCreateDto;
+use Domain\Messages\DTO\MessageDto;
 use Domain\Messages\DTO\MessageUpdateDto;
 use Domain\Messages\Entities\Message;
 
@@ -42,23 +42,23 @@ class MessageBuilder
         return $closure(Message::query())->first();
     }
 
-    public function update(Message $message, MessageUpdateDto $updateDto)
+    public function update(Message $message, MessageDto $dto)
     {
         $message->update(
             [
-                'image_id'   => $updateDto->getImageId(),
-                'is_visible' => $updateDto->getIsVisible()
+                'image_id'   => $dto->getImageId(),
+                'is_visible' => $dto->getIsVisible()
             ]
         );
     }
 
-    public function store(MessageCreateDto $createDto)
+    public function store(MessageDto $dto)
     {
         return Message::query()->create(
             [
-                'image_id'       => $createDto->getImageId(),
-                'is_visible'     => $createDto->getIsVisible(),
-                'order_position' => $createDto->getOrderPosition()
+                'image_id'       => $dto->getImageId(),
+                'is_visible'     => $dto->getIsVisible(),
+                'order_position' => $dto->getOrderPosition()
             ]
         );
     }

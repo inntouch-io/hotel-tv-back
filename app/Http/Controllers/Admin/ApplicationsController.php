@@ -35,6 +35,35 @@ class ApplicationsController extends AdminController
     }
 
     /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
+     * @throws AuthorizationException
+     */
+    public function create()
+    {
+        $this->authorize('create', Application::class);
+        return view('applications.create');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('store', Application::class);
+        $application = ApplicationService::getInstance()->store($request);
+
+        return redirect()->route('admin.applications.edit', ['application' => $application])
+            ->with('success', 'Successfully added');
+    }
+
+    public function show()
+    {
+        //
+    }
+
+    /**
      * @param int $id
      * @return View
      * @throws AuthorizationException
@@ -63,6 +92,26 @@ class ApplicationsController extends AdminController
 
             return redirect()->route('admin.applications.edit', ['application' => $application->getId()])
                 ->with('success', 'Успешно сохранено');
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(int $id)
+    {
+        $this->authorize('delete', Application::class);
+        try {
+            $application = ApplicationService::getInstance()->takeById($id);
+
+            $application->delete();
+
+            return redirect()->route('admin.applications.index')
+                ->with('success', 'Successfully deleted');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }

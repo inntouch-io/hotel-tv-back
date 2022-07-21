@@ -25,6 +25,10 @@ class MenuController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index()
     {
         $this->authorize('index', Menu::class);
@@ -33,12 +37,21 @@ class MenuController extends AdminController
         return view('menus.menu.index', ['menus' => $menus]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create()
     {
         $this->authorize('create', Menu::class);
         return view('menus.menu.create');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
         $this->authorize('store', Menu::class);
@@ -49,6 +62,11 @@ class MenuController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
         $this->authorize('edit', Menu::class);
@@ -57,6 +75,12 @@ class MenuController extends AdminController
         return view('menus.menu.edit', ['menu' => $menu]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
         $this->authorize('update', Menu::class);
@@ -69,12 +93,19 @@ class MenuController extends AdminController
             ->with('success', 'Successfully saved');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
         $this->authorize('delete', Menu::class);
         /** @var Menu $menu */
         $menu = MenuService::getInstance()->getWithAllRelations($id);
 
+
+        // TODO need add soft delete
         $menu->cards->transform(function (MenuCard $card){
             $card->infos()->delete();
         });

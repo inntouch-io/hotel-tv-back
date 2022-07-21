@@ -11,6 +11,11 @@ namespace Domain\Menus\DTO;
 /**
  * Class MenuCardDto
  * @package Domain\Menus\DTO
+ *
+ * @property int      $image_id
+ * @property int      $is_visible
+ * @property int|null $order_position
+ * @property int|null $menu_id
  */
 class MenuCardDto
 {
@@ -20,17 +25,17 @@ class MenuCardDto
     /** @var int $is_visible */
     protected int $is_visible;
 
-    /** @var int $order_position */
-    protected int $order_position;
+    /** @var int|null $order_position */
+    protected ?int $order_position;
 
-    /** @var int $menu_id */
-    protected int $menu_id;
+    /** @var int|null $menu_id */
+    protected ?int $menu_id;
 
     public function __construct(
         int $image_id,
         int $is_visible,
-        int $order_position,
-        int $menu_id
+        int $order_position = null,
+        int $menu_id = null
     )
     {
         $this->image_id = $image_id;
@@ -58,17 +63,17 @@ class MenuCardDto
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getOrderPosition(): int
+    public function getOrderPosition(): ?int
     {
         return $this->order_position;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMenuId(): int
+    public function getMenuId(): ?int
     {
         return $this->menu_id;
     }

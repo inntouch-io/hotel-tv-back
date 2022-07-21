@@ -9,8 +9,6 @@
 declare(strict_types=1);
 /** @var \Domain\Applications\Entities\Application $application */
 
-use Domain\Applications\Entities\Application;
-
 $route_name = request()->route()->getName();
 ?>
 
@@ -18,5 +16,12 @@ $route_name = request()->route()->getName();
     <a href="{{ route('admin.applications.index') }}" class="nav-link {{ $route_name === 'admin.applications.index' ? 'active' : '' }}">
         <i class="icon-stack"></i>
         <span>Список</span>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.applications.create') }}" class="nav-link {{ $route_name === 'admin.applications.create' ? 'active' : '' }}">
+        <i class="icon-stack"></i>
+        <span>Добавить</span>
     </a>
 </li>

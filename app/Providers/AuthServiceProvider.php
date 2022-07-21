@@ -22,6 +22,8 @@ use Domain\Messages\Policies\MessageInfoPolicy;
 use Domain\Messages\Policies\MessagePolicy;
 use Domain\Modules\Entities\Module;
 use Domain\Modules\Policies\ModulePolicy;
+use Domain\Rooms\Entities\Room;
+use Domain\Rooms\Policies\RoomPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -42,6 +44,7 @@ class AuthServiceProvider extends ServiceProvider
         MenuInfo::class        => MenuInfoPolicy::class,
         MenuCard::class        => MenuCardPolicy::class,
         MenuCardInfo::class    => MenuCardInfoPolicy::class,
+        Room::class            => RoomPolicy::class
     ];
 
     /**

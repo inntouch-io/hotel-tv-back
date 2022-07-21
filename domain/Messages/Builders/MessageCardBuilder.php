@@ -54,12 +54,12 @@ class MessageCardBuilder
         return $closure(MessageCard::query())->first();
     }
 
-    public function update(MessageCard $card, MessageCardUpdateDto $cardUpdateDto)
+    public function update(MessageCard $card, MessageCardDto $dto)
     {
         $card->update(
             [
-                'image_id'   => $cardUpdateDto->getImageId(),
-                'is_visible' => $cardUpdateDto->getIsVisible()
+                'image_id'   => $dto->getImageId(),
+                'is_visible' => $dto->getIsVisible()
             ]
         );
     }

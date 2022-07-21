@@ -62,12 +62,12 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Название информации</th>
-                                        <th>Фото</th>
+                                        <th>Фото меню</th>
                                         <th>Статус</th>
                                         <th>Позиция</th>
                                         <th>Добавлен</th>
-                                        <th>Type</th>
-                                        <th>Cards</th>
+                                        <th>Тип</th>
+                                        <th>Карточки</th>
                                         <th>Редактировать</th>
                                     </tr>
                                     </thead>
@@ -105,11 +105,11 @@
                                             </td>
                                             <td>{{ $menu->getCreatedAt() }}</td>
                                             <td>
-                                                <span class="font-weight-semibold badge badge-secondary">{{ $menu->getType() }}</span>
+                                                <span class="font-weight-semibold badge badge-primary">{{ $menu->getType() }}</span>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.menus.cards.card.index', ['menu_id' => $menu->getId()]) }}" class="font-weight-bold">
-                                                    Cards
+                                                    Посмотреть
                                                 </a>
                                             </td>
                                             <td>

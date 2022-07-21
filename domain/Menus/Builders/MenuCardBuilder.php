@@ -10,7 +10,6 @@ namespace Domain\Menus\Builders;
 
 use Closure;
 use Domain\Menus\DTO\MenuCardDto;
-use Domain\Menus\DTO\MenuCardUpdateDto;
 use Domain\Menus\Entities\MenuCard;
 
 /**
@@ -49,7 +48,7 @@ class MenuCardBuilder
         );
     }
 
-    public function update(MenuCard $card, MenuCardUpdateDto $dto)
+    public function update(MenuCard $card, MenuCardDto $dto)
     {
         $card->update(
             [

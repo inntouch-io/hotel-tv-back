@@ -118,6 +118,26 @@ class ModuleInfoSeeder extends Seeder
         DB::table('module_infos')->insert(
             [
                 'id'         => 11,
+                'module_id'  => 4,
+                'locale'     => 'en',
+                'name'       => 'Сервис',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 12,
+                'module_id'  => 4,
+                'locale'     => 'uz',
+                'name'       => 'Сервис',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 13,
                 'module_id'  => 5,
                 'locale'     => 'ru',
                 'name'       => 'Куда пойти',
@@ -127,7 +147,27 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 12,
+                'id'         => 14,
+                'module_id'  => 5,
+                'locale'     => 'en',
+                'name'       => 'Куда пойти',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 15,
+                'module_id'  => 5,
+                'locale'     => 'uz',
+                'name'       => 'Куда пойти',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 16,
                 'module_id'  => 6,
                 'locale'     => 'ru',
                 'name'       => 'Приложения',
@@ -137,7 +177,47 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 13,
+                'id'         => 17,
+                'module_id'  => 6,
+                'locale'     => 'en',
+                'name'       => 'Приложения',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 18,
+                'module_id'  => 6,
+                'locale'     => 'uz',
+                'name'       => 'Приложения',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 19,
+                'module_id'  => 7,
+                'locale'     => 'ru',
+                'name'       => 'Фильмы',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 20,
+                'module_id'  => 7,
+                'locale'     => 'en',
+                'name'       => 'Фильмы',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 21,
                 'module_id'  => 7,
                 'locale'     => 'uz',
                 'name'       => 'Фильмы',
@@ -147,7 +227,7 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 14,
+                'id'         => 22,
                 'module_id'  => 8,
                 'locale'     => 'ru',
                 'name'       => 'Язык',
@@ -157,7 +237,27 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 15,
+                'id'         => 23,
+                'module_id'  => 8,
+                'locale'     => 'en',
+                'name'       => 'Язык',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 24,
+                'module_id'  => 8,
+                'locale'     => 'uz',
+                'name'       => 'Язык',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 25,
                 'module_id'  => 9,
                 'locale'     => 'ru',
                 'name'       => 'HDMI',
@@ -167,7 +267,27 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 16,
+                'id'         => 26,
+                'module_id'  => 9,
+                'locale'     => 'en',
+                'name'       => 'HDMI',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 27,
+                'module_id'  => 9,
+                'locale'     => 'uz',
+                'name'       => 'HDMI',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 28,
                 'module_id'  => 10,
                 'locale'     => 'ru',
                 'name'       => 'USB',
@@ -177,9 +297,49 @@ class ModuleInfoSeeder extends Seeder
 
         DB::table('module_infos')->insert(
             [
-                'id'         => 17,
+                'id'         => 29,
+                'module_id'  => 10,
+                'locale'     => 'en',
+                'name'       => 'USB',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 30,
+                'module_id'  => 10,
+                'locale'     => 'uz',
+                'name'       => 'USB',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 31,
                 'module_id'  => 11,
                 'locale'     => 'ru',
+                'name'       => 'Wi-Fi',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 32,
+                'module_id'  => 11,
+                'locale'     => 'en',
+                'name'       => 'Wi-Fi',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 33,
+                'module_id'  => 11,
+                'locale'     => 'uz',
                 'name'       => 'Wi-Fi',
                 'created_at' => Carbon::now()
             ]

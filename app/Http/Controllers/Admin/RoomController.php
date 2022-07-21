@@ -24,8 +24,13 @@ class RoomController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index()
     {
+        $this->authorize('index', Room::class);
         $rooms = RoomService::getInstance()->getList();
 
         return view(
@@ -36,8 +41,14 @@ class RoomController extends AdminController
         );
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
+        $this->authorize('edit', Room::class);
         $room = RoomService::getInstance()->getById($id);
 
         return view(
@@ -48,8 +59,20 @@ class RoomController extends AdminController
         );
     }
 
+    public function show()
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', Room::class);
         try {
             /** @var Room $room */
             $room = RoomService::getInstance()->getById($id);
@@ -63,8 +86,14 @@ class RoomController extends AdminController
         }
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
+        $this->authorize('delete', Room::class);
         /** @var Room $room */
         $room = RoomService::getInstance()->getById($id);
 

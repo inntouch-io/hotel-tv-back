@@ -5,6 +5,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Admin')->group(function () {
 
+    // TODO
+
+    // 1. Order position logic page
+    // 2. DTO make one  !!! DONE
+    // 3. Views make correct for example type of modules   !!! DONE
+    // 4. takeBy logics with condition
+    // 5. Soft Delete realise to all models
+    // 6. Policies
+
     Route::prefix('admin')->as('admin.')->group(function () {
         Route::prefix('auth')->name('auth.')->group(function (Router $router) {
             // Login actions
@@ -20,18 +29,24 @@ Route::namespace('Admin')->group(function () {
         Route::prefix('admin')->as('admin.')->group(function () {
 
             // Logout
-            Route::prefix('auth')->name('auth.')->group(function (Router $router) {
+            Route::prefix('auth')->as('auth.')->group(function (Router $router) {
                 $router->match(['get', 'post'], '/logout', 'AuthController@logout')->name('logout');
             });
 
             // Profile
-            Route::prefix('profile')->name('profile.')->group(function (Router $router) {
+            Route::prefix('profile')->as('profile.')->group(function (Router $router) {
                 $router->get('edit', 'ProfileController@edit')->name('edit');
                 $router->put('update', 'ProfileController@update')->name('update');
 
                 $router->get('edit-password', 'ProfileController@editPassword')->name('editPassword');
                 $router->put('update-password', 'ProfileController@updatePassword')->name('updatePassword');
             });
+
+            // Applications
+            Route::resource('applications', 'ApplicationsController');
+
+            // Rooms
+            Route::resource('rooms', 'RoomController');
 
             // Modules
             Route::namespace('Modules')->prefix('modules')->as('modules.')->group(function () {
@@ -69,20 +84,6 @@ Route::namespace('Admin')->group(function () {
                     Route::resource('card', 'MenuCardController');
                     Route::resource('infos', 'MenuCardInfoController');
                 });
-            });
-
-            // Applications
-            Route::prefix('applications')->as('applications.')->group(function (Router $router) {
-                $router->get('index', 'ApplicationsController@index')->name('index');
-                $router->get('edit/{application}', 'ApplicationsController@edit')->name('edit');
-                $router->put('update/{application}', 'ApplicationsController@update')->name('update');
-            });
-
-            Route::prefix('rooms')->as('rooms.')->group(function (Router $router) {
-                $router->get('index', 'RoomController@index')->name('index');
-                $router->get('edit/{room}', 'RoomController@edit')->name('edit');
-                $router->put('update/{room}', 'RoomController@update')->name('update');
-                $router->delete('destroy/{room}', 'RoomController@destroy')->name('destroy');
             });
         });
     });

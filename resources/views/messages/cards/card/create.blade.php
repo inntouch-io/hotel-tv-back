@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <p class="font-weight-semibold">Фото</p>
+                                        <p class="font-weight-bold">Фото карточки</p>
 
                                         <div class="border p-3 rounded d-flex align-items-center">
                                             <input type="file" name="image">
@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <p class="font-weight-semibold">Статус</p>
+                                        <p class="font-weight-bold">Статус</p>
 
                                         <div class="border p-3 rounded">
                                             <div class="custom-control custom-switch custom-control-inline">

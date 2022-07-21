@@ -11,6 +11,11 @@ namespace Domain\Messages\DTO;
 /**
  * Class MessageCardDto
  * @package Domain\Messages\DTO
+ *
+ * @property int      $image_id
+ * @property int      $is_visible
+ * @property int|null $order_position
+ * @property int|null $message_id
  */
 class MessageCardDto
 {
@@ -20,17 +25,17 @@ class MessageCardDto
     /** @var int $is_visible */
     protected int $is_visible;
 
-    /** @var int $order_position */
-    protected int $order_position;
+    /** @var int|null $order_position */
+    protected ?int $order_position;
 
-    /** @var int $message_id */
-    protected int $message_id;
+    /** @var int|null $message_id */
+    protected ?int $message_id;
 
     public function __construct(
         int $image_id,
         int $is_visible,
-        int $order_position,
-        int $message_id
+        int $order_position = null,
+        int $message_id = null
     )
     {
         $this->image_id = $image_id;
@@ -38,6 +43,8 @@ class MessageCardDto
         $this->order_position = $order_position;
         $this->message_id = $message_id;
     }
+
+    // Getters
 
     /**
      * @return int
@@ -56,17 +63,17 @@ class MessageCardDto
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getOrderPosition(): int
+    public function getOrderPosition(): ?int
     {
         return $this->order_position;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMessageId(): int
+    public function getMessageId(): ?int
     {
         return $this->message_id;
     }

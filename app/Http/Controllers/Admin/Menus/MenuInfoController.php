@@ -28,6 +28,11 @@ class MenuInfoController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create(Request $request)
     {
         $this->authorize('create', MenuInfo::class);
@@ -36,6 +41,11 @@ class MenuInfoController extends AdminController
         return view('menus.infos.create', ['menu' => $menu]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
         $this->authorize('store', MenuInfo::class);
@@ -45,6 +55,11 @@ class MenuInfoController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
         $this->authorize('edit', MenuInfo::class);
@@ -58,6 +73,12 @@ class MenuInfoController extends AdminController
         );
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
         $this->authorize('update', MenuInfo::class);
@@ -70,6 +91,11 @@ class MenuInfoController extends AdminController
             ->with('success', 'Successfully saved');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
         $this->authorize('delete', MenuInfo::class);

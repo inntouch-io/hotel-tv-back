@@ -52,7 +52,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <p class="font-weight-semibold">Image</p>
+                                            <p class="font-weight-semibold">Фото меню</p>
 
                                             <div class="border p-3 rounded d-flex align-items-center">
                                                 <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">

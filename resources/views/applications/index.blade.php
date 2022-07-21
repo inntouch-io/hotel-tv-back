@@ -16,19 +16,17 @@ use Domain\Applications\Entities\Application;
 @section('title', 'Программы')
 
 @section('content')
-    @can('index', Application::class)
-        <div class="page-header">
-            <div class="page-header-content header-elements-lg-inline">
-                <div class="page-title d-flex">
-                    <h4>
-                    <span class="font-weight-bold">
-                        Программы
-                    </span>
-                    </h4>
-                </div>
+    <div class="page-header">
+        <div class="page-header-content header-elements-lg-inline">
+            <div class="page-title d-flex">
+                <h4>
+                <span class="font-weight-bold">
+                    Программы
+                </span>
+                </h4>
             </div>
         </div>
-    @endcan
+    </div>
 
     <div class="page-content pt-0">
         <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
@@ -58,10 +56,12 @@ use Domain\Applications\Entities\Application;
                                     <tr>
                                         <th>#</th>
                                         <th>Название</th>
-                                        <th>Фото</th>
+                                        <th>Имя пакета</th>
+                                        <th>Фото приложения</th>
                                         <th>Позиция</th>
                                         <th>Статус</th>
                                         <th>Добавлен</th>
+                                        <th>Редактировать</th>
                                     </tr>
                                     </thead>
 
@@ -75,6 +75,11 @@ use Domain\Applications\Entities\Application;
                                                 <a href="{{ route('admin.applications.edit', ['application' => $application->getId()]) }}" class="font-weight-semibold">
                                                     {{ $application->getName() }}
                                                 </a>
+                                            </td>
+                                            <td>
+                                               <span class="font-weight-bold">
+                                                    {{ $application->getUrl() }}
+                                               </span>
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">
@@ -92,6 +97,21 @@ use Domain\Applications\Entities\Application;
                                                 @endif
                                             </td>
                                             <td>{{ $application->getCreatedAt() }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.applications.edit', ['application' => $application->getId()]) }}" class="badge badge-secondary">
+                                                    <i class="fas fa-edit"></i>
+                                                    Редактировать
+                                                </a>
+
+                                                <form action="{{ route('admin.applications.destroy', ['application' => $application->getId()]) }}" method="post" class="mt-1">
+                                                    {{ csrf_field() }}
+                                                    @method('DELETE')
+                                                    <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">
+                                                        <i class="fas fa-trash"></i>
+                                                        Удалить
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

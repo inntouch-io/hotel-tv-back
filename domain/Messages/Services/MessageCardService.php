@@ -12,7 +12,6 @@ use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Messages\Builders\MessageCardBuilder;
 use Domain\Messages\DTO\MessageCardDto;
-use Domain\Messages\DTO\MessageCardUpdateDto;
 use Domain\Messages\Entities\Message;
 use Domain\Messages\Entities\MessageCard;
 use Illuminate\Database\Eloquent\Builder;
@@ -90,7 +89,7 @@ class MessageCardService
             throw new RuntimeException('Image not found');
         }
 
-        if (is_null($card = $message->cards()->latest()->first())) {
+        if (is_null($card = $message->cards()->latest('order_position')->first())) {
             $order_position = 1;
         } else {
             $order_position = (int)$card['order_position'] + 1;
@@ -138,7 +137,7 @@ class MessageCardService
             $image_id = $image->getId();
         }
 
-        $this->builder->update($card, new MessageCardUpdateDto(
+        $this->builder->update($card, new MessageCardDto(
             $image_id,
             isset($data['isVisible']) ? 1 : 0,
         ));

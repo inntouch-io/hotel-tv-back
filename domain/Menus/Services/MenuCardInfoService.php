@@ -9,8 +9,7 @@
 namespace Domain\Menus\Services;
 
 use Domain\Menus\Builders\MenuCardInfoBuilder;
-use Domain\Menus\DTO\MenuCardInfoCreateDto;
-use Domain\Menus\DTO\MenuCardInfoUpdateDto;
+use Domain\Menus\DTO\MenuCardInfoDto;
 use Domain\Menus\Entities\MenuCardInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -50,11 +49,11 @@ class MenuCardInfoService
             ]
         );
 
-        $this->builder->store(new MenuCardInfoCreateDto(
-            (int)$request->query('card_id'),
+        $this->builder->store(new MenuCardInfoDto(
             $data['title'],
             $data['description'],
             $data['subDescription'],
+            (int)$request->query('card_id'),
             $data['locale']
         ));
     }
@@ -76,7 +75,7 @@ class MenuCardInfoService
             ]
         );
 
-        $this->builder->update($info, new MenuCardInfoUpdateDto(
+        $this->builder->update($info, new MenuCardInfoDto(
             $data['title'],
             $data['description'],
             $data['subDescription']

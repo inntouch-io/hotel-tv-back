@@ -55,6 +55,26 @@ class ApplicationBuilder
      */
     public function update(Application $application, ApplicationDto $applicationDto)
     {
-        $application->update($applicationDto->toArray());
+        $application->update(
+            [
+                'name'           => $applicationDto->getName(),
+                'url'            => $applicationDto->getUrl(),
+                'image_id'       => $applicationDto->getImageId(),
+                'is_visible'     => $applicationDto->getIsVisible()
+            ]
+        );
+    }
+
+    public function store(ApplicationDto $applicationDto)
+    {
+        return Application::query()->create(
+            [
+                'name'           => $applicationDto->getName(),
+                'url'            => $applicationDto->getUrl(),
+                'image_id'       => $applicationDto->getImageId(),
+                'is_visible'     => $applicationDto->getIsVisible(),
+                'order_position' => $applicationDto->getOrderPosition()
+            ]
+        );
     }
 }

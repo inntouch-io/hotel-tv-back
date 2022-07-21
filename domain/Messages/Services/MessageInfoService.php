@@ -9,7 +9,6 @@
 namespace Domain\Messages\Services;
 
 use Domain\Messages\Builders\MessageInfoBuilder;
-use Domain\Messages\DTO\MessageInfoCreateDto;
 use Domain\Messages\DTO\MessageInfoDto;
 use Domain\Messages\Entities\Message;
 use Domain\Messages\Entities\MessageInfo;
@@ -73,7 +72,7 @@ class MessageInfoService
             ]
         );
 
-        return $this->builder->add(new MessageInfoCreateDto(
+        return $this->builder->add(new MessageInfoDto(
             $data['title'],
             $data['description'],
             $data['longDescription'],

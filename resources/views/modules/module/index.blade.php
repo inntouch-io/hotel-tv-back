@@ -61,7 +61,8 @@ use Domain\Modules\Entities\ModuleInfo;
                                         <th>#</th>
                                         <th>Название</th>
                                         <th>Название информации</th>
-                                        <th>Фото</th>
+                                        <th>Фото модуля</th>
+                                        <th>Тип</th>
                                         <th>Позиция</th>
                                         <th>Статус</th>
                                         <th>Добавлен</th>
@@ -93,6 +94,9 @@ use Domain\Modules\Entities\ModuleInfo;
                                                 <div style="line-height: 60px">
                                                     <img src="{{ asset($module->image->getFullPath()) }}" alt="image" style="max-width: 100px">
                                                 </div>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-primary">{{ $module->getType() }}</div>
                                             </td>
                                             <td>
                                                 <div class="badge badge-success">{{ $module->getOrderPosition() }}</div>

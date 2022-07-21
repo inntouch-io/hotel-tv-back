@@ -11,6 +11,11 @@ namespace Domain\Menus\DTO;
 /**
  * Class MenuDto
  * @package Domain\Menus\DTO
+ *
+ * @property int         $image_id
+ * @property int         $is_visible
+ * @property string|null $type
+ * @property int|null    $order_position
  */
 class MenuDto
 {
@@ -20,13 +25,23 @@ class MenuDto
     /** @var int $is_visible */
     protected int $is_visible;
 
+    /** @var string|null $type */
+    protected ?string $type;
+
+    /** @var int|null $order_position */
+    protected ?int $order_position;
+
     public function __construct(
         int    $image_id,
-        int    $is_visible
+        int    $is_visible,
+        string $type = null,
+        int    $order_position = null
     )
     {
         $this->image_id = $image_id;
         $this->is_visible = $is_visible;
+        $this->type = $type;
+        $this->order_position = $order_position;
     }
 
     // Getters
@@ -45,6 +60,22 @@ class MenuDto
     public function getIsVisible(): int
     {
         return $this->is_visible;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOrderPosition(): ?int
+    {
+        return $this->order_position;
     }
 }
 

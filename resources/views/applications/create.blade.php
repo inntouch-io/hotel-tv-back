@@ -3,14 +3,13 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 29.06.2022 / 11:32
+ * Created: 21.07.2022 / 14:40
  */
 
-/** @var \Domain\Menus\Entities\Menu $menu */
 ?>
 
 @extends('layouts.main')
-@section('title', "Добавить карточки")
+@section('title', 'Добавить приложение')
 
 @section('content')
     <div class="page-header">
@@ -18,7 +17,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        Добавить карточки
+                        Добавить приложение
                     </span>
                 </h4>
             </div>
@@ -26,7 +25,16 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('menus.cards.card.infobar')
+        <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
+            <div class="sidebar-content">
+                <div class="sidebar-section">
+                    <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
+                        @include('applications.sidebar')
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -39,13 +47,25 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.menus.cards.card.store', ['menu_id' => $menu->getId()]) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.applications.store') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <p class="font-weight-semibold">Фото карточки</p>
+                                        <label for="name" class="font-weight-bold">Название</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               placeholder="Название" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="url" class="font-weight-bold">Имя пакета</label>
+                                        <input type="text" id="url" name="url" class="form-control"
+                                               placeholder="Имя пакета" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p class="font-weight-semibold">Фото приложения</p>
 
                                         <div class="border p-3 rounded d-flex align-items-center">
                                             <input type="file" name="image">
@@ -58,7 +78,7 @@
                                         <div class="border p-3 rounded">
                                             <div class="custom-control custom-switch custom-control-inline">
                                                 <span class="mr-2">Нет</span>
-                                                    <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
+                                                <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
                                                 <label class="custom-control-label" for="isVisible">Да</label>
                                             </div>
                                         </div>

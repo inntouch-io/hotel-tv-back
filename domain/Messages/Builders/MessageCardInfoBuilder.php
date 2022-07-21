@@ -9,7 +9,7 @@
 namespace Domain\Messages\Builders;
 
 use Closure;
-use Domain\Messages\DTO\MessageCardInfoCreateDto;
+use Domain\Messages\DTO\MessageCardInfoDto;
 use Domain\Messages\DTO\MessageCardInfoUpdateDto;
 use Domain\Messages\Entities\MessageCardInfo;
 
@@ -27,7 +27,7 @@ class MessageCardInfoBuilder
         return new static();
     }
 
-    public function add(MessageCardInfoCreateDto $cardInfoCreateDto)
+    public function add(MessageCardInfoDto $cardInfoCreateDto)
     {
         return MessageCardInfo::query()->create(
             [
@@ -45,13 +45,13 @@ class MessageCardInfoBuilder
         return $closure(MessageCardInfo::query())->first();
     }
 
-    public function update(MessageCardInfo $cardInfo, MessageCardInfoUpdateDto $cardInfoUpdateDto)
+    public function update(MessageCardInfo $cardInfo, MessageCardInfoDto $cardInfoDto)
     {
         $cardInfo->update(
             [
-                'title'          => $cardInfoUpdateDto->getTitle(),
-                'description'    => $cardInfoUpdateDto->getDescription(),
-                'subDescription' => $cardInfoUpdateDto->getSubDescription()
+                'title'          => $cardInfoDto->getTitle(),
+                'description'    => $cardInfoDto->getDescription(),
+                'subDescription' => $cardInfoDto->getSubDescription()
             ]
         );
     }

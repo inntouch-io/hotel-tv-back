@@ -64,8 +64,8 @@ class MenuInfoService
         $data = $this->validator($request);
 
         $this->builder->store(new MenuInfoDto(
-            $request->query('menu_id'),
             $data['title'],
+            $request->query('menu_id'),
             $data['locale']
         ));
     }
@@ -78,6 +78,8 @@ class MenuInfoService
             ]
         );
 
-        $this->builder->update($info, $data['title']);
+        $this->builder->update($info, new MenuInfoDto(
+            $data['title'],
+        ));
     }
 }

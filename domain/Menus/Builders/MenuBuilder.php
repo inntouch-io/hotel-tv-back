@@ -37,14 +37,14 @@ class MenuBuilder
         return $closure(Menu::query())->paginate($itemsPerPage);
     }
 
-    public function store(MenuCreateDto $createDto)
+    public function store(MenuDto $dto)
     {
         return Menu::query()->create(
             [
-                'image_id'       => $createDto->getImageId(),
-                'is_visible'     => $createDto->getIsVisible(),
-                'order_position' => $createDto->getOrderPosition(),
-                'type'           => $createDto->getType()
+                'image_id'       => $dto->getImageId(),
+                'is_visible'     => $dto->getIsVisible(),
+                'order_position' => $dto->getOrderPosition(),
+                'type'           => $dto->getType()
             ]
         );
     }
@@ -59,7 +59,7 @@ class MenuBuilder
         );
     }
 
-    public function getById(Closure $closure)
+    public function takeBy(Closure $closure)
     {
         return $closure(Menu::query())->first();
     }

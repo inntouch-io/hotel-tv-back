@@ -12,7 +12,6 @@ use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Menus\Builders\MenuCardBuilder;
 use Domain\Menus\DTO\MenuCardDto;
-use Domain\Menus\DTO\MenuCardUpdateDto;
 use Domain\Menus\Entities\MenuCard;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -46,7 +45,7 @@ class MenuCardService
 
     public function getItems(Request $request, $locale = 'ru')
     {
-        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale) {
             $infoId = $request->input('infoId');
 
             return $builder
@@ -83,7 +82,7 @@ class MenuCardService
     {
         $data = $request->validate(
             [
-                'image'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'isVisible' => 'nullable|int'
             ]
         );
@@ -96,7 +95,12 @@ class MenuCardService
         }
 
         $menuId = (int)$request->query('menu_id');
-        if (is_null($card = MenuCard::query()->where('menu_id', '=', $menuId)->latest()->first())) {
+
+        $card = $this->builder->takeBy(function (Builder $builder) use ($menuId) {
+            return $builder->where('menu_id', '=', $menuId)->latest('order_position');
+        });
+
+        if (is_null($card)) {
             $order_position = 1;
         } else {
             $order_position = (int)$card['order_position'] + 1;
@@ -114,7 +118,7 @@ class MenuCardService
     {
         $data = $request->validate(
             [
-                'image'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'isVisible' => 'nullable|int'
             ]
         );
@@ -128,7 +132,7 @@ class MenuCardService
             $imageId = $image->getId();
         }
 
-        $this->builder->update($card, new MenuCardUpdateDto(
+        $this->builder->update($card, new MenuCardDto(
             $imageId,
             isset($data['isVisible']) ? 1 : 0,
         ));

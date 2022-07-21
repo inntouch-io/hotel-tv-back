@@ -11,7 +11,6 @@ namespace Domain\Menus\Services;
 use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Menus\Builders\MenuBuilder;
-use Domain\Menus\DTO\MenuCreateDto;
 use Domain\Menus\DTO\MenuDto;
 use Domain\Menus\Entities\Menu;
 use Illuminate\Database\Eloquent\Builder;
@@ -53,7 +52,7 @@ class MenuService
 
     public function getItems(Request $request, $locale = 'ru')
     {
-        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale) {
             return $builder
                 ->with('image')
                 ->where('menus.type', '=', $request->input('type'))
@@ -95,44 +94,48 @@ class MenuService
             throw new RuntimeException('Image not found');
         }
 
-        if (is_null($menu = Menu::query()->where('type', '=', $data['type'])->latest()->first())) {
+        $menu = $this->builder->takeBy(function (Builder $builder) use ($data) {
+            return $builder->where('type', '=', $data['type'])->latest('order_position');
+        });
+
+        if (is_null($menu)) {
             $order_position = 1;
         } else {
             $order_position = (int)$menu['order_position'] + 1;
         }
 
-        return $this->builder->store(new MenuCreateDto(
+        return $this->builder->store(new MenuDto(
             $image->getId(),
-            $data['type'],
             isset($data['isVisible']) ? 1 : 0,
+            $data['type'],
             $order_position,
         ));
     }
 
     public function getById(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with('image');
         });
     }
 
     public function getWithInfosById(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with('infos');
         });
     }
 
     public function getWithAllRelations(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with(['infos', 'cards']);
         });
     }
 
     public function getWithCards(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with('cards');
         });
     }

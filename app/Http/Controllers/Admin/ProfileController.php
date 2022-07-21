@@ -62,7 +62,6 @@ class ProfileController extends AdminController
             return redirect()->route('admin.profile.editPassword')
                 ->with('success', 'Успешно сохранено');
         }catch (Exception $exception){
-            dd($exception->getMessage());
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }

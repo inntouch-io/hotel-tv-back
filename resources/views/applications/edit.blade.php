@@ -61,7 +61,7 @@ use Domain\Applications\Entities\Application;
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="url" class="font-weight-bold">Линк</label>
+                                            <label for="url" class="font-weight-bold">Имя пакета</label>
                                             <input type="text" id="url" name="url" class="form-control"
                                                    placeholder="Url" value="{{ $application->getUrl() }}"
                                                    required>
@@ -84,7 +84,7 @@ use Domain\Applications\Entities\Application;
                                         </div>
 
                                         <div class="form-group">
-                                            <p class="font-weight-semibold">Image</p>
+                                            <p class="font-weight-semibold">Фото приложения</p>
 
                                             <div class="border p-3 rounded d-flex align-items-center">
                                                 <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">

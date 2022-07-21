@@ -9,7 +9,7 @@
 namespace Domain\Menus\Builders;
 
 use Closure;
-use Domain\Menus\DTO\MenuCardInfoCreateDto;
+use Domain\Menus\DTO\MenuCardInfoDto;
 use Domain\Menus\DTO\MenuCardInfoUpdateDto;
 use Domain\Menus\Entities\MenuCardInfo;
 
@@ -27,7 +27,7 @@ class MenuCardInfoBuilder
         return new static();
     }
 
-    public function store(MenuCardInfoCreateDto $dto)
+    public function store(MenuCardInfoDto $dto)
     {
         MenuCardInfo::query()->create(
             [
@@ -45,7 +45,7 @@ class MenuCardInfoBuilder
         return $closure(MenuCardInfo::query())->first();
     }
 
-    public function update(MenuCardInfo $info, MenuCardInfoUpdateDto $dto)
+    public function update(MenuCardInfo $info, MenuCardInfoDto $dto)
     {
         $info->update(
             [

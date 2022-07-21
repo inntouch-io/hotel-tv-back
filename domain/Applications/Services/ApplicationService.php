@@ -13,6 +13,7 @@ use Domain\Applications\DTO\ApplicationDto;
 use Domain\Applications\Entities\Application;
 use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
+use Domain\Images\Services\ImageService;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,6 +28,8 @@ use RuntimeException;
  */
 class ApplicationService
 {
+    const CATALOG = 'applications';
+
     protected ApplicationBuilder $builder;
 
     /**
@@ -87,24 +90,14 @@ class ApplicationService
      */
     public function update(Request $request, Application $application)
     {
-        $this->validator($request);
-        $data = $request->all();
+        $data = $this->validator($request);
 
         $imageId = $application->getImageId();
 
         if (isset($data['image'])) {
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $imageName = md5(time());
-
-            $request->file('image')->storeAs('public/applications', $imageName . '.' . $extension);
-            // TODO Need add DB transaction
-
             /** @var Image $image */
-            $image = ImageBuilder::getInstance()->save(
-                "storage/applications/",
-                $imageName,
-                $extension
-            );
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
+
             $imageId = $image->getId();
         }
 
@@ -116,6 +109,36 @@ class ApplicationService
         ));
     }
 
+    public function store(Request $request)
+    {
+        $data = $this->validator($request);
+
+        if (isset($data['image'])) {
+            /** @var Image $image */
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
+        } else {
+            throw new RuntimeException('Image not found');
+        }
+
+        $latestApplication = $this->builder->takeBy(function (Builder $builder) {
+            return $builder->latest('order_position');
+        });
+
+        if (is_null($latestApplication)) {
+            $order_position = 1;
+        } else {
+            $order_position = (int)$latestApplication['order_position'] + 1;
+        }
+
+        return $this->builder->store(new ApplicationDto(
+            $data['name'],
+            $data['url'],
+            $image->getId(),
+            isset($data['isVisible']) ? 1 : 0,
+            $order_position
+        ));
+    }
+
     // Validation
 
     /**
@@ -124,12 +147,20 @@ class ApplicationService
      */
     public function validator(Request $request): array
     {
+        $rules = [
+            'name'      => 'required',
+            'url'       => 'required',
+            'isVisible' => 'nullable|int'
+        ];
+
+        if ($request->route()->getName() === 'admin.applications.store') {
+            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        } elseif ($request->route()->getName() === 'admin.applications.update') {
+            $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
         return $request->validate(
-            [
-                'name'  => 'required',
-                'url'   => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-            ],
+            $rules,
             [
                 'required' => 'Поле :attribute обязательно',
             ]

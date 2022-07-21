@@ -3,16 +3,22 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 17.07.2022 / 15:02
+ * Created: 16.07.2022 / 22:51
  */
 
 namespace Domain\Menus\DTO;
 
 /**
- * Class MenuCardInfoUpdateDto
+ * Class MenuCardInfoCreateDto
  * @package Domain\Menus\DTO
+ *
+ * @property string      $title
+ * @property string      $description
+ * @property string      $subDescription
+ * @property int|null    $card_id
+ * @property string|null $locale
  */
-class MenuCardInfoUpdateDto
+class MenuCardInfoDto
 {
     /** @var string $title */
     protected string $title;
@@ -23,19 +29,28 @@ class MenuCardInfoUpdateDto
     /** @var string $subDescription */
     protected string $subDescription;
 
+    /** @var int|null $card_id */
+    protected ?int $card_id;
+
+    /** @var string|null $locale */
+    protected ?string $locale;
+
     public function __construct(
         string $title,
         string $description,
-        string $subDescription
+        string $subDescription,
+        int    $card_id = null,
+        string $locale = null
     )
     {
         $this->title = $title;
         $this->description = $description;
         $this->subDescription = $subDescription;
+        $this->card_id = $card_id;
+        $this->locale = $locale;
     }
 
     // Getters
-
     /**
      * @return string
      */
@@ -58,5 +73,21 @@ class MenuCardInfoUpdateDto
     public function getSubDescription(): string
     {
         return $this->subDescription;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCardId(): ?int
+    {
+        return $this->card_id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLocale(): ?string
+    {
+        return $this->locale;
     }
 }

@@ -8,12 +8,10 @@
 
 namespace Domain\Messages\Services;
 
-use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
 use Domain\Images\Services\ImageService;
 use Domain\Messages\Builders\MessageBuilder;
-use Domain\Messages\DTO\MessageCreateDto;
-use Domain\Messages\DTO\MessageUpdateDto;
+use Domain\Messages\DTO\MessageDto;
 use Domain\Messages\Entities\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -65,7 +63,7 @@ class MessageService
 
     public function getItems(Request $request, $locale = 'ru')
     {
-        return $this->builder->getItems(function (Builder $builder) use ($request, $locale){
+        return $this->builder->getItems(function (Builder $builder) use ($request, $locale) {
             return $builder
                 ->with('image')
                 ->where('messages.is_visible', '=', 1)
@@ -169,7 +167,7 @@ class MessageService
             $imageId = $image->getId();
         }
 
-        $this->builder->update($message, new MessageUpdateDto(
+        $this->builder->update($message, new MessageDto(
             $imageId,
             isset($data['isVisible']) ? 1 : 0,
         ));
@@ -194,13 +192,17 @@ class MessageService
             throw new RuntimeException('Image not found');
         }
 
-        if (is_null($message = Message::query()->latest()->first())) {
+        $message = $this->builder->takeBy(function (Builder $builder) {
+            return $builder->latest('order_position');
+        });
+
+        if (is_null($message)) {
             $order_position = 1;
         } else {
             $order_position = (int)$message['order_position'] + 1;
         }
 
-        return $this->builder->store(new MessageCreateDto(
+        return $this->builder->store(new MessageDto(
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
             $order_position,
