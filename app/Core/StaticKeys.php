@@ -33,4 +33,7 @@ class StaticKeys
     public static $DEVICE_ID = 'deviceId';
     public static $IS_VERIFIED = 'isVerified';
     public static $IP = 'ip';
+
+    public static $DATE = 'date';
+    public static $TIME = 'time';
 }

@@ -31,8 +31,14 @@ class UserInfoResource extends Resources
             self::$USER_ID => (int) $user->getId(),
             self::$USER_NAME => (string) $user->getFullName(),
             StaticKeys::$ROOM_ID => (int) $userRoom->getRoomId(),
-            self::$ARRIVAL_TIME => (string) date('d.m.Y', $userRoom->getArrivalTime()),
-            self::$DEPARTURE_TIME => (string) date('d.m.Y', $userRoom->getDepartureTime()),
+            self::$ARRIVAL_TIME => [
+                StaticKeys::$DATA => (string) date('d.m.Y', $userRoom->getArrivalTime()),
+                StaticKeys::$TIME => (string) date('H:i', $userRoom->getArrivalTime()),
+            ],
+            self::$DEPARTURE_TIME => [
+                StaticKeys::$DATA => (string) date('d.m.Y', $userRoom->getDepartureTime()),
+                StaticKeys::$TIME => (string) date('H:i', $userRoom->getDepartureTime()),
+            ],
         ];
     }
 }
