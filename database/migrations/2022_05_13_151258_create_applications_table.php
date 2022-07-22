@@ -20,7 +20,7 @@ class CreateApplicationsTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->unsignedTinyInteger('is_visible')->default(0);
-            $table->unsignedSmallInteger('order_position')->default(0);
+            $table->unsignedBigInteger('order_position')->default(0);
 
             $table->foreign('image_id')->references('id')->on('images');
             $table->timestamps();

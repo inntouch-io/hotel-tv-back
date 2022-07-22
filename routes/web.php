@@ -68,7 +68,15 @@ Route::namespace('Admin')->group(function () {
 
             // Messages
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
+                // Message routes
                 Route::resource('message', 'MessageController');
+
+                // Messages sorting
+                Route::prefix('message')->as('message.')->group(function (Router $router){
+                    $router->get('/sorting-list', 'MessageController@sortingList')->name('sortingList');
+                    $router->post('/sorting', 'MessageController@sorting')->name('sorting');
+                });
+
                 Route::resource('infos', 'MessageInfoController');
 
                 Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {

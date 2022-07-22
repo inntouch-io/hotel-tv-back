@@ -104,4 +104,14 @@ class MessageController extends AdminController
             return redirect()->back()->withErrors('Some Errors!!!');
         }
     }
+
+    public function sortingList()
+    {
+//        $list = MessageService::getInstance()->list()
+    }
+
+    public function sorting(Request $request)
+    {
+        //
+    }
 }

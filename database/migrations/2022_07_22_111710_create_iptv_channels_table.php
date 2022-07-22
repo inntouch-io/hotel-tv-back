@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModulesTable extends Migration
+class CreateIptvChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('iptv_channels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('image_id')->index()->nullable();
+            $table->unsignedBigInteger('image_id');
 
-            $table->string('module_slug')->unique();
-            $table->string('type')->unique();
-            $table->string('module_name');
+            $table->string('slug')->unique();
+            $table->string('title');
+            $table->unsignedBigInteger('stream_id');
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedBigInteger('order_position')->default(0);
 
             $table->foreign('image_id')->references('id')->on('images');
-            $table->timestamps();
         });
     }
 
@@ -35,6 +34,6 @@ class CreateModulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('iptv_channels');
     }
 }
