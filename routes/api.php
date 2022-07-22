@@ -22,6 +22,10 @@ use Illuminate\Routing\Router;
 
 Route::namespace('Api')->as('api.')->group(function () {
 
+    Route::middleware('auth:sanctum')->prefix('user')->as('user.')->group(function (Router $router) {
+        $router->get('/get-info', 'UserController@getInfo')->name('get_info');
+    });
+
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');

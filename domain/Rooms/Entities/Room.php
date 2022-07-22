@@ -43,15 +43,20 @@ class Room extends Entities
     // Relations
 
     /**
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
      */
-    public function users(): Collection
+    public function users()
     {
-        return $this->belongsToMany(User::class, 'user_room', 'room_id', 'user_id')
-            ->where('room_status', '=', 1)
-            ->get();
+        return $this->hasOneThrough(User::class, UserRoom::class, 'room_id', 'id', 'id', 'user_id')
+            ->where('user_room.room_status', '=', 'booked')
+            ->first();
+    }
 
-        // TODO need implement departure_time check with where condition
+    public function userRoom()
+    {
+        return $this->hasOne(UserRoom::class, 'room_id', 'id')
+            ->where('room_status', '=', 'booked')
+            ->first();
     }
 
     // Getters

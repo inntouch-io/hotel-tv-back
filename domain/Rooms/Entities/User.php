@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package domain\Rooms\Entities
  *
  * @property string $full_name
+ * @property int $id
  */
 class User extends Entities
 {
@@ -26,6 +27,11 @@ class User extends Entities
     public function getFullName(): string
     {
         return $this->full_name;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     // Relations
