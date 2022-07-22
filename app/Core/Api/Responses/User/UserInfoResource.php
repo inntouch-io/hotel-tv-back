@@ -28,11 +28,11 @@ class UserInfoResource extends Resources
         $userRoom = $this->userRoom();
 
         return [
-            self::$USER_ID => $user->getId(),
-            self::$USER_NAME => $user->getFullName(),
-            StaticKeys::$ROOM_ID => $userRoom->getRoomId(),
-            self::$ARRIVAL_TIME => date('d.m.Y', $userRoom->getArrivalTime()),
-            self::$DEPARTURE_TIME => date('d.m.Y', $userRoom->getDepartureTime()),
+            self::$USER_ID => (int) $user->getId(),
+            self::$USER_NAME => (string) $user->getFullName(),
+            StaticKeys::$ROOM_ID => (int) $userRoom->getRoomId(),
+            self::$ARRIVAL_TIME => (string) date('d.m.Y', $userRoom->getArrivalTime()),
+            self::$DEPARTURE_TIME => (string) date('d.m.Y', $userRoom->getDepartureTime()),
         ];
     }
 }
