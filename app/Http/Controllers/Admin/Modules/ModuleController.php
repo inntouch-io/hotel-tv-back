@@ -76,8 +76,13 @@ class ModuleController extends AdminController
         }
     }
 
+    /**
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function sortingList()
     {
+        $this->authorize('sortingList', Module::class);
         $list = ModuleService::getInstance()->getAll();
 
         return view(
@@ -88,8 +93,14 @@ class ModuleController extends AdminController
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|RedirectResponse
+     * @throws AuthorizationException
+     */
     public function sorting(Request $request)
     {
+        $this->authorize('sorting', Module::class);
         try {
             if ($request->isXmlHttpRequest()) {
                 ModuleService::getInstance()->sorting($request->input('modules'));

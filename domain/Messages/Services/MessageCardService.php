@@ -61,7 +61,7 @@ class MessageCardService
     {
         $messageId = $request->input('messageId');
 
-        return $this->builder->getItems(function (Builder $builder) use ($messageId, $locale){
+        return $this->builder->getItems(function (Builder $builder) use ($messageId, $locale) {
             return $builder
                 ->with('image')
                 ->where('message_cards.message_id', '=', $messageId)
@@ -105,14 +105,14 @@ class MessageCardService
 
     public function getById(int $id)
     {
-        return $this->builder->getById(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with(['image', 'message']);
         });
     }
 
     public function getWithInfos(int $id)
     {
-        return $this->builder->getWithInfos(function (Builder $builder) use ($id) {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
             return $builder->whereKey($id)->with(['infos', 'message']);
         });
     }
@@ -141,5 +141,25 @@ class MessageCardService
             $image_id,
             isset($data['isVisible']) ? 1 : 0,
         ));
+    }
+
+    public function getByMessageId(int $messageId)
+    {
+        return $this->builder->takeBy(function (Builder $builder) use ($messageId) {
+            return $builder->where('message_id', '=', $messageId)
+                ->with(['infos', 'message'])
+                ->orderBy('order_position');
+        });
+    }
+
+    public function sorting(array $cards = [])
+    {
+        foreach ($cards as $index => $data) {
+            MessageCard::query()->whereKey((int)$data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
     }
 }

@@ -44,12 +44,7 @@ class MessageCardBuilder
         return $closure(MessageCard::query())->paginate($itemsPerPage);
     }
 
-    public function getById(Closure $closure)
-    {
-        return $closure(MessageCard::query())->first();
-    }
-
-    public function getWithInfos(Closure $closure)
+    public function takeBy(Closure $closure)
     {
         return $closure(MessageCard::query())->first();
     }

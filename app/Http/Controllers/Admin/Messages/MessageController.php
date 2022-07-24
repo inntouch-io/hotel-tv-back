@@ -44,11 +44,6 @@ class MessageController extends AdminController
         return view('messages.message.create');
     }
 
-    public function show()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $this->authorize('store', Message::class);
@@ -92,7 +87,7 @@ class MessageController extends AdminController
 
         try {
             $message->infos()->delete();
-            $message->cards->transform(function (MessageCard $card){
+            $message->cards->transform(function (MessageCard $card) {
                 $card->infos()->delete();
             });
             $message->cards()->delete();
@@ -100,18 +95,47 @@ class MessageController extends AdminController
 
             return redirect()->route('admin.messages.message.index')
                 ->with('success', 'Успешно удалено');
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return redirect()->back()->withErrors('Some Errors!!!');
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function sortingList()
     {
-//        $list = MessageService::getInstance()->list()
+        $this->authorize('sortingList', Message::class);
+        $list = MessageService::getInstance()->list();
+
+        return view(
+            'messages.message.sorting',
+            [
+                'list' => $list
+            ]
+        );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function sorting(Request $request)
     {
-        //
+        $this->authorize('sorting', Message::class);
+
+        try {
+            if ($request->isXmlHttpRequest()) {
+                MessageService::getInstance()->sorting($request->input('messages'));
+
+                return response()->json(['status' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

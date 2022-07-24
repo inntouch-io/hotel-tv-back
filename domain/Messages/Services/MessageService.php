@@ -208,4 +208,19 @@ class MessageService
             $order_position,
         ));
     }
+
+    /**
+     * @param array $messages
+     * @return void
+     */
+    public function sorting(array $messages = [])
+    {
+        foreach ($messages as $index => $data) {
+            Message::query()->whereKey((int)$data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
+    }
 }

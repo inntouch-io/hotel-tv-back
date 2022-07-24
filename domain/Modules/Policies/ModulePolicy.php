@@ -35,6 +35,16 @@ class ModulePolicy
     {
         return $admin->getRole() === "su";
     }
+
+    public function sortingList(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
+
+    public function sorting(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
 }
 
 

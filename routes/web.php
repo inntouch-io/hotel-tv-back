@@ -68,19 +68,28 @@ Route::namespace('Admin')->group(function () {
 
             // Messages
             Route::namespace('Messages')->prefix('messages')->as('messages.')->group(function () {
-                // Message routes
-                Route::resource('message', 'MessageController');
+                Route::resource('message', 'MessageController')->except('show');
 
                 // Messages sorting
-                Route::prefix('message')->as('message.')->group(function (Router $router){
+                Route::prefix('message')->as('message.')->group(function (Router $router) {
                     $router->get('/sorting-list', 'MessageController@sortingList')->name('sortingList');
                     $router->post('/sorting', 'MessageController@sorting')->name('sorting');
                 });
 
+                // Message Infos
                 Route::resource('infos', 'MessageInfoController');
 
+                // Message Cards
                 Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
-                    Route::resource('card', 'MessageCardController');
+                    Route::resource('card', 'MessageCardController')->except('show');
+
+                    // Message Cards sorting
+                    Route::prefix('card')->as('card.')->group(function (Router $router) {
+                        $router->get('/sorting-list', 'MessageCardController@sortingList')->name('sortingList');
+                        $router->post('/sorting', 'MessageCardController@sorting')->name('sorting');
+                    });
+
+                    // Message Infos
                     Route::resource('infos', 'MessageCardInfoController');
                 });
             });

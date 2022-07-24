@@ -13,6 +13,7 @@ use Domain\Messages\Entities\Message;
 use Domain\Messages\Entities\MessageCard;
 use Domain\Messages\Services\MessageCardService;
 use Domain\Messages\Services\MessageService;
+use Exception;
 use Illuminate\Http\Request;
 use RuntimeException;
 use function redirect;
@@ -96,11 +97,6 @@ class MessageCardController extends AdminController
             ->with('success', 'Success');
     }
 
-    public function show()
-    {
-        //
-    }
-
     public function destroy(int $id)
     {
         $this->authorize('delete', MessageCard::class);
@@ -116,5 +112,39 @@ class MessageCardController extends AdminController
 
         return redirect()->route('admin.messages.cards.card.index', ['message_id' => $card->getMessageId()])
             ->with('success', "Success");
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sortingList(Request $request)
+    {
+        $this->authorize('sortingList', MessageCard::class);
+
+        $list = MessageCardService::getInstance()->getByMessageId((int)$request->query('message_id'));
+
+        return view(
+            'messages.cards.card.sorting',
+            [
+                'list' => $list
+            ]
+        );
+    }
+
+    public function sorting(Request $request)
+    {
+        try {
+            if ($request->isXmlHttpRequest()) {
+                MessageCardService::getInstance()->sorting($request->input('cards'));
+
+                return response()->json(['data' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

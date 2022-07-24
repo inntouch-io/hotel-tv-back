@@ -38,4 +38,14 @@ class MessagePolicy
     {
         return in_array($admin->getRole(), ["su", "moderator"]);
     }
+
+    public function sortingList(Admin $admin): bool
+    {
+        return in_array($admin->getRole(), ["su", "moderator"]);
+    }
+
+    public function sorting(Admin $admin): bool
+    {
+        return in_array($admin->getRole(), ["su", "moderator"]);
+    }
 }

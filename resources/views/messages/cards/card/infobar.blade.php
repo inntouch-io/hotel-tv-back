@@ -31,6 +31,13 @@ $route_name = request()->route()->getName();
                             <span>Добавить</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.messages.cards.card.sortingList', ['message_id' => $message->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.messages.cards.card.sortingList' ? 'active' : '' }}">
+                            <i class="icon-sort"></i>
+                            <span>Сортировка</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item-divider"></li>
                 @endif
