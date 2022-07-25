@@ -162,6 +162,12 @@ $admin = auth()->user();
                     </a>
                 </li>
             @endcan
+            <li class="nav-item">
+                <a href="{{ route('admin.iptv.channel.index') }}" class="navbar-nav-link">
+                    <i class="icon-tv"></i>
+                    IPTV
+                </a>
+            </li>
         </ul>
     </div>
 </div>

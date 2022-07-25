@@ -1,13 +1,13 @@
 <?php
 
-namespace Domain\IptvChannels\Entities;
+namespace Domain\Iptv\Entities;
 
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class IptvChannelInfo
- * @package Domain\IptvChannels\Entities
+ * @package Domain\Iptv\Entities
  *
  * @property int    $id
  * @property int    $channel_id

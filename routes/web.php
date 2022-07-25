@@ -119,6 +119,15 @@ Route::namespace('Admin')->group(function () {
                     Route::resource('infos', 'MenuCardInfoController');
                 });
             });
+
+            // Iptv channels
+            Route::namespace('Iptv')->prefix('iptv')->as('iptv.')->group(function () {
+                Route::resource('channel', 'ChannelController');
+
+                Route::prefix('channel')->as('channel')->group(function (Router $router) {
+
+                });
+            });
         });
     });
 });

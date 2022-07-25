@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
                 MessageCardSeeder::class,
                 MessageCardInfoSeeder::class,
                 MenuSeeder::class,
-                MenuCardSeeder::class
+                MenuCardSeeder::class,
+                IptvChannelSeeder::class
             ]
         );
     }

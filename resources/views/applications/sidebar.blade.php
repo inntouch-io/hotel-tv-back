@@ -21,7 +21,7 @@ $route_name = request()->route()->getName();
 
 <li class="nav-item">
     <a href="{{ route('admin.applications.create') }}" class="nav-link {{ $route_name === 'admin.applications.create' ? 'active' : '' }}">
-        <i class="icon-stack"></i>
+        <i class="icon-add-to-list"></i>
         <span>Добавить</span>
     </a>
 </li>
