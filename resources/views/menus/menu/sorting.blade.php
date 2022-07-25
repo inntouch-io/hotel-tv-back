@@ -6,10 +6,8 @@
  * Created: 22.07.2022 / 14:52
  */
 
-/** @var \Domain\Messages\Entities\MessageCard $card */
-/** @var \Domain\Messages\Entities\Message $message */
+/** @var \Domain\Menus\Entities\Menu $menu */
 
-$list = $message->cards;
 ?>
 
 @extends('layouts.main')
@@ -33,7 +31,16 @@ $list = $message->cards;
     </div>
 
     <div class="page-content pt-0">
-            @include('messages.cards.card.infobar')
+        <div class="sidebar sidebar-light sidebar-secondary sidebar-expand-lg align-self-start">
+            <div class="sidebar-content">
+                <div class="sidebar-section">
+                    <ul class="nav nav-sidebar" data-nav-type="accordion">
+                        @include('menus.menu.sidebar')
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -49,21 +56,20 @@ $list = $message->cards;
                                 <div class="col-md-6">
                                     <div class="dd" data-toggle="sort-list">
                                         <ol class="dd-list">
-                                            @foreach($list as $card)
-
-                                                @if($card->infos->count())
-                                                    <li class="dd-item dd-item-alt" data-id="{{ $card->getId() }}">
+                                            @foreach($list as $menu)
+                                                @if($menu->infos->count())
+                                                    <li class="dd-item dd-item-alt" data-id="{{ $menu->getId() }}">
                                                         <div class="dd-handle"></div>
                                                         <div class="dd-content">
-                                                            {{ $card->getOrderPosition() . ') ' }}
-                                                            {{ $card->infos->first()['title'] }}
+                                                            {{ $menu->getOrderPosition() . ') ' }}
+                                                            {{ $menu->infos->first()['title'] }}
                                                         </div>
                                                     </li>
                                                 @else
-                                                    <li class="dd-item dd-item-alt" data-id="{{ $card->getId() }}">
+                                                    <li class="dd-item dd-item-alt" data-id="{{ $menu->getId() }}">
                                                         <div class="dd-handle"></div>
                                                         <div class="dd-content">
-                                                            {{ $card->getOrderPosition() . ') ' }}
+                                                            {{ $menu->getOrderPosition() . ') ' }}
                                                             -
                                                         </div>
                                                     </li>
@@ -95,9 +101,9 @@ $list = $message->cards;
             maxDepth: 1,
             callback: function(l, e) {
                 $.post(
-                    '{{ route('admin.messages.cards.card.sorting') }}',
+                    '{{ route('admin.menus.menu.sorting') }}',
                     {
-                        cards: this.toArray(),
+                        menus: this.toArray(),
                         _token: token
                     }
                 );

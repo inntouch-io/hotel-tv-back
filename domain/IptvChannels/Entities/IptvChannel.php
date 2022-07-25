@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int    $id
  * @property string $slug
  * @property string $title
- * @property int    $stream_id
+ * @property string $stream_url
  * @property int    $is_visible
  * @property int    $order_position
  * @property int    $image_id
@@ -26,7 +26,7 @@ class IptvChannel extends Entities
     protected $fillable = [
         'slug',
         'title',
-        'stream_id',
+        'stream_url',
         'is_visible',
         'order_position',
         'image_id'
@@ -69,11 +69,11 @@ class IptvChannel extends Entities
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStreamId(): int
+    public function getStreamUrl(): string
     {
-        return $this->stream_id;
+        return $this->stream_url;
     }
 
     /**

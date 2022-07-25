@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminController;
 use Domain\Menus\Entities\MenuCard;
 use Domain\Menus\Services\MenuCardService;
 use Domain\Menus\Services\MenuService;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -138,5 +139,46 @@ class MenuCardController extends AdminController
 
         return redirect()->route('admin.menus.cards.card.index', ['menu_id' => $card->getMenuId()])
             ->with('success', 'Successfully deleted');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sortingList(Request $request)
+    {
+        $this->authorize('sortingList', MenuCard::class);
+
+        $menu = MenuService::getInstance()->getWithCards((int)$request->query('menu_id'));
+
+        return view(
+            'menus.cards.card.sorting',
+            [
+                'menu' => $menu
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sorting(Request $request)
+    {
+        $this->authorize('sorting', MenuCard::class);
+
+        try {
+            if ($request->isXmlHttpRequest()) {
+                MenuCardService::getInstance()->sorting($request->input('cards'));
+
+                return response()->json(['data' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

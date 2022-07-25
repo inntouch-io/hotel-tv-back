@@ -19,7 +19,7 @@ class CreateIptvChannelsTable extends Migration
 
             $table->string('slug')->unique();
             $table->string('title');
-            $table->unsignedBigInteger('stream_id');
+            $table->string('stream_url');
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedBigInteger('order_position')->default(0);
 

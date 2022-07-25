@@ -6,10 +6,10 @@
  * Created: 22.07.2022 / 14:52
  */
 
-/** @var \Domain\Messages\Entities\MessageCard $card */
-/** @var \Domain\Messages\Entities\Message $message */
+/** @var \Domain\Menus\Entities\Menu $menu */
+/** @var \Domain\Menus\Entities\MenuCard $card */
 
-$list = $message->cards;
+$list = $menu->cards;
 ?>
 
 @extends('layouts.main')
@@ -33,7 +33,7 @@ $list = $message->cards;
     </div>
 
     <div class="page-content pt-0">
-            @include('messages.cards.card.infobar')
+            @include('menus.cards.card.infobar')
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
@@ -50,7 +50,6 @@ $list = $message->cards;
                                     <div class="dd" data-toggle="sort-list">
                                         <ol class="dd-list">
                                             @foreach($list as $card)
-
                                                 @if($card->infos->count())
                                                     <li class="dd-item dd-item-alt" data-id="{{ $card->getId() }}">
                                                         <div class="dd-handle"></div>
@@ -95,7 +94,7 @@ $list = $message->cards;
             maxDepth: 1,
             callback: function(l, e) {
                 $.post(
-                    '{{ route('admin.messages.cards.card.sorting') }}',
+                    '{{ route('admin.menus.cards.card.sorting') }}',
                     {
                         cards: this.toArray(),
                         _token: token

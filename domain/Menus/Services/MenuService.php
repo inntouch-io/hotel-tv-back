@@ -171,4 +171,22 @@ class MenuService
             $rules
         );
     }
+
+    public function sorting(array $menus = [])
+    {
+        foreach ($menus as $index => $data) {
+            Menu::query()->whereKey((int)$data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
+    }
+
+    public function getByType(string $type)
+    {
+        return $this->builder->list(function (Builder $builder) use ($type) {
+            return $builder->where('type', '=', $type)->with('infos');
+        });
+    }
 }

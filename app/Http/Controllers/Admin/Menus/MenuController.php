@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminController;
 use Domain\Menus\Entities\Menu;
 use Domain\Menus\Entities\MenuCard;
 use Domain\Menus\Services\MenuService;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -106,7 +107,7 @@ class MenuController extends AdminController
 
 
         // TODO need add soft delete
-        $menu->cards->transform(function (MenuCard $card){
+        $menu->cards->transform(function (MenuCard $card) {
             $card->infos()->delete();
         });
         $menu->cards()->delete();
@@ -115,5 +116,52 @@ class MenuController extends AdminController
 
         return redirect()->route('admin.menus.menu.index')
             ->with('success', 'Successfully deleted');
+    }
+
+    public function typesList()
+    {
+        $this->authorize('sortingList', Menu::class);
+
+        return view('menus.menu.types');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sortingList(Request $request)
+    {
+        $this->authorize('sortingList', Menu::class);
+
+        $list = MenuService::getInstance()->getByType($request->query('type'));
+
+        return view(
+            'menus.menu.sorting',
+            [
+                'list' => $list
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sorting(Request $request)
+    {
+        $this->authorize('sorting', Menu::class);
+
+        try {
+            if ($request->isXmlHttpRequest()){
+                MenuService::getInstance()->sorting($request->input('menus'));
+
+                return response()->json(['data' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

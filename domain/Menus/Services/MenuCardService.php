@@ -137,4 +137,15 @@ class MenuCardService
             isset($data['isVisible']) ? 1 : 0,
         ));
     }
+
+    public function sorting(array $cards = [])
+    {
+        foreach ($cards as $index => $data) {
+            MenuCard::query()->whereKey((int)$data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
+    }
 }

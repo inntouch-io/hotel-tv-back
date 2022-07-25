@@ -62,7 +62,8 @@ class Menu extends Model
      */
     public function cards(): HasMany
     {
-        return $this->hasMany(MenuCard::class, 'menu_id', 'id')->with('infos');
+        return $this->hasMany(MenuCard::class, 'menu_id', 'id')->with('infos')
+            ->orderBy('order_position');
     }
 
     // Getters

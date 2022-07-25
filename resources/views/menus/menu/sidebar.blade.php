@@ -20,4 +20,8 @@ $route_name = request()->route()->getName();
         <i class="fas fa-plus"></i>
         <span>Добавить</span>
     </a>
+    <a href="{{ route('admin.menus.menu.typesList') }}" class="nav-link {{ $route_name === 'admin.menus.menu.typesList' ? 'active' : '' }}">
+        <i class="icon-sort"></i>
+        <span>Сортировка</span>
+    </a>
 </li>

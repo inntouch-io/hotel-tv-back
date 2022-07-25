@@ -123,18 +123,25 @@ class MessageCardController extends AdminController
     {
         $this->authorize('sortingList', MessageCard::class);
 
-        $list = MessageCardService::getInstance()->getByMessageId((int)$request->query('message_id'));
+        $message = MessageService::getInstance()->getWithCards((int)$request->query('message_id'));
 
         return view(
             'messages.cards.card.sorting',
             [
-                'list' => $list
+                'message' => $message
             ]
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function sorting(Request $request)
     {
+        $this->authorize('sorting', MessageCard::class);
+
         try {
             if ($request->isXmlHttpRequest()) {
                 MessageCardService::getInstance()->sorting($request->input('cards'));

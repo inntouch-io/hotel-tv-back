@@ -143,15 +143,6 @@ class MessageCardService
         ));
     }
 
-    public function getByMessageId(int $messageId)
-    {
-        return $this->builder->takeBy(function (Builder $builder) use ($messageId) {
-            return $builder->where('message_id', '=', $messageId)
-                ->with(['infos', 'message'])
-                ->orderBy('order_position');
-        });
-    }
-
     public function sorting(array $cards = [])
     {
         foreach ($cards as $index => $data) {

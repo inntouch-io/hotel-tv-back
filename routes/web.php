@@ -96,11 +96,26 @@ Route::namespace('Admin')->group(function () {
 
             // Menus
             Route::namespace('Menus')->prefix('menus')->as('menus.')->group(function () {
-                Route::resource('menu', 'MenuController');
+                Route::resource('menu', 'MenuController')->except('show');
+
+                // Menus sorting
+                Route::prefix('menu')->as('menu.')->group(function (Router $router) {
+                    $router->get('/types-list', 'MenuController@typesList')->name('typesList');
+                    $router->get('/sorting-list', 'MenuController@sortingList')->name('sortingList');
+                    $router->post('/sorting', 'MenuController@sorting')->name('sorting');
+                });
+
                 Route::resource('infos', 'MenuInfoController');
 
                 Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
-                    Route::resource('card', 'MenuCardController');
+                    Route::resource('card', 'MenuCardController')->except('show');
+
+                    // MenuCard sorting
+                    Route::prefix('card')->as('card.')->group(function (Router $router) {
+                        $router->get('/sorting-list', 'MenuCardController@sortingList')->name('sortingList');
+                        $router->post('/sorting', 'MenuCardController@sorting')->name('sorting');
+                    });
+
                     Route::resource('infos', 'MenuCardInfoController');
                 });
             });
