@@ -27,10 +27,9 @@ class ChannelResource extends Resources
             StaticKeys::$CHANNEL_ID => $this->getId(),
             StaticKeys::$CHANNEL_TITLE => $this->getName(),
 
-            self::$STREAM_URL => $this->getStreamUrl(),
-
             StaticKeys::$FILES => [
                 StaticKeys::$IMAGE_URL => $image,
+                self::$STREAM_URL => $this->getStreamUrl(),
             ]
         ];
     }
