@@ -57,4 +57,9 @@ Route::namespace('Api')->as('api.')->group(function () {
         $router->get('get-cards', 'InformationController@getCards')->name('getCards');
     });
 
+    Route::prefix('iptv-channels')->as('iptv_channels.')->group(function (Router $router){
+        $router->get('get-list', 'IptvChannelsController@getList')->name('get_list');
+        $router->get('get-detail', 'IptvChannelsController@getDetail')->name('get_detail');
+    });
+
 });

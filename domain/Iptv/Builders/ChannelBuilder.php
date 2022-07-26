@@ -31,6 +31,11 @@ class ChannelBuilder
         return $closure(IptvChannel::query())->get();
     }
 
+    public function getItems(Closure $closure, $itemsPerPage)
+    {
+        return $closure(IptvChannel::query())->paginate($itemsPerPage);
+    }
+
     public function takeBy(Closure $closure)
     {
         return $closure(IptvChannel::query())->first();
