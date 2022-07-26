@@ -86,6 +86,14 @@ class ChannelController extends AdminController
 
     public function destroy(int $id)
     {
+        try {
+            $channel = ChannelService::getInstance()->getById($id);
+            $channel->delete();
 
+            return redirect()->route('admin.iptv.channel.index')
+                ->with('success', 'Successfully added');
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

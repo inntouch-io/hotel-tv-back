@@ -24,6 +24,16 @@ $route_name = request()->route()->getName();
                             <span>Изменить</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.iptv.infos.create', ['channel_id' => $channel->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.iptv.infos.create' ? 'active' : '' }}">
+                            <i class="fas fa-plus"></i>
+                            <span>Добавить перевод</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item-divider"></li>
                 @endif
 
                 @include('iptv.channel.sidebar')

@@ -24,6 +24,7 @@ class CreateMessageCardsTable extends Migration
             $table->foreign('message_id')->references('id')->on('messages');
             $table->foreign('image_id')->references('id')->on('images');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

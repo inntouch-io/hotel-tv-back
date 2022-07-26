@@ -23,6 +23,7 @@ class CreateMessageInfosTable extends Migration
             $table->string('locale', 8)->default('ru');
 
             $table->foreign('message_id')->references('id')->on('messages');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -97,6 +97,13 @@ class ChannelService
         });
     }
 
+    public function getWithInfos(int $id)
+    {
+        return $this->builder->takeBy(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('infos');
+        });
+    }
+
     public function update(IptvChannel $channel, Request $request)
     {
         $data = $this->validator($request);

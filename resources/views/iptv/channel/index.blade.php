@@ -7,6 +7,7 @@
  */
 
 /** @var \Domain\Iptv\Entities\IptvChannel $channel */
+/** @var \Domain\Iptv\Entities\IptvChannelInfo $channelInfo */
 ?>
 
 @extends('layouts.main')
@@ -81,14 +82,14 @@
                                                 </a>
                                             </td>
                                             <td>
-{{--                                                @foreach($channel->infos as $channelInfo)--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="{{ route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()]) }}" class="font-weight-semibold">--}}
-{{--                                                            [{{ config('app.locales')[$moduleInfo->getLocale()] }}] ---}}
-{{--                                                            {{ $moduleInfo->getName() }}--}}
-{{--                                                        </a>--}}
-{{--                                                    </li>--}}
-{{--                                                @endforeach--}}
+                                                @foreach($channel->infos as $channelInfo)
+                                                    <li>
+                                                        <a href="{{ route('admin.iptv.infos.edit', ['info' => $channelInfo->getId()]) }}" class="font-weight-semibold">
+                                                            [{{ config('app.locales')[$channelInfo->getLocale()] }}] -
+                                                            {{ $channelInfo->getTitle() }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <div style="line-height: 60px">

@@ -21,6 +21,7 @@ class CreateMenuInfosTable extends Migration
             $table->string('locale', 8)->default('ru');
 
             $table->foreign('menu_id')->references('id')->on('menus');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

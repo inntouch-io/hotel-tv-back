@@ -21,6 +21,7 @@ class CreateModuleInfosTable extends Migration
             $table->string('locale', 8)->default('ru');
 
             $table->foreign('module_id')->references('id')->on('modules');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace Domain\Modules\Entities;
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class ModuleInfo
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ModuleInfo extends Entities
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'module_infos';
     protected $fillable = [

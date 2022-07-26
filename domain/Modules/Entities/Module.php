@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -30,7 +31,7 @@ use Illuminate\Support\Carbon;
  */
 class Module extends Entities
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'modules';
     protected $fillable = [

@@ -23,7 +23,7 @@ class CreateMessageCardInfosTable extends Migration
             $table->string('locale', 8)->default('ru');
 
             $table->foreign('card_id')->references('id')->on('message_cards');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

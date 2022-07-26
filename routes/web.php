@@ -13,6 +13,7 @@ Route::namespace('Admin')->group(function () {
     // 4. takeBy logics with condition
     // 5. Soft Delete realise to all models
     // 6. Policies !!! DONE
+    // 7. when clicked double on button create, created two the same data
 
     Route::prefix('admin')->as('admin.')->group(function () {
         Route::prefix('auth')->name('auth.')->group(function (Router $router) {
@@ -127,6 +128,8 @@ Route::namespace('Admin')->group(function () {
                 Route::prefix('channel')->as('channel')->group(function (Router $router) {
 
                 });
+
+                Route::resource('infos', 'ChannelInfoController');
             });
         });
     });

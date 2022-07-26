@@ -21,6 +21,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('order_position')->default(0);
 
             $table->foreign('image_id')->references('id')->on('images');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

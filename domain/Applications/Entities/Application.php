@@ -7,6 +7,7 @@ use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -25,7 +26,7 @@ use Illuminate\Support\Carbon;
  */
 class Application extends Entities
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'applications';
     protected $fillable = [

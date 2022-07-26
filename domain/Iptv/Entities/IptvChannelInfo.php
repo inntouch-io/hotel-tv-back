@@ -4,6 +4,7 @@ namespace Domain\Iptv\Entities;
 
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class IptvChannelInfo
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class IptvChannelInfo extends Entities
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'iptv_channel_infos';
     protected $fillable = [

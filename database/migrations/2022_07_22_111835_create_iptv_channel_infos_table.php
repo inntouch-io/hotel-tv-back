@@ -21,6 +21,8 @@ class CreateIptvChannelInfosTable extends Migration
             $table->enum('locale', ['uz', 'ru', 'en']);
 
             $table->foreign('channel_id')->references('id')->on('iptv_channels');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

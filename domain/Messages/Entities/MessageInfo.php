@@ -4,6 +4,7 @@ namespace Domain\Messages\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class MessageInfo
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MessageInfo extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'message_infos';
     protected $fillable = [

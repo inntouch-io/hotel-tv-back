@@ -23,6 +23,7 @@ class CreateMenuCardsTable extends Migration
 
             $table->foreign('menu_id')->references('id')->on('menus');
             $table->foreign('image_id')->references('id')->on('images');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
