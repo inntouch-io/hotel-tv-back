@@ -36,4 +36,7 @@ class StaticKeys
 
     public static $DATE = 'date';
     public static $TIME = 'time';
+
+    public static $CHANNEL_ID = 'channelId';
+    public static $CHANNEL_TITLE = 'channelTitle';
 }

@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property Collection $infos
  * @property Image      $image
+ *
+ * @property-read string $name
  */
 class IptvChannel extends Model
 {
@@ -123,5 +125,10 @@ class IptvChannel extends Model
     public function getCreatedAt(): Carbon
     {
         return $this->created_at;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 }

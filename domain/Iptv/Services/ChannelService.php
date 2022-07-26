@@ -51,6 +51,41 @@ class ChannelService
         });
     }
 
+    public function getItems(Request $request, $language = 'ru')
+    {
+        $itemsPerPage = $request->input('itemsPerPage', 18);
+
+        return $this->builder->getItems(function (Builder $builder) use ($request, $language){
+            return $builder
+                ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
+                ->where('iptv_channel_infos.locale', '=', $language)
+                ->where('iptv_channels.is_visible', '=', 1)
+                ->orderBy('iptv_channels.order_position', 'asc')
+                ->select([
+                    'iptv_channels.*',
+                    'iptv_channel_infos.title as name',
+                ])
+                ->distinct();
+        }, $itemsPerPage);
+    }
+
+    public function getItem(Request $request, $language)
+    {
+        return $this->builder->takeBy(function (Builder $builder) use ($request, $language){
+            return $builder
+                ->where('iptv_channels.id', '=', $request->input('channelId'))
+                ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
+                ->where('iptv_channel_infos.locale', '=', $language)
+                ->where('iptv_channels.is_visible', '=', 1)
+                ->orderBy('iptv_channels.order_position', 'asc')
+                ->select([
+                    'iptv_channels.*',
+                    'iptv_channel_infos.title as name',
+                ])
+                ->distinct();
+        });
+    }
+
     public function store(Request $request)
     {
         $data = $this->validator($request);
