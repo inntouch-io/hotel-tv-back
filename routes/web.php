@@ -106,29 +106,35 @@ Route::namespace('Admin')->group(function () {
                     $router->post('/sorting', 'MenuController@sorting')->name('sorting');
                 });
 
+                // Menu infos
                 Route::resource('infos', 'MenuInfoController');
 
+                // Menu Cards
                 Route::namespace('Cards')->prefix('cards')->as('cards.')->group(function () {
                     Route::resource('card', 'MenuCardController')->except('show');
 
-                    // MenuCard sorting
+                    // MenuCards sorting
                     Route::prefix('card')->as('card.')->group(function (Router $router) {
                         $router->get('/sorting-list', 'MenuCardController@sortingList')->name('sortingList');
                         $router->post('/sorting', 'MenuCardController@sorting')->name('sorting');
                     });
 
+                    // MenuCards infos
                     Route::resource('infos', 'MenuCardInfoController');
                 });
             });
 
             // Iptv channels
             Route::namespace('Iptv')->prefix('iptv')->as('iptv.')->group(function () {
-                Route::resource('channel', 'ChannelController');
+                Route::resource('channel', 'ChannelController')->except('show');
 
-                Route::prefix('channel')->as('channel')->group(function (Router $router) {
-
+                // Iptv channels sorting
+                Route::prefix('channel')->as('channel.')->group(function (Router $router) {
+                    $router->get('/sorting-list', 'ChannelController@sortingList')->name('sortingList');
+                    $router->post('/sorting', 'ChannelController@sorting')->name('sorting');
                 });
 
+                // Iptv channel infos
                 Route::resource('infos', 'ChannelInfoController');
             });
         });

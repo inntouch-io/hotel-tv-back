@@ -24,10 +24,10 @@ $route_name = request()->route()->getName();
     </a>
 </li>
 
-{{--<li class="nav-item">--}}
-{{--    <a href="{{ route('admin.modules.module.sortingList') }}" class="nav-link {{ $route_name === 'admin.modules.module.sortingList' ? 'active' : '' }}">--}}
-{{--        <i class="icon-sort"></i>--}}
-{{--        <span>Сортировка</span>--}}
-{{--    </a>--}}
-{{--</li>--}}
+<li class="nav-item">
+    <a href="{{ route('admin.iptv.channel.sortingList') }}" class="nav-link {{ $route_name === 'admin.iptv.channel.sortingList' ? 'active' : '' }}">
+        <i class="icon-sort"></i>
+        <span>Сортировка</span>
+    </a>
+</li>
 

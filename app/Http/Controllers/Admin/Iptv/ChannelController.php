@@ -96,4 +96,21 @@ class ChannelController extends AdminController
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }
+
+    public function sortingList()
+    {
+        $list = ChannelService::getInstance()->list();
+
+        return view(
+            'iptv.channel.sorting',
+            [
+                'list' => $list
+            ]
+        );
+    }
+
+    public function sorting()
+    {
+
+    }
 }

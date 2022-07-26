@@ -6,7 +6,7 @@
  * @link    https://karaev.uz
  * Created: 26.04.2022 / 17:43
  */
-/** @var \Domain\Menus\Entities\MenuInfo $info */
+/** @var \Domain\Iptv\Entities\IptvChannelInfo $info */
 
 ?>
 
@@ -27,7 +27,7 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('menus.infos.infobar')
+        @include('iptv.infos.infobar')
 
         <div class="content-wrapper">
             <div class="content">
@@ -47,7 +47,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.menus.infos.update', ['info' => $info->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.iptv.infos.update', ['info' => $info->getId()]) }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
 
@@ -70,7 +70,7 @@
                                 </div>
                             </form>
 
-                            <form action="{{ route('admin.menus.infos.destroy', ['info' => $info->getId()]) }}" method="post" class="mt-1 position-absolute" style="bottom: 40px; left: 150px">
+                            <form action="{{ route('admin.iptv.infos.destroy', ['info' => $info->getId()]) }}" method="post" class="mt-1 position-absolute" style="bottom: 40px; left: 150px">
                                 {{ csrf_field() }}
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item')">

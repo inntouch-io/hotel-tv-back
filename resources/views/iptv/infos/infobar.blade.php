@@ -7,7 +7,7 @@
  * Created: 23.04.2022 / 15:23
  */
 
-/** @var \Domain\Menus\Entities\MenuInfo $info */
+/** @var \Domain\Iptv\Entities\IptvChannelInfo $info */
 
 $route_name = request()->route()->getName();
 ?>
@@ -18,8 +18,8 @@ $route_name = request()->route()->getName();
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
                 @if(!is_null($info))
                     <li class="nav-item">
-                        <a href="{{ route('admin.menus.infos.edit', ['info' => $info->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.menus.infos.edit' ? 'active' : '' }}">
+                        <a href="{{ route('admin.iptv.infos.edit', ['info' => $info->getId()]) }}"
+                           class="nav-link {{ $route_name === 'admin.iptv.infos.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить перевод</span>
                         </a>
@@ -28,7 +28,7 @@ $route_name = request()->route()->getName();
                     <li class="nav-item-divider"></li>
                 @endif
 
-                @include('menus.menu.sidebar')
+                @include('iptv.channel.sidebar')
             </ul>
         </div>
     </div>

@@ -9,7 +9,10 @@
 namespace App\Http\Controllers\Admin\Iptv;
 
 use App\Http\Controllers\Admin\AdminController;
+use Domain\Iptv\Entities\IptvChannelInfo;
+use Domain\Iptv\Services\ChannelInfoService;
 use Domain\Iptv\Services\ChannelService;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -40,12 +43,42 @@ class ChannelInfoController extends AdminController
 
     public function store(Request $request)
     {
-//        ChannelIn
+        /** @var IptvChannelInfo $info */
+        $info = ChannelInfoService::getInstance()->store($request);
 
+        return redirect()->route('admin.iptv.infos.edit', ['info' => $info->getId()])
+            ->with('success', 'Successfully added');
     }
 
-    public function edit()
+    public function edit(int $id)
     {
+        $info = ChannelInfoService::getInstance()->getById($id);
 
+        return view('iptv.infos.edit', ['info' => $info]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        /** @var IptvChannelInfo $info */
+        $info = ChannelInfoService::getInstance()->getById($id);
+
+        ChannelInfoService::getInstance()->update($info, $request);
+
+        return redirect()->route('admin.iptv.infos.edit', ['info' => $info->getId()])
+            ->with('success', 'Successfully added');
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            /** @var IptvChannelInfo $info */
+            $info = ChannelInfoService::getInstance()->getById($id);
+            $info->delete();
+
+            return redirect()->route('admin.iptv.channel.index')
+                ->with('success', 'Successfully deleted');
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }
