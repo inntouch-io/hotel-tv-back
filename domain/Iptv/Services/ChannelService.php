@@ -55,7 +55,7 @@ class ChannelService
     {
         $itemsPerPage = $request->input('itemsPerPage', 18);
 
-        return $this->builder->getItems(function (Builder $builder) use ($request, $language){
+        return $this->builder->getItems(function (Builder $builder) use ($request, $language) {
             return $builder
                 ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
                 ->where('iptv_channel_infos.locale', '=', $language)
@@ -71,7 +71,7 @@ class ChannelService
 
     public function getItem(Request $request, $language)
     {
-        return $this->builder->takeBy(function (Builder $builder) use ($request, $language){
+        return $this->builder->takeBy(function (Builder $builder) use ($request, $language) {
             return $builder
                 ->where('iptv_channels.id', '=', $request->input('channelId'))
                 ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
@@ -171,7 +171,20 @@ class ChannelService
         ));
     }
 
-
+    /**
+     * @param array $channels
+     * @return void
+     */
+    public function sorting(array $channels = [])
+    {
+        foreach ($channels as $index => $data) {
+            IptvChannel::query()->whereKey($data['id'])->update(
+                [
+                    'order_position' => ($index + 1)
+                ]
+            );
+        }
+    }
 
 
 

@@ -100,7 +100,7 @@ class ModuleSeeder extends Seeder
                 'type'           => 'films',
                 'module_name'    => 'Films',
                 'image_id'       => 7,
-                'is_visible'     => 1,
+                'is_visible'     => 0,
                 'order_position' => 7,
                 'created_at'     => Carbon::now()
             ]

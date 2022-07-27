@@ -28,8 +28,13 @@ class ChannelController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index()
     {
+        $this->authorize('index', IptvChannel::class);
         $list = ChannelService::getInstance()->list();
 
         return view(
@@ -40,13 +45,24 @@ class ChannelController extends AdminController
         );
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create()
     {
+        $this->authorize('create', IptvChannel::class);
         return view('iptv.channel.create');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
+        $this->authorize('store', IptvChannel::class);
         try {
             ChannelService::getInstance()->store($request);
         } catch (Exception $exception) {
@@ -57,8 +73,14 @@ class ChannelController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
+        $this->authorize('edit', IptvChannel::class);
         $channel = ChannelService::getInstance()->getById($id);
 
         return view(
@@ -69,8 +91,15 @@ class ChannelController extends AdminController
         );
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', IptvChannel::class);
         try {
             /** @var IptvChannel $channel */
             $channel = ChannelService::getInstance()->getById($id);
@@ -84,8 +113,14 @@ class ChannelController extends AdminController
             ->with('success', 'Successfully saved');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
+        $this->authorize('delete', IptvChannel::class);
         try {
             $channel = ChannelService::getInstance()->getById($id);
             $channel->delete();
@@ -97,8 +132,13 @@ class ChannelController extends AdminController
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function sortingList()
     {
+        $this->authorize('sortingList', IptvChannel::class);
         $list = ChannelService::getInstance()->list();
 
         return view(
@@ -109,8 +149,24 @@ class ChannelController extends AdminController
         );
     }
 
-    public function sorting()
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function sorting(Request $request)
     {
+        $this->authorize('sorting', IptvChannel::class);
+        try {
+            if ($request->isXmlHttpRequest()) {
+                ChannelService::getInstance()->sorting($request->input('channels'));
 
+                return response()->json(['data' => true]);
+            }
+
+            return redirect()->back();
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

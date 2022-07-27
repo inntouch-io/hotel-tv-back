@@ -29,8 +29,14 @@ class ChannelInfoController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create(Request $request)
     {
+        $this->authorize('create', IptvChannelInfo::class);
         $channel = ChannelService::getInstance()->getWithInfos((int)$request->query('channel_id'));
 
         return view(
@@ -41,8 +47,14 @@ class ChannelInfoController extends AdminController
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
+        $this->authorize('store', IptvChannelInfo::class);
         /** @var IptvChannelInfo $info */
         $info = ChannelInfoService::getInstance()->store($request);
 
@@ -50,15 +62,28 @@ class ChannelInfoController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
+        $this->authorize('edit', IptvChannelInfo::class);
         $info = ChannelInfoService::getInstance()->getById($id);
 
         return view('iptv.infos.edit', ['info' => $info]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
+        $this->authorize('update', IptvChannelInfo::class);
         /** @var IptvChannelInfo $info */
         $info = ChannelInfoService::getInstance()->getById($id);
 
@@ -68,8 +93,14 @@ class ChannelInfoController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
+        $this->authorize('delete', IptvChannelInfo::class);
         try {
             /** @var IptvChannelInfo $info */
             $info = ChannelInfoService::getInstance()->getById($id);

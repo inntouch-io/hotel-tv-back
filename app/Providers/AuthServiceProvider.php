@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Domain\Applications\Entities\Application;
 use Domain\Applications\Policies\ApplicationPolicy;
+use Domain\Iptv\Entities\IptvChannel;
+use Domain\Iptv\Entities\IptvChannelInfo;
+use Domain\Iptv\Policies\IptvChannelInfoPolicy;
+use Domain\Iptv\Policies\IptvChannelPolicy;
 use Domain\Menus\Entities\Menu;
 use Domain\Menus\Entities\MenuCard;
 use Domain\Menus\Entities\MenuCardInfo;
@@ -44,7 +48,9 @@ class AuthServiceProvider extends ServiceProvider
         MenuInfo::class        => MenuInfoPolicy::class,
         MenuCard::class        => MenuCardPolicy::class,
         MenuCardInfo::class    => MenuCardInfoPolicy::class,
-        Room::class            => RoomPolicy::class
+        Room::class            => RoomPolicy::class,
+        IptvChannel::class     => IptvChannelPolicy::class,
+        IptvChannelInfo::class => IptvChannelInfoPolicy::class
     ];
 
     /**

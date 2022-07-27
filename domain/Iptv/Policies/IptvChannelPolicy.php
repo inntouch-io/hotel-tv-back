@@ -1,26 +1,13 @@
 <?php
-/**
- * Hotel-TV.
- *
- * @author  Mirfayz Nosirov
- * Created: 24.05.2022 / 14:39
- */
 
-namespace Domain\Applications\Policies;
+namespace Domain\Iptv\Policies;
 
 use Domain\Admins\Entities\Admin;
-use Domain\Applications\Entities\Application;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-/**
- * Class ApplicationPolicy
- * @package Domain\Applications\Policies
- */
-class ApplicationPolicy
+class IptvChannelPolicy
 {
     use HandlesAuthorization;
-
-    const CATALOG = 'applications';
 
     public function index(Admin $admin): bool
     {
@@ -51,6 +38,14 @@ class ApplicationPolicy
     {
         return $admin->getRole() === "su";
     }
+
+    public function sortingList(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
+
+    public function sorting(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
 }
-
-
