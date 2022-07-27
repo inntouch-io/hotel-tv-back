@@ -67,6 +67,7 @@
                                         <th>Позиция</th>
                                         <th>Добавлен</th>
                                         <th>Тип</th>
+                                        <th>Категория</th>
                                         <th>Карточки</th>
                                         <th>Редактировать</th>
                                     </tr>
@@ -106,6 +107,9 @@
                                             <td>{{ $menu->getCreatedAt() }}</td>
                                             <td>
                                                 <span class="font-weight-semibold badge badge-primary">{{ $menu->getType() }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-semibold badge badge-success">{{ $menu->getCategory() }}</span>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.menus.cards.card.index', ['menu_id' => $menu->getId()]) }}" class="font-weight-bold">

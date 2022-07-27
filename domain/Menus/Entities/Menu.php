@@ -15,18 +15,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Menu
  * @package Domain\Menus\Entities
  *
- * @property int        $id
- * @property int        $image_id
- * @property string     $type
- * @property int        $is_visible
- * @property int        $order_position
- * @property Carbon     $created_at
+ * @property int         $id
+ * @property int         $image_id
+ * @property string      $type
+ * @property string      $category
+ * @property int         $is_visible
+ * @property int         $order_position
+ * @property Carbon      $created_at
  *
  * @property-read string $title
  *
- * @property Image      $image
- * @property Collection $infos
- * @property Collection $cards
+ * @property Image       $image
+ * @property Collection  $infos
+ * @property Collection  $cards
  */
 class Menu extends Model
 {
@@ -36,6 +37,7 @@ class Menu extends Model
     protected $fillable = [
         'image_id',
         'type',
+        'category',
         'is_visible',
         'order_position'
     ];
@@ -123,5 +125,13 @@ class Menu extends Model
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory(): string
+    {
+        return $this->category;
     }
 }

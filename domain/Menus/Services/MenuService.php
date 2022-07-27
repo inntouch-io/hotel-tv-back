@@ -92,6 +92,7 @@ class MenuService
         return $this->builder->store(new MenuDto(
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
+            $data['category'],
             $data['type'],
             $order_position,
         ));
@@ -112,7 +113,8 @@ class MenuService
 
         $this->builder->update($menu, new MenuDto(
             $imageId,
-            isset($data['isVisible']) ? 1 : 0
+            isset($data['isVisible']) ? 1 : 0,
+            $data['category']
         ));
     }
 
@@ -140,7 +142,9 @@ class MenuService
     public function getWithCards(int $id)
     {
         return $this->builder->takeBy(function (Builder $builder) use ($id) {
-            return $builder->whereKey($id)->with('cards');
+            return $builder->whereKey($id)
+                ->with('cards')
+                ->orderBy('order_position');
         });
     }
 
@@ -158,11 +162,13 @@ class MenuService
             $rules = [
                 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'type'      => 'required|in:' . implode(',', array_keys(config('app.types'))),
+                'category'  => 'required|in:' . implode(',', array_keys(config('app.menu_categories'))),
                 'isVisible' => 'nullable|int'
             ];
         } elseif ($request->route()->getName() === 'admin.menus.menu.update') {
             $rules = [
                 'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'category'  => 'required|in:' . implode(',', array_keys(config('app.menu_categories'))),
                 'isVisible' => 'nullable|int'
             ];
         }
@@ -186,7 +192,9 @@ class MenuService
     public function getByType(string $type)
     {
         return $this->builder->list(function (Builder $builder) use ($type) {
-            return $builder->where('type', '=', $type)->with('infos');
+            return $builder->where('type', '=', $type)
+                ->with('infos')
+                ->orderBy('order_position');
         });
     }
 }

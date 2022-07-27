@@ -43,6 +43,7 @@ class MenuBuilder
             [
                 'image_id'       => $dto->getImageId(),
                 'is_visible'     => $dto->getIsVisible(),
+                'category'       => $dto->getCategory(),
                 'order_position' => $dto->getOrderPosition(),
                 'type'           => $dto->getType()
             ]
@@ -54,7 +55,8 @@ class MenuBuilder
         $menu->update(
             [
                 'image_id'   => $dto->getImageId(),
-                'is_visible' => $dto->getIsVisible()
+                'is_visible' => $dto->getIsVisible(),
+                'category'   => $dto->getCategory()
             ]
         );
     }

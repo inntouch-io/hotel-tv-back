@@ -67,6 +67,7 @@
                                         <th>Позиция</th>
                                         <th>Добавлен</th>
                                         <th>Карточки</th>
+                                        <th>Категория</th>
                                         <th>Редактировать</th>
                                     </tr>
                                     </thead>
@@ -107,6 +108,9 @@
                                                 <a href="{{ route('admin.messages.cards.card.index', ['message_id' => $message->getId()]) }}" class="font-weight-semibold">
                                                     Посмотреть
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-success">{{ $message->getCategory() }}</div>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.messages.message.edit', ['message' => $message->getId()]) }}" class="badge badge-secondary">

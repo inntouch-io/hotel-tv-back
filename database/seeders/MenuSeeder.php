@@ -19,7 +19,8 @@ class MenuSeeder extends Seeder
                 'image_id' => 1,
                 'type' => 'serviceMenu',
                 'is_visible' => 1,
-                'order_position' => 1
+                'order_position' => 1,
+                'category' => 'place'
             ]
         );
 
@@ -28,7 +29,8 @@ class MenuSeeder extends Seeder
                 'image_id' => 2,
                 'type' => 'serviceMenu',
                 'is_visible' => 0,
-                'order_position' => 2
+                'order_position' => 2,
+                'category' => 'service'
             ]
         );
 
@@ -37,7 +39,8 @@ class MenuSeeder extends Seeder
                 'image_id' => 3,
                 'type' => 'whereToGo',
                 'is_visible' => 1,
-                'order_position' => 3
+                'order_position' => 3,
+                'category' => 'place'
             ]
         );
     }

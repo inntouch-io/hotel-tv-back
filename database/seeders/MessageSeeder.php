@@ -18,7 +18,8 @@ class MessageSeeder extends Seeder
             [
                 'image_id' => 4,
                 'is_visible' => 1,
-                'order_position' => 1
+                'order_position' => 1,
+                'category' => 'food'
             ]
         );
 
@@ -26,7 +27,8 @@ class MessageSeeder extends Seeder
             [
                 'image_id' => 5,
                 'is_visible' => 0,
-                'order_position' => 2
+                'order_position' => 2,
+                'category' => 'event'
             ]
         );
     }

@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
 
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedBigInteger('order_position')->default(0);
+            $table->enum('category', ['food', 'event']);
 
             $table->foreign('image_id')->references('id')->on('images');
             $table->softDeletes();

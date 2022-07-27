@@ -14,6 +14,7 @@ namespace Domain\Messages\DTO;
  *
  * @property int      $image_id
  * @property int      $is_visible
+ * @property string   $category
  * @property int|null $order_position
  */
 class MessageDto
@@ -24,17 +25,22 @@ class MessageDto
     /** @var int $is_visible */
     protected int $is_visible;
 
+    /** @var string $category */
+    protected string $category;
+
     /** @var int|null $order_position */
     protected ?int $order_position;
 
     public function __construct(
-        int $image_id,
-        int $is_visible,
-        int $order_position = null
+        int    $image_id,
+        int    $is_visible,
+        string $category,
+        int    $order_position = null
     )
     {
         $this->image_id = $image_id;
         $this->is_visible = $is_visible;
+        $this->category = $category;
         $this->order_position = $order_position;
     }
 
@@ -62,5 +68,13 @@ class MessageDto
     public function getOrderPosition(): ?int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory(): string
+    {
+        return $this->category;
     }
 }

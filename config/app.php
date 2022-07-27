@@ -8,11 +8,20 @@ return [
     ],
 
     'types' => [
-        'aboutMenu' => 'Об отеле',
+        'aboutMenu'   => 'Об отеле',
         'serviceMenu' => 'Cервис',
-        'whereToGo' => 'Куда пойти'
+        'whereToGo'   => 'Куда пойти'
     ],
 
+    'message_categories' => [
+        'food'  => 'Питание',
+        'event' => 'Мероприятие'
+    ],
+
+    'menu_categories' => [
+        'place'   => 'Место',
+        'service' => 'Служба'
+    ],
 
     /*
     |--------------------------------------------------------------------------

@@ -29,6 +29,10 @@ class MessageController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index()
     {
         $this->authorize('index', Message::class);
@@ -37,6 +41,10 @@ class MessageController extends AdminController
         return view('messages.message.index', ['messages' => $messages]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create()
     {
         $this->authorize('create', Message::class);
@@ -44,6 +52,11 @@ class MessageController extends AdminController
         return view('messages.message.create');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request)
     {
         $this->authorize('store', Message::class);
@@ -54,6 +67,11 @@ class MessageController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(int $id)
     {
         $this->authorize('edit', Message::class);
@@ -62,6 +80,12 @@ class MessageController extends AdminController
         return view('messages.message.edit', ['message' => $message]);
     }
 
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(Request $request, int $id)
     {
         $this->authorize('update', Message::class);
@@ -78,6 +102,11 @@ class MessageController extends AdminController
         }
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(int $id)
     {
         $this->authorize('delete', Message::class);

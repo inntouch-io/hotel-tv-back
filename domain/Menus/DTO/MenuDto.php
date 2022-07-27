@@ -14,6 +14,7 @@ namespace Domain\Menus\DTO;
  *
  * @property int         $image_id
  * @property int         $is_visible
+ * @property string      $category
  * @property string|null $type
  * @property int|null    $order_position
  */
@@ -25,6 +26,9 @@ class MenuDto
     /** @var int $is_visible */
     protected int $is_visible;
 
+    /** @var string $category */
+    protected string $category;
+
     /** @var string|null $type */
     protected ?string $type;
 
@@ -34,12 +38,14 @@ class MenuDto
     public function __construct(
         int    $image_id,
         int    $is_visible,
+        string $category,
         string $type = null,
         int    $order_position = null
     )
     {
         $this->image_id = $image_id;
         $this->is_visible = $is_visible;
+        $this->category = $category;
         $this->type = $type;
         $this->order_position = $order_position;
     }
@@ -76,6 +82,14 @@ class MenuDto
     public function getOrderPosition(): ?int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory(): string
+    {
+        return $this->category;
     }
 }
 

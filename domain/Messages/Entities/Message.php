@@ -15,19 +15,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Message
  * @package Domain\Messages\Entities
  *
- * @property int        $id
- * @property int        $image_id
- * @property int        $is_visible
- * @property int        $order_position
- * @property Carbon     $created_at
+ * @property int         $id
+ * @property int         $image_id
+ * @property int         $is_visible
+ * @property int         $order_position
+ * @property string      $category
+ * @property Carbon      $created_at
  *
  * @property-read string $title
  * @property-read string $description
  * @property-read string $longDescription
  *
- * @property Collection $infos
- * @property Image      $image
- * @property Collection $cards
+ * @property Collection  $infos
+ * @property Image       $image
+ * @property Collection  $cards
  */
 class Message extends Model
 {
@@ -38,7 +39,8 @@ class Message extends Model
         'id',
         'image_id',
         'is_visible',
-        'order_position'
+        'order_position',
+        'category'
     ];
 
     // Relations
@@ -138,6 +140,14 @@ class Message extends Model
     public function getLongDescription(): string
     {
         return $this->longDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory(): string
+    {
+        return $this->category;
     }
 
 }

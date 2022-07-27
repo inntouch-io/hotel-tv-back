@@ -47,7 +47,8 @@ class MessageBuilder
         $message->update(
             [
                 'image_id'   => $dto->getImageId(),
-                'is_visible' => $dto->getIsVisible()
+                'is_visible' => $dto->getIsVisible(),
+                'category'   => $dto->getCategory()
             ]
         );
     }
@@ -58,6 +59,7 @@ class MessageBuilder
             [
                 'image_id'       => $dto->getImageId(),
                 'is_visible'     => $dto->getIsVisible(),
+                'category'       => $dto->getCategory(),
                 'order_position' => $dto->getOrderPosition()
             ]
         );

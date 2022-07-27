@@ -73,6 +73,15 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="category" class="font-weight-bold">Категория</label>
+                                        <select name="category" id="category" class="form-control" required>
+                                            @foreach(config('app.message_categories') as $category => $name)
+                                                <option value="{{ $category }}">{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-sm btn-outline-success">
                                             <i class="far fa-save"></i>
                                             Сохранить

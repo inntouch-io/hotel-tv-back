@@ -18,6 +18,7 @@ class CreateMenusTable extends Migration
             $table->unsignedBigInteger('image_id')->index();
 
             $table->enum('type', ['aboutMenu', 'serviceMenu', 'whereToGo']);
+            $table->enum('category', ['place', 'service']);
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedBigInteger('order_position')->default(0);
 

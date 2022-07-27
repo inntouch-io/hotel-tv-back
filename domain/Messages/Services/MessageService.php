@@ -149,7 +149,8 @@ class MessageService
         return $request->validate(
             [
                 'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'isVisible' => 'nullable|integer'
+                'isVisible' => 'nullable|integer',
+                'category'  => 'required|in:' . implode(',', array_keys(config('app.message_categories')))
             ]
         );
     }
@@ -170,6 +171,7 @@ class MessageService
         $this->builder->update($message, new MessageDto(
             $imageId,
             isset($data['isVisible']) ? 1 : 0,
+            $data['category']
         ));
     }
 
@@ -178,7 +180,8 @@ class MessageService
         $data = $request->validate(
             [
                 'image'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'isVisible' => 'nullable|integer'
+                'isVisible' => 'nullable|integer',
+                'category'  => 'required|in:' . implode(',', array_keys(config('app.message_categories')))
             ],
             [
                 'required' => 'Поле :attribute обязательно'
@@ -205,6 +208,7 @@ class MessageService
         return $this->builder->store(new MessageDto(
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
+            $data['category'],
             $order_position,
         ));
     }

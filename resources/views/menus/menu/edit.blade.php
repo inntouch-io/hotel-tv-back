@@ -79,6 +79,15 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="category" class="font-weight-bold">Категория</label>
+                                            <select name="category" id="category" class="form-control" required>
+                                                @foreach(config('app.menu_categories') as $category => $name)
+                                                    <option value="{{ $category }}" @if($menu->getCategory() === $category) selected @endif>{{ $name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-outline-success">
                                                 <i class="far fa-save"></i>
                                                 Сохранить
