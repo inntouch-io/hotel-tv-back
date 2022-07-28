@@ -5,16 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Admin')->group(function () {
 
-    // TODO
-
-    // 1. Order position logic page !!! DONE
-    // 2. DTO make one  !!! DONE
-    // 3. Views make correct for example type of modules   !!! DONE
-    // 4. takeBy logics with condition
-    // 5. Soft Delete realise to all models
-    // 6. Policies !!! DONE
-    // 7. when clicked double on button create, created two the same data
-
     Route::prefix('admin')->as('admin.')->group(function () {
         Route::prefix('auth')->name('auth.')->group(function (Router $router) {
             // Login actions

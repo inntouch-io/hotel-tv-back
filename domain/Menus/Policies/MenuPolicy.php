@@ -45,6 +45,11 @@ class MenuPolicy
         return in_array($admin->getRole(), ["su", "moderator"]);
     }
 
+    public function typesList(Admin $admin): bool
+    {
+        return in_array($admin->getRole(), ["su", "moderator"]);
+    }
+
     public function sortingList(Admin $admin): bool
     {
         return in_array($admin->getRole(), ["su", "moderator"]);

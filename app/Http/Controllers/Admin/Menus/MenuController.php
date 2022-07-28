@@ -103,24 +103,20 @@ class MenuController extends AdminController
     {
         $this->authorize('delete', Menu::class);
         /** @var Menu $menu */
-        $menu = MenuService::getInstance()->getWithAllRelations($id);
-
-
-        // TODO need add soft delete
-        $menu->cards->transform(function (MenuCard $card) {
-            $card->infos()->delete();
-        });
-        $menu->cards()->delete();
-        $menu->infos()->delete();
+        $menu = MenuService::getInstance()->getById($id);
         $menu->delete();
 
         return redirect()->route('admin.menus.menu.index')
             ->with('success', 'Successfully deleted');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function typesList()
     {
-        $this->authorize('sortingList', Menu::class);
+        $this->authorize('typesList', Menu::class);
 
         return view('menus.menu.types');
     }

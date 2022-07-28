@@ -19,10 +19,10 @@ class IptvChannelSeeder extends Seeder
             [
                 'slug'           => 'uzbekistan',
                 'title'          => 'O\'zbekiston',
-                'stream_url'     => 'asdasdsadasdasdas',
+                'stream_url'     => 'https://api.itv.uz/hls/iptv/1001/index.m3u8?type=live&traffic=&token=alphazet',
                 'is_visible'     => 1,
                 'order_position' => 1,
-                'image_id'       => 2,
+                'image_id'       => 12,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -31,10 +31,10 @@ class IptvChannelSeeder extends Seeder
             [
                 'slug'           => 'my5',
                 'title'          => 'MY5',
-                'stream_url'     => 'asdasdsadasdasdas',
+                'stream_url'     => 'https://api.itv.uz/hls/iptv/1091/index.m3u8?type=live&traffic=&token=alphazet',
                 'is_visible'     => 1,
                 'order_position' => 2,
-                'image_id'       => 3,
+                'image_id'       => 14,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -43,10 +43,10 @@ class IptvChannelSeeder extends Seeder
             [
                 'slug'           => 'sevimli',
                 'title'          => 'Sevimli',
-                'stream_url'     => 'asdasdsadasdasdas',
+                'stream_url'     => 'https://api.itv.uz/hls/iptv/1056/index.m3u8?type=live&traffic=&token=alphazet',
                 'is_visible'     => 1,
                 'order_position' => 3,
-                'image_id'       => 4,
+                'image_id'       => 13,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -55,10 +55,10 @@ class IptvChannelSeeder extends Seeder
             [
                 'slug'           => 'yoshlar',
                 'title'          => 'Yoshlar',
-                'stream_url'     => 'asdasdsadasdasdas',
+                'stream_url'     => 'https://api.itv.uz/hls/iptv/1002/index.m3u8?type=live&traffic=&token=alphazet',
                 'is_visible'     => 1,
                 'order_position' => 4,
-                'image_id'       => 1,
+                'image_id'       => 15,
                 'created_at'     => Carbon::now()
             ]
         );

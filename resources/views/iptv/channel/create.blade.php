@@ -60,14 +60,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="stream_url" class="font-weight-bold">Stream url</label>
+                                        <label for="stream_url" class="font-weight-bold">URL трансляции</label>
                                         <input type="text" id="stream_url" name="stream_url" class="form-control"
-                                               placeholder="Stream url"
+                                               placeholder="URL трансляции"
                                                required>
                                     </div>
 
                                     <div class="form-group">
-                                        <p class="font-weight-bold">Фото channels</p>
+                                        <p class="font-weight-bold">Фото каналов</p>
 
                                         <div class="border p-3 rounded d-flex align-items-center">
                                             <input type="file" name="image">
@@ -87,7 +87,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <button type="submit" class="btn btn-sm btn-outline-success" onclick="submitForm(this)">
                                             <i class="far fa-save"></i>
                                             Сохранить
                                         </button>
@@ -100,4 +100,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-js')
+    <script>
+        function submitForm(btn) {
+            // disable the button
+            btn.disabled = true;
+            // submit the form
+            btn.form.submit();
+        }
+    </script>
 @endsection

@@ -131,10 +131,7 @@ class MenuCardController extends AdminController
     {
         $this->authorize('delete', MenuCard::class);
         /** @var MenuCard $card */
-        $card = MenuCardService::getInstance()->getWithInfos($id);
-
-        // TODO need delete $card->image()->delete()
-        $card->infos()->delete();
+        $card = MenuCardService::getInstance()->getById($id);
         $card->delete();
 
         return redirect()->route('admin.menus.cards.card.index', ['menu_id' => $card->getMenuId()])

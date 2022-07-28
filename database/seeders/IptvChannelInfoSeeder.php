@@ -24,7 +24,7 @@ class IptvChannelInfoSeeder extends Seeder
 
         IptvChannelInfo::query()->create(
             [
-                'title'      => 'Узбекистан',
+                'title'      => 'Ўзбекистон',
                 'locale'     => 'ru',
                 'channel_id' => 1,
             ]
@@ -59,6 +59,54 @@ class IptvChannelInfoSeeder extends Seeder
                 'title'      => 'MY5',
                 'locale'     => 'en',
                 'channel_id' => 2,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Sevimli',
+                'locale'     => 'uz',
+                'channel_id' => 3,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Sevimli',
+                'locale'     => 'ru',
+                'channel_id' => 3,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Sevimli',
+                'locale'     => 'en',
+                'channel_id' => 3,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Yoshlar',
+                'locale'     => 'uz',
+                'channel_id' => 4,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Yoshlar',
+                'locale'     => 'ru',
+                'channel_id' => 4,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Yoshlar',
+                'locale'     => 'en',
+                'channel_id' => 4,
             ]
         );
     }

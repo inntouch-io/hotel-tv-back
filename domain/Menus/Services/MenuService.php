@@ -132,13 +132,6 @@ class MenuService
         });
     }
 
-    public function getWithAllRelations(int $id)
-    {
-        return $this->builder->takeBy(function (Builder $builder) use ($id) {
-            return $builder->whereKey($id)->with(['infos', 'cards']);
-        });
-    }
-
     public function getWithCards(int $id)
     {
         return $this->builder->takeBy(function (Builder $builder) use ($id) {

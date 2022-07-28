@@ -61,14 +61,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="stream_url" class="font-weight-bold">Stream url</label>
+                                            <label for="stream_url" class="font-weight-bold">URL трансляции</label>
                                             <input type="text" id="stream_url" name="stream_url" class="form-control"
-                                                   placeholder="Stream url" value="{{ $channel->getStreamUrl() }}"
+                                                   placeholder="URL трансляции" value="{{ $channel->getStreamUrl() }}"
                                                    required>
                                         </div>
 
                                         <div class="form-group">
-                                            <p class="font-weight-semibold">Фото channels</p>
+                                            <p class="font-weight-semibold">Фото каналов</p>
 
                                             <div class="border p-3 rounded d-flex align-items-center">
                                                 <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">

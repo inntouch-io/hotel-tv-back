@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <button type="submit" class="btn btn-sm btn-outline-success" onclick="submitForm(this)">
                                             <i class="far fa-save"></i>
                                             Сохранить
                                         </button>
@@ -79,4 +79,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-js')
+    <script>
+        function submitForm(btn) {
+            // disable the button
+            btn.disabled = true;
+            // submit the form
+            btn.form.submit();
+        }
+    </script>
 @endsection

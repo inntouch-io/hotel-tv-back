@@ -2,10 +2,10 @@
 
 namespace Domain\Applications\Entities;
 
-use App\Core\Entities;
 use Domain\Images\Entities\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -24,7 +24,7 @@ use Illuminate\Support\Carbon;
  *
  * @property Image  $image
  */
-class Application extends Entities
+class Application extends Model
 {
     use HasFactory, SoftDeletes;
 

@@ -101,13 +101,12 @@ class MessageCardController extends AdminController
     {
         $this->authorize('delete', MessageCard::class);
         /** @var MessageCard $card */
-        $card = MessageCardService::getInstance()->getWithInfos($id);
+        $card = MessageCardService::getInstance()->getById($id);
 
         if (is_null($card)) {
             throw new RuntimeException('Card not found');
         }
 
-        $card->infos()->delete();
         $card->delete();
 
         return redirect()->route('admin.messages.cards.card.index', ['message_id' => $card->getMessageId()])

@@ -100,28 +100,6 @@ class MessageService
         return $message;
     }
 
-    public function getWithAllRelations(int $id)
-    {
-        $message = $this->builder->takeBy(function (Builder $builder) use ($id) {
-            return $builder
-                ->whereKey($id)
-                ->with(
-                    [
-                        'infos',
-                        'cards' => function ($query) {
-                            return $query->with('infos')->get();
-                        }
-                    ]
-                );
-        });
-
-        if (is_null($message)) {
-            throw new RuntimeException('Message not found', 404);
-        }
-
-        return $message;
-    }
-
     public function getWithCards(int $id)
     {
         $message = $this->builder->takeBy(function (Builder $builder) use ($id) {

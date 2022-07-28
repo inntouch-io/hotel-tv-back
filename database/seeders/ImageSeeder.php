@@ -125,24 +125,44 @@ class ImageSeeder extends Seeder
             ]
         );
 
-//        DB::table('images')->insert(
-//            [
-//                'id'         => 4,
-//                'path'       => 'images/apps/',
-//                'extension'  => 'png',
-//                'name'       => "itv",
-//                'created_at' => Carbon::now()
-//            ]
-//        );
-//
-//        DB::table('images')->insert(
-//            [
-//                'id'         => 5,
-//                'path'       => 'images/apps/',
-//                'extension'  => 'png',
-//                'name'       => "youtube",
-//                'created_at' => Carbon::now()
-//            ]
-//        );
+        DB::table('images')->insert(
+            [
+                'id'         => 12,
+                'path'       => 'images/channels/',
+                'extension'  => 'png',
+                'name'       => "uzbekistan",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 13,
+                'path'       => 'images/channels/',
+                'extension'  => 'png',
+                'name'       => "sevimli",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 14,
+                'path'       => 'images/channels/',
+                'extension'  => 'png',
+                'name'       => "my5",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 15,
+                'path'       => 'images/channels/',
+                'extension'  => 'png',
+                'name'       => "yoshlar",
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }
