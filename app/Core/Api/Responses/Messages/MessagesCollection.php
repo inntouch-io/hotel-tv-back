@@ -21,6 +21,7 @@ class MessagesCollection extends Collections
     private static $MESSAGE_TITLE = 'messageTitle';
     private static $MESSAGE_DESCRIPTION = 'messageDescription';
     private static $MESSAGE_LONG_DESCRIPTION = 'messageLongDescription';
+    private static $MESSAGE_CATEGORY = 'messageCategory';
 
     public function toArray($request)
     {
@@ -32,6 +33,7 @@ class MessagesCollection extends Collections
                 self::$MESSAGE_TITLE => (string) $item->getTitle(),
                 self::$MESSAGE_DESCRIPTION => (string) $item->getDescription(),
                 self::$MESSAGE_LONG_DESCRIPTION => (string) $item->getLongDescription(),
+                self::$MESSAGE_CATEGORY => (string) $item->getCategory(),
 
                 StaticKeys::$FILES => [
                     StaticKeys::$IMAGE_URL => $image,

@@ -19,6 +19,7 @@ class InformationListCollection extends Collections
 {
     private static $INFO_ID = 'infoId';
     private static $INFO_TITLE = 'infoTitle';
+    private static $INFO_CATEGORY = 'infoCategory';
 
     public function toArray($request)
     {
@@ -28,6 +29,7 @@ class InformationListCollection extends Collections
             return [
                 self::$INFO_ID => (int) $item->getId(),
                 self::$INFO_TITLE => (string) $item->getTitle(),
+                self::$INFO_CATEGORY => (string) $item->getCategory(),
                 StaticKeys::$FILES => [
                     StaticKeys::$IMAGE_URL => $image,
                 ]
