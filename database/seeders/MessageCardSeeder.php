@@ -17,7 +17,7 @@ class MessageCardSeeder extends Seeder
         MessageCard::query()->create(
             [
                 'message_id'     => 1,
-                'image_id'       => 1,
+                'image_id'       => 20,
                 'is_visible'     => 1,
                 'order_position' => 1
             ]
@@ -26,7 +26,7 @@ class MessageCardSeeder extends Seeder
         MessageCard::query()->create(
             [
                 'message_id'     => 1,
-                'image_id'       => 2,
+                'image_id'       => 21,
                 'is_visible'     => 1,
                 'order_position' => 2
             ]
@@ -35,18 +35,9 @@ class MessageCardSeeder extends Seeder
         MessageCard::query()->create(
             [
                 'message_id'     => 2,
-                'image_id'       => 1,
+                'image_id'       => 22,
                 'is_visible'     => 1,
                 'order_position' => 3
-            ]
-        );
-
-        MessageCard::query()->create(
-            [
-                'message_id'     => 2,
-                'image_id'       => 2,
-                'is_visible'     => 1,
-                'order_position' => 4
             ]
         );
     }

@@ -16,9 +16,9 @@ class MessageCardInfoSeeder extends Seeder
     {
         MessageCardInfo::query()->create(
             [
-                'title'          => 'MessageCardInfo uz 1',
-                'description'    => 'MessageCardInfo desc uz 1',
-                'subDescription' => 'MessageCardInfo sub desc uz 1',
+                'title'          => 'Yevropa nonushtasi',
+                'description'    => "Evropa nonushtasi (bulochka, dudlangan kolbasa, pishloq, sariyog ', sabzavotli salat, qaynatilgan tuxum, zaytun)",
+                'subDescription' => '60 000 UZS',
                 'card_id'        => '1',
                 'locale'         => 'uz',
             ]
@@ -26,9 +26,9 @@ class MessageCardInfoSeeder extends Seeder
 
         MessageCardInfo::query()->create(
             [
-                'title'          => 'MessageCardInfo ru 1',
-                'description'    => 'MessageCardInfo desc ru 1',
-                'subDescription' => 'MessageCardInfo sub desc ru 1',
+                'title'          => 'Европейский завтрак',
+                'description'    => 'Европейский завтрак (булочка,  колбаса копчёная, сыр, масло сливочное, салат овощной, яйцо вареное, оливки) ',
+                'subDescription' => '60 000 UZS',
                 'card_id'        => '1',
                 'locale'         => 'ru',
             ]
@@ -36,10 +36,70 @@ class MessageCardInfoSeeder extends Seeder
 
         MessageCardInfo::query()->create(
             [
-                'title'          => 'MessageCardInfo en 1',
-                'description'    => 'MessageCardInfo desc en 1',
-                'subDescription' => 'MessageCardInfo sub desc en 1',
+                'title'          => 'European breakfast',
+                'description'    => 'European breakfast (bun, smoked sausage, cheese, butter, vegetable salad, boiled egg, olives)',
+                'subDescription' => '60 000 UZS',
                 'card_id'        => '1',
+                'locale'         => 'en',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'Fransuz nonushtasi',
+                'description'    => "Fransuz nonushtasi (bulochka, dudlangan kolbasa, pishloq, sariyog ', sabzavotli salat, qaynatilgan tuxum, zaytun)",
+                'subDescription' => '70 000 UZS',
+                'card_id'        => '2',
+                'locale'         => 'uz',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'Французкий завтрак',
+                'description'    => 'Французкий завтрак (булочка,  колбаса копчёная, сыр, масло сливочное, салат овощной, яйцо вареное, оливки) ',
+                'subDescription' => '70 000 UZS',
+                'card_id'        => '2',
+                'locale'         => 'ru',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'French breakfast',
+                'description'    => 'French breakfast (bun, smoked sausage, cheese, butter, vegetable salad, boiled egg, olives)',
+                'subDescription' => '70 000 UZS',
+                'card_id'        => '2',
+                'locale'         => 'en',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'Asal bilan pancakes',
+                'description'    => "Evropa nonushtasi (bulochka, dudlangan kolbasa, pishloq, sariyog ', sabzavotli salat, qaynatilgan tuxum, zaytun)",
+                'subDescription' => '40 000 UZS',
+                'card_id'        => '3',
+                'locale'         => 'uz',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'Блины с медом',
+                'description'    => 'Европейский завтрак (булочка,  колбаса копчёная, сыр, масло сливочное, салат овощной, яйцо вареное, оливки) ',
+                'subDescription' => '40 000 UZS',
+                'card_id'        => '3',
+                'locale'         => 'ru',
+            ]
+        );
+
+        MessageCardInfo::query()->create(
+            [
+                'title'          => 'Pancakes with honey',
+                'description'    => 'European breakfast (bun, smoked sausage, cheese, butter, vegetable salad, boiled egg, olives)',
+                'subDescription' => '40 000 UZS',
+                'card_id'        => '3',
                 'locale'         => 'en',
             ]
         );

@@ -16,9 +16,8 @@ class MenuCardSeeder extends Seeder
     {
         MenuCard::query()->create(
             [
-                'id'             => 1,
                 'menu_id'        => 1,
-                'image_id'       => 1,
+                'image_id'       => 26,
                 'is_visible'     => 1,
                 'order_position' => 1,
             ]
@@ -26,21 +25,73 @@ class MenuCardSeeder extends Seeder
 
         MenuCard::query()->create(
             [
-                'id'             => 2,
-                'menu_id'        => 1,
-                'image_id'       => 2,
+                'menu_id'        => 2,
+                'image_id'       => 27,
                 'is_visible'     => 1,
-                'order_position' => 2,
+                'order_position' => 1,
             ]
         );
 
         MenuCard::query()->create(
             [
-                'id'             => 3,
-                'menu_id'        => 2,
-                'image_id'       => 3,
+                'menu_id'        => 3,
+                'image_id'       => 25,
                 'is_visible'     => 1,
-                'order_position' => 3,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 4,
+                'image_id'       => 31,
+                'is_visible'     => 1,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 5,
+                'image_id'       => 29,
+                'is_visible'     => 1,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 6,
+                'image_id'       => 30,
+                'is_visible'     => 1,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 7,
+                'image_id'       => 23,
+                'is_visible'     => 1,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 8,
+                'image_id'       => 24,
+                'is_visible'     => 1,
+                'order_position' => 1,
+            ]
+        );
+
+        MenuCard::query()->create(
+            [
+                'menu_id'        => 9,
+                'image_id'       => 28,
+                'is_visible'     => 1,
+                'order_position' => 1,
             ]
         );
     }

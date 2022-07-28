@@ -164,5 +164,165 @@ class ImageSeeder extends Seeder
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 16,
+                'path'       => 'images/applications/',
+                'extension'  => 'png',
+                'name'       => "youtube",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 17,
+                'path'       => 'images/applications/',
+                'extension'  => 'png',
+                'name'       => "itv",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 18,
+                'path'       => 'images/messages/',
+                'extension'  => 'png',
+                'name'       => "breakfast",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 19,
+                'path'       => 'images/messages/',
+                'extension'  => 'png',
+                'name'       => "nightShow",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 20,
+                'path'       => 'images/messageCards/',
+                'extension'  => 'png',
+                'name'       => "euroBreakfast",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 21,
+                'path'       => 'images/messageCards/',
+                'extension'  => 'png',
+                'name'       => "franceBreakfast",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 22,
+                'path'       => 'images/messageCards/',
+                'extension'  => 'png',
+                'name'       => "russianBreakfast",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 23,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "akvapark",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 24,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "akvarium",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 25,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "golf",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 26,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "restoran",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 27,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "soy",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 28,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "teatr",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 29,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "uborka",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 30,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "vizov",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 31,
+                'path'       => 'images/menus/',
+                'extension'  => 'png',
+                'name'       => "yeda",
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }

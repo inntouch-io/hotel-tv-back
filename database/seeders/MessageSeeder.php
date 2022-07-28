@@ -16,19 +16,19 @@ class MessageSeeder extends Seeder
     {
         Message::query()->create(
             [
-                'image_id' => 4,
-                'is_visible' => 1,
+                'image_id'       => 18,
+                'is_visible'     => 1,
                 'order_position' => 1,
-                'category' => 'food'
+                'category'       => 'food'
             ]
         );
 
         Message::query()->create(
             [
-                'image_id' => 5,
-                'is_visible' => 0,
+                'image_id'       => 19,
+                'is_visible'     => 1,
                 'order_position' => 2,
-                'category' => 'event'
+                'category'       => 'event'
             ]
         );
     }

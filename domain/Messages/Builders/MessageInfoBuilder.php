@@ -10,7 +10,6 @@ namespace Domain\Messages\Builders;
 
 use Closure;
 use Domain\Messages\DTO\MessageInfoDto;
-use Domain\Messages\DTO\MessageInfoDto;
 use Domain\Messages\Entities\MessageInfo;
 
 class MessageInfoBuilder
