@@ -90,7 +90,9 @@ class ApiController extends Controller
         ];
 
         $noCache['data'] = !is_null($this->data) ? $this->data : null;
-        $noCache['meta'] = !is_null($this->meta) ? $this->meta : null;
+        if(!is_null($this->meta)){
+            $noCache['meta'] = $this->meta;
+        }
 
         return new JsonResponse($noCache, $this->getCode(), $this->headers);
     }
