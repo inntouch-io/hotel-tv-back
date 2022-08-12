@@ -62,5 +62,17 @@ class IptvChannelSeeder extends Seeder
                 'created_at'     => Carbon::now()
             ]
         );
+
+        IptvChannel::query()->create(
+            [
+                'slug'           => 'kinoteatr',
+                'title'          => 'Kinoteatr',
+                'stream_url'     => 'https://api.itv.uz/hls/iptv/1009/index.m3u8?type=live&traffic=&token=alphazet',
+                'is_visible'     => 1,
+                'order_position' => 5,
+                'image_id'       => 32,
+                'created_at'     => Carbon::now()
+            ]
+        );
     }
 }

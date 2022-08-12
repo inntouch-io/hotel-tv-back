@@ -21,7 +21,7 @@ class UserRoomSeeder extends Seeder
                 'user_id'        => 1,
                 'room_id'        => 1,
                 'arrival_time'   => 1652524183,
-                'departure_time' => 1652524198,
+                'departure_time' => 1659008673,
                 'room_status'    => 'booked',
                 'created_at'     => Carbon::now()
             ]

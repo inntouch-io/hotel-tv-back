@@ -22,7 +22,7 @@ class UserController extends ApiController
         parent::__construct();
     }
 
-    public function getInfo(Request $request){
+    public function getInfo(Request $request) {
         $room = $request->user();
 
         $userInfoResource = new UserInfoResource($room);

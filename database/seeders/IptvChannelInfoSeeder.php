@@ -109,5 +109,29 @@ class IptvChannelInfoSeeder extends Seeder
                 'channel_id' => 4,
             ]
         );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Kinoteatr',
+                'locale'     => 'uz',
+                'channel_id' => 5,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Kinoteatr',
+                'locale'     => 'ru',
+                'channel_id' => 5,
+            ]
+        );
+
+        IptvChannelInfo::query()->create(
+            [
+                'title'      => 'Kinoteatr',
+                'locale'     => 'en',
+                'channel_id' => 5,
+            ]
+        );
     }
 }

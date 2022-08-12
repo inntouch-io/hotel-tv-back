@@ -324,5 +324,15 @@ class ImageSeeder extends Seeder
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 32,
+                'path'       => 'images/channels/',
+                'extension'  => 'png',
+                'name'       => "kinoteatr",
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }
