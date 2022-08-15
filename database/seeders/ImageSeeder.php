@@ -170,7 +170,7 @@ class ImageSeeder extends Seeder
                 'id'         => 16,
                 'path'       => 'images/applications/',
                 'extension'  => 'png',
-                'name'       => "youtube",
+                'name'       => "cinerama",
                 'created_at' => Carbon::now()
             ]
         );

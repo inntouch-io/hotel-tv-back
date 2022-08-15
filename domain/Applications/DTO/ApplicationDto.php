@@ -12,11 +12,12 @@ namespace Domain\Applications\DTO;
  * Class ApplicationDto
  * @package domain\Applications\DTO
  *
- * @property string   $name
- * @property string   $url
- * @property int      $image_id
- * @property int      $is_visible
- * @property int|null $order_position
+ * @property string      $name
+ * @property string      $url
+ * @property int         $image_id
+ * @property int         $is_visible
+ * @property string|null $apkFile
+ * @property int|null    $order_position
  */
 class ApplicationDto
 {
@@ -32,28 +33,26 @@ class ApplicationDto
     /** @var int $is_visible */
     protected int $is_visible;
 
+    /** @var string|null $apkFile */
+    protected ?string $apkFile;
+
     /** @var int|null $order_position */
     protected ?int $order_position;
 
-    /**
-     * @param string   $name
-     * @param string   $url
-     * @param int      $image_id
-     * @param int      $is_visible
-     * @param int|null $order_position
-     */
     public function __construct(
         string $name,
         string $url,
         int    $image_id,
         int    $is_visible,
-        int   $order_position = null
+        string $apkFile = null,
+        int    $order_position = null
     )
     {
         $this->name = $name;
         $this->url = $url;
         $this->image_id = $image_id;
         $this->is_visible = $is_visible;
+        $this->apkFile = $apkFile;
         $this->order_position = $order_position;
     }
 
@@ -113,5 +112,13 @@ class ApplicationDto
     public function getOrderPosition(): ?int
     {
         return $this->order_position;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApkFile(): ?string
+    {
+        return $this->apkFile;
     }
 }

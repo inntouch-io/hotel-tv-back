@@ -65,6 +65,14 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <p class="font-weight-semibold">APK-файл</p>
+
+                                        <div class="border p-3 rounded d-flex align-items-center">
+                                            <input type="file" accept=".apk" name="apk_file">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <p class="font-weight-semibold">Фото приложения</p>
 
                                         <div class="border p-3 rounded d-flex align-items-center">

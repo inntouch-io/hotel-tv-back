@@ -68,6 +68,14 @@ use Domain\Applications\Entities\Application;
                                         </div>
 
                                         <div class="form-group">
+                                            <p class="font-weight-semibold">APK-файл - {{ $application->getApkFile() }}</p>
+
+                                            <div class="border p-3 rounded d-flex align-items-center">
+                                                <input type="file" name="apk_file">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <p class="font-weight-semibold">Статус</p>
 
                                             <div class="border p-3 rounded">

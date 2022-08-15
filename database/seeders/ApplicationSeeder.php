@@ -18,9 +18,10 @@ class ApplicationSeeder extends Seeder
         DB::table('applications')->insert(
             [
                 'id'             => 1,
-                'name'           => 'YouTube',
+                'name'           => 'Cinerama',
                 'image_id'       => 16,
-                'url'            => 'https://www.youtube.com',
+                'url'            => 'uz.turontelecom.cinerama',
+                'apk_file'       => '/apkFiles/cinerama.apk',
                 'is_visible'     => 1,
                 'order_position' => 1,
                 'created_at'     => Carbon::now()
@@ -32,7 +33,8 @@ class ApplicationSeeder extends Seeder
                 'id'             => 2,
                 'name'           => 'iTV',
                 'image_id'       => 17,
-                'url'            => 'https://itv.uz',
+                'url'            => 'uz.i_tv.player',
+                'apk_file'       => '/apkFiles/app-release.apk',
                 'is_visible'     => 1,
                 'order_position' => 2,
                 'created_at'     => Carbon::now()

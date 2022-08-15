@@ -14,15 +14,16 @@ use Illuminate\Support\Carbon;
  * Class Application
  * @package App\domain\Applications\Entities
  *
- * @property int    $id
- * @property string $name
- * @property int    $image_id
- * @property string $url
- * @property int    $is_visible
- * @property int    $order_position
- * @property Carbon $created_at
+ * @property int         $id
+ * @property string      $name
+ * @property int         $image_id
+ * @property string      $url
+ * @property string|null $apk_file
+ * @property int         $is_visible
+ * @property int         $order_position
+ * @property Carbon      $created_at
  *
- * @property Image  $image
+ * @property Image       $image
  */
 class Application extends Model
 {
@@ -33,6 +34,7 @@ class Application extends Model
         'name',
         'image_id',
         'url',
+        'apk_file',
         'is_visible',
         'order_position'
     ];
@@ -110,15 +112,23 @@ class Application extends Model
 
     public function createdAt(): Attribute
     {
-        return Attribute::get(function ($value){
+        return Attribute::get(function ($value) {
             return date('d.m.Y H:i', strtotime($value));
         });
     }
 
     public function status(): Attribute
     {
-        return Attribute::get(function ($value){
-            return (bool) $value;
+        return Attribute::get(function ($value) {
+            return (bool)$value;
         });
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApkFile(): ?string
+    {
+        return $this->apk_file;
     }
 }

@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property int         $id
  * @property string      $room_number
+ * @property int         $max_volume
  * @property string      $device_id
  * @property int         $is_verified
  * @property string      $device_ip
@@ -27,6 +28,7 @@ class Room extends Entities
     protected $table = 'rooms';
     protected $fillable = [
         'room_number',
+        'max_volume',
         'device_id',
         'is_verified',
         'device_ip'
@@ -107,5 +109,13 @@ class Room extends Entities
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxVolume(): int
+    {
+        return $this->max_volume;
     }
 }

@@ -92,6 +92,15 @@ class ApplicationService
     {
         $data = $this->validator($request);
 
+        $apkName = null;
+        $extension = null;
+        if (isset($data['apk_file'])) {
+            $extension = $request->file('apk_file')->getClientOriginalExtension();
+            $apkName = md5(time());
+
+            $request->file('apk_file')->storeAs("public/apkFiles", $apkName . '.' . $extension);
+        }
+
         $imageId = $application->getImageId();
 
         if (isset($data['image'])) {
@@ -105,13 +114,23 @@ class ApplicationService
             $data['name'],
             $data['url'],
             $imageId,
-            isset($data['isVisible']) ? 1 : 0
+            isset($data['isVisible']) ? 1 : 0,
+            !is_null($apkName) ? "/storage/apkFiles/{$apkName}.{$extension}" : $application->getApkFile(),
         ));
     }
 
     public function store(Request $request)
     {
         $data = $this->validator($request);
+
+        $apkName = null;
+        $extension = null;
+        if (isset($data['apk_file'])) {
+            $extension = $request->file('apk_file')->getClientOriginalExtension();
+            $apkName = md5(time());
+
+            $request->file('apk_file')->storeAs("public/apkFiles", $apkName . '.' . $extension);
+        }
 
         if (isset($data['image'])) {
             /** @var Image $image */
@@ -135,6 +154,7 @@ class ApplicationService
             $data['url'],
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
+            !is_null($apkName) ? "/storage/apkFiles/{$apkName}.{$extension}" : null,
             $order_position
         ));
     }
@@ -150,7 +170,8 @@ class ApplicationService
         $rules = [
             'name'      => 'required',
             'url'       => 'required',
-            'isVisible' => 'nullable|int'
+            'isVisible' => 'nullable|int',
+            'apk_file'  => 'nullable'
         ];
 
         if ($request->route()->getName() === 'admin.applications.store') {

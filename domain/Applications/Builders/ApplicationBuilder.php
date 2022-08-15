@@ -57,10 +57,11 @@ class ApplicationBuilder
     {
         $application->update(
             [
-                'name'           => $applicationDto->getName(),
-                'url'            => $applicationDto->getUrl(),
-                'image_id'       => $applicationDto->getImageId(),
-                'is_visible'     => $applicationDto->getIsVisible()
+                'name'       => $applicationDto->getName(),
+                'url'        => $applicationDto->getUrl(),
+                'image_id'   => $applicationDto->getImageId(),
+                'is_visible' => $applicationDto->getIsVisible(),
+                'apk_file'   => $applicationDto->getApkFile()
             ]
         );
     }
@@ -73,7 +74,8 @@ class ApplicationBuilder
                 'url'            => $applicationDto->getUrl(),
                 'image_id'       => $applicationDto->getImageId(),
                 'is_visible'     => $applicationDto->getIsVisible(),
-                'order_position' => $applicationDto->getOrderPosition()
+                'order_position' => $applicationDto->getOrderPosition(),
+                'apk_file'       => $applicationDto->getApkFile()
             ]
         );
     }

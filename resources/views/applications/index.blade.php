@@ -57,6 +57,7 @@ use Domain\Applications\Entities\Application;
                                         <th>#</th>
                                         <th>Название</th>
                                         <th>Имя пакета</th>
+                                        <th>APK-файл</th>
                                         <th>Фото приложения</th>
                                         <th>Позиция</th>
                                         <th>Статус</th>
@@ -79,6 +80,11 @@ use Domain\Applications\Entities\Application;
                                             <td>
                                                <span class="font-weight-bold">
                                                     {{ $application->getUrl() }}
+                                               </span>
+                                            </td>
+                                            <td>
+                                               <span class="font-weight-bold">
+                                                   {{ $application->getApkFile() }}
                                                </span>
                                             </td>
                                             <td>
