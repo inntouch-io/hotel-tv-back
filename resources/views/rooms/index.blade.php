@@ -64,6 +64,7 @@
                                         <th>Идентификатор устройства</th>
                                         <th>IP-адрес устройства</th>
                                         <th>Верификация</th>
+                                        <th>Макс. громкость</th>
                                         <th>Добавлен</th>
                                         <th>Редактировать</th>
                                     </tr>
@@ -96,6 +97,11 @@
                                                 @else
                                                     <div class="badge badge-danger">Неактивный</div>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-secondary">
+                                                    {{ $room->getMaxVolume() }}
+                                                </span>
                                             </td>
                                             <td>{{ $room->getCreatedAt() }}</td>
                                             <td>

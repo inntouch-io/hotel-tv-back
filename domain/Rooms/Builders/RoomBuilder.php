@@ -115,6 +115,7 @@ class RoomBuilder extends Builders
                 'room_number' => $updateDto->getRoomNumber(),
                 'device_id'   => $updateDto->getDeviceId(),
                 'is_verified' => $updateDto->getIsVerified(),
+                'max_volume'  => $updateDto->getMaxVolume()
             ]
         );
     }

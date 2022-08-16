@@ -19,6 +19,11 @@ Route::namespace('Admin')->group(function () {
 
         Route::prefix('admin')->as('admin.')->group(function () {
 
+            Route::prefix('version')->name('version.')->group(function (Router $router) {
+                $router->get('show', 'VersionController@show')->name('show');
+                $router->post('upgrade', 'VersionController@upgrade')->name('upgrade');
+            });
+
             // Logout
             Route::prefix('auth')->as('auth.')->group(function (Router $router) {
                 $router->match(['get', 'post'], '/logout', 'AuthController@logout')->name('logout');

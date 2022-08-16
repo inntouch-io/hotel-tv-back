@@ -83,6 +83,13 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="max_volume" class="font-weight-bold">Макс. громкость</label>
+                                            <input type="number" id="max_volume" name="max_volume" class="form-control"
+                                                   placeholder="Макс. громкость" value="{{ $room->getMaxVolume() }}"
+                                                   required>
+                                        </div>
+
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-sm btn-outline-success">
                                                 <i class="far fa-save"></i>
                                                 Сохранить

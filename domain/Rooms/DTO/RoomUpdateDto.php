@@ -11,6 +11,11 @@ namespace Domain\Rooms\DTO;
 /**
  * Class RoomUpdateDto
  * @package Domain\Rooms\DTO
+ *
+ * @property string|null $roomNumber
+ * @property string      $deviceId
+ * @property int         $max_volume
+ * @property string|null $isVerified
  */
 class RoomUpdateDto
 {
@@ -20,17 +25,22 @@ class RoomUpdateDto
     /** @var string $deviceId */
     protected string $deviceId;
 
+    /** @var int $max_volume */
+    protected int $max_volume;
+
     /** @var string|null $isVerified */
     protected ?string $isVerified = null;
 
     public function __construct(
-        ?string $roomNumber,
         string  $deviceId,
-        ?string $isVerified
+        int     $max_volume,
+        ?string $roomNumber = null,
+        ?string $isVerified = null
     )
     {
-        $this->roomNumber = $roomNumber;
         $this->deviceId = $deviceId;
+        $this->max_volume = $max_volume;
+        $this->roomNumber = $roomNumber;
         $this->isVerified = $isVerified;
     }
 
@@ -56,5 +66,13 @@ class RoomUpdateDto
     public function getIsVerified(): ?string
     {
         return $this->isVerified;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxVolume(): int
+    {
+        return $this->max_volume;
     }
 }

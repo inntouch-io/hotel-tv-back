@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
                 MenuCardSeeder::class,
                 MenuCardInfoSeeder::class,
                 IptvChannelSeeder::class,
-                IptvChannelInfoSeeder::class
+                IptvChannelInfoSeeder::class,
+                AppVersionSeeder::class
             ]
         );
     }

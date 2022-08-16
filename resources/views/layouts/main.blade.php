@@ -121,6 +121,13 @@ $admin = auth()->user();
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('admin.version.show') }}" class="navbar-nav-link">
+                    <i class="icon-versions"></i>
+                    Версия
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('admin.rooms.index') }}" class="navbar-nav-link">
                     <i class="fas fa-align-left"></i>
                     Комнаты

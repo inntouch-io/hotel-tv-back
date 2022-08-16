@@ -78,6 +78,7 @@ class RoomService extends Services
                 'roomNumber' => 'required|string',
                 'deviceId'   => 'required|string',
                 'isVerified' => 'nullable|int',
+                'max_volume' => 'required|integer|between:0,100'
             ]
         );
 
@@ -86,9 +87,11 @@ class RoomService extends Services
         }
 
         RoomBuilder::getInstance()->update($room, new RoomUpdateDto(
-            $data['roomNumber'],
             $data['deviceId'],
-            isset($data['isVerified']) ? 1 : 0
+            $data['max_volume'],
+            $data['roomNumber'],
+            isset($data['isVerified']) ? 1 : 0,
+
         ));
     }
 
