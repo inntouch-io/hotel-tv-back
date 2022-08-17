@@ -20,18 +20,20 @@ class ApplicationsCollection extends Collections
     private static $APPLICATION_ID = 'applicationId';
     private static $APPLICATION_NAME = 'applicationName';
     private static $APPLICATION_URL = 'applicationUrl';
+    private static $APPLICATION_APK_FILE = 'applicationApkFile';
 
     public function toArray($request)
     {
-        return $this->collection->transform(function ($item){
+        return $this->collection->transform(function ($item) {
             $image = $item->image ? $item->image->getUrl() : null;
 
             return [
-                self::$APPLICATION_ID => (int) $item->getId(),
-                self::$APPLICATION_NAME => (string) $item->getName(),
-                self::$APPLICATION_URL => (string) $item->getUrl(),
-                StaticKeys::$FILES => [
-                    StaticKeys::$IMAGE_URL => $image,
+                self::$APPLICATION_ID   => (int)$item->getId(),
+                self::$APPLICATION_NAME => (string)$item->getName(),
+                self::$APPLICATION_URL  => (string)$item->getUrl(),
+                StaticKeys::$FILES      => [
+                    StaticKeys::$IMAGE_URL      => $image,
+                    self::$APPLICATION_APK_FILE => $item->getApkFileUrl(),
                 ]
             ];
         });

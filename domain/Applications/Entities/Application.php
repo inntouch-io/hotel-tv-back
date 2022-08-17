@@ -131,4 +131,9 @@ class Application extends Model
     {
         return $this->apk_file;
     }
+
+    public function getApkFileUrl()
+    {
+        return !is_null($this->getApkFile()) ? url($this->getApkFile()) : null;
+    }
 }

@@ -26,6 +26,11 @@ Route::namespace('Api')->as('api.')->group(function () {
         $router->get('/get-info', 'UserController@getInfo')->name('get_info');
     });
 
+    // Version check
+    Route::prefix('version')->as('version.')->group(function (Router $router) {
+        $router->get('check', 'VersionController@check')->name('check');
+    });
+
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
@@ -52,12 +57,12 @@ Route::namespace('Api')->as('api.')->group(function () {
         $router->get('get-cards', 'MessagesController@getCards')->name('getCards');
     });
 
-    Route::prefix('information')->as('information.')->group(function (Router $router){
+    Route::prefix('information')->as('information.')->group(function (Router $router) {
         $router->get('get-list', 'InformationController@getList')->name('getList');
         $router->get('get-cards', 'InformationController@getCards')->name('getCards');
     });
 
-    Route::prefix('iptv-channels')->as('iptv_channels.')->group(function (Router $router){
+    Route::prefix('iptv-channels')->as('iptv_channels.')->group(function (Router $router) {
         $router->get('get-list', 'IptvChannelsController@getList')->name('get_list');
         $router->get('get-detail', 'IptvChannelsController@getDetail')->name('get_detail');
     });

@@ -19,6 +19,7 @@ class UserInfoResource extends Resources
 {
     private static $USER_ID = 'userId';
     private static $USER_NAME = 'userName';
+    private static $MAX_VOLUME = 'maxVolume';
     private static $ARRIVAL_TIME = 'arrivalTime';
     private static $DEPARTURE_TIME = 'departureTime';
 
@@ -31,6 +32,7 @@ class UserInfoResource extends Resources
             self::$USER_ID => (int) $user->getId(),
             self::$USER_NAME => (string) $user->getFullName(),
             StaticKeys::$ROOM_ID => (int) $userRoom->getRoomId(),
+            self::$MAX_VOLUME => (int) $this->getMaxVolume(),
             self::$ARRIVAL_TIME => [
                 StaticKeys::$DATA => (string) date('d.m.Y', $userRoom->getArrivalTime()),
                 StaticKeys::$TIME => (string) date('H:i', $userRoom->getArrivalTime()),

@@ -61,6 +61,11 @@ class AppVersion extends Model
         return $this->apk_file;
     }
 
+    public function getApkFileUrl()
+    {
+        return url($this->getApkFile());
+    }
+
     /**
      * @return int
      */
