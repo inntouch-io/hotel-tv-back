@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class AppVersion
  * @package Domain\AppVersions\Entities
  *
+ * @property int    $id
  * @property string $app_system
  * @property string $app_type
  * @property string $app_version
@@ -58,5 +59,13 @@ class AppVersion extends Model
     public function getApkFile(): string
     {
         return $this->apk_file;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

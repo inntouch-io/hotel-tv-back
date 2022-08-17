@@ -36,7 +36,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.version.upgrade') }}" method="post">
+                        <form action="{{ route('admin.version.upgrade', ['id' => $version->getId()]) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             @method('PUT')
 
@@ -59,7 +59,7 @@
 
                                     <div class="form-group">
                                         <label for="apk_file">APK-файл - <span class="font-weight-bold">{{ $version->getApkFile() }}</span></label>
-                                        <input type="file" name="apk_file" id="apk_file">
+                                        <input type="file" accept=".apk" name="apk_file" id="apk_file">
                                     </div>
 
                                     <div class="form-group">

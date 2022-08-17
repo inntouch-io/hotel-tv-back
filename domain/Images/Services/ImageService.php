@@ -41,10 +41,10 @@ class ImageService
         $extension = $request->file('image')->getClientOriginalExtension();
         $imageName = md5(time());
 
-        $request->file('image')->storeAs("public/{$catalog}", $imageName . '.' . $extension);
+        $request->file('image')->storeAs("public/images/{$catalog}", $imageName . '.' . $extension);
 
         return $this->builder->save(
-            "storage/{$catalog}/",
+            "storage/images/{$catalog}/",
             $imageName,
             $extension
         );

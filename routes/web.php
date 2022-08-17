@@ -21,7 +21,7 @@ Route::namespace('Admin')->group(function () {
 
             Route::prefix('version')->name('version.')->group(function (Router $router) {
                 $router->get('show', 'VersionController@show')->name('show');
-                $router->post('upgrade', 'VersionController@upgrade')->name('upgrade');
+                $router->put('upgrade', 'VersionController@upgrade')->name('upgrade');
             });
 
             // Logout

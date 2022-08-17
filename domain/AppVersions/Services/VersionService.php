@@ -9,6 +9,7 @@
 namespace Domain\AppVersions\Services;
 
 use Domain\AppVersions\Builders\VersionBuilder;
+use Domain\AppVersions\Dto\VersionDto;
 use Domain\AppVersions\Entities\AppVersion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -51,13 +52,25 @@ class VersionService
 
     public function update(AppVersion $version, Request $request)
     {
-        $request->validate(
+        $data = $request->validate(
             [
                 'app_version' => 'required|string',
-                'apk_file' => 'required'
+                'apk_file'    => 'nullable'
             ]
         );
 
+        $apkName = null;
+        $extension = null;
+        if (isset($data['apk_file'])) {
+            $extension = $request->file('apk_file')->getClientOriginalExtension();
+            $apkName = md5(time());
 
+            $request->file('apk_file')->storeAs("public/versions", $apkName . '.' . $extension);
+        }
+
+        $this->builder->update($version, new VersionDto(
+            $data['app_version'],
+            !is_null($apkName) ? "/storage/versions/{$apkName}.{$extension}" : $version->getApkFile()
+        ));
     }
 }

@@ -8,8 +8,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Domain\AppVersions\Entities\AppVersion;
 use Domain\AppVersions\Services\VersionService;
 use Illuminate\Http\Request;
+use RuntimeException;
 
 /**
  * Class VersionController
@@ -39,7 +41,12 @@ class VersionController extends AdminController
 
     public function upgrade(Request $request)
     {
+        /** @var AppVersion|null $version */
         $version = VersionService::getInstance()->getById((int)$request->query('id'));
+
+        if (is_null($version)) {
+            throw new RuntimeException('Version not found!');
+        }
 
         VersionService::getInstance()->update($version, $request);
 
