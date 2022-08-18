@@ -132,6 +132,10 @@ Route::namespace('Admin')->group(function () {
                 // Iptv channel infos
                 Route::resource('infos', 'ChannelInfoController');
             });
+
+            // Gallery
+            Route::resource('galleries', 'GalleryController');
+
         });
     });
 });

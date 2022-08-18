@@ -175,6 +175,14 @@ $admin = auth()->user();
                     IPTV
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{ route('admin.galleries.index') }}" class="navbar-nav-link">
+                    <i class="icon-gallery"></i>
+                    Галерея
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>
