@@ -120,19 +120,24 @@ $admin = auth()->user();
                     Главная
                 </a>
             </li>
+
+            @can('show', \Domain\AppVersions\Entities\AppVersion::class)
             <li class="nav-item">
                 <a href="{{ route('admin.version.show') }}" class="navbar-nav-link">
                     <i class="icon-versions"></i>
                     Версия
                 </a>
             </li>
+            @endcan
 
+            @can('index', \Domain\Rooms\Entities\Room::class)
             <li class="nav-item">
                 <a href="{{ route('admin.rooms.index') }}" class="navbar-nav-link">
                     <i class="fas fa-align-left"></i>
                     Комнаты
                 </a>
             </li>
+            @endcan
 
             @can('index', \Domain\Modules\Entities\Module::class)
                 <li class="nav-item">
@@ -169,19 +174,24 @@ $admin = auth()->user();
                     </a>
                 </li>
             @endcan
+
+            @can('index', \Domain\Iptv\Entities\IptvChannel::class)
             <li class="nav-item">
                 <a href="{{ route('admin.iptv.channel.index') }}" class="navbar-nav-link">
                     <i class="icon-tv"></i>
                     IPTV
                 </a>
             </li>
+            @endcan
 
+            @can('index', \Domain\Gallery\Entities\Gallery::class)
             <li class="nav-item">
                 <a href="{{ route('admin.galleries.index') }}" class="navbar-nav-link">
                     <i class="icon-gallery"></i>
                     Галерея
                 </a>
             </li>
+            @endcan
 
         </ul>
     </div>

@@ -92,12 +92,12 @@
                                             </td>
                                             <td>{{ $photo->getCreatedAt() }}</td>
                                             <td>
-                                                <a href="{{ route('admin.galleries.edit', ['gallery' => $photo->getId()]) }}" class="badge badge-secondary">
+                                                    <a href="{{ route('admin.galleries.edit', ['gallery' => $photo->getId()]) }}" class="badge badge-secondary">
                                                     <i class="fas fa-edit"></i>
                                                     Редактировать
                                                 </a>
 
-                                                <form action="{{ route('admin.galleries.destroy.destroy', ['gallery' => $photo->getId()]) }}" method="post" class="mt-1">
+                                                <form action="{{ route('admin.galleries.destroy', ['gallery' => $photo->getId()]) }}" method="post" class="mt-1">
                                                     {{ csrf_field() }}
                                                     @method('DELETE')
                                                     <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">

@@ -8,7 +8,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Domain\Gallery\Entities\Gallery;
 use Domain\Gallery\Services\GalleryService;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -44,21 +46,46 @@ class GalleryController extends AdminController
 
     public function store(Request $request)
     {
-        
+        /** @var Gallery $gallery */
+        $gallery = GalleryService::getInstance()->store($request);
+
+        return redirect()->route('admin.galleries.edit', ['gallery' => $gallery->getId()])
+            ->with('success', 'Successfully added');
     }
 
-    public function edit()
+    public function edit(int $id)
     {
-        
+        /** @var Gallery $gallery */
+        $gallery = GalleryService::getInstance()->getById($id);
+
+        return view(
+            'galleries.edit',
+            [
+                'gallery' => $gallery
+            ]
+        );
     }
 
-    public function update()
+    public function update(Request $request, int $id)
     {
-        
+        /** @var Gallery $gallery */
+        $gallery = GalleryService::getInstance()->getById($id);
+
+        GalleryService::getInstance()->update($gallery, $request);
+
+        return redirect()->route('admin.galleries.edit', ['gallery' => $gallery->getId()])
+            ->with('success', 'Successfully saved');
     }
 
-    public function delete()
+    public function destroy(int $id)
     {
-        
+        try {
+            GalleryService::getInstance()->delete($id);
+
+            return redirect()->route('admin.galleries.index')
+                ->with('success', 'Successfully deleted');
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
     }
 }

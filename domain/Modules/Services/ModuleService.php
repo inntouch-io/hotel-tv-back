@@ -12,6 +12,7 @@ namespace Domain\Modules\Services;
 use Domain\Applications\Entities\Application;
 use Domain\Images\Builders\ImageBuilder;
 use Domain\Images\Entities\Image;
+use Domain\Images\Services\ImageService;
 use Domain\Modules\Builders\ModuleBuilder;
 use Domain\Modules\DTO\ModuleDto;
 use Domain\Modules\Entities\Module;
@@ -26,8 +27,9 @@ use RuntimeException;
  */
 class ModuleService
 {
-    /** @var ModuleBuilder $builder */
+    const CATALOG = "modules";
 
+    /** @var ModuleBuilder $builder */
     protected ModuleBuilder $builder;
 
     public function __construct(ModuleBuilder $builder)
@@ -138,16 +140,8 @@ class ModuleService
         $imageId = $module->getImageId();
 
         if (isset($data['image'])) {
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $imageName = md5(time());
-            $request->file('image')->storeAs('public/modules', $imageName . '.' . $extension);
-
             /** @var Image $image */
-            $image = ImageBuilder::getInstance()->save(
-                "storage/modules/",
-                $imageName,
-                $extension
-            );
+            $image = ImageService::getInstance()->upload($request, self::CATALOG);
 
             $imageId = $image->getId();
         }

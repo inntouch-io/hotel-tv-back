@@ -23,7 +23,7 @@ class ModuleSeeder extends Seeder
                 'module_name'    => 'About hotel',
                 'image_id'       => 1,
                 'is_visible'     => 1,
-                'order_position' => 1,
+                'order_position' => 3,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -49,7 +49,7 @@ class ModuleSeeder extends Seeder
                 'module_name'    => 'TV',
                 'image_id'       => 3,
                 'is_visible'     => 1,
-                'order_position' => 3,
+                'order_position' => 1,
                 'created_at'     => Carbon::now()
             ]
         );

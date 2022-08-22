@@ -9,6 +9,7 @@
 namespace Domain\Gallery\Builders;
 
 use Closure;
+use Domain\Gallery\Dto\GalleryDto;
 use Domain\Gallery\Entities\Gallery;
 
 /**
@@ -28,5 +29,36 @@ class GalleryBuilder
     public function list(Closure $closure)
     {
         return $closure(Gallery::query())->get();
+    }
+
+    public function takeBy(Closure $closure)
+    {
+        return $closure(Gallery::query())->first();
+    }
+
+    public function store(GalleryDto $dto)
+    {
+        return Gallery::query()->create(
+            [
+                'image_id'       => $dto->getImageId(),
+                'is_visible'     => $dto->getIsVisible(),
+                'order_position' => $dto->getOrderPosition()
+            ]
+        );
+    }
+
+    public function update(Gallery $gallery, GalleryDto $dto)
+    {
+        $gallery->update(
+            [
+                'image_id'   => $dto->getImageId(),
+                'is_visible' => $dto->getIsVisible()
+            ]
+        );
+    }
+
+    public function delete(Closure $closure)
+    {
+        $closure(Gallery::query())->delete();
     }
 }

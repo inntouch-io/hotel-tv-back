@@ -135,7 +135,6 @@ Route::namespace('Admin')->group(function () {
 
             // Gallery
             Route::resource('galleries', 'GalleryController');
-
         });
     });
 });

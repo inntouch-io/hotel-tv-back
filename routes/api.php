@@ -67,4 +67,7 @@ Route::namespace('Api')->as('api.')->group(function () {
         $router->get('get-detail', 'IptvChannelsController@getDetail')->name('get_detail');
     });
 
+    Route::prefix('galleries')->as('galleries.')->group(function (Router $router) {
+        $router->get('get-list', 'GalleryController@getList')->name('getList');
+    });
 });
