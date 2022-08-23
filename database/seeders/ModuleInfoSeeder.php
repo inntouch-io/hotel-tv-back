@@ -344,5 +344,35 @@ class ModuleInfoSeeder extends Seeder
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 34,
+                'module_id'  => 12,
+                'locale'     => 'ru',
+                'name'       => 'Youtube',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 35,
+                'module_id'  => 12,
+                'locale'     => 'en',
+                'name'       => 'Youtube',
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('module_infos')->insert(
+            [
+                'id'         => 36,
+                'module_id'  => 12,
+                'locale'     => 'uz',
+                'name'       => 'Youtube',
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }

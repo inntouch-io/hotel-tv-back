@@ -157,5 +157,18 @@ class ModuleSeeder extends Seeder
                 'created_at'     => Carbon::now()
             ]
         );
+
+        DB::table('modules')->insert(
+            [
+                'id'             => 12,
+                'module_slug'    => 'youtube',
+                'type'           => 'youtube',
+                'module_name'    => 'Youtube',
+                'image_id'       => 33,
+                'is_visible'     => 1,
+                'order_position' => 12,
+                'created_at'     => Carbon::now()
+            ]
+        );
     }
 }

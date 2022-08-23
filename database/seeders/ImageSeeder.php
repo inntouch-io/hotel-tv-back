@@ -334,5 +334,45 @@ class ImageSeeder extends Seeder
                 'created_at' => Carbon::now()
             ]
         );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 33,
+                'path'       => 'images/modules/',
+                'extension'  => 'png',
+                'name'       => "youtube",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 34,
+                'path'       => 'images/galleries/',
+                'extension'  => 'jpg',
+                'name'       => "gallery1",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 35,
+                'path'       => 'images/galleries/',
+                'extension'  => 'jpg',
+                'name'       => "gallery2",
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        DB::table('images')->insert(
+            [
+                'id'         => 36,
+                'path'       => 'images/galleries/',
+                'extension'  => 'jpg',
+                'name'       => "gallery3",
+                'created_at' => Carbon::now()
+            ]
+        );
     }
 }
