@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OperaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
@@ -50,6 +51,10 @@ Route::namespace('Api')->as('api.')->group(function () {
         Route::prefix('weather')->as('weather.')->group(function (Router $router) {
             $router->get('get-today', 'WeatherController@getToday')->name('getToday');
         });
+        // Rate currency
+        Route::prefix('currency')->as('currency.')->group(function (Router $router) {
+            $router->get('get-today', 'CurrencyController@getToday')->name('getToday');
+        });
     });
 
     Route::prefix('messages')->as('messages.')->group(function (Router $router) {
@@ -69,5 +74,12 @@ Route::namespace('Api')->as('api.')->group(function () {
 
     Route::prefix('galleries')->as('galleries.')->group(function (Router $router) {
         $router->get('get-list', 'GalleryController@getList')->name('getList');
+    });
+
+
+    Route::prefix('fias')->as('fias.')->group(function (Router $router) {
+        $router->post('link-start', [OperaController::class, 'linkStart'])->name('linkStart');
+        $router->post('guest-in', [OperaController::class, 'guestIn'])->name('guestIn');
+        $router->post('guest-out', [OperaController::class, 'guestOut'])->name('guestOut');
     });
 });
