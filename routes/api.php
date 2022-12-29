@@ -53,7 +53,7 @@ Route::namespace('Api')->as('api.')->group(function () {
         });
         // Rate currency
         Route::prefix('currency')->as('currency.')->group(function (Router $router) {
-            $router->get('get-today', 'CurrencyController@getToday')->name('getToday');
+            $router->get('get-today', 'CurrencyController@getCurrency')->name('getCurrency');
         });
     });
 
