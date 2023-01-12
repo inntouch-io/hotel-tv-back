@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\Media\BackgroundImageController;
+use App\Http\Controllers\Admin\Media\LogoController;
+use App\Http\Controllers\Admin\Media\ScreensaverController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
@@ -133,8 +136,26 @@ Route::namespace('Admin')->group(function () {
                 Route::resource('infos', 'ChannelInfoController');
             });
 
+            // TODO FILE::delete old images
             // Gallery
             Route::resource('galleries', 'GalleryController');
+
+            Route::namespace('Media')->prefix('media')->as('media.')->group(function () {
+                Route::prefix('logo')->as('logo.')->group(function (Router $router) {
+                    $router->get('edit', [LogoController::class, 'edit'])->name('edit');
+                    $router->put('update', [LogoController::class, 'update'])->name('update');
+                });
+
+                Route::prefix('background-image')->as('backgroundImage.')->group(function (Router $router) {
+                    $router->get('edit', [BackgroundImageController::class, 'edit'])->name('edit');
+                    $router->put('update', [BackgroundImageController::class, 'update'])->name('update');
+                });
+
+                Route::prefix('screensaver')->as('screensaver.')->group(function (Router $router) {
+                    $router->get('edit', [ScreensaverController::class, 'edit'])->name('edit');
+                    $router->post('update', [ScreensaverController::class, 'update'])->name('update');
+                });
+            });
         });
     });
 });

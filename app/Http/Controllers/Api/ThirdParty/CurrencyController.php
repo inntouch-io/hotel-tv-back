@@ -3,16 +3,16 @@
  * Hotel-TV.
  *
  * @author  Mirfayz Nosirov
- * Created: 24.08.2022 / 11:17
+ * Created: 27.09.2022 / 12:06
  */
 
 namespace App\Http\Controllers\Api\ThirdParty;
 
 use App\Http\Controllers\Api\ApiController;
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Cache;
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 
 /**
@@ -30,7 +30,7 @@ class CurrencyController extends ApiController
     }
 
     /**
-     * @throws GuzzleException
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getCurrency()
     {
@@ -74,4 +74,3 @@ class CurrencyController extends ApiController
         }
     }
 }
-

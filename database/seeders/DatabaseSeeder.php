@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Domain\Messages\Entities\MessageInfo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,7 +34,8 @@ class DatabaseSeeder extends Seeder
                 IptvChannelSeeder::class,
                 IptvChannelInfoSeeder::class,
                 AppVersionSeeder::class,
-                GallerySeeder::class
+                GallerySeeder::class,
+                MediaSeeder::class
             ]
         );
     }

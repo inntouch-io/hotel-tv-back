@@ -193,6 +193,13 @@ $admin = auth()->user();
             </li>
             @endcan
 
+            <li class="nav-item">
+                <a href="{{ route('admin.media.logo.edit') }}" class="navbar-nav-link">
+                    <i class="icon-media"></i>
+                    Media
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>
