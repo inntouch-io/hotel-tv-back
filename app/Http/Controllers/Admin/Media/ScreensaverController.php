@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminController;
 use Domain\Media\Entities\Media;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\File;
  */
 class ScreensaverController extends AdminController
 {
+    const CACHE_KEY = 'media-list';
+
     public function edit()
     {
         $screensaver = Media::query()->where('category', '=', 'screenSaver')->first();
@@ -56,6 +59,8 @@ class ScreensaverController extends AdminController
                     'extension' => $extension,
                 ]
             );
+
+            Cache::forget(self::CACHE_KEY);
 
             return redirect()->route('admin.media.screensaver.edit')->with('success', 'Successfully updated');
         } catch (Exception $exception) {
