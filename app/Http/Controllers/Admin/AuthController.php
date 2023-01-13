@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Domain\Media\Services\MediaService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,13 @@ class AuthController extends AdminController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function showLoginForm()
+    {
+        $logo = MediaService::getInstance()->getLogo();
+
+        return view('auth.login', ['logo' => $logo]);
     }
 
     protected function authenticated(Request $request, $user)

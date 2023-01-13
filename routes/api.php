@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MediaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
@@ -73,5 +74,9 @@ Route::namespace('Api')->as('api.')->group(function () {
 
     Route::prefix('galleries')->as('galleries.')->group(function (Router $router) {
         $router->get('get-list', 'GalleryController@getList')->name('getList');
+    });
+
+    Route::prefix('media')->as('media.')->group(function (Router $router) {
+        $router->get('get-list', [MediaController::class, 'getList'])->name('getList');
     });
 });

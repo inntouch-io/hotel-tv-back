@@ -44,7 +44,9 @@ class BackgroundImageController extends AdminController
             /** @var Media $backgroundImage */
             $backgroundImage = Media::query()->where('category', '=', 'background')->first();
 
-            File::delete(public_path($backgroundImage->getFullPath()));
+            if (file_exists($backgroundImage->getFullPath())) {
+                File::delete($backgroundImage->getFullPath());
+            }
 
             $backgroundImage->update(
                 [

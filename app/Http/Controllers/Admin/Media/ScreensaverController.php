@@ -42,12 +42,14 @@ class ScreensaverController extends AdminController
 
             $request->file('video')->storeAs("public/media/", $imageName . '.' . $extension);
 
-            /** @var Media $backgroundImage */
-            $backgroundImage = Media::query()->where('category', '=', 'screenSaver')->first();
+            /** @var Media $screenSaver */
+            $screenSaver = Media::query()->where('category', '=', 'screenSaver')->first();
 
-            File::delete(public_path($backgroundImage->getFullPath()));
+            if (file_exists($screenSaver->getFullPath())) {
+                File::delete($screenSaver->getFullPath());
+            }
 
-            $backgroundImage->update(
+            $screenSaver->update(
                 [
                     'path'      => "storage/media/",
                     'name'      => $imageName,

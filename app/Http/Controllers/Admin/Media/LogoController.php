@@ -44,7 +44,9 @@ class LogoController extends AdminController
             /** @var Media $logo */
             $logo = Media::query()->where('category', '=', 'logo')->first();
 
-            File::delete(public_path($logo->getFullPath()));
+            if (file_exists($logo->getFullPath())) {
+                File::delete($logo->getFullPath());
+            }
 
             $logo->update(
                 [

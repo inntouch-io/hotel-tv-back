@@ -42,7 +42,7 @@
                 <div class="card mb-0">
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <img src="{{ asset('images/logo.png') }}" alt="BILLING HOTEL TV" class="p-3 mb-3 mt-1">
+                            <img src="{{ asset($logo) }}" alt="BILLING HOTEL TV" class="p-3 mb-3 mt-1" width="200">
                             <h5 class="mb-0">Вход в свой аккаунт</h5>
                             <span class="d-block text-muted">Введите свои учетные данные ниже</span>
                         </div>
