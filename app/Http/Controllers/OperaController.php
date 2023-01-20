@@ -39,7 +39,10 @@ class OperaController extends Controller
         }
     }
 
-
+    /**
+     * @param Request $request
+     * @return array|string
+     */
     public function guestIn(Request $request)
     {
         $data = $request->input('data');

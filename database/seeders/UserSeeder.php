@@ -17,17 +17,23 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert(
             [
-                'id'         => 1,
-                'full_name'  => 'Khusan',
-                'created_at' => Carbon::now()
+                'id'             => 1,
+                'first_name'     => 'Denis',
+                'name'           => 'Ivanov',
+                'guest_number'   => 1018,
+                'guest_language' => 'en',
+                'created_at'     => Carbon::now()
             ]
         );
 
         DB::table('users')->insert(
             [
-                'id'         => 2,
-                'full_name'  => 'Khasan',
-                'created_at' => Carbon::now()
+                'id'             => 2,
+                'first_name'     => 'Anvar',
+                'name'           => 'Qosimov',
+                'guest_number'   => 1019,
+                'guest_language' => 'ru',
+                'created_at'     => Carbon::now()
             ]
         );
     }

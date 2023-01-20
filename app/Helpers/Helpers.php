@@ -122,21 +122,31 @@ if (!function_exists('admin')) {
     }
 }
 
-if(!function_exists('get_weather_today')){
+if (!function_exists('get_weather_today')) {
     function get_weather_today()
     {
         $location = env('OPEN_WEATHER_LOCATION', 'Tashkent,uz');
         $key = env('OPEN_WEATHER_KEY', null);
-        if(is_null($key))
+        if (is_null($key))
             return null;
 
-        $url = 'https://api.openweathermap.org/data/2.5/weather?q='.$location.'&APPID='.$key;
+        $url = 'https://api.openweathermap.org/data/2.5/weather?q=' . $location . '&APPID=' . $key;
 
-        try{
+        try {
             $data = file_get_contents($url);
             return json_decode($data);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return null;
         }
+    }
+}
+
+if (!function_exists('get_link_record')) {
+    function get_link_record($text, $catalog)
+    {
+        $regexCode = "/\W{$catalog}([\w.]+)\W/";
+        preg_match($regexCode, $text, $result);
+
+        return $result[1];
     }
 }

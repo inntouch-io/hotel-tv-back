@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FiasController;
 use App\Http\Controllers\Api\MediaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
@@ -34,7 +35,7 @@ Route::namespace('Api')->as('api.')->group(function () {
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
-        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
+//        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
     });
 
     Route::prefix('modules')->as('modules.')->group(function (Router $router) {
@@ -78,5 +79,12 @@ Route::namespace('Api')->as('api.')->group(function () {
 
     Route::prefix('media')->as('media.')->group(function (Router $router) {
         $router->get('get-list', [MediaController::class, 'getList'])->name('getList');
+    });
+
+    Route::prefix('fias')->as('fias.')->group(function (Router $router) {
+        $router->post('resync', [FiasController::class, 'resync']);
+        $router->post('guest-in', [FiasController::class, 'guestIn']);
+        $router->post('guest-out', [FiasController::class, 'guestOut']);
+        $router->post('guest-check', [FiasController::class, 'guestCheck']);
     });
 });

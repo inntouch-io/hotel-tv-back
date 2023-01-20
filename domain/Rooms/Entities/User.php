@@ -9,8 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Class User
  * @package domain\Rooms\Entities
  *
- * @property string $full_name
- * @property int $id
+ * @property string $first_name
+ * @property string $name
+ * @property int    $guest_number
+ * @property string $guest_language
+ * @property int    $id
  */
 class User extends Entities
 {
@@ -18,17 +21,47 @@ class User extends Entities
 
     protected $table = 'users';
     protected $fillable = [
-        'full_name',
+        'first_name',
+        'name',
+        'guest_number',
+        'guest_language',
     ];
 
     /**
      * @return string
      */
-    public function getFullName(): string
+    public function getFirstName(): string
     {
-        return $this->full_name;
+        return $this->first_name;
     }
 
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGuestNumber(): int
+    {
+        return $this->guest_number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGuestLanguage(): string
+    {
+        return $this->guest_language;
+    }
+
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;

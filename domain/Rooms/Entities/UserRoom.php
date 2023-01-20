@@ -10,11 +10,11 @@ use Illuminate\Validation\Rules\Enum;
  * Class UserRoom
  * @package domain\Rooms\Entities
  *
- * @property int $user_id
- * @property int $room_id
- * @property int $arrival_time
- * @property int $departure_time
- * @property enum $room_status
+ * @property int    $user_id
+ * @property int    $room_id
+ * @property int    $arrival_time
+ * @property int    $departure_time
+ * @property string $room_status
  */
 class UserRoom extends Entities
 {
@@ -67,9 +67,9 @@ class UserRoom extends Entities
     }
 
     /**
-     * @return Enum
+     * @return string
      */
-    public function getRoomStatus(): Enum
+    public function getRoomStatus(): string
     {
         return $this->room_status;
     }
