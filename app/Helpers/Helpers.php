@@ -144,9 +144,13 @@ if (!function_exists('get_weather_today')) {
 if (!function_exists('get_link_record')) {
     function get_link_record($text, $catalog)
     {
-        $regexCode = "/\W{$catalog}([\w.]+)\W/";
+        $regexCode = "/\W{$catalog}([\w\s\p{Cyrillic}]+)\W/u";
         preg_match($regexCode, $text, $result);
 
-        return $result[1];
+        if (empty($result)) {
+            return false;
+        } else {
+            return $result[1];
+        }
     }
 }

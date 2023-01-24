@@ -15,7 +15,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('room_number')->nullable();
+            $table->string('room_number')->nullable()->unique();
             $table->unsignedSmallInteger('max_volume')->default(50);
             $table->string('device_id');
             $table->tinyInteger('is_verified')->default(0);

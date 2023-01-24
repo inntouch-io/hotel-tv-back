@@ -35,11 +35,23 @@ class FiasController extends ApiController
             $rooms = Room::query()->pluck('id', 'room_number')->toArray();
 
             foreach ($guestData as $data) {
-                if (substr($data, 0, 2) === "DE") {
+                $responseType = substr($data, 0, 2);
+
+                if ($responseType === "DS" || $responseType === "DE") {
                     continue;
                 }
 
-                if (substr($data, 0, 2) === "GI") {
+                if (isset($rooms[(int)get_link_record($data, 'RN')])) {
+                    /** @var array $roomUsers */
+                    $roomUsers = UserRoom::query()->where('room_id', '=', (int)$rooms[(int)get_link_record($data, 'RN')])
+                        ->pluck('user_id')->toArray();
+                } else {
+                    continue;
+                }
+
+                $roomId = (int)$rooms[get_link_record($data, "RN")];
+
+                if ($responseType === "GI") {
                     /** @var User $user */
                     $user = User::query()->firstOrCreate(
                         [
@@ -52,24 +64,24 @@ class FiasController extends ApiController
                         ]
                     );
 
-                    // TODO check to isset room
-
-                    /** @var UserRoom $userRoom */
-                    $userRoom = UserRoom::query()->where('room_id', '=', (int)$rooms[(int)get_link_record($data, 'RN')])->first();
-
-                    if (is_null($userRoom)) {
+                    if (count($roomUsers) !== 0) {
+                        if (!in_array($user->getId(), $roomUsers)) {
+                            UserRoom::query()->create(
+                                [
+                                    'room_id'        => $roomId,
+                                    'user_id'        => $user->getId(),
+                                    'arrival_time'   => (int)get_link_record($data, 'GA'),
+                                    'departure_time' => (int)get_link_record($data, 'GD'),
+                                    'room_status'    => 'booked'
+                                ]
+                            );
+                        } else {
+                            continue;
+                        }
+                    } else {
                         UserRoom::query()->create(
                             [
-                                'room_id'        => (int)$rooms[get_link_record($data, "RN")],
-                                'user_id'        => $user->getId(),
-                                'arrival_time'   => (int)get_link_record($data, 'GA'),
-                                'departure_time' => (int)get_link_record($data, 'GD'),
-                                'room_status'    => 'booked'
-                            ]
-                        );
-                    } else {
-                        $userRoom->update(
-                            [
+                                'room_id'        => $roomId,
                                 'user_id'        => $user->getId(),
                                 'arrival_time'   => (int)get_link_record($data, 'GA'),
                                 'departure_time' => (int)get_link_record($data, 'GD'),
@@ -77,29 +89,33 @@ class FiasController extends ApiController
                             ]
                         );
                     }
-
                 }
 
-                if (substr($data, 0, 2) === "GO") {
-                    /** @var UserRoom $userRoom */
-                    $userRoom = UserRoom::query()->where('room_id', '=', (int)$rooms[(int)get_link_record($data, 'RN')])->first();
-
-                    if (is_null($userRoom)) {
+                if ($responseType === "GO") {
+                    if (count($roomUsers) === 0) {
                         continue;
                     }
 
-                    if ($userRoom->getRoomStatus() === "booked") {
-                        $userRoom->update(
-                            [
-                                'room_status' => "free"
-                            ]
-                        );
+                    $guestNumber = get_link_record($data, "G#");
+
+                    if ($guestNumber !== false) {
+                        /** @var User $user */
+                        $user = User::query()->where('guest_number', '=', (int)$guestNumber)->first();
+
+                        $userRoom = UserRoom::query()->where('user_id', '=', $user->getId())
+                            ->where('room_id', '=', $roomId)
+                            ->first();
+
+                        if (!is_null($userRoom)) {
+                            $userRoom->delete();
+                        }
                     }
                 }
             }
 
             return "good";
         } catch (Exception $exception) {
+            Log::info($exception);
             return $exception->getMessage();
         }
     }
@@ -129,25 +145,35 @@ class FiasController extends ApiController
             /** @var Room $room */
             $room = Room::query()->where('room_number', '=', (int)get_link_record($guestIn, 'RN'))->first();
 
-            /** @var UserRoom $userRoom */
-            $userRoom = UserRoom::query()->where('room_id', '=', $room->getId())->first();
+            if (is_null($room)) {
+                return "good";
+            }
 
-            if (is_null($userRoom)) {
+            /** @var array $roomUsers */
+            $roomUsers = UserRoom::query()->where('room_id', '=', $room->getId())
+                ->pluck('user_id')->toArray();
+
+            if (count($roomUsers) !== 0) {
+                if (!in_array($user->getId(), $roomUsers)) {
+                    UserRoom::query()->create(
+                        [
+                            'room_id'        => $room->getId(),
+                            'user_id'        => $user->getId(),
+                            'arrival_time'   => (int)get_link_record($guestIn, 'GA'),
+                            'departure_time' => (int)get_link_record($guestIn, 'GD'),
+                            'room_status'    => 'booked'
+                        ]
+                    );
+                } else {
+                    return "good";
+                }
+            } else {
                 UserRoom::query()->create(
                     [
-                        'user_id'        => $user->getId(),
                         'room_id'        => $room->getId(),
-                        'arrival_time'   => get_link_record($guestIn, 'GA'),
-                        'departure_time' => get_link_record($guestIn, 'GD'),
-                        'room_status'    => 'booked'
-                    ]
-                );
-            } else {
-                $userRoom->update(
-                    [
                         'user_id'        => $user->getId(),
-                        'arrival_time'   => get_link_record($guestIn, 'GA'),
-                        'departure_time' => get_link_record($guestIn, 'GD'),
+                        'arrival_time'   => (int)get_link_record($guestIn, 'GA'),
+                        'departure_time' => (int)get_link_record($guestIn, 'GD'),
                         'room_status'    => 'booked'
                     ]
                 );
@@ -155,6 +181,7 @@ class FiasController extends ApiController
 
             return "good";
         } catch (Exception $exception) {
+            Log::info($exception);
             return $exception->getMessage();
         }
     }
@@ -168,15 +195,23 @@ class FiasController extends ApiController
             /** @var Room $room */
             $room = Room::query()->where('room_number', '=', (int)get_link_record($guestOut, 'RN'))->first();
 
-            /** @var UserRoom $userRoom */
-            $userRoom = UserRoom::query()->where('room_id', '=', $room->getId())->first();
+            if (is_null($room)) {
+                return "good";
+            }
 
-            if (!is_null($userRoom)) {
-                $userRoom->update(
-                    [
-                        'room_status' => 'free'
-                    ]
-                );
+            $guestNumber = get_link_record($guestOut, "G#");
+
+            if ($guestNumber !== false) {
+                /** @var User $user */
+                $user = User::query()->where('guest_number', '=', (int)$guestNumber)->first();
+
+                $userRoom = UserRoom::query()->where('user_id', '=', $user->getId())
+                    ->where('room_id', '=', $room->getId())
+                    ->first();
+
+                if (!is_null($userRoom)) {
+                    $userRoom->delete();
+                }
             }
 
             // if you find it make it free
@@ -202,9 +237,8 @@ class FiasController extends ApiController
             return "good";
 
         } catch (Exception $exception) {
+            Log::info($exception);
             return $exception->getMessage();
         }
     }
 }
-
-// bitta xonada ikki kishi bolishi ham mumkinmi
