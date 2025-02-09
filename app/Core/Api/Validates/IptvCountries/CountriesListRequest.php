@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core\Api\Validates\IptvChannels;
+namespace App\Core\Api\Validates\IptvCountries;
 
 
 use App\Core\Validates;
 
 /**
- * Class ChannelsListRequest.php
+ * Class CountriesListRequest.php
  *
  * @package App\Core\Api\Validates\IptvChannels  *
  * @nickname <alphazet>
@@ -14,13 +14,10 @@ use App\Core\Validates;
  *
  * Date: 26/07/22
  */
-class ChannelsListRequest extends Validates
+class CountriesListRequest extends Validates
 {
     public function rules()
     {
-        return [
-            'countryId'    => 'numeric',
-            'itemsPerPage' => 'required',
-        ];
+        return [];
     }
 }

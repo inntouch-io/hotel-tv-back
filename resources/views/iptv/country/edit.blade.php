@@ -7,11 +7,11 @@
  * Created: 22.04.2022 / 16:05
  */
 
-/** @var \Domain\Iptv\Entities\IptvChannel $channel */
+/** @var \Domain\Iptv\Entities\IptvCountry $country */
 ?>
 
 @extends('layouts.main')
-@section('title', is_null($channel) ? 'Системная ошибка' : $channel->getTitle())
+@section('title', is_null($country) ? 'Системная ошибка' : $country->getTitle())
 
 @section('content')
     <div class="page-header">
@@ -19,7 +19,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        {{ is_null($channel) ? 'Системная ошибка' : $channel->getTitle() }}
+                        {{ is_null($country) ? 'Системная ошибка' : $country->getTitle() }}
                     </span>
                 </h4>
             </div>
@@ -27,13 +27,13 @@
     </div>
 
     <div class="page-content pt-0">
-        @include('iptv.channel.infobar')
+        @include('iptv.country.infobar')
 
         <div class="content-wrapper">
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if (is_null($channel))
+                        @if (is_null($country))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Системная ошибка
@@ -47,7 +47,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.iptv.channel.update', ['channel' => $channel->getId()]) }}"
+                            <form action="{{ route('admin.iptv.country.update', ['id' => $country->getId()]) }}"
                                 method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
@@ -56,27 +56,7 @@
                                         <div class="form-group">
                                             <label for="title" class="font-weight-bold">Название</label>
                                             <input type="text" id="title" name="title" class="form-control"
-                                                placeholder="Название" value="{{ $channel->getTitle() }}" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="country_id" class="font-weight-bold">Country</label>
-                                            <select name="country_id" id="country_id" class="form-control" required>
-                                                @foreach ($countries as $country)
-                                                    <option value="{{ $country->id }}"
-                                                        {{ $channel->country_id == $country->id ? 'selected' : '' }}>
-                                                        {{ $country->title }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="stream_url" class="font-weight-bold">URL трансляции</label>
-                                            <input type="text" id="stream_url" name="stream_url" class="form-control"
-                                                placeholder="URL трансляции" value="{{ $channel->getStreamUrl() }}"
-                                                required>
+                                                placeholder="Название" value="{{ $country->getTitle() }}" required>
                                         </div>
 
                                         <div class="form-group">
@@ -86,7 +66,7 @@
                                                 <input type="file" name="image"
                                                     onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                                                 <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($channel->image->getFullPath()) }}" alt="image"
+                                                    <img src="{{ asset($country->image->getFullPath()) }}" alt="image"
                                                         id="image" style="max-height: 100px">
                                                 </div>
                                             </div>
@@ -98,7 +78,7 @@
                                             <div class="border p-3 rounded">
                                                 <div class="custom-control custom-switch custom-control-inline">
                                                     <span class="mr-2">Нет</span>
-                                                    @if ($channel->getIsVisible())
+                                                    @if ($country->getIsVisible())
                                                         <input type="checkbox" name="isVisible" class="custom-control-input"
                                                             id="isVisible" value="1" checked>
                                                     @else

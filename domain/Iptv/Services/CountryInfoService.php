@@ -3,40 +3,43 @@
 /**
  * Hotel-TV.
  *
- * @author  Mirfayz Nosirov
- * Created: 26.07.2022 / 10:16
+ * @author Farrux Orziyev
+ * Created: 07.02.2025 / 10:16
  */
 
 namespace Domain\Iptv\Services;
 
 use Domain\Iptv\Builders\ChannelInfoBuilder;
+use Domain\Iptv\Builders\CountryInfoBuilder;
 use Domain\Iptv\Dto\ChannelInfoDto;
+use Domain\Iptv\Dto\CountryInfoDto;
 use Domain\Iptv\Entities\IptvChannelInfo;
+use Domain\Iptv\Entities\IptvCountryInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 /**
- * Class ChannelInfoService
+ * Class CountryInfoService
  * @package Domain\Iptv\Services
  */
-class ChannelInfoService
+class CountryInfoService
 {
-    protected ChannelInfoBuilder $builder;
+    protected CountryInfoBuilder $builder;
 
     /**
-     * @param ChannelInfoBuilder $builder
+     * @param CountryInfoBuilder $builder
      */
-    public function __construct(ChannelInfoBuilder $builder)
+    public function __construct(CountryInfoBuilder $builder)
     {
         $this->builder = $builder;
     }
 
     /**
-     * @return ChannelInfoService
+     * @return CountryInfoService
      */
-    public static function getInstance(): ChannelInfoService
+    public static function getInstance(): CountryInfoService
     {
-        return new static(ChannelInfoBuilder::getInstance());
+        return new static(CountryInfoBuilder::getInstance());
     }
 
     public function store(Request $request)
@@ -48,14 +51,14 @@ class ChannelInfoService
             ]
         );
 
-        return $this->builder->store(new ChannelInfoDto(
+        return $this->builder->store(new CountryInfoDto(
             $data['title'],
             $data['locale'],
-            (int)$request->query('channel_id')
+            (int)$request->query('countryId')
         ));
     }
 
-    public function update(IptvChannelInfo $info, Request $request)
+    public function update(IptvCountryInfo $info, Request $request)
     {
         $data = $request->validate(
             [
@@ -63,7 +66,7 @@ class ChannelInfoService
             ]
         );
 
-        $this->builder->update($info, new ChannelInfoDto(
+        $this->builder->update($info, new CountryInfoDto(
             $data['title']
         ));
     }

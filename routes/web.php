@@ -62,7 +62,6 @@ Route::namespace('Admin')->group(function () {
                     $router->get('/edit/{id}', 'ModuleInfoController@edit')->name('edit');
                     $router->put('/update/{id}', 'ModuleInfoController@update')->name('update');
                 });
-
             });
 
             // Messages
@@ -125,6 +124,25 @@ Route::namespace('Admin')->group(function () {
             // Iptv channels
             Route::namespace('Iptv')->prefix('iptv')->as('iptv.')->group(function () {
                 Route::resource('channel', 'ChannelController')->except('show');
+
+                Route::prefix('country')->as('country.')->group(function (Router $router) {
+                    $router->get('index',  'CountryController@index')->name('index');
+                    $router->get('create',  'CountryController@create')->name('create');
+                    $router->post('store',  'CountryController@store')->name('store');
+                    $router->get('edit/{id}',  'CountryController@edit')->name('edit');
+                    $router->put('update/{id}',  'CountryController@update')->name('update');
+                    $router->delete('delete/{id}',  'CountryController@destroy')->name('destroy');
+                    $router->get('/sorting-list',  'CountryController@sortingList')->name('sortingList');
+                    $router->post('/sorting',  'CountryController@sorting')->name('sorting');
+
+                    Route::prefix('infos')->as('infos.')->group(function (Router $router) {
+                        $router->get('create/{countryId}',  'CountryInfoController@create')->name('create');
+                        $router->post('store',  'CountryInfoController@store')->name('store');
+                        $router->get('edit/{id}',  'CountryInfoController@edit')->name('edit');
+                        $router->put('update/{id}',  'CountryInfoController@update')->name('update');
+                        $router->delete('delete/{id}',  'CountryInfoController@destroy')->name('destroy');
+                    });
+                });
 
                 // Iptv channels sorting
                 Route::prefix('channel')->as('channel.')->group(function (Router $router) {

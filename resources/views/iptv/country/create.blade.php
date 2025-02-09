@@ -8,7 +8,7 @@
 ?>
 
 @extends('layouts.main')
-@section('title', 'Добавить Channels')
+@section('title', 'Добавить Countries')
 
 @section('content')
     <div class="page-header">
@@ -16,7 +16,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <span class="font-weight-bold">
-                        Добавить Channels
+                        Добавить Countries
                     </span>
                 </h4>
             </div>
@@ -28,7 +28,7 @@
             <div class="sidebar-content">
                 <div class="sidebar-section">
                     <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                        @include('iptv.channel.sidebar')
+                        @include('iptv.country.sidebar')
                     </ul>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.iptv.channel.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.iptv.country.store') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="row">
@@ -58,23 +58,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="country_id" class="font-weight-bold">Выберите страну</label>
-                                        <select name="country_id" id="country_id" class="form-control" required>
-                                            <option value="">-- Выберите страну --</option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{ $country->id }}">{{ $country->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="stream_url" class="font-weight-bold">URL трансляции</label>
-                                        <input type="text" id="stream_url" name="stream_url" class="form-control"
-                                            placeholder="URL трансляции" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <p class="font-weight-bold">Фото каналов</p>
+                                        <p class="font-weight-bold">Фото страны</p>
 
                                         <div class="border p-3 rounded d-flex align-items-center">
                                             <input type="file" name="image">

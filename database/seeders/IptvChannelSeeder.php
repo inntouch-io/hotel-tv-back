@@ -23,6 +23,7 @@ class IptvChannelSeeder extends Seeder
                 'is_visible'     => 1,
                 'order_position' => 1,
                 'image_id'       => 12,
+                'country_id'     => 1,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -34,6 +35,7 @@ class IptvChannelSeeder extends Seeder
                 'stream_url'     => 'https://api.itv.uz/hls/iptv/1091/index.m3u8?type=live&traffic=&token=alphazet',
                 'is_visible'     => 1,
                 'order_position' => 2,
+                'country_id'     => 1,
                 'image_id'       => 14,
                 'created_at'     => Carbon::now()
             ]
@@ -47,6 +49,7 @@ class IptvChannelSeeder extends Seeder
                 'is_visible'     => 1,
                 'order_position' => 3,
                 'image_id'       => 13,
+                'country_id'     => 1,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -59,6 +62,7 @@ class IptvChannelSeeder extends Seeder
                 'is_visible'     => 1,
                 'order_position' => 4,
                 'image_id'       => 15,
+                'country_id'     => 1,
                 'created_at'     => Carbon::now()
             ]
         );
@@ -71,6 +75,7 @@ class IptvChannelSeeder extends Seeder
                 'is_visible'     => 1,
                 'order_position' => 5,
                 'image_id'       => 32,
+                'country_id'     => 1,
                 'created_at'     => Carbon::now()
             ]
         );

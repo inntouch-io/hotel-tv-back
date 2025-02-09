@@ -3,27 +3,27 @@
 /**
  * Hotel-TV.
  *
- * @author  Mirfayz Nosirov
- * Created: 25.07.2022 / 13:32
+ * @author  Orziyev Farrux
+ * Created: 01.02.2025
  */
 
 namespace App\Http\Controllers\Admin\Iptv;
 
 use App\Http\Controllers\Admin\AdminController;
-use Domain\Iptv\Entities\IptvChannel;
-use Domain\Iptv\Services\ChannelService;
+use Domain\Iptv\Entities\IptvCountry;
 use Domain\Iptv\Services\CountryService;
 use Exception;
 use Illuminate\Http\Request;
 
+
 /**
- * Class ChannelController
+ * Class CountryController
  * @package App\Http\Controllers\Admin\Iptv
  */
-class ChannelController extends AdminController
+class CountryController extends AdminController
 {
     /**
-     * ChannelController constructor.
+     * CountryController constructor.
      */
     public function __construct()
     {
@@ -36,11 +36,11 @@ class ChannelController extends AdminController
      */
     public function index()
     {
-        $this->authorize('index', IptvChannel::class);
-        $list = ChannelService::getInstance()->list();
+        $this->authorize('index', IptvCountry::class);
+        $list = CountryService::getInstance()->list();
 
         return view(
-            'iptv.channel.index',
+            'iptv.country.index',
             [
                 'list' => $list
             ]
@@ -53,12 +53,8 @@ class ChannelController extends AdminController
      */
     public function create()
     {
-        $this->authorize('create', IptvChannel::class);
-        $countries = CountryService::getInstance()->list();
-
-        return view('iptv.channel.create', [
-            'countries' => $countries
-        ]);
+        $this->authorize('create', IptvCountry::class);
+        return view('iptv.country.create');
     }
 
     /**
@@ -68,14 +64,14 @@ class ChannelController extends AdminController
      */
     public function store(Request $request)
     {
-        $this->authorize('store', IptvChannel::class);
+        $this->authorize('store', IptvCountry::class);
         try {
-            ChannelService::getInstance()->store($request);
+            CountryService::getInstance()->store($request);
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
 
-        return redirect()->route('admin.iptv.channel.index')
+        return redirect()->route('admin.iptv.country.index')
             ->with('success', 'Successfully added');
     }
 
@@ -86,15 +82,13 @@ class ChannelController extends AdminController
      */
     public function edit(int $id)
     {
-        $this->authorize('edit', IptvChannel::class);
-        $channel = ChannelService::getInstance()->getById($id);
-        $countries = CountryService::getInstance()->list();
+        $this->authorize('edit', IptvCountry::class);
+        $country = CountryService::getInstance()->getById($id);
 
         return view(
-            'iptv.channel.edit',
+            'iptv.country.edit',
             [
-                'channel' => $channel,
-                'countries' => $countries
+                'country' => $country
             ]
         );
     }
@@ -107,17 +101,17 @@ class ChannelController extends AdminController
      */
     public function update(Request $request, int $id)
     {
-        $this->authorize('update', IptvChannel::class);
+        $this->authorize('update', IptvCountry::class);
         try {
-            /** @var IptvChannel $channel */
-            $channel = ChannelService::getInstance()->getById($id);
+            /** @var IptvCountry $country */
+            $country = CountryService::getInstance()->getById($id);
 
-            ChannelService::getInstance()->update($channel, $request);
+            CountryService::getInstance()->update($country, $request);
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
 
-        return redirect()->route('admin.iptv.channel.edit', ['channel' => $channel->getId()])
+        return redirect()->route('admin.iptv.country.edit', ['id' => $country->getId()])
             ->with('success', 'Successfully saved');
     }
 
@@ -128,12 +122,12 @@ class ChannelController extends AdminController
      */
     public function destroy(int $id)
     {
-        $this->authorize('delete', IptvChannel::class);
+        $this->authorize('delete', IptvCountry::class);
         try {
-            $channel = ChannelService::getInstance()->getById($id);
-            $channel->delete();
+            $country = CountryService::getInstance()->getById($id);
+            $country->delete();
 
-            return redirect()->route('admin.iptv.channel.index')
+            return redirect()->route('admin.iptv.country.index')
                 ->with('success', 'Successfully added');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
@@ -146,11 +140,11 @@ class ChannelController extends AdminController
      */
     public function sortingList()
     {
-        $this->authorize('sortingList', IptvChannel::class);
-        $list = ChannelService::getInstance()->list();
+        $this->authorize('sortingList', IptvCountry::class);
+        $list = CountryService::getInstance()->list();
 
         return view(
-            'iptv.channel.sorting',
+            'iptv.country.sorting',
             [
                 'list' => $list
             ]
@@ -164,10 +158,10 @@ class ChannelController extends AdminController
      */
     public function sorting(Request $request)
     {
-        $this->authorize('sorting', IptvChannel::class);
+        $this->authorize('sorting', IptvCountry::class);
         try {
             if ($request->isXmlHttpRequest()) {
-                ChannelService::getInstance()->sorting($request->input('channels'));
+                CountryService::getInstance()->sorting($request->input('countries'));
 
                 return response()->json(['data' => true]);
             }
