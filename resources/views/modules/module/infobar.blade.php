@@ -18,15 +18,23 @@ $route_name = request()->route()->getName();
     <div class="sidebar-content">
         <div class="sidebar-section">
             <ul class="nav nav-sidebar my-2" data-nav-type="accordion">
-                @if(!is_null($module))
+                @if (!is_null($module))
                     <li class="nav-item">
                         <a href="{{ route('admin.modules.module.edit', ['id' => $module->getId()]) }}"
-                           class="nav-link {{ $route_name === 'admin.modules.module.edit' ? 'active' : '' }}">
+                            class="nav-link {{ $route_name === 'admin.modules.module.edit' ? 'active' : '' }}">
                             <i class="far fa-edit"></i>
                             <span>Изменить</span>
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.modules.infos.create', ['moduleId' => $module->getId()]) }}"
+                        class="nav-link {{ $route_name === 'admin.modules.infos.create' ? 'active' : '' }}">
+                        <i class="fas fa-plus"></i>
+                        <span>Добавить перевод</span>
+                    </a>
+                </li>
 
                 @include('modules.module.sidebar')
             </ul>

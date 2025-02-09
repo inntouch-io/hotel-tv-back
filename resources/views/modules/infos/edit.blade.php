@@ -35,13 +35,13 @@ use Domain\Modules\Entities\ModuleInfo;
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($moduleInfo))
+                        @if (is_null($moduleInfo))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Системная ошибка
                             </div>
                         @else
-                            @if(session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success border-0 alert-dismissible col-6">
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
@@ -49,7 +49,8 @@ use Domain\Modules\Entities\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.infos.update', ['id' => $moduleInfo->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.modules.infos.update', ['id' => $moduleInfo->getId()]) }}"
+                                method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
 
@@ -58,8 +59,7 @@ use Domain\Modules\Entities\ModuleInfo;
                                         <div class="form-group">
                                             <label for="name" class="font-weight-bold">Название</label>
                                             <input type="text" id="name" name="name" class="form-control"
-                                                   placeholder="Название" value="{{ $moduleInfo->getName() }}"
-                                                   required>
+                                                placeholder="Название" value="{{ $moduleInfo->getName() }}" required>
                                         </div>
 
                                         <div class="form-group">
@@ -70,6 +70,17 @@ use Domain\Modules\Entities\ModuleInfo;
                                         </div>
                                     </div>
                                 </div>
+                            </form>
+
+                            <form action="{{ route('admin.modules.infos.destroy', ['id' => $moduleInfo->getId()]) }}"
+                                method="post" class="mt-1 position-absolute" style="bottom: 40px; left: 150px">
+                                {{ csrf_field() }}
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item')">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить
+                                </button>
                             </form>
                         @endif
                     </div>

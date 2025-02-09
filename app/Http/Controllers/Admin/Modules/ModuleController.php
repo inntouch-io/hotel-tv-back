@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -42,6 +43,34 @@ class ModuleController extends AdminController
     }
 
     /**
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
+    public function create()
+    {
+        $this->authorize('create', Module::class);
+        return view('modules.module.create');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('store', Module::class);
+        try {
+            ModuleService::getInstance()->store($request);
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+
+        return redirect()->route('admin.modules.module.index')
+            ->with('success', 'Successfully added');
+    }
+
+    /**
      * @param int $id
      * @return Application|Factory|View
      * @throws AuthorizationException
@@ -70,7 +99,6 @@ class ModuleController extends AdminController
 
             return redirect()->route('admin.modules.module.edit', ['id' => $module->getId()])
                 ->with('success', 'Успешно сохранено');
-
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }

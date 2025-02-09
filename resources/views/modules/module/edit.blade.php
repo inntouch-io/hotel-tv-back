@@ -39,13 +39,13 @@ use Domain\Modules\Entities\ModuleInfo;
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($module))
+                        @if (is_null($module))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Системная ошибка
                             </div>
                         @else
-                            @if(session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success border-0 alert-dismissible col-6">
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
@@ -53,7 +53,8 @@ use Domain\Modules\Entities\ModuleInfo;
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.modules.module.update', ['id' => $module->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.modules.module.update', ['id' => $module->getId()]) }}"
+                                method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <div class="row">
@@ -61,8 +62,13 @@ use Domain\Modules\Entities\ModuleInfo;
                                         <div class="form-group">
                                             <label for="module_name" class="font-weight-bold">Название</label>
                                             <input type="text" id="module_name" name="module_name" class="form-control"
-                                                   placeholder="Название" value="{{ $module->getModuleName() }}"
-                                                   required>
+                                                placeholder="Название" value="{{ $module->getModuleName() }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="module_name" class="font-weight-bold">Тип</label>
+                                            <input type="text" id="type" name="type" class="form-control"
+                                                placeholder="Тип" value="{{ $module->getType() }}" required>
                                         </div>
 
                                         <div class="form-group">
@@ -71,10 +77,12 @@ use Domain\Modules\Entities\ModuleInfo;
                                             <div class="border p-3 rounded">
                                                 <div class="custom-control custom-switch custom-control-inline">
                                                     <span class="mr-2">Нет</span>
-                                                    @if($module->getIsVisible())
-                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1" checked>
+                                                    @if ($module->getIsVisible())
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input"
+                                                            id="isVisible" value="1" checked>
                                                     @else
-                                                        <input type="checkbox" name="isVisible" class="custom-control-input" id="isVisible" value="1">
+                                                        <input type="checkbox" name="isVisible" class="custom-control-input"
+                                                            id="isVisible" value="1">
                                                     @endif
                                                     <label class="custom-control-label" for="isVisible">Да</label>
                                                 </div>
@@ -85,9 +93,11 @@ use Domain\Modules\Entities\ModuleInfo;
                                             <p class="font-weight-semibold">Фото модуля</p>
 
                                             <div class="border p-3 rounded d-flex align-items-center">
-                                                <input type="file" name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
+                                                <input type="file" name="image"
+                                                    onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])">
                                                 <div style="max-height: 100px; line-height: 100px">
-                                                    <img src="{{ asset($module->image->getFullPath()) }}" alt="image" id="image" style="max-height: 100px">
+                                                    <img src="{{ asset($module->image->getFullPath()) }}" alt="image"
+                                                        id="image" style="max-height: 100px">
                                                 </div>
                                             </div>
                                         </div>

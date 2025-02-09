@@ -52,6 +52,8 @@ Route::namespace('Admin')->group(function () {
 
                 Route::prefix('module')->as('module.')->group(function (Router $router) {
                     $router->get('/index', 'ModuleController@index')->name('index');
+                    $router->get('/create', 'ModuleController@create')->name('create');
+                    $router->post('/store', 'ModuleController@store')->name('store');
                     $router->get('/edit/{id}', 'ModuleController@edit')->name('edit');
                     $router->put('/update/{id}', 'ModuleController@update')->name('update');
                     $router->get('/sorting-list', 'ModuleController@sortingList')->name('sortingList');
@@ -59,8 +61,11 @@ Route::namespace('Admin')->group(function () {
                 });
 
                 Route::prefix('infos')->as('infos.')->group(function (Router $router) {
+                    $router->get('/create/{moduleId}', 'ModuleInfoController@create')->name('create');
+                    $router->post('/store', 'ModuleInfoController@store')->name('store');
                     $router->get('/edit/{id}', 'ModuleInfoController@edit')->name('edit');
                     $router->put('/update/{id}', 'ModuleInfoController@update')->name('update');
+                    $router->delete('/delete/{id}', 'ModuleInfoController@destroy')->name('destroy');
                 });
             });
 

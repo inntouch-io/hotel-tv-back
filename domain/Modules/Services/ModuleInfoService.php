@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -10,6 +11,7 @@
 namespace Domain\Modules\Services;
 
 use Domain\Modules\Builders\ModuleInfoBuilder;
+use Domain\Modules\Dto\ModuleInfoDto;
 use Domain\Modules\Entities\ModuleInfo;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,6 +41,22 @@ class ModuleInfoService
     public static function getInstance(): ModuleInfoService
     {
         return new static(ModuleInfoBuilder::getInstance());
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'name'  => 'required|string',
+                'locale' => 'required|in:' . implode(',', array_keys(config('app.locales'))),
+            ]
+        );
+
+        return $this->builder->store(new ModuleInfoDto(
+            $data['name'],
+            $data['locale'],
+            (int)$request->query('moduleId')
+        ));
     }
 
     public function getById(int $id)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -26,12 +27,27 @@ class ModulePolicy
         return $admin->getRole() === "su";
     }
 
+    public function create(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
+
+    public function store(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
+
     public function edit(Admin $admin): bool
     {
         return $admin->getRole() === "su";
     }
 
     public function update(Admin $admin): bool
+    {
+        return $admin->getRole() === "su";
+    }
+
+    public function delete(Admin $admin): bool
     {
         return $admin->getRole() === "su";
     }
@@ -46,5 +62,3 @@ class ModulePolicy
         return $admin->getRole() === "su";
     }
 }
-
-

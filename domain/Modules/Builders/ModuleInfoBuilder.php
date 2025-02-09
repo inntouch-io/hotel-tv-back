@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -10,6 +11,7 @@
 namespace Domain\Modules\Builders;
 
 use Closure;
+use Domain\Modules\Dto\ModuleInfoDto;
 use Domain\Modules\Entities\ModuleInfo;
 
 /**
@@ -29,6 +31,17 @@ class ModuleInfoBuilder
     public function takeBy(Closure $closure)
     {
         return $closure(ModuleInfo::query())->first();
+    }
+
+    public function store(ModuleInfoDto $dto)
+    {
+        return ModuleInfo::query()->create(
+            [
+                'name'      => $dto->getName(),
+                'locale'     => $dto->getLocale(),
+                'module_id'  => $dto->getModuleId()
+            ]
+        );
     }
 
     /**
