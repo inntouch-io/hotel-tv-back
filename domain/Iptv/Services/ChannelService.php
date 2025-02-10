@@ -62,7 +62,7 @@ class ChannelService
                 ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
                 ->where('iptv_channel_infos.locale', '=', $language)
                 ->where('iptv_channels.is_visible', '=', 1)
-                ->when(!empty($countryId), function ($query) use ($countryId) {
+                ->when(!empty($countryId) && $countryId != 1, function ($query) use ($countryId) {
                     return $query->where('iptv_channels.country_id', '=', $countryId);
                 })
                 ->orderBy('iptv_channels.order_position', 'asc')
