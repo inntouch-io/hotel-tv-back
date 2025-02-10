@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -72,5 +73,24 @@ class ModuleBuilder
     public function update(Module $module, ModuleDto $moduleDto)
     {
         $module->update($moduleDto->toArray());
+    }
+
+    public function exists(Closure $closure)
+    {
+        return $closure(Module::query())->exists();
+    }
+
+    public function store(ModuleDto $dto)
+    {
+        return Module::query()->create(
+            [
+                'module_slug'    => $dto->getModuleSlug(),
+                'module_name'    => $dto->getModuleName(),
+                'type'           => $dto->getType(),
+                'image_id'       => $dto->getImageId(),
+                'is_visible'     => $dto->getIsVisible(),
+                'order_position' => $dto->getOrderPosition()
+            ]
+        );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\AdminController;
 use Domain\Modules\Entities\Module;
 use Domain\Modules\Entities\ModuleInfo;
 use Domain\Modules\Services\ModuleInfoService;
+use Domain\Modules\Services\ModuleService;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
@@ -31,6 +33,32 @@ class ModuleInfoController extends AdminController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
+    public function create(int $moduleId)
+    {
+        $this->authorize('create', Module::class);
+        $module = ModuleService::getInstance()->getWithInfos($moduleId);
+
+        return view('modules.infos.create', ['module' => $module]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('store', Module::class);
+        $info = ModuleInfoService::getInstance()->store($request);
+
+        return redirect()->route('admin.modules.infos.edit', ['id' => $info->getId()])
+            ->with('success', 'Successfully added');
     }
 
     /**
@@ -63,6 +91,25 @@ class ModuleInfoController extends AdminController
 
             return redirect()->route('admin.modules.infos.edit', ['id' => $moduleInfo->getId()])
                 ->with('success', 'Успешно сохранено');
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(int $id)
+    {
+        $this->authorize('delete', Module::class);
+        try {
+            $info = ModuleInfoService::getInstance()->getById($id);
+            $info->delete();
+
+            return redirect()->route('admin.modules.module.index')
+                ->with('success', 'Successfully deleted');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
