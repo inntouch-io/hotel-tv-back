@@ -4,7 +4,6 @@ namespace Domain\Iptv\Entities;
 
 use Carbon\Carbon;
 use Domain\Images\Entities\Image;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,34 +11,27 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class IptvChannel
+ * Class IptvCountry
  * @package Domain\Iptv\Entities
  *
  * @property int        $id
- * @property string     $slug
  * @property string     $title
- * @property int        $country_id
- * @property string     $stream_url
  * @property int        $is_visible
  * @property int        $order_position
  * @property int        $image_id
  * @property Carbon     $created_at
  *
- * @property Collection $infos
  * @property Image      $image
  *
  * @property-read string $name
  */
-class IptvChannel extends Model
+class IptvCountry extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'iptv_channels';
+    protected $table = 'iptv_countries';
     protected $fillable = [
-        'slug',
         'title',
-        'country_id',
-        'stream_url',
         'is_visible',
         'order_position',
         'image_id',
@@ -53,7 +45,7 @@ class IptvChannel extends Model
      */
     public function infos(): HasMany
     {
-        return $this->hasMany(IptvChannelInfo::class, 'channel_id', 'id');
+        return $this->hasMany(IptvCountryInfo::class, 'country_id', 'id');
     }
 
     /**
@@ -77,33 +69,9 @@ class IptvChannel extends Model
     /**
      * @return string
      */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountryId(): string
-    {
-        return $this->country_id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStreamUrl(): string
-    {
-        return $this->stream_url;
     }
 
     /**

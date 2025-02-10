@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Domain\Foods\Entities\FoodCategory;
+use Domain\Foods\Entities\FoodSubCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,9 +22,6 @@ class DatabaseSeeder extends Seeder
                 ModuleSeeder::class,
                 ModuleInfoSeeder::class,
                 ApplicationSeeder::class,
-                UserSeeder::class,
-                RoomSeeder::class,
-                UserRoomSeeder::class,
                 MessageSeeder::class,
                 MessageInfoSeeder::class,
                 MessageCardSeeder::class,
@@ -31,11 +30,15 @@ class DatabaseSeeder extends Seeder
                 MenuInfoSeeder::class,
                 MenuCardSeeder::class,
                 MenuCardInfoSeeder::class,
+                IptvCountrySeeder::class,
+                IptvCountryInfoSeeder::class,
                 IptvChannelSeeder::class,
                 IptvChannelInfoSeeder::class,
                 AppVersionSeeder::class,
                 GallerySeeder::class,
-                MediaSeeder::class
+                MediaSeeder::class,
+                RoomSeeder::class,
+                UserSeeder::class
             ]
         );
     }

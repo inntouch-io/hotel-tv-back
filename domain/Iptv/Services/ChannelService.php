@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -54,12 +55,16 @@ class ChannelService
     public function getItems(Request $request, $language = 'ru')
     {
         $itemsPerPage = $request->input('itemsPerPage', 18);
+        $countryId = $request->input('countryId');
 
-        return $this->builder->getItems(function (Builder $builder) use ($request, $language) {
+        return $this->builder->getItems(function (Builder $builder) use ($language, $countryId) {
             return $builder
                 ->join('iptv_channel_infos', 'iptv_channel_infos.channel_id', '=', 'iptv_channels.id')
                 ->where('iptv_channel_infos.locale', '=', $language)
                 ->where('iptv_channels.is_visible', '=', 1)
+                ->when(!empty($countryId), function ($query) use ($countryId) {
+                    return $query->where('iptv_channels.country_id', '=', $countryId);
+                })
                 ->orderBy('iptv_channels.order_position', 'asc')
                 ->select([
                     'iptv_channels.*',
@@ -90,6 +95,11 @@ class ChannelService
     {
         $data = $this->validator($request);
 
+        $country_id = (int) $data['country_id'];
+        if (!isset($country_id) || empty($country_id)) {
+            return redirect()->back()->withErrors('Country is required');
+        }
+
         $slug = string_to_slug($data['title']);
 
         /** @var bool $channelExists */
@@ -118,11 +128,11 @@ class ChannelService
             $data['title'],
             $slug,
             $data['stream_url'],
+            $country_id,
             $image->getId(),
             isset($data['isVisible']) ? 1 : 0,
             $order_position
         ));
-
     }
 
     public function getById(int $id)
@@ -142,6 +152,11 @@ class ChannelService
     public function update(IptvChannel $channel, Request $request)
     {
         $data = $this->validator($request);
+
+        $country_id = (int) $data['country_id'];
+        if (!isset($country_id) || empty($country_id)) {
+            return redirect()->back()->withErrors('Country is required');
+        }
 
         $slug = string_to_slug($data['title']);
 
@@ -166,6 +181,7 @@ class ChannelService
             $data['title'],
             $slug,
             $data['stream_url'],
+            $country_id,
             $imageId,
             isset($data['isVisible']) ? 1 : 0,
         ));
@@ -200,7 +216,8 @@ class ChannelService
         $rules = [
             'title'      => 'required|string',
             'stream_url' => 'required|string',
-            'isVisible'  => 'nullable|int'
+            'isVisible'  => 'nullable|int',
+            'country_id' => 'required|int'
         ];
 
         if ($request->route()->getName() === 'admin.iptv.channel.store') {

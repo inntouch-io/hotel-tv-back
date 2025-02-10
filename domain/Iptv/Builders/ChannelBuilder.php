@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -53,6 +54,7 @@ class ChannelBuilder
                 'title'          => $dto->getTitle(),
                 'slug'           => $dto->getSlug(),
                 'stream_url'     => $dto->getStreamUrl(),
+                'country_id'     => $dto->getCountryId(),
                 'image_id'       => $dto->getImageId(),
                 'is_visible'     => $dto->getIsVisible(),
                 'order_position' => $dto->getOrderPosition()
@@ -67,6 +69,7 @@ class ChannelBuilder
                 'title'      => $dto->getTitle(),
                 'slug'       => $dto->getSlug(),
                 'stream_url' => $dto->getStreamUrl(),
+                'country_id' => $dto->getCountryId(),
                 'image_id'   => $dto->getImageId(),
                 'is_visible' => $dto->getIsVisible()
             ]

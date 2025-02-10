@@ -176,13 +176,24 @@ $admin = auth()->user();
             @endcan
 
             @can('index', \Domain\Iptv\Entities\IptvChannel::class)
-            <li class="nav-item">
-                <a href="{{ route('admin.iptv.channel.index') }}" class="navbar-nav-link">
-                    <i class="icon-tv"></i>
-                    IPTV
-                </a>
-            </li>
-            @endcan
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-tv"></i>
+                            IPTV
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a href="{{ route('admin.iptv.country.index') }}" class="dropdown-item">
+                                <i class="fas fa-flag"></i>
+                                Страны
+                            </a>
+                            <a href="{{ route('admin.iptv.channel.index') }}" class="dropdown-item">
+                                <i class="icon-tv"></i>
+                                Каналы
+                            </a>
+                        </div>
+                    </li>
+                @endcan
 
             @can('index', \Domain\Gallery\Entities\Gallery::class)
             <li class="nav-item">

@@ -39,4 +39,7 @@ class StaticKeys
 
     public static $CHANNEL_ID = 'channelId';
     public static $CHANNEL_TITLE = 'channelTitle';
+
+    public static $COUNTRY_ID = 'countryId';
+    public static $COUNTRY_TITLE = 'countryTitle';
 }

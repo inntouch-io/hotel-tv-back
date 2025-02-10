@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Domain\Admins\Entities\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -30,15 +31,29 @@ class AdminSeeder extends Seeder
             ]
         );
 
-        DB::table('admins')->insert(
+        // DB::table('admins')->insert(
+        //     [
+        //         'id'         => 2,
+        //         'full_name'  => 'Mirfayz Nasirov',
+        //         'username'   => 'nasirov0017',
+        //         'password'   => Hash::make('superpassword'),
+        //         'last_ip'    => '0.0.0.0',
+        //         'last_login' => 0,
+        //         'role'       => 'su',
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now(),
+        //     ]
+        // );
+
+        Admin::query()->insert(
             [
                 'id'         => 2,
-                'full_name'  => 'Mirfayz Nasirov',
-                'username'   => 'nasirov0017',
+                'full_name'  => 'Orziyev Farrux',
+                'username'   => 'farrux',
                 'password'   => Hash::make('superpassword'),
                 'last_ip'    => '0.0.0.0',
                 'last_login' => 0,
-                'role'       => 'moderator',
+                'role'       => 'su',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]
