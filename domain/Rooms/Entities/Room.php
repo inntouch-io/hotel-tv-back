@@ -6,6 +6,7 @@ use App\Core\Entities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -15,11 +16,16 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property int         $id
  * @property string      $room_number
+ * @property string      $room_status
  * @property int         $max_volume
+ * @property int         $category_id
  * @property string      $device_id
- * @property int         $is_verified
+ * @property int         $is_active
  * @property string      $device_ip
  * @property Carbon|null $created_at
+ * 
+ * @property RoomCategory $category
+ * 
  */
 class Room extends Entities
 {
@@ -30,8 +36,15 @@ class Room extends Entities
         'room_number',
         'max_volume',
         'device_id',
-        'is_verified',
-        'device_ip'
+        'is_active',
+        'device_ip',
+        'room_status',
+        'category_id'
+    ];
+
+    const STATUSES = [
+        'free'   => 'Свободно',
+        'booked' => 'Забронировано'
     ];
 
     /**
@@ -42,7 +55,17 @@ class Room extends Entities
         return new static();
     }
 
+
     // Relations
+
+    /**
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(RoomCategory::class, 'category_id', 'id');
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
@@ -74,6 +97,14 @@ class Room extends Entities
     /**
      * @return string
      */
+    public function getRoomStatus(): string
+    {
+        return $this->room_status;
+    }
+
+    /**
+     * @return string
+     */
     public function getDeviceId(): string
     {
         return $this->device_id;
@@ -82,9 +113,9 @@ class Room extends Entities
     /**
      * @return bool
      */
-    public function getIsVerified(): bool
+    public function getIsActive(): bool
     {
-        return (bool)$this->is_verified;
+        return (bool)$this->is_active;
     }
 
     /**
@@ -117,5 +148,13 @@ class Room extends Entities
     public function getMaxVolume(): int
     {
         return $this->max_volume;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCategoryId(): int
+    {
+        return $this->category_id;
     }
 }

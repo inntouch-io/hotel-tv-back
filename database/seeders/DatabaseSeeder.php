@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Domain\Foods\Entities\FoodCategory;
 use Domain\Foods\Entities\FoodSubCategory;
+use Domain\Rooms\Entities\RoomCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
                 AppVersionSeeder::class,
                 GallerySeeder::class,
                 MediaSeeder::class,
+                RoomCategorySeeder::class,
                 RoomSeeder::class,
                 UserSeeder::class
             ]
