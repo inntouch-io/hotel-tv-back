@@ -7,7 +7,6 @@
  */
 
 /** @var \Domain\Rooms\Entities\Room $room */
-
 ?>
 
 @extends('layouts.main')
@@ -41,14 +40,14 @@
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($list) || count($list) === 0)
+                        @if (is_null($list) || count($list) === 0)
                             <div class="alert alert-primary border-0 alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Ничего не найдено
                             </div>
                         @else
-                            @if(session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success border-0 alert-dismissible col-6">
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
@@ -58,69 +57,89 @@
                             <div class="card card-table table-responsive shadow-none mb-0">
                                 <table class="table table-bordered">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Номер комнаты</th>
-                                        <th>Идентификатор устройства</th>
-                                        <th>IP-адрес устройства</th>
-                                        <th>Верификация</th>
-                                        <th>Макс. громкость</th>
-                                        <th>Добавлен</th>
-                                        <th>Редактировать</th>
-                                    </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Номер комнаты</th>
+                                            <th>Идентификатор устройства</th>
+                                            <th>Category</th>
+                                            <th>User</th>
+                                            <th>Room Status</th>
+                                            <th>Is Active</th>
+                                            <th>Редактировать</th>
+                                        </tr>
                                     </thead>
 
                                     <tbody>
-                                    @foreach($list as $room)
-                                        <tr>
-                                            <td>
-                                                <div class="font-weight-semibold">{{ $room->getId() }}</div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-semibold">
-                                                    {{ $room->getRoomNumber() }}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <span class="font-weight-semibold">
-                                                    {{ $room->getDeviceId() }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="font-weight-semibold">
-                                                    {{ $room->getDeviceIp() }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                @if($room->getIsVerified())
-                                                    <div class="badge badge-success">Активный</div>
-                                                @else
-                                                    <div class="badge badge-danger">Неактивный</div>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-secondary">
-                                                    {{ $room->getMaxVolume() }}
-                                                </span>
-                                            </td>
-                                            <td>{{ $room->getCreatedAt() }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.rooms.edit', ['room' => $room->getId()]) }}" class="badge badge-secondary">
-                                                    <i class="fas fa-edit"></i>
-                                                    Редактировать
-                                                </a>
+                                        @foreach ($list as $room)
+                                            <tr>
+                                                <td>
+                                                    <div class="font-weight-semibold">{{ $room->getId() }}</div>
+                                                </td>
 
-                                                <form action="{{ route('admin.rooms.destroy', ['room' => $room->getId()]) }}" method="post" class="mt-1">
-                                                    {{ csrf_field() }}
-                                                    @method('DELETE')
-                                                    <button type="submit" class="badge badge-danger outline-0 border-0" onclick="return confirm('Are you sure you want to delete this item')">
-                                                        <i class="fas fa-trash"></i>
-                                                        Удалить
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                <td>
+                                                    <span class="badge badge-secondary">{{ $room->getRoomNumber() }}</span>
+                                                </td>
+
+                                                <td>
+                                                    <span class="font-weight-semibold">
+                                                        {{ $room->getDeviceId() }}
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <span
+                                                        class="badge badge-secondary">{{ $room->category->getName() }}</span>
+                                                </td>
+
+                                                <td>
+                                                    <span>
+                                                        @if ($room->user === null)
+                                                            <code>NO USER</code>
+                                                        @else
+                                                            <a
+                                                                href="{{ route('admin.users.edit', ['user' => $room->user->getId()]) }}">
+                                                                {{ $room->user->getFullName() }}
+                                                            </a>
+                                                        @endif
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    @if ($room->getRoomStatus() === 'free')
+                                                        <div class="badge badge-success">Свободно</div>
+                                                    @else
+                                                        <div class="badge badge-warning">Забронировано</div>
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    @if ($room->getIsActive())
+                                                        <div class="badge badge-success">Активный</div>
+                                                    @else
+                                                        <div class="badge badge-danger">Неактивный</div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.rooms.edit', ['room' => $room->getId()]) }}"
+                                                        class="badge badge-secondary">
+                                                        <i class="fas fa-edit"></i>
+                                                        Редактировать
+                                                    </a>
+
+                                                    <form
+                                                        action="{{ route('admin.rooms.destroy', ['room' => $room->getId()]) }}"
+                                                        method="post" class="mt-1">
+                                                        {{ csrf_field() }}
+                                                        @method('DELETE')
+                                                        <button type="submit" class="badge badge-danger outline-0 border-0"
+                                                            onclick="return confirm('Are you sure you want to delete this item')">
+                                                            <i class="fas fa-trash"></i>
+                                                            Удалить
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

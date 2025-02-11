@@ -3,56 +3,61 @@
 /**
  * Hotel-TV.
  *
- * @author  Mirfayz Nosirov
- * Created: 21.07.2022 / 11:33
+ * @author  Farrux Orziyev
+ * Created: 10.02.2025 / 11:33
  */
 
 namespace Domain\Rooms\DTO;
 
 /**
- * Class RoomUpdateDto
+ * Class RoomStoreDto
  * @package Domain\Rooms\DTO
  *
  * @property string|null $roomNumber
- * @property string|null $roomStatus
  * @property string      $deviceId
- * @property string      $categoryId
+ * @property string      $deviceIp
  * @property int         $max_volume
+ * @property string|null $roomStatus
  * @property string|null $isVerified
  */
-class RoomUpdateDto
+class RoomStoreDto
 {
     /** @var string|null $roomNumber */
     protected ?string $roomNumber = null;
 
-    /** @var string|null $roomStatus */
-    protected ?string $roomStatus = null;
-
     /** @var string $deviceId */
     protected string $deviceId;
 
-    /** @var string $categoryId */
-    protected string $categoryId;
+    /** @var string $deviceIp */
+    protected string $deviceIp;
 
     /** @var int $max_volume */
     protected int $max_volume;
 
-    /** @var string|null $isVerified */
+    /** @var string|null $roomStatus */
+    protected ?string $roomStatus = null;
+
+    /** @var string $categoryId */
+    protected string $categoryId;
+
+    /** @var string|null $isActive */
     protected ?string $isActive = null;
 
     public function __construct(
         string  $deviceId,
-        string  $categoryId,
+        string  $deviceIp,
         int     $max_volume,
+        string  $categoryId,
         ?string $roomNumber = null,
         ?string $roomStatus = null,
         ?string $isActive = null
     ) {
         $this->deviceId = $deviceId;
-        $this->categoryId = $categoryId;
+        $this->deviceIp = $deviceIp;
         $this->max_volume = $max_volume;
         $this->roomNumber = $roomNumber;
         $this->roomStatus = $roomStatus;
+        $this->categoryId = $categoryId;
         $this->isActive = $isActive;
     }
 
@@ -62,14 +67,6 @@ class RoomUpdateDto
     public function getRoomNumber(): ?string
     {
         return $this->roomNumber;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getRoomStatus(): ?string
-    {
-        return $this->roomStatus;
     }
 
     /**
@@ -83,9 +80,9 @@ class RoomUpdateDto
     /**
      * @return string
      */
-    public function getCategoryId(): string
+    public function getDeviceIp(): string
     {
-        return $this->categoryId;
+        return $this->deviceIp;
     }
 
     /**
@@ -102,5 +99,21 @@ class RoomUpdateDto
     public function getMaxVolume(): int
     {
         return $this->max_volume;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRoomStatus(): ?string
+    {
+        return $this->roomStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoryId(): string
+    {
+        return $this->categoryId;
     }
 }

@@ -15,11 +15,17 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id')->index();
+            
             $table->string('room_number')->nullable()->unique();
             $table->unsignedSmallInteger('max_volume')->default(50);
+            $table->enum('room_status', ['free', 'booked'])->default('free');
+            $table->tinyInteger('is_active')->default(0);
+
             $table->string('device_id');
-            $table->tinyInteger('is_verified')->default(0);
             $table->string('device_ip')->nullable();
+
+            $table->foreign('category_id')->references('id')->on('room_categories');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -22,8 +22,10 @@ class RoomDto extends Dtos
     }
 
     private $roomNumber = null;
+    private $roomStatus = null;
+    private $categoryId = null;
     private $deviceId = null;
-    private $isVerified = null;
+    private $isActive = null;
     private $deviceIp = null;
 
     /**
@@ -45,6 +47,14 @@ class RoomDto extends Dtos
     /**
      * @return null
      */
+    public function getRoomStatus()
+    {
+        return $this->roomStatus;
+    }
+
+    /**
+     * @return null
+     */
     public function getDeviceId()
     {
         return $this->deviceId;
@@ -53,9 +63,17 @@ class RoomDto extends Dtos
     /**
      * @return null
      */
-    public function getIsVerified()
+    public function getCategoryId()
     {
-        return $this->isVerified;
+        return $this->categoryId;
+    }
+
+    /**
+     * @return null
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 
     /**
@@ -75,11 +93,27 @@ class RoomDto extends Dtos
     }
 
     /**
+     * @param null $roomStatus
+     */
+    public function setRoomStatus($roomStatus = null): void
+    {
+        $this->roomStatus = $roomStatus;
+    }
+
+    /**
      * @param null $deviceId
      */
     public function setDeviceId($deviceId = null): void
     {
         $this->deviceId = $deviceId;
+    }
+
+    /**
+     * @param null $categoryId
+     */
+    public function setCategoryId($categoryId = null): void
+    {
+        $this->categoryId = $categoryId;
     }
 
     /**
@@ -91,11 +125,10 @@ class RoomDto extends Dtos
     }
 
     /**
-     * @param null $isVerified
+     * @param null $isActive
      */
-    public function setIsVerified($isVerified = null): void
+    public function setIsActive($isActive = null): void
     {
-        $this->isVerified = $isVerified;
+        $this->isActive = $isActive;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Hotel-TV.
  *
@@ -39,6 +40,34 @@ class RoomController extends AdminController
                 'list' => $rooms
             ]
         );
+    }
+
+    /**
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
+    public function create()
+    {
+        $this->authorize('create', Room::class);
+        return view('rooms.create');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('store', Room::class);
+        try {
+            RoomService::getInstance()->store($request);
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', 'Successfully added');
     }
 
     /**

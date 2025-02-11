@@ -5,6 +5,7 @@ namespace Domain\Rooms\Builders;
 
 use App\Core\Builders;
 use Domain\Rooms\DTO\RoomDto;
+use Domain\Rooms\DTO\RoomStoreDto;
 use Domain\Rooms\DTO\RoomUpdateDto;
 use Domain\Rooms\Entities\Room;
 use Exception;
@@ -73,7 +74,7 @@ class RoomBuilder extends Builders
             $room = Room::getInstance();
 
             $room->device_id = $roomDto->getDeviceId();
-            $room->is_verified = $roomDto->getIsVerified();
+            $room->is_verified = $roomDto->getIsActive();
             $room->device_ip = $roomDto->getDeviceIp();
 
             $room->save(); //save
@@ -81,7 +82,6 @@ class RoomBuilder extends Builders
             DB::commit();
 
             return $room;
-
         } catch (Exception $exception) {
             DB::rollBack();
 
@@ -113,10 +113,25 @@ class RoomBuilder extends Builders
         $room->update(
             [
                 'room_number' => $updateDto->getRoomNumber(),
+                'room_status' => $updateDto->getRoomStatus(),
                 'device_id'   => $updateDto->getDeviceId(),
-                'is_verified' => $updateDto->getIsVerified(),
+                'category_id' => $updateDto->getCategoryId(),
+                'is_active'   => $updateDto->getIsActive(),
                 'max_volume'  => $updateDto->getMaxVolume()
             ]
         );
+    }
+
+    public function store(RoomStoreDto $dto)
+    {
+        return Room::query()->create([
+            'room_number' => $dto->getRoomNumber(),
+            'device_id'   => $dto->getDeviceId(),
+            'device_ip'   => $dto->getDeviceIp(),
+            'is_active'   => $dto->getIsActive(),
+            'max_volume'  => $dto->getMaxVolume(),
+            'room_status' => $dto->getRoomStatus(),
+            'category_id' => $dto->getCategoryId()
+        ]);
     }
 }

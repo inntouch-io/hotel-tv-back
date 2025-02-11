@@ -32,13 +32,13 @@
             <div class="content">
                 <div class="card">
                     <div class="card-body">
-                        @if(is_null($room))
+                        @if (is_null($room))
                             <div class="alert alert-danger border-0 alert-dismissible mb-0">
                                 <span class="font-weight-semibold">Oh snap!!!</span>
                                 Системная ошибка
                             </div>
                         @else
-                            @if(session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success border-0 alert-dismissible col-6">
                                     <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                                     <span class="font-weight-semibold mr-1">Well done!!!</span>
@@ -46,7 +46,8 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.rooms.update', ['room' => $room->getId()]) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.rooms.update', ['room' => $room->getId()]) }}" method="post"
+                                enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @method('PUT')
                                 <div class="row">
@@ -55,29 +56,52 @@
                                         <div class="form-group">
                                             <label for="roomNumber" class="font-weight-bold">Номер комнаты</label>
                                             <input type="text" id="roomNumber" name="roomNumber" class="form-control"
-                                                   placeholder="Номер комнаты" value="{{ $room->getRoomNumber() }}"
-                                                   required>
+                                                placeholder="Номер комнаты" value="{{ $room->getRoomNumber() }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="roomStatus" class="font-weight-bold">Статус номера</label>
+                                            <select name="roomStatus" id="roomStatus" class="form-control">
+                                                @foreach ($room::STATUSES as $key => $value)
+                                                    <option value="{{ $key }}"
+                                                        @if ($key === $room->getRoomStatus()) selected @endif>
+                                                        {{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="categoryId" class="font-weight-bold">Category номера</label>
+                                            <select name="categoryId" id="categoryId" class="form-control">
+                                                @foreach (room_categories() as $key => $value)
+                                                    <option value="{{ $key }}"
+                                                        @if ($key === $room->getCategoryId()) selected @endif>
+                                                        {{ $value }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="deviceId" class="font-weight-bold">Идентификатор устройства</label>
                                             <input type="text" id="deviceId" name="deviceId" class="form-control"
-                                                   placeholder="Идентификатор устройства" value="{{ $room->getDeviceId() }}"
-                                                   required>
+                                                placeholder="Идентификатор устройства" value="{{ $room->getDeviceId() }}"
+                                                required>
                                         </div>
 
                                         <div class="form-group">
-                                            <p class="font-weight-semibold">Верификация</p>
+                                            <p class="font-weight-semibold">Статус</p>
 
                                             <div class="border p-3 rounded">
                                                 <div class="custom-control custom-switch custom-control-inline">
                                                     <span class="mr-2">Нет</span>
-                                                    @if($room->getIsVerified())
-                                                        <input type="checkbox" name="isVerified" class="custom-control-input" id="isVerified" value="1" checked>
+                                                    @if ($room->getIsActive())
+                                                        <input type="checkbox" name="isActive" class="custom-control-input"
+                                                            id="isActive" value="1" checked>
                                                     @else
-                                                        <input type="checkbox" name="isVerified" class="custom-control-input" id="isVerified" value="1">
+                                                        <input type="checkbox" name="isActive" class="custom-control-input"
+                                                            id="isActive" value="1">
                                                     @endif
-                                                    <label class="custom-control-label" for="isVerified">Да</label>
+                                                    <label class="custom-control-label" for="isActive">Да</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,8 +109,7 @@
                                         <div class="form-group">
                                             <label for="max_volume" class="font-weight-bold">Макс. громкость</label>
                                             <input type="number" id="max_volume" name="max_volume" class="form-control"
-                                                   placeholder="Макс. громкость" value="{{ $room->getMaxVolume() }}"
-                                                   required>
+                                                placeholder="Макс. громкость" value="{{ $room->getMaxVolume() }}" required>
                                         </div>
 
                                         <div class="form-group">

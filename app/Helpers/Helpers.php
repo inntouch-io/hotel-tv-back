@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use Domain\Admins\Entities\Admin;
+use Domain\Rooms\Entities\RoomCategory;
 
 if (!function_exists('string_to_slug')) {
     /**
@@ -152,5 +153,14 @@ if (!function_exists('get_link_record')) {
         } else {
             return $result[1];
         }
+    }
+}
+
+if (!function_exists('room_categories')) {
+    function room_categories(): array
+    {
+        return RoomCategory::query()
+            ->pluck('name', 'id')
+            ->toArray();
     }
 }

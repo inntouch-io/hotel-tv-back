@@ -15,3 +15,11 @@ $route_name = request()->route()->getName();
         <span>Список</span>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('admin.rooms.create') }}"
+        class="nav-link {{ $route_name === 'admin.rooms.create' ? 'active' : '' }}">
+        <i class="fas fa-plus"></i>
+        <span>Добавить</span>
+    </a>
+</li>

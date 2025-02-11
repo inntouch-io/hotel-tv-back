@@ -6,9 +6,11 @@ namespace Domain\Rooms\Services;
 use App\Core\Services;
 use Domain\Rooms\Builders\RoomBuilder;
 use Domain\Rooms\DTO\RoomDto;
+use Domain\Rooms\DTO\RoomStoreDto;
 use Domain\Rooms\DTO\RoomUpdateDto;
 use Domain\Rooms\Entities\Room;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use RuntimeException;
 
 /**
@@ -56,7 +58,7 @@ class RoomService extends Services
         $roomDto = RoomDto::getInstance();
         $roomDto->setDeviceIp($request->ip());
         $roomDto->setDeviceId($request->input('device-id'));
-        $roomDto->setIsVerified(0);
+        $roomDto->setIsActive(0);
 
         return RoomBuilder::getInstance()->insertItem($roomDto);
     }
@@ -71,14 +73,46 @@ class RoomService extends Services
         return RoomBuilder::getInstance()->getById($id);
     }
 
+    public function store(Request $request)
+    {
+        $data = $request->validate(
+            [
+                'roomNumber' => 'required|string',
+                'deviceId'   => 'required|string',
+                'isActive' => 'nullable|int',
+                'max_volume' => 'required|integer|between:0,100',
+                'roomStatus' => ['required', Rule::in('free', 'booked')],
+                'categoryId' => 'required|int',
+            ]
+        );
+
+        if ($this->exists($data['deviceId'])) {
+            throw new RuntimeException('Duplicated device id');
+        }
+
+        $dto = new RoomStoreDto(
+            $data['deviceId'],
+            $request->ip(),
+            $data['max_volume'],
+            $data['categoryId'],
+            $data['roomNumber'],
+            $data['roomStatus'],
+            isset($data['isActive']) ? 1 : 0,
+        );
+
+        return RoomBuilder::getInstance()->store($dto);
+    }
+
     public function update(Room $room, Request $request)
     {
         $data = $request->validate(
             [
                 'roomNumber' => 'required|string',
                 'deviceId'   => 'required|string',
-                'isVerified' => 'nullable|int',
-                'max_volume' => 'required|integer|between:0,100'
+                'isActive'   => 'nullable|int',
+                'max_volume' => 'required|integer|between:0,100',
+                'roomStatus' => ['required', Rule::in('free', 'booked')],
+                'categoryId' => 'required|int',
             ]
         );
 
@@ -88,10 +122,11 @@ class RoomService extends Services
 
         RoomBuilder::getInstance()->update($room, new RoomUpdateDto(
             $data['deviceId'],
+            $data['categoryId'],
             $data['max_volume'],
             $data['roomNumber'],
-            isset($data['isVerified']) ? 1 : 0,
-
+            $data['roomStatus'],
+            isset($data['isActive']) ? 1 : 0,
         ));
     }
 
