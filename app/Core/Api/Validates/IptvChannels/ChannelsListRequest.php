@@ -20,7 +20,7 @@ class ChannelsListRequest extends Validates
     {
         return [
             'countryId'    => 'numeric',
-            'itemsPerPage' => 'required',
+            'itemsPerPage' => 'nullable',
         ];
     }
 }
