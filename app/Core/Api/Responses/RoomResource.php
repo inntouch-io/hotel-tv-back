@@ -20,7 +20,7 @@ class RoomResource extends Resources
     public function toArray($request)
     {
         return [
-            StaticKeys::$ROOM_NUMBER => (string) $this->getRoomNumber(),
+            // StaticKeys::$ROOM_NUMBER => (string) $this->getRoomNumber(),
             StaticKeys::$DEVICE_ID => (string) $this->getDeviceId(),
             StaticKeys::$IP => (string) $this->getDeviceIp(),
             StaticKeys::$IS_VERIFIED => (bool) $this->getIsVerified(),
