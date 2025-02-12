@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use Domain\Admins\Entities\Admin;
+use Domain\Rooms\Entities\Room;
 use Domain\Rooms\Entities\RoomCategory;
 
 if (!function_exists('string_to_slug')) {
@@ -153,6 +154,17 @@ if (!function_exists('get_link_record')) {
         } else {
             return $result[1];
         }
+    }
+}
+
+if (!function_exists('get_free_rooms')) {
+    function get_free_rooms(): array
+    {
+        return Room::query()
+            ->where('room_status', '=', 'free')
+            ->where('is_active', '=', 1)
+            ->pluck('room_number', 'id')
+            ->toArray();
     }
 }
 
