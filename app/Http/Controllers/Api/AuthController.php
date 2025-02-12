@@ -39,7 +39,7 @@ class AuthController extends ApiController
             'roomNumber' => "123",
             'deviceId'   => $request->input('device-id'),
             'ip'         => $request->ip(),
-            'isVerified' => false
+            'isVerified' => true
         ];
 
         $this->setData($responseData);
