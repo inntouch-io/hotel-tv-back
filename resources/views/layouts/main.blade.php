@@ -130,6 +130,15 @@ $admin = auth()->user();
             </li>
             @endcan
 
+            @can('index', \Domain\Users\Entities\User::class)
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="navbar-nav-link">
+                        <i class="fas fa-align-left"></i>
+                        Пользователи
+                    </a>
+                </li>
+            @endcan
+
             @can('index', \Domain\Rooms\Entities\Room::class)
             <li class="nav-item">
                 <a href="{{ route('admin.rooms.index') }}" class="navbar-nav-link">

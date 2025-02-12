@@ -15,10 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('room_id')->index()->nullable();
+
             $table->string('first_name');
-            $table->string('name');
-            $table->unsignedBigInteger('guest_number');
-            $table->string('guest_language');
+            $table->string('last_name');
+            $table->string('telephone_number')->unique();
+            $table->string('passport_number')->unique();
+            $table->enum('language', ['uz', 'ru', 'en']);
+            $table->unsignedBigInteger('arrival_time')->nullable();
+            $table->unsignedBigInteger('departure_time')->nullable();
+
+            $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });
     }

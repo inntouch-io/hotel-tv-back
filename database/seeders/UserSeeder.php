@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use Domain\Rooms\Entities\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class UserSeeder extends Seeder
 {
@@ -15,25 +17,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
+        User::query()->create(
             [
-                'id'             => 1,
-                'first_name'     => 'Denis',
-                'name'           => 'Ivanov',
-                'guest_number'   => 1018,
-                'guest_language' => 'en',
-                'created_at'     => Carbon::now()
-            ]
-        );
-
-        DB::table('users')->insert(
-            [
-                'id'             => 2,
-                'first_name'     => 'Anvar',
-                'name'           => 'Qosimov',
-                'guest_number'   => 1019,
-                'guest_language' => 'ru',
-                'created_at'     => Carbon::now()
+                'first_name'       => 'Mirfayz',
+                'last_name'        => 'Nosirov',
+                'telephone_number' => '+998936820017',
+                'passport_number'  => 'AB8882211',
+                'language'         => 'uz',
+                'arrival_time'     => 1694139647,
+                'departure_time'   => 1694312447,
+                'room_id'          => 1
             ]
         );
     }

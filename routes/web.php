@@ -47,6 +47,9 @@ Route::namespace('Admin')->group(function () {
             // Rooms
             Route::resource('rooms', 'RoomController');
 
+            // Users
+            Route::resource('users', 'UserController');
+
             // Modules
             Route::namespace('Modules')->prefix('modules')->as('modules.')->group(function () {
 
