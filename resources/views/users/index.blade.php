@@ -110,7 +110,7 @@
                                                         <code>NO ROOM</code>
                                                     @else
                                                         <a
-                                                            href="{{ route('admin.rooms.edit', ['room' => $user->getRoomId()]) }}">{{ $user->room->getRoomNumber() }}</a>
+                                                            href="{{ route('admin.rooms.edit', ['room' => $user->getRoomId()]) }}">{{ optional($user->room)->getRoomNumber() }}</a>
                                                     @endif
                                                 </td>
                                                 <td>
