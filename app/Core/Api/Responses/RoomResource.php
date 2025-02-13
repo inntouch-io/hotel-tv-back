@@ -23,6 +23,7 @@ class RoomResource extends Resources
             StaticKeys::$ROOM_NUMBER => (string) $this->getRoomNumber(),
             StaticKeys::$DEVICE_ID => (string) $this->getDeviceId(),
             StaticKeys::$IP => (string) $this->getDeviceIp(),
+            StaticKeys::$IS_VERIFIED => (bool) $this->getIsActive(),
             StaticKeys::$IS_ACTIVE => (bool) $this->getIsActive(),
         ];
     }
