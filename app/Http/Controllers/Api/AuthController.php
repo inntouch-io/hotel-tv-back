@@ -26,11 +26,12 @@ class AuthController extends ApiController
     {
         $request->validated();
 
-        // $room = RoomService::getInstance()->getItem($request);
-        // if (is_null($room)) {
-        //     $room = RoomService::getInstance()->insertItem($request);
-        //     RoomService::getInstance()->updateItem($room, $request);
-        // }
+        $room = RoomService::getInstance()->getItem($request);
+        if (is_null($room)) {
+            $room = RoomService::getInstance()->insertItem($request);
+            dd($room);
+            RoomService::getInstance()->updateItem($room, $request);
+        }
 
         // $roomResource = new RoomResource($room);
         // $roomResource->locale = $this->getLanguage();

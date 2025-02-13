@@ -71,10 +71,10 @@ class RoomBuilder extends Builders
 
             DB::beginTransaction();
 
-            $room = Room::getInstance();
+            $room = new Room();
 
             $room->device_id = $roomDto->getDeviceId();
-            $room->is_verified = $roomDto->getIsActive();
+            $room->is_active = $roomDto->getIsActive();
             $room->device_ip = $roomDto->getDeviceIp();
 
             $room->save(); //save
