@@ -94,16 +94,17 @@
 
                                                 <td>
                                                     <span>
-                                                        @if ($room->user === null)
-                                                            <code>NO USER</code>
-                                                        @else
+                                                        @if ($room->user)
                                                             <a
-                                                                href="{{ route('admin.users.edit', ['user' => $room->user->getId()]) }}">
-                                                                {{ $room->user->getFullName() }}
+                                                                href="{{ route('admin.users.edit', ['user' => $room->user->id]) }}">
+                                                                {{ "{$room->user->first_name} {$room->user->last_name}" }}
                                                             </a>
+                                                        @else
+                                                            <code>NO USER</code>
                                                         @endif
                                                     </span>
                                                 </td>
+
 
                                                 <td>
                                                     @if ($room->getRoomStatus() === 'free')

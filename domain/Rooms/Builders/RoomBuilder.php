@@ -4,6 +4,7 @@ namespace Domain\Rooms\Builders;
 
 
 use App\Core\Builders;
+use Closure;
 use Domain\Rooms\DTO\RoomDto;
 use Domain\Rooms\DTO\RoomStoreDto;
 use Domain\Rooms\DTO\RoomUpdateDto;
@@ -35,10 +36,18 @@ class RoomBuilder extends Builders
         return new static();
     }
 
+    /**
+     * @param Closure $closure
+     * @return Room|null
+     */
+    public function takeBy(Closure $closure): ?Room
+    {
+        return $closure(Room::query())->first();
+    }
+
     public function getItem(RoomDto $roomDto)
     {
-        $item = Room::query()
-            ->where('device_id', '=', $roomDto->getDeviceId());
+        $item = Room::query()->where('device_id', '=', $roomDto->getDeviceId());
 
         return $item->first();
     }

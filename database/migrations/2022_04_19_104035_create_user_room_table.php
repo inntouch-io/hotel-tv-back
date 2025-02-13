@@ -20,7 +20,6 @@ class CreateUserRoomTable extends Migration
 
             $table->unsignedBigInteger('arrival_time');
             $table->unsignedBigInteger('departure_time')->nullable();
-            $table->enum('room_status', ['free', 'booked'])->default('free');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('room_id')->references('id')->on('rooms');

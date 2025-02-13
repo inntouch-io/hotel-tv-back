@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -24,6 +25,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string      $device_ip
  * @property Carbon|null $created_at
  * 
+ * @property User         $user
+ * @property UserRoom     $userRoom
  * @property RoomCategory $category
  * 
  */
@@ -68,20 +71,16 @@ class Room extends Entities
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
+     * @return HasOne
      */
-    public function users()
+    public function user(): HasOne
     {
-        return $this->hasOneThrough(User::class, UserRoom::class, 'room_id', 'id', 'id', 'user_id')
-            ->where('user_room.room_status', '=', 'booked')
-            ->first();
+        return $this->hasOne(User::class, 'room_id', 'id');
     }
 
     public function userRoom()
     {
-        return $this->hasOne(UserRoom::class, 'room_id', 'id')
-            ->where('room_status', '=', 'booked')
-            ->first();
+        return $this->hasOne(UserRoom::class, 'room_id', 'id');
     }
 
     // Getters

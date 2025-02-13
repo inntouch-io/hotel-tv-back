@@ -4,6 +4,7 @@ namespace Domain\Rooms\Entities;
 
 use App\Core\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -26,11 +27,17 @@ class UserRoom extends Entities
         'room_id',
         'arrival_time',
         'departure_time',
-        'room_status',
+        // 'room_status',
     ];
 
     // Relations
-
+    /**
+     * @return BelongsTo
+     */
+    public function room(): BelongsTo
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'id');
+    }
 
     //Getters
 
@@ -66,11 +73,11 @@ class UserRoom extends Entities
         return $this->departure_time;
     }
 
-    /**
-     * @return string
-     */
-    public function getRoomStatus(): string
-    {
-        return $this->room_status;
-    }
+    // /**
+    //  * @return string
+    //  */
+    // public function getRoomStatus(): string
+    // {
+    //     return $this->room_status;
+    // }
 }

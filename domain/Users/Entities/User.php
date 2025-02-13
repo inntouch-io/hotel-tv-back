@@ -51,22 +51,6 @@ class User extends Entities
 
     // Relations
 
-    // /**
-    //  * @return HasOne
-    //  */
-    // public function cart(): HasOne
-    // {
-    //     return $this->hasOne(Cart::class, 'user_id', 'id')->with('items');
-    // }
-
-    // /**
-    //  * @return HasMany
-    //  */
-    // public function orders(): HasMany
-    // {
-    //     return $this->hasMany(Order::class, 'user_id', 'id');
-    // }
-
     /**
      * @return BelongsTo
      */

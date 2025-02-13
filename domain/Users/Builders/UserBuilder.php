@@ -44,6 +44,11 @@ class UserBuilder extends Builders
         return User::query()->whereKey($id)->first();
     }
 
+    public function getByRoomId(int $roomId)
+    {
+        return User::query()->where('room_id', $roomId)->first();
+    }
+
     public function getList()
     {
         return User::query()->orderByDesc('id')->get();

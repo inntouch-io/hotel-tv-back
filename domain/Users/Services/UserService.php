@@ -41,6 +41,11 @@ class UserService extends Services
         return UserBuilder::getInstance()->getById($id);
     }
 
+    public function getByRoomId(int $roomId)
+    {
+        return UserBuilder::getInstance()->getByRoomId($roomId);
+    }
+
     /**
      * @param UserDto $userDto
      * @return User|null

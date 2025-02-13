@@ -25,21 +25,20 @@ class UserInfoResource extends Resources
 
     public function toArray($request)
     {
-        $user = $this->users();
-        $userRoom = $this->userRoom();
+        $user = $this->user;
 
         return [
-            self::$USER_ID => (int) $user->getId(),
-            self::$USER_NAME => (string) $user->getFullName(),
-            StaticKeys::$ROOM_ID => (int) $userRoom->getRoomId(),
+            self::$USER_ID => (int) $user->id,
+            self::$USER_NAME => (string) "{$user->first_name} {$user->last_name}",
+            StaticKeys::$ROOM_ID => (int) $this->getId(),
             self::$MAX_VOLUME => (int) $this->getMaxVolume(),
             self::$ARRIVAL_TIME => [
-                StaticKeys::$DATA => (string) date('d.m.Y', $userRoom->getArrivalTime()),
-                StaticKeys::$TIME => (string) date('H:i', $userRoom->getArrivalTime()),
+                StaticKeys::$DATA => (string) date('d.m.Y', $user->arrival_time),
+                StaticKeys::$TIME => (string) date('H:i', $user->arrival_time),
             ],
             self::$DEPARTURE_TIME => [
-                StaticKeys::$DATA => (string) date('d.m.Y', $userRoom->getDepartureTime()),
-                StaticKeys::$TIME => (string) date('H:i', $userRoom->getDepartureTime()),
+                StaticKeys::$DATA => (string) date('d.m.Y', $user->departure_time),
+                StaticKeys::$TIME => (string) date('H:i', $user->departure_time),
             ],
         ];
     }

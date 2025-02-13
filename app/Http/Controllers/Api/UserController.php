@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Core\Api\Responses\User\CheckOutResource;
 use App\Core\Api\Responses\User\UserInfoResource;
 use App\Core\Api\Responses\User\WelcomeResource;
+use Domain\Rooms\Services\RoomService;
 use Domain\Users\Entities\User;
 use Domain\Users\Services\UserService;
 use Domain\Welcome\Services\WelcomeService;
@@ -29,29 +30,14 @@ class UserController extends ApiController
 
     public function getInfo(Request $request)
     {
-        $room = $request->user();
-
-        $userInfoResource = new UserInfoResource($room);
-        $userInfoResource->locale = $this->getLanguage();
-
-        $this->setData($userInfoResource);
-
-        return $this->composeData();
-    }
-
-    public function checkOut(Request $request)
-    {
         try {
-            $userId = $request->input('user_id');
-
-            /** @var User $user */
-            $user = UserService::getInstance()->getById($userId);
-
-            if (is_null($user)) {
-                return response()->json(['message' => 'Пользователь не найден'], 404);
+            /** @var Room $room */
+            $room = RoomService::getInstance()->getItem($request);
+            if (!$room) {
+                return response()->json(['message' => 'Room not found'], 404);
             }
 
-            $userInfoResource = new CheckOutResource($user);
+            $userInfoResource = new UserInfoResource($room);
             $userInfoResource->locale = $this->getLanguage();
 
             $this->setData($userInfoResource);

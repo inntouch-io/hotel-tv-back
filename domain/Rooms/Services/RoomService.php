@@ -9,6 +9,7 @@ use Domain\Rooms\DTO\RoomDto;
 use Domain\Rooms\DTO\RoomStoreDto;
 use Domain\Rooms\DTO\RoomUpdateDto;
 use Domain\Rooms\Entities\Room;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use RuntimeException;
@@ -40,7 +41,7 @@ class RoomService extends Services
     public function getItem(Request $request)
     {
         $roomDto = RoomDto::getInstance();
-        $roomDto->setDeviceId($request->input('device-id'));
+        $roomDto->setDeviceId($request->input('device-id') ?? $request->header('device-id'));
 
         return RoomBuilder::getInstance()->getItem($roomDto);
     }
@@ -128,6 +129,13 @@ class RoomService extends Services
             $data['roomStatus'],
             isset($data['isActive']) ? 1 : 0,
         ));
+    }
+
+    public function getWithUsers(int $id)
+    {
+        return RoomBuilder::getInstance()->takeBy(function (Builder $builder) use ($id) {
+            return $builder->whereKey($id)->with('userRoom');
+        });
     }
 
     /**
