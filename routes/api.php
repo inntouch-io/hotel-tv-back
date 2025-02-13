@@ -86,8 +86,8 @@ Route::namespace('Api')->as('api.')->group(function () {
     });
 
     Route::prefix('user')->as('user.')->group(function (Router $router) {
-        // $router->get('check-in', 'UserController@checkIn')->name('checkIn');
         $router->post('check-out', 'UserController@checkOut')->name('checkOut');
+        $router->get('welcome', 'UserController@welcome')->name('welcome');
     });
 
     Route::prefix('fias')->as('fias.')->group(function (Router $router) {

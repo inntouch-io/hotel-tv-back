@@ -53,7 +53,7 @@ class WelcomeBuilder extends Builders
 
     public function getByLanguage(string $language)
     {
-        return Welcome::query()->whereKey($language)->first();
+        return Welcome::query()->where('language', $language)->first();
     }
 
     public function store(WelcomeDto $welcomeDto): ?Welcome
