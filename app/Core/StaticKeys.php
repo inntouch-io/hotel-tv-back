@@ -32,6 +32,7 @@ class StaticKeys
     public static $ROOM_NUMBER = 'roomNumber';
     public static $DEVICE_ID = 'deviceId';
     public static $IS_VERIFIED = 'isVerified';
+    public static $IS_ACTIVE = 'isActive';
     public static $IP = 'ip';
 
     public static $DATE = 'date';
