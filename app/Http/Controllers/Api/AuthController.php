@@ -29,21 +29,13 @@ class AuthController extends ApiController
         $room = RoomService::getInstance()->getItem($request);
         if (is_null($room)) {
             $room = RoomService::getInstance()->insertItem($request);
-            dd($room);
             RoomService::getInstance()->updateItem($room, $request);
         }
 
-        // $roomResource = new RoomResource($room);
-        // $roomResource->locale = $this->getLanguage();
+        $roomResource = new RoomResource($room);
+        $roomResource->locale = $this->getLanguage();
 
-        $responseData = [
-            'roomNumber' => "123",
-            'deviceId'   => $request->input('device-id'),
-            'ip'         => $request->ip(),
-            'isVerified' => true
-        ];
-
-        $this->setData($responseData);
+        $this->setData($roomResource);
 
         return $this->composeData();
     }
