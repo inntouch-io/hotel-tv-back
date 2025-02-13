@@ -88,7 +88,8 @@
 
                                                 <td>
                                                     <span
-                                                        class="badge badge-secondary">{{ $room->category->getName() }}</span>
+                                                        class="badge badge-secondary">{{ optional($room->category)->getName() ?? '' }}
+                                                    </span>
                                                 </td>
 
                                                 <td>

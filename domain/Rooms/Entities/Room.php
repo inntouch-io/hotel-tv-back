@@ -18,7 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string      $room_number
  * @property string      $room_status
  * @property int         $max_volume
- * @property int         $category_id
+ * @property int|null         $category_id
  * @property string      $device_id
  * @property int         $is_active
  * @property string      $device_ip
@@ -151,9 +151,9 @@ class Room extends Entities
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCategoryId(): int
+    public function getCategoryId(): ?int
     {
         return $this->category_id;
     }
