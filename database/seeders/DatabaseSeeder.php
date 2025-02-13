@@ -40,7 +40,8 @@ class DatabaseSeeder extends Seeder
                 MediaSeeder::class,
                 RoomCategorySeeder::class,
                 RoomSeeder::class,
-                UserSeeder::class
+                UserSeeder::class,
+                WelcomeSeeder::class
             ]
         );
     }
