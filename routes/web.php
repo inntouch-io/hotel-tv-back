@@ -22,6 +22,8 @@ Route::namespace('Admin')->group(function () {
 
         Route::prefix('admin')->as('admin.')->group(function () {
 
+            Route::resource('welcome', 'WelcomeController');
+
             Route::prefix('version')->name('version.')->group(function (Router $router) {
                 $router->get('show', 'VersionController@show')->name('show');
                 $router->put('upgrade', 'VersionController@upgrade')->name('upgrade');

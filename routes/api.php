@@ -35,7 +35,7 @@ Route::namespace('Api')->as('api.')->group(function () {
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
-//        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
+        //        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
     });
 
     Route::prefix('modules')->as('modules.')->group(function (Router $router) {
@@ -83,6 +83,11 @@ Route::namespace('Api')->as('api.')->group(function () {
 
     Route::prefix('media')->as('media.')->group(function (Router $router) {
         $router->get('get-list', [MediaController::class, 'getList'])->name('getList');
+    });
+
+    Route::prefix('user')->as('user.')->group(function (Router $router) {
+        // $router->get('check-in', 'UserController@checkIn')->name('checkIn');
+        $router->post('check-out', 'UserController@checkOut')->name('checkOut');
     });
 
     Route::prefix('fias')->as('fias.')->group(function (Router $router) {

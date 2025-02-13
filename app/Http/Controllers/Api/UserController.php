@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-
+use App\Core\Api\Responses\User\CheckOutResource;
 use App\Core\Api\Responses\User\UserInfoResource;
+use Carbon\Carbon;
+use Domain\Users\Entities\User;
+use Domain\Users\Services\UserService;
+use Exception;
 use Illuminate\Http\Request;
 
 /**
@@ -22,7 +26,8 @@ class UserController extends ApiController
         parent::__construct();
     }
 
-    public function getInfo(Request $request) {
+    public function getInfo(Request $request)
+    {
         $room = $request->user();
 
         $userInfoResource = new UserInfoResource($room);
@@ -31,5 +36,28 @@ class UserController extends ApiController
         $this->setData($userInfoResource);
 
         return $this->composeData();
+    }
+
+    public function checkOut(Request $request)
+    {
+        try {
+            $userId = $request->input('user_id');
+
+            /** @var User $user */
+            $user = UserService::getInstance()->getById($userId);
+
+            if (is_null($user)) {
+                return response()->json(['message' => 'Пользователь не найден'], 404);
+            }
+
+            $userInfoResource = new CheckOutResource($user);
+            $userInfoResource->locale = $this->getLanguage();
+
+            $this->setData($userInfoResource);
+
+            return $this->composeData();
+        } catch (Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 }
