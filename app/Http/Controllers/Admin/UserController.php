@@ -20,6 +20,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use RuntimeException;
 
 /**
@@ -103,8 +104,8 @@ class UserController extends AdminController
 
             return redirect()->route('admin.users.edit', ['user' => $user->getId()])
                 ->with('success', 'Successfully saved');
-        } catch (Exception $exception) {
-            return redirect()->back()->withErrors($exception->getMessage())->withInput();
+        } catch (ValidationException $exception) {
+            return redirect()->back()->withErrors($exception->errors())->withInput();
         }
     }
 
@@ -172,8 +173,8 @@ class UserController extends AdminController
 
             return redirect()->route('admin.users.edit', ['user' => $user->getId()])
                 ->with('success', 'Successfully saved');
-        } catch (Exception $exception) {
-            return redirect()->back()->withErrors($exception->getMessage());
+        } catch (ValidationException $exception) {
+            return redirect()->back()->withErrors($exception->errors())->withInput();
         }
     }
 
