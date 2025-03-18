@@ -7,7 +7,7 @@
  * Created: 07.02.2025 / 11:59
  */
 
-namespace Domain\Modules\Dto;
+namespace Domain\Modules\DTO;
 
 /**
  * Class ModuleInfoDto

@@ -104,7 +104,7 @@
                                         <div class="form-group">
                                             <label for="room_id" class="font-weight-bold">Room</label>
                                             <select name="room_id" id="room_id" class="form-control">
-                                                @if(is_null($user->getRoomId()))
+                                                @if(is_null($user->room))
                                                     <option value="">Выбрать</option>
                                                 @else
                                                     <option value="{{ $user->getRoomId() }}" selected>{{ $user->room->getRoomNumber() }}</option>
