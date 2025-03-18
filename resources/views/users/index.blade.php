@@ -97,12 +97,12 @@
                                                 </td>
                                                 <td>
                                                     <span class="font-weight-semibold">
-                                                        {{ $user->getArrivalTime() }}
+                                                        {{ date('Y-m-d H:i:s', $user->getArrivalTime()) }}
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span class="font-weight-semibold">
-                                                        {{ $user->getDepartureTime() }}
+                                                        {{ date('Y-m-d H:i:s', $user->getDepartureTime()) }}
                                                     </span>
                                                 </td>
                                                 <td>
