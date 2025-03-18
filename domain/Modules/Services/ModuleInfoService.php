@@ -11,14 +11,10 @@
 namespace Domain\Modules\Services;
 
 use Domain\Modules\Builders\ModuleInfoBuilder;
-use Domain\Modules\Dto\ModuleInfoDto;
+use Domain\Modules\DTO\ModuleInfoDto;
 use Domain\Modules\Entities\ModuleInfo;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator as ValidatorFacade;
-use Illuminate\Validation\Validator;
-use RuntimeException;
 
 /**
  * Class ModuleInfoService

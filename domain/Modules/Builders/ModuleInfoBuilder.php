@@ -11,7 +11,7 @@
 namespace Domain\Modules\Builders;
 
 use Closure;
-use Domain\Modules\Dto\ModuleInfoDto;
+use Domain\Modules\DTO\ModuleInfoDto;
 use Domain\Modules\Entities\ModuleInfo;
 
 /**
