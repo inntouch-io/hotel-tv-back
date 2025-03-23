@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package domain\Rooms\Entities
  *
  * @property string $first_name
+ * @property string $last_name
+ * @property int|null $arrival_time
+ * @property int|null $departure_time
  * @property string $name
  * @property int    $guest_number
  * @property string $guest_language

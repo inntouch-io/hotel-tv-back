@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Core\Api\Responses\User\CheckOutResource;
 use App\Core\Api\Responses\User\UserInfoResource;
 use App\Core\Api\Responses\User\WelcomeResource;
-use Domain\Rooms\Services\RoomService;
 use Domain\Users\Entities\User;
 use Domain\Users\Services\UserService;
 use Domain\Welcome\Services\WelcomeService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -28,14 +27,13 @@ class UserController extends ApiController
         parent::__construct();
     }
 
-    public function getInfo(Request $request)
+    /**
+     * @return JsonResponse
+     */
+    public function getInfo(): JsonResponse
     {
         try {
-            /** @var Room $room */
-            $room = RoomService::getInstance()->getItem($request);
-            if (!$room) {
-                return response()->json(['message' => 'Room not found'], 404);
-            }
+            $room = auth()->user();
 
             $userInfoResource = new UserInfoResource($room);
             $userInfoResource->locale = $this->getLanguage();
@@ -48,7 +46,11 @@ class UserController extends ApiController
         }
     }
 
-    public function welcome(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function welcome(Request $request): JsonResponse
     {
         try {
             $userId = $request->input('user_id');

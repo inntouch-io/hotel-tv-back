@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\FiasController;
 use App\Http\Controllers\Api\MediaController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
@@ -24,7 +25,7 @@ use Illuminate\Routing\Router;
 Route::namespace('Api')->as('api.')->group(function () {
 
     Route::middleware('auth:sanctum')->prefix('user')->as('user.')->group(function (Router $router) {
-        $router->get('/get-info', 'UserController@getInfo')->name('get_info');
+        $router->get('/get-info', [UserController::class, 'getInfo'])->name('get_info');
     });
 
     // Version check
@@ -35,7 +36,6 @@ Route::namespace('Api')->as('api.')->group(function () {
     // Auth
     Route::prefix('auth')->as('auth.')->group(function (Router $router) {
         $router->post('/register-device', 'AuthController@registerDeviceId')->name('registerDeviceId');
-        //        $router->post('/check-device', 'AuthController@checkDeviceId')->name('checkDeviceId');
     });
 
     Route::prefix('modules')->as('modules.')->group(function (Router $router) {

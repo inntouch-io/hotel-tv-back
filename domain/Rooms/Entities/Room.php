@@ -24,11 +24,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int         $is_active
  * @property string      $device_ip
  * @property Carbon|null $created_at
- * 
+ *
  * @property User         $user
  * @property UserRoom     $userRoom
  * @property RoomCategory $category
- * 
+ *
  */
 class Room extends Entities
 {
@@ -68,7 +68,6 @@ class Room extends Entities
     {
         return $this->belongsTo(RoomCategory::class, 'category_id', 'id');
     }
-
 
     /**
      * @return HasOne
