@@ -32,18 +32,18 @@ class UserInfoResource extends Resources
         $user = $room->user;
 
         return [
-            self::$USER_ID => $user->id,
-            self::$USER_NAME => "{$user->first_name} {$user->last_name}",
+            self::$USER_ID => optional($user)->id,
+            self::$USER_NAME => is_null($user) ? null : "{$user->first_name} {$user->last_name}",
             StaticKeys::$ROOM_ID => $room->getId(),
             self::$MAX_VOLUME => $room->getMaxVolume(),
             self::$ROOM_NUMBER => $room->getRoomNumber(),
             self::$ARRIVAL_TIME => [
-                StaticKeys::$DATA => date('d.m.Y', $user->arrival_time),
-                StaticKeys::$TIME => date('H:i', $user->arrival_time),
+                StaticKeys::$DATA => is_null($user) ? null : date('d.m.Y', $user->arrival_time),
+                StaticKeys::$TIME => is_null($user) ? null : date('H:i', $user->arrival_time),
             ],
             self::$DEPARTURE_TIME => [
-                StaticKeys::$DATA => date('d.m.Y', $user->departure_time),
-                StaticKeys::$TIME => date('H:i', $user->departure_time),
+                StaticKeys::$DATA => is_null($user) ? null : date('d.m.Y', $user->departure_time),
+                StaticKeys::$TIME => is_null($user) ? null : date('H:i', $user->departure_time),
             ],
         ];
     }
