@@ -40,6 +40,40 @@
 
         <div class="content-wrapper">
             <div class="content">
+
+                <form method="GET" action="{{ route('admin.menus.menu.index') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="type">Фильтр по Типу:</label>
+                            <select name="type" id="type" class="form-control">
+                                <option value="">Все</option>
+                                @foreach($types as $key => $type)
+                                    <option value="{{ $key }}" {{ request('type') == $key ? 'selected' : '' }}>
+                                        {{ $type }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="category">Фильтр по Категории:</label>
+                            <select name="category" id="category" class="form-control">
+                                <option value="">Все</option>
+                                @foreach($categories as $key => $category)
+                                    <option value="{{ $key }}" {{ request('category') == $key ? 'selected' : '' }}>
+                                        {{ $category }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 align-self-end">
+                            <button type="submit" class="btn btn-primary">Фильтровать</button>
+                            <a href="{{ route('admin.menus.menu.index') }}" class="btn btn-secondary">Сбросить</a>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card">
                     <div class="card-body">
                         @if(session('success'))
@@ -106,10 +140,10 @@
                                             </td>
                                             <td>{{ $menu->getCreatedAt() }}</td>
                                             <td>
-                                                <span class="font-weight-semibold badge badge-primary">{{ $menu->getType() }}</span>
+                                                <span class="font-weight-semibold badge badge-primary">{{ config('app.types')[$menu->getType()] ?? $menu->getType() }}</span>
                                             </td>
                                             <td>
-                                                <span class="font-weight-semibold badge badge-success">{{ $menu->getCategory() }}</span>
+                                                <span class="font-weight-semibold badge badge-success">{{ config('app.menu_categories')[$menu->getCategory()] ?? $menu->getCategory() }}</span>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.menus.cards.card.index', ['menu_id' => $menu->getId()]) }}" class="font-weight-bold">

@@ -43,11 +43,28 @@ class MenuService
         return new static(MenuBuilder::getInstance());
     }
 
-    public function list()
+    public function list(array $data)
     {
-        return $this->builder->list(function (Builder $builder) {
-            return $builder->with(['image', 'infos'])->orderBy('order_position');
+        return $this->builder->list(function (Builder $builder) use ($data) {
+            return $builder->with(['image', 'infos'])
+                ->when(isset($data['type']), function (Builder $builder) use ($data) {
+                    return $builder->where('type', '=', $data['type']);
+                })
+                ->when(isset($data['category']), function (Builder $builder) use ($data) {
+                    return $builder->where('category', '=', $data['category']);
+                })
+                ->orderBy('order_position');
         });
+    }
+
+    public function getTypes()
+    {
+        return config('app.types');
+    }
+
+    public function getCategories()
+    {
+        return config('app.menu_categories');
     }
 
     public function getItems(Request $request, $locale = 'ru')

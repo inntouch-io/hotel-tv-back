@@ -30,12 +30,14 @@ class MenuController extends AdminController
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('index', Menu::class);
-        $menus = MenuService::getInstance()->list();
+        $menus = MenuService::getInstance()->list($request->all());
+        $types = MenuService::getInstance()->getTypes();
+        $categories = MenuService::getInstance()->getCategories();
 
-        return view('menus.menu.index', ['menus' => $menus]);
+        return view('menus.menu.index', ['menus' => $menus, 'types' => $types, 'categories' => $categories]);
     }
 
     /**
