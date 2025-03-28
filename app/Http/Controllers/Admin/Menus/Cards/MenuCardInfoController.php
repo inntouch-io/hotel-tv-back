@@ -13,6 +13,11 @@ use Domain\Menus\Entities\MenuCard;
 use Domain\Menus\Entities\MenuCardInfo;
 use Domain\Menus\Services\MenuCardInfoService;
 use Domain\Menus\Services\MenuCardService;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -29,6 +34,11 @@ class MenuCardInfoController extends AdminController
         parent::__construct();
     }
 
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function create(Request $request)
     {
         $this->authorize('create', MenuCardInfo::class);
@@ -42,7 +52,12 @@ class MenuCardInfoController extends AdminController
         );
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function store(Request $request): RedirectResponse
     {
         $this->authorize('store', MenuCardInfo::class);
         /** @var MenuCard $card */
@@ -54,6 +69,11 @@ class MenuCardInfoController extends AdminController
             ->with('success', 'Successfully added');
     }
 
+    /**
+     * @param int $id
+     * @return Application|Factory|View
+     * @throws AuthorizationException
+     */
     public function edit(int $id)
     {
         $this->authorize('edit', MenuCardInfo::class);
@@ -68,7 +88,13 @@ class MenuCardInfoController extends AdminController
         );
     }
 
-    public function update(Request $request, int $id)
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->authorize('update', MenuCardInfo::class);
         /** @var MenuCardInfo $info */
@@ -80,7 +106,12 @@ class MenuCardInfoController extends AdminController
             ->with('success', 'Successfully added');
     }
 
-    public function destroy(int $id)
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(int $id): RedirectResponse
     {
         $this->authorize('delete', MenuCardInfo::class);
         /** @var MenuCardInfo $info */

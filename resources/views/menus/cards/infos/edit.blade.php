@@ -70,9 +70,9 @@ $menu = $info->card->menu;
 
                                         <div class="form-group">
                                             <label for="subDescription" class="font-weight-bold">Подробное описание</label>
-                                            <input type="text" id="subDescription" name="subDescription" class="form-control"
-                                                   placeholder="Подробное описание" value="{{ $info->getSubDescription() }}"
-                                                   required>
+                                            <textarea id="subDescription" name="subDescription" class="form-control" required>
+                                                {{ $info->getSubDescription() }}
+                                            </textarea>
                                         </div>
 
                                         <div class="form-group">
@@ -99,4 +99,13 @@ $menu = $info->card->menu;
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-js')
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace("subDescription", {
+            height: 300
+        });
+    </script>
 @endsection

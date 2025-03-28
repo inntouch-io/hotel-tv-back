@@ -62,9 +62,9 @@ $menu = $card->menu;
 
                                     <div class="form-group">
                                         <label for="subDescription" class="font-weight-bold">Подробное описание</label>
-                                        <input type="text" id="subDescription" name="subDescription" class="form-control"
-                                               placeholder="Подробное описание"
-                                               required>
+                                        <textarea id="subDescription" name="subDescription" class="form-control"
+                                                  placeholder="Подробное описание" required>
+                                        </textarea>
                                     </div>
 
                                     <div class="form-group">
@@ -95,7 +95,12 @@ $menu = $card->menu;
 @endsection
 
 @section('script-js')
+<script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
     <script>
+        CKEDITOR.replace("subDescription", {
+            height: 300
+        });
+
         function submitForm(btn) {
             // disable the button
             btn.disabled = true;
