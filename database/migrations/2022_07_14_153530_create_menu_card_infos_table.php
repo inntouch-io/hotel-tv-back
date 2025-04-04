@@ -19,7 +19,7 @@ class CreateMenuCardInfosTable extends Migration
 
             $table->string('title');
             $table->string('description');
-            $table->string('subDescription');
+            $table->text('subDescription');
             $table->string('locale', 8)->default('ru');
 
             $table->foreign('card_id')->references('id')->on('menu_cards');
